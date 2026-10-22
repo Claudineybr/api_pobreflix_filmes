@@ -1,0 +1,17 @@
+name: Limpar Repositorio
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          rm -f *.json
+          git config user.name "Claudineybr"
+          git config user.email "Claudineybr@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: limpar para recriar com novos nomes"
+          git push origin main
