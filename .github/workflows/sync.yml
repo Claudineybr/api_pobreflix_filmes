@@ -1,0 +1,133 @@
+name: Sincronizar e corrigir
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: sync
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Baixar, corrigir e publicar
+        run: |
+          set -e
+          T=$(mktemp -d)
+          cat > "$T/convert.py" <<'PYEOF'
+          import sys, re, json, shutil
+          from pathlib import Path
+          from urllib.parse import urlparse
+
+          src, out = Path(sys.argv[1]), Path(sys.argv[2])
+          if out.exists():
+              shutil.rmtree(out)
+          out.mkdir(parents=True)
+
+          LD_RE = re.compile(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', re.S | re.I)
+          PREFIX_RE = re.compile(r'(\\?"(?:contentUrl|embedUrl|player|url)\\?"\s*:\s*\\?")\d+\s+(https?://)')
+          NAN_RE = re.compile(r'(\\?"duration\\?"\s*:\s*\\?")PTNaN[A-Za-z]*(\\?")')
+          SHOWN_RE = re.compile(r'(⏱ )NaNmin')
+
+
+          def fix_text(t):
+              t, n_prefix = PREFIX_RE.subn(r'\1\2', t)
+              t, n_nan = NAN_RE.subn(r'\1PT42M\2', t)
+              t, n_shown = SHOWN_RE.subn(r'\g<1>42min', t)
+              return t, n_prefix, n_nan, n_shown
+
+
+          def url_problem(v):
+              if not isinstance(v, str) or not v:
+                  return 'vazia'
+              if re.search(r'\s', v):
+                  return 'contém espaço'
+              if '<' in v or '>' in v:
+                  return 'contém tag HTML'
+              u = urlparse(v)
+              if u.scheme not in ('http', 'https'):
+                  return 'sem esquema http/https'
+              if not u.netloc:
+                  return 'host vazio'
+              return None
+
+
+          ok = []
+          placeholder = []
+          prefix_fixed = []
+          skipped = {}
+
+          for p in sorted(src.glob('*.json')):
+              name = p.name
+              raw = p.read_bytes().decode('utf-8')
+              fixed, npx, nnan, nshown = fix_text(raw)
+
+              if not raw.lstrip().startswith('<'):
+                  try:
+                      json.loads(fixed)
+                  except Exception as e:
+                      skipped[name] = f'JSON inválido: {e}'
+                      continue
+                  (out / name).write_bytes(fixed.encode('utf-8'))
+                  ok.append(name)
+                  continue
+
+              blocks = LD_RE.findall(fixed)
+              if not blocks:
+                  skipped[name] = 'sem bloco JSON-LD'
+                  continue
+              try:
+                  data = json.loads(blocks[0])
+              except Exception as e:
+                  skipped[name] = f'JSON-LD inválido: {e}'
+                  continue
+              bad = None
+              for k in ('contentUrl', 'embedUrl'):
+                  pr = url_problem(data.get(k))
+                  if pr:
+                      bad = f'{k}: {pr}'
+                      break
+              if bad:
+                  skipped[name] = bad
+                  continue
+              if 'NaN' in fixed:
+                  skipped[name] = 'ainda contém NaN'
+                  continue
+
+              (out / name).write_bytes(fixed.encode('utf-8'))
+              ok.append(name)
+              if npx:
+                  prefix_fixed.append(name)
+              if nnan:
+                  placeholder.append(name)
+
+          print('ok:', len(ok))
+          print('prefixo corrigido:', len(prefix_fixed))
+          print('duracao placeholder:', len(placeholder))
+          print('pulados:', len(skipped))
+          for k, v in skipped.items():
+              print('  ', k, '|', v)
+          PYEOF
+          git clone --depth 1 https://github.com/WaveLy2308/api_pobreflix_filmes.git "$T/origem"
+          python3 -I "$T/convert.py" "$T/origem" "$T/saida"
+          N_OUT=$(ls "$T"/saida/*.json | wc -l)
+          N_NOW=$(ls ./*.json 2>/dev/null | wc -l)
+          if [ "$N_OUT" -eq 0 ] || [ $((N_OUT * 10)) -lt $((N_NOW * 9)) ]; then
+            echo "ABORTADO: saida com $N_OUT arquivos contra $N_NOW atuais"
+            exit 1
+          fi
+          rm -f ./*.json
+          cp "$T"/saida/*.json .
+          sed -i 's#https://redetoons\.cards#https://redetoons.my#g' ./*.json
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Sem mudancas."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "sync: atualizar a partir do repo original"
+          git push origin HEAD:main
