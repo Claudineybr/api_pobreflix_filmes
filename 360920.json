@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "O Grinch - 🕸️ PK",
+  "description": "Assista O Grinch",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/hGnQmQARgtXtoesIGAsmmTbMKfH.jpg"
+  ],
+  "uploadDate": "2018-11-08T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H25M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/47398038DE1D4796929B89A0981FC5CF_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/47398038DE1D4796929B89A0981FC5CF_media.mp4"
+}

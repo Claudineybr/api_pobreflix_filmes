@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Gen V - T1E7 - Vírus - 🕸️ PK",
+  "description": "Assista Gen V - T1E7 - Vírus",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/6yk9MUwSB9LUviSdrgMebLrObrf.jpg"
+  ],
+  "uploadDate": "2023-09-28T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/D9A6ACCD69AC4A7BAED63592D920EA64_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/D9A6ACCD69AC4A7BAED63592D920EA64_media.mp4"
+}

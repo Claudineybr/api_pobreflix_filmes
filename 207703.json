@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Kingsman: Serviço Secreto - 🕸️ PK",
+  "description": "Assista Kingsman: Serviço Secreto",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/wDhy1Ga9BoLwkHOI0jJISQem28v.jpg"
+  ],
+  "uploadDate": "2015-01-24T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT2H9M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/1868B40E988144C39E74B891208922A5_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/1868B40E988144C39E74B891208922A5_media.mp4"
+}

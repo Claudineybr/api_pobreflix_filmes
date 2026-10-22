@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Dahmer: Um Canibal Americano - T1E5 - Mãos sujas de sangue - 🕸️ PK",
+  "description": "Assista Dahmer: Um Canibal Americano - T1E5 - Mãos sujas de sangue",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/67ujv4O6AalmGu3UaVSNdcw8juT.jpg"
+  ],
+  "uploadDate": "2022-09-21T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/ACCC3C7F1E4E474CBA769C748071A1A0_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/ACCC3C7F1E4E474CBA769C748071A1A0_media.mp4"
+}

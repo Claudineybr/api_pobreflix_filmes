@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Sterling Point - T1E1 - Mas Eu Tomei um Sonífero - 🕸️ PK",
+  "description": "Assista Sterling Point - T1E1 - Mas Eu Tomei um Sonífero",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/ooAOFyAkSMno8YyN88T18WU7jMN.jpg"
+  ],
+  "uploadDate": "2026-08-05T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/BCFE002C72124A75A145E2F5A2561D8C_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/BCFE002C72124A75A145E2F5A2561D8C_media.mp4"
+}

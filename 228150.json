@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Corações de Ferro - 🕸️ PK",
+  "description": "Assista Corações de Ferro",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/tVZXsjBC9HIoKv6WnAv0nWObbrT.jpg"
+  ],
+  "uploadDate": "2014-10-15T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT2H15M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/2B1FE0A7730D4E2CA5B3547A4D8B6832_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/2B1FE0A7730D4E2CA5B3547A4D8B6832_media.mp4"
+}

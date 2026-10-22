@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "SOS Cobra - T8E5 - Festival de Cobras - 🕸️ PK",
+  "description": "Assista SOS Cobra - T8E5 - Festival de Cobras",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/gNQqKgzRLa1VTiBYd4RKrIaRsnK.jpg"
+  ],
+  "uploadDate": "2014-11-07T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT44M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/611ECFC9BA9C4F2CBC0C3E241D089D9D_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/611ECFC9BA9C4F2CBC0C3E241D089D9D_media.mp4"
+}

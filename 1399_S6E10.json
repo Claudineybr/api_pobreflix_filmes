@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Game of Thrones - T6E10 - Os Ventos do Inverno - 🕸️ PK",
+  "description": "Assista Game of Thrones - T6E10 - Os Ventos do Inverno",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/aqomTRKjNZkmNEeOZnEmWrFTmKU.jpg"
+  ],
+  "uploadDate": "2011-04-17T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/7059F0E3C098406F9517CBB882B591EA_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/7059F0E3C098406F9517CBB882B591EA_media.mp4"
+}

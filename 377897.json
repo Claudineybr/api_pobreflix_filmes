@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Barbie e as Agentes Secretas - 🕸️ PK",
+  "description": "Assista Barbie e as Agentes Secretas",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/vk5RC1h4h5t50Opic3yo4hH8qAq.jpg"
+  ],
+  "uploadDate": "2016-01-15T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H15M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/A77464A8D9C14E3EAA34B7D6FE64434B_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/A77464A8D9C14E3EAA34B7D6FE64434B_media.mp4"
+}

@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Supernatural - T15E12 - Cérebro de Galáxia - 🕸️ PK",
+  "description": "Assista Supernatural - T15E12 - Cérebro de Galáxia",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/eK4gEBWNGJoxCD67KFKzaKfSzWU.jpg"
+  ],
+  "uploadDate": "2005-09-13T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT45M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/C73CDB3BC282418F9C23AE7521993740_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/C73CDB3BC282418F9C23AE7521993740_media.mp4"
+}

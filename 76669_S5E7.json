@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Elite - T5E7 - Venenosos - 🕸️ PK",
+  "description": "Assista Elite - T5E7 - Venenosos",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/sfC3hM33pCenEjnmuITvhaUKSXU.jpg"
+  ],
+  "uploadDate": "2018-10-05T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/37A2747CBE584434B57763991B6B2CE0_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/37A2747CBE584434B57763991B6B2CE0_media.mp4"
+}

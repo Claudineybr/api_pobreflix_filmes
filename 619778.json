@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Maligno - 🕸️ PK",
+  "description": "Assista Maligno",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/oGzaG5vqSJkIiJmxcJ8EKzfFad3.jpg"
+  ],
+  "uploadDate": "2021-09-01T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H51M",
+  "contentUrl": "http://awnagk.gviudclrb.com:80/vod/C5D7FB39AECA486BA97FAFCABFDA0C4C_media.ts",
+  "embedUrl": "http://awnagk.gviudclrb.com:80/vod/C5D7FB39AECA486BA97FAFCABFDA0C4C_media.ts"
+}

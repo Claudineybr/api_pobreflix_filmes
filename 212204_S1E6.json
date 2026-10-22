@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Melancia Cintilante - T1E6 - Acho que estou muito atrasado desta vez também. - 🕸️ PK",
+  "description": "Assista Melancia Cintilante - T1E6 - Acho que estou muito atrasado desta vez também.",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/pxtqoLHy5m54XnkCcejXfsHnqaa.jpg"
+  ],
+  "uploadDate": "2023-09-25T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H4M",
+  "contentUrl": "https://hugh.cdn.rumble.cloud/video/fww1/99/s8/2/o/E/6/L/oE6LA.aaa.mp4",
+  "embedUrl": "https://hugh.cdn.rumble.cloud/video/fww1/99/s8/2/o/E/6/L/oE6LA.aaa.mp4"
+}

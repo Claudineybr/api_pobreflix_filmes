@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Game of Thrones - T4E6 - As Leis dos Deuses e dos Homens - 🕸️ PK",
+  "description": "Assista Game of Thrones - T4E6 - As Leis dos Deuses e dos Homens",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/aqomTRKjNZkmNEeOZnEmWrFTmKU.jpg"
+  ],
+  "uploadDate": "2011-04-17T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/186C5215988D48499042E482F4F611E8_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/186C5215988D48499042E482F4F611E8_media.mp4"
+}

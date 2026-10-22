@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Elite - T8E5 - A última noite - 🕸️ PK",
+  "description": "Assista Elite - T8E5 - A última noite",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/sfC3hM33pCenEjnmuITvhaUKSXU.jpg"
+  ],
+  "uploadDate": "2018-10-05T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/559059EE803A4A0FB163E4908E141492_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/559059EE803A4A0FB163E4908E141492_media.mp4"
+}

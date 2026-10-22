@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Outlander: Blood of My Blood - T1E9 - A Caçada - 🕸️ PK",
+  "description": "Assista Outlander: Blood of My Blood - T1E9 - A Caçada",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/1pGBdq4ssO2p5H2WFMlADH6pwZ6.jpg"
+  ],
+  "uploadDate": "2025-08-08T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/A8A14CF9CF5841A6BD8EE196ABD3B02C_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/A8A14CF9CF5841A6BD8EE196ABD3B02C_media.mp4"
+}

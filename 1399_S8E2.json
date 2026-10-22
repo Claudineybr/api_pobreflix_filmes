@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Game of Thrones - T8E2 - Um cavaleiro dos Sete Reinos - 🕸️ PK",
+  "description": "Assista Game of Thrones - T8E2 - Um cavaleiro dos Sete Reinos",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/aqomTRKjNZkmNEeOZnEmWrFTmKU.jpg"
+  ],
+  "uploadDate": "2011-04-17T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/879802CC442842C9B76BE602FB12DF2D_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/879802CC442842C9B76BE602FB12DF2D_media.mp4"
+}

@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Euphoria - T1E8 - E Salgue a Terra Atrás de Você - 🕸️ PK",
+  "description": "Assista Euphoria - T1E8 - E Salgue a Terra Atrás de Você",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/cQMOyNLS1RsQIMlmVR6MEk2fvii.jpg"
+  ],
+  "uploadDate": "2019-06-16T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/BB859E52817742DA9343CDE304C636AE_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/BB859E52817742DA9343CDE304C636AE_media.mp4"
+}

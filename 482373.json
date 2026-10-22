@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "O Homem nas Trevas 2 - 🕸️ PK",
+  "description": "Assista O Homem nas Trevas 2",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/bE46qkPtUnff8READ0AYZP9mVj2.jpg"
+  ],
+  "uploadDate": "2021-08-12T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H38M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/7FFEFC250E7549BA982055729A1A89F0_media.ts",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/7FFEFC250E7549BA982055729A1A89F0_media.ts"
+}

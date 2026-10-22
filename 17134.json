@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "12 Rounds - 🕸️ PK",
+  "description": "Assista 12 Rounds",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/7k7qhrO57sVoBLrNo5HYoTp24sT.jpg"
+  ],
+  "uploadDate": "2009-03-19T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H48M",
+  "contentUrl": "http://awnagk.gviudclrb.com:80/vod/6517DC68010C41BF88C119A0D5B134FE_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com:80/vod/6517DC68010C41BF88C119A0D5B134FE_media.mp4"
+}

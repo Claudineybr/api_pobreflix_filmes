@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Ruby Marinho - Monstro Adolescente - 🕸️ PK",
+  "description": "Assista Ruby Marinho - Monstro Adolescente",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/nNcxpjCtcawf8wQmTwnA0u1jukC.jpg"
+  ],
+  "uploadDate": "2023-06-28T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H32M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/D295757C252C4AB38A5C56E27D19FF68_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/D295757C252C4AB38A5C56E27D19FF68_media.mp4"
+}

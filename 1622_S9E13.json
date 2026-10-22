@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Supernatural - T9E13 - Dieta Radical - 🕸️ PK",
+  "description": "Assista Supernatural - T9E13 - Dieta Radical",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/eK4gEBWNGJoxCD67KFKzaKfSzWU.jpg"
+  ],
+  "uploadDate": "2005-09-13T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT45M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/16C3EE6551734D9C81022A0F45052C80_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/16C3EE6551734D9C81022A0F45052C80_media.mp4"
+}

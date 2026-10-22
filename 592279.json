@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "AK-47: A Arma Que Mudou o Mundo - 🕸️ PK",
+  "description": "Assista AK-47: A Arma Que Mudou o Mundo",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/4djODIhP8TZtjkG6w2xZjOuLk6.jpg"
+  ],
+  "uploadDate": "2020-02-20T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H45M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/9EF311D46360422FB625F4637F4A4160_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/9EF311D46360422FB625F4637F4A4160_media.mp4"
+}

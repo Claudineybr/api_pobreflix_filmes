@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Breaking Bad - T5E7 - Diga Meu Nome - 🕸️ PK",
+  "description": "Assista Breaking Bad - T5E7 - Diga Meu Nome",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg"
+  ],
+  "uploadDate": "2008-01-20T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/6FEEE394225D4792AD43934C273A28CB_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/6FEEE394225D4792AD43934C273A28CB_media.mp4"
+}

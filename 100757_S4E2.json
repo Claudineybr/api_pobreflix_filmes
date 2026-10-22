@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Outer Banks - T4E2 - Barba Negra - 🕸️ PK",
+  "description": "Assista Outer Banks - T4E2 - Barba Negra",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/ovDgO2LPfwdVRfvScAqo9aMiIW.jpg"
+  ],
+  "uploadDate": "2020-04-15T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/8DDA598BEAB14DC091A2F926B211DB95_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/8DDA598BEAB14DC091A2F926B211DB95_media.mp4"
+}

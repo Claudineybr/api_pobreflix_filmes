@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Megatubarão - 🕸️ PK",
+  "description": "Assista Megatubarão",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/wrJkShDPK4TcV0nHix3HASEmkul.jpg"
+  ],
+  "uploadDate": "2018-08-09T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H53M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/EE583EB961DD4ED4ADF86F6CC542E55C_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/EE583EB961DD4ED4ADF86F6CC542E55C_media.mp4"
+}

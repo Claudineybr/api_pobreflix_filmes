@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "O Corvo - 🕸️ PK",
+  "description": "Assista O Corvo",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/lNflUElL8Bp7pp5j8sQR2Z9qNZX.jpg"
+  ],
+  "uploadDate": "2024-08-21T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H51M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/60D3B67F639B48A6A793C74210497C73_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/60D3B67F639B48A6A793C74210497C73_media.mp4"
+}

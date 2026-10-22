@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "La casa de papel - T2E7 - Férias curtas - 🕸️ PK",
+  "description": "Assista La casa de papel - T2E7 - Férias curtas",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/yVUAfbrP5HDJugXraB7KQS0yz6Z.jpg"
+  ],
+  "uploadDate": "2017-05-02T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/4C2B7C7246024AB6AD6F3E2D2B32F172_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/4C2B7C7246024AB6AD6F3E2D2B32F172_media.mp4"
+}

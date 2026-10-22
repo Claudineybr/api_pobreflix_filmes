@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Barbie: Moda e Magia - 🕸️ PK",
+  "description": "Assista Barbie: Moda e Magia",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/5teiaLbcGWCoqHtAvEz1TUWBFm6.jpg"
+  ],
+  "uploadDate": "2010-09-14T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H19M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/2EC4B8FD436943E5B966750DF791B503_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/2EC4B8FD436943E5B966750DF791B503_media.mp4"
+}

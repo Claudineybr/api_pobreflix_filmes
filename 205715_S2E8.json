@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Gen V - T2E8 - Troia - 🕸️ PK",
+  "description": "Assista Gen V - T2E8 - Troia",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/6yk9MUwSB9LUviSdrgMebLrObrf.jpg"
+  ],
+  "uploadDate": "2023-09-28T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/5D8600D6FF57428A8934F99E6D9DB7A2_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/5D8600D6FF57428A8934F99E6D9DB7A2_media.mp4"
+}

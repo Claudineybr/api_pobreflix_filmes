@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "VINLAND SAGA - T1E22 - Lobo Solitário - 🕸️ PK",
+  "description": "Assista VINLAND SAGA - T1E22 - Lobo Solitário",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/ySPYLN1sHmgRdqdfLOE092JlNTp.jpg"
+  ],
+  "uploadDate": "2019-07-08T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT25M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/0E46A4146DF94C5A9D1920974E4E9E6A_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/0E46A4146DF94C5A9D1920974E4E9E6A_media.mp4"
+}

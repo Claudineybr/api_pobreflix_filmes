@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "A Casa do Dragão - T2E7 - A Semeação Vermelha - 🕸️ PK",
+  "description": "Assista A Casa do Dragão - T2E7 - A Semeação Vermelha",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/oKJDm4QCKbp6mR4FnxXrFlPJP8Y.jpg"
+  ],
+  "uploadDate": "2022-08-21T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/2BF1216AFEEB4BE8A5FF81B8E1F26936_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/2BF1216AFEEB4BE8A5FF81B8E1F26936_media.mp4"
+}

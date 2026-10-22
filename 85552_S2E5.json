@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Euphoria - T2E5 - Imóvel como o Beija-flor - 🕸️ PK",
+  "description": "Assista Euphoria - T2E5 - Imóvel como o Beija-flor",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/cQMOyNLS1RsQIMlmVR6MEk2fvii.jpg"
+  ],
+  "uploadDate": "2019-06-16T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/3AFB8D2CE0CB4C63BF94F30D4E44A811_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/3AFB8D2CE0CB4C63BF94F30D4E44A811_media.mp4"
+}

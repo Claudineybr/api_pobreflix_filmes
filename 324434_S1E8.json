@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Sou Luna: De Volta à Pista - T1E8 - Episódio 8 - 🕸️ PK",
+  "description": "Assista Sou Luna: De Volta à Pista - T1E8 - Episódio 8",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/zgBu2yOtE2Swc4ZyR4djiau0Dpg.jpg"
+  ],
+  "uploadDate": "2026-07-24T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/88A63D08C89C4173A20CA6567299481D_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/88A63D08C89C4173A20CA6567299481D_media.mp4"
+}

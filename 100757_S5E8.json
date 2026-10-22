@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Outer Banks - T5E8 - A Pista de Pouso (2) - 🕸️ PK",
+  "description": "Assista Outer Banks - T5E8 - A Pista de Pouso (2)",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/ovDgO2LPfwdVRfvScAqo9aMiIW.jpg"
+  ],
+  "uploadDate": "2020-04-15T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/F001EA45E19941879844F5D81CC87E26_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/F001EA45E19941879844F5D81CC87E26_media.mp4"
+}

@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Supernatural - T10E16 - Pinte de Negro - 🕸️ PK",
+  "description": "Assista Supernatural - T10E16 - Pinte de Negro",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/eK4gEBWNGJoxCD67KFKzaKfSzWU.jpg"
+  ],
+  "uploadDate": "2005-09-13T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT45M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/1CF3C4843C6746EB938DC05CA78EA45A_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/1CF3C4843C6746EB938DC05CA78EA45A_media.mp4"
+}

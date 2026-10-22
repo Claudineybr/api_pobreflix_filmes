@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Alucinação - T1E1 - Apenas um Rapaz Latino-Americano - 🕸️ PK",
+  "description": "Assista Alucinação - T1E1 - Apenas um Rapaz Latino-Americano",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/2mhlJcs02aomm0deY3I3q0Ohlxd.jpg"
+  ],
+  "uploadDate": "2026-08-29T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/F76B080DDD3B41AB84AE6D036D21B417_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/F76B080DDD3B41AB84AE6D036D21B417_media.mp4"
+}

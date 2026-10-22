@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Supernatural - T7E5 - Cale a Boca, Dr. Phil - 🕸️ PK",
+  "description": "Assista Supernatural - T7E5 - Cale a Boca, Dr. Phil",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/eK4gEBWNGJoxCD67KFKzaKfSzWU.jpg"
+  ],
+  "uploadDate": "2005-09-13T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT45M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/E742ECC17C964204AEA15621A6CD91C5_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/E742ECC17C964204AEA15621A6CD91C5_media.mp4"
+}

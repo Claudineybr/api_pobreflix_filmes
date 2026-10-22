@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Euphoria - T2E4 - ⁨Vocês que Não Podem Ver, Pensem Naqueles que Podem - 🕸️ PK",
+  "description": "Assista Euphoria - T2E4 - ⁨Vocês que Não Podem Ver, Pensem Naqueles que Podem",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/cQMOyNLS1RsQIMlmVR6MEk2fvii.jpg"
+  ],
+  "uploadDate": "2019-06-16T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/FC07A07111FA483EB394B11045B5948A_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/FC07A07111FA483EB394B11045B5948A_media.mp4"
+}

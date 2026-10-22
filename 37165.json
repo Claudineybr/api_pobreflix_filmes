@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "O Show de Truman: O Show da Vida - 🕸️ PK",
+  "description": "Assista O Show de Truman: O Show da Vida",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/3mEoGWyJCZTSoYyjFD3gFd6hzU4.jpg"
+  ],
+  "uploadDate": "1998-06-04T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H43M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/1B53B78763234312AC020420EF487456_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/1B53B78763234312AC020420EF487456_media.mp4"
+}

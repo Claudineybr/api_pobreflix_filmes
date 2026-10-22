@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Hulk - 🕸️ PK",
+  "description": "Assista Hulk",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/dLEezc8nU4O2i96x68AvpA7xyel.jpg"
+  ],
+  "uploadDate": "2003-06-19T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT2H18M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/1E5C27E376284FF98B72AF499CEDFBF6_media.ts",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/1E5C27E376284FF98B72AF499CEDFBF6_media.ts"
+}

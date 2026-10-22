@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Quarteto Fantástico - 🕸️ PK",
+  "description": "Assista Quarteto Fantástico",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/XJ8jZ4hGyusnN41NnxR0vv5ghS.jpg"
+  ],
+  "uploadDate": "2015-08-05T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H40M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/BD2957F6A4944C51B363A9DBCD738DBF_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/BD2957F6A4944C51B363A9DBCD738DBF_media.mp4"
+}

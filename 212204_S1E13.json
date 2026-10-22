@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Melancia Cintilante - T1E13 - Ainda não é hora. Podemos estar juntos por enquanto. - 🕸️ PK",
+  "description": "Assista Melancia Cintilante - T1E13 - Ainda não é hora. Podemos estar juntos por enquanto.",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/pxtqoLHy5m54XnkCcejXfsHnqaa.jpg"
+  ],
+  "uploadDate": "2023-09-25T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H4M",
+  "contentUrl": "https://hugh.cdn.rumble.cloud/video/fwe2/00/s8/2/8/u/7/L/8u7LA.aaa.mp4",
+  "embedUrl": "https://hugh.cdn.rumble.cloud/video/fwe2/00/s8/2/8/u/7/L/8u7LA.aaa.mp4"
+}

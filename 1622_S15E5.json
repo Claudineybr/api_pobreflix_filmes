@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Supernatural - T15E5 - Provérbios 17:3 - 🕸️ PK",
+  "description": "Assista Supernatural - T15E5 - Provérbios 17:3",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/eK4gEBWNGJoxCD67KFKzaKfSzWU.jpg"
+  ],
+  "uploadDate": "2005-09-13T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT45M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/129EBDB899B44710882D789D65DC7EC0_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/129EBDB899B44710882D789D65DC7EC0_media.mp4"
+}

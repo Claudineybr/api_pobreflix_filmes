@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Pobres Criaturas - 🕸️ PK",
+  "description": "Assista Pobres Criaturas",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/iOdcXYSVzBgmBJzNIlIMOZ6fz0F.jpg"
+  ],
+  "uploadDate": "2023-12-07T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT2H21M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/7841A29A366E43C8B79F4CB4401A615D_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/7841A29A366E43C8B79F4CB4401A615D_media.mp4"
+}

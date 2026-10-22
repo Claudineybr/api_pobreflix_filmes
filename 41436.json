@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Atividade Paranormal 2 - 🕸️ PK",
+  "description": "Assista Atividade Paranormal 2",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/gNouQyuRIVkjxtjtgz5aMO2YMIO.jpg"
+  ],
+  "uploadDate": "2010-10-20T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H31M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/F4476BD87FBF4A1B9A2768DD3FB47C34_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/F4476BD87FBF4A1B9A2768DD3FB47C34_media.mp4"
+}

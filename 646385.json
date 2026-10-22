@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Pânico - 🕸️ PK",
+  "description": "Assista Pânico",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/lvskZGlyH9LuGKO8OdBWQWTGlGx.jpg"
+  ],
+  "uploadDate": "2022-01-12T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H54M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/D1038594E3FB4A28BC4F1164B5357177_media.ts",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/D1038594E3FB4A28BC4F1164B5357177_media.ts"
+}

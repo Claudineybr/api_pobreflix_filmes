@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Supernatural - T12E13 - Briga de Família - 🕸️ PK",
+  "description": "Assista Supernatural - T12E13 - Briga de Família",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/eK4gEBWNGJoxCD67KFKzaKfSzWU.jpg"
+  ],
+  "uploadDate": "2005-09-13T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT45M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/F280DCBEC8DB4376BEBF0243C5A16ACF_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/F280DCBEC8DB4376BEBF0243C5A16ACF_media.mp4"
+}

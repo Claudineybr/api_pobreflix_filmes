@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Supernatural - T2E10 - Caçado - 🕸️ PK",
+  "description": "Assista Supernatural - T2E10 - Caçado",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/eK4gEBWNGJoxCD67KFKzaKfSzWU.jpg"
+  ],
+  "uploadDate": "2005-09-13T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT45M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/433CAC7C398B46BBB0078D0826CE2434_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/433CAC7C398B46BBB0078D0826CE2434_media.mp4"
+}

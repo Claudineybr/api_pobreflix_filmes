@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Breaking Bad - T3E3 - Eu Transei Com Ted - 🕸️ PK",
+  "description": "Assista Breaking Bad - T3E3 - Eu Transei Com Ted",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/hGwm9Cj3CdbJIqQWNExQqiYmCd4.jpg"
+  ],
+  "uploadDate": "2008-01-20T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT42M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/9B8DDE1D95434A8EA012D90DFA466721_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/9B8DDE1D95434A8EA012D90DFA466721_media.mp4"
+}

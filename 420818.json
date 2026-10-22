@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "O Rei Leão - 🕸️ PK",
+  "description": "Assista O Rei Leão",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/wrHr8eEJYDAA7WYybyH162s4oZ4.jpg"
+  ],
+  "uploadDate": "2019-07-12T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H58M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/78A88DC4FFC04294A4641FAC23FADAE0_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/78A88DC4FFC04294A4641FAC23FADAE0_media.mp4"
+}
