@@ -12,7 +12,7 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Baixar, corrigir e publicar
         run: |
           set -e
@@ -115,7 +115,6 @@ jobs:
               print('  ', k, '|', v)
           PYEOF
           
-          # Puxa do WaveLy2308
           git clone --depth 1 https://github.com/WaveLy2308/api_pobreflix_filmes.git "$T/origem"
           python3 -I "$T/convert.py" "$T/origem" "$T/saida"
           
