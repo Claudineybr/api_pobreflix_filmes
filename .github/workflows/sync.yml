@@ -33,6 +33,12 @@ jobs:
           SHOWN_RE = re.compile(r'(⏱ )NaNmin')
 
           def fix_text(t):
+              # Troca a marca antiga pela nova
+              t = t.replace('🕸️ PK', '🍿Clau')
+              t = t.replace('🕸️PK', '🍿Clau')
+              t = t.replace('🕸️pk', '🍿Clau')
+              t = t.replace('🕸️ pk', '🍿Clau')
+              
               t, n_prefix = PREFIX_RE.subn(r'\1\2', t)
               t, n_nan = NAN_RE.subn(r'\1PT42M\2', t)
               t, n_shown = SHOWN_RE.subn(r'\g<1>42min', t)
