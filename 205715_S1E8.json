@@ -19,7 +19,7 @@
     },
     "userInteractionCount": 5237
   },
-  "duration": "PT42M",
+  "duration": "PTNaNM",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/C0BADE59CE244DA29F03DDAAF4939C9C_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/C0BADE59CE244DA29F03DDAAF4939C9C_media.mp4"
 }
@@ -96,7 +96,7 @@ h2 { font-size: 14px; color: #999; margin-bottom: 12px; }
 </svg>
 </a>
 <h1>Gen V - T1E8 - Guardiões de Godolkin</h1>
-<p style="color:#aaa;font-size:13px;margin:4px 0 2px">⏱ 42min</p>
+<p style="color:#aaa;font-size:13px;margin:4px 0 2px">⏱ NaNmin</p>
 <script>
 function t(id, el) {
 var e = document.getElementById(id);
