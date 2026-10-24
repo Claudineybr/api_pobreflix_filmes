@@ -3,6 +3,11 @@ on:
   schedule:
     - cron: '17 */6 * * *'
   workflow_dispatch:
+    inputs:
+      forcar:
+        description: 'Forcar atualizacao em massa (ignora o limite de 150 arquivos alterados)'
+        type: boolean
+        default: false
 permissions:
   contents: write
 concurrency:
@@ -14,9 +19,16 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Baixar, corrigir e publicar
+        env:
+          FORCE_MASS_UPDATE: ${{ inputs.forcar }}
         run: |
-          set -e
+          set -eo pipefail
           T=$(mktemp -d)
+          
+          if [ -f "PAUSAR" ]; then
+            echo "Repositorio pausado pelo usuario (arquivo PAUSAR na raiz). Nada foi feito."
+            exit 0
+          fi
           cat > "$T/convert.py" <<'PYEOF'
           import sys, re, json, shutil
           from pathlib import Path
@@ -29,15 +41,15 @@ jobs:
 
           LD_RE = re.compile(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', re.S | re.I)
           PREFIX_RE = re.compile(r'(\\?"(?:contentUrl|embedUrl|player|url)\\?"\s*:\s*\\?")\d+\s+(https?://)')
+          URLFIELD_RE = re.compile(r'("(?:contentUrl|embedUrl)"\s*:\s*")([^"]*)(")')
+          NAMEDESC_RE = re.compile(r'^([ \t]*"(?:name|description)"[ \t]*:[ \t]*")(.*?)(",?)[ \t\r]*$', re.M)
 
           def fix_text(t):
-              # Troca a marca antiga pela nova
               t = t.replace('🕸️ PK', '🍿Clau')
               t = t.replace('🕸️PK', '🍿Clau')
               t = t.replace('🕸️pk', '🍿Clau')
               t = t.replace('🕸️ pk', '🍿Clau')
               
-              # Corrige apenas o prefixo numérico
               t, n_prefix = PREFIX_RE.subn(r'\1\2', t)
               return t, n_prefix
 
@@ -55,7 +67,39 @@ jobs:
                   return 'host vazio'
               return None
 
+          def repair_url(v):
+              if not isinstance(v, str) or url_problem(v) is None:
+                  return v
+              s = v.replace('<b></b>', '').strip()
+              toks = s.split()
+              http = [t for t in toks if re.match(r'https?://', t)]
+              if http:
+                  if len(set(http)) != 1:
+                      return v
+                  i = toks.index(http[0])
+                  if all(re.fullmatch(r'[A-Za-z0-9]{1,8}', t) for t in toks[:i]) and len(toks) == i + len(http):
+                      return http[0]
+                  return v
+              if len(toks) == 1 and re.fullmatch(r'[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+(:\d+)?/\S+\.mp4', toks[0]):
+                  return 'http://' + toks[0]
+              if len(toks) == 1 and re.fullmatch(r'https?://\S+', toks[0]):
+                  return toks[0]
+              return v
+
+          def fix_quotes(b):
+              def esc(m):
+                  return m.group(1) + re.sub(r'(?<!\\)"', r'\\"', m.group(2)) + m.group(3)
+              return NAMEDESC_RE.sub(esc, b)
+
+          def repair_block(b):
+              try:
+                  json.loads(b)
+              except Exception:
+                  b = fix_quotes(b)
+              return URLFIELD_RE.sub(lambda m: m.group(1) + repair_url(m.group(2)) + m.group(3), b)
+
           ok = []
+          repaired = []
           prefix_fixed = []
           skipped = {}
 
@@ -78,8 +122,12 @@ jobs:
               if not blocks:
                   skipped[name] = 'sem bloco JSON-LD'
                   continue
+              blk = repair_block(blocks[0])
+              if blk != blocks[0]:
+                  fixed = fixed.replace(blocks[0], blk, 1)
+                  repaired.append(name)
               try:
-                  data = json.loads(blocks[0])
+                  data = json.loads(blk)
               except Exception as e:
                   skipped[name] = f'JSON-LD inválido: {e}'
                   continue
@@ -100,6 +148,7 @@ jobs:
 
           print('ok:', len(ok))
           print('prefixo corrigido:', len(prefix_fixed))
+          print('reparados:', len(repaired), repaired)
           print('pulados:', len(skipped))
           for k, v in skipped.items():
               print('  ', k, '|', v)
@@ -108,16 +157,53 @@ jobs:
           git clone --depth 1 https://github.com/WaveLy2308/api_pobreflix_filmes.git "$T/origem"
           python3 -I "$T/convert.py" "$T/origem" "$T/saida"
           
-          N_OUT=$(ls "$T"/saida/*.json | wc -l)
-          N_NOW=$(ls ./*.json 2>/dev/null | wc -l)
+          N_OUT=$(find "$T/saida" -maxdepth 1 -name '*.json' | wc -l)
+          N_NOW=$(find . -maxdepth 1 -name '*.json' | wc -l)
           
           if [ "$N_OUT" -eq 0 ] || [ $((N_OUT * 10)) -lt $((N_NOW * 9)) ]; then
             echo "ABORTADO: saida com $N_OUT arquivos contra $N_NOW atuais"
             exit 1
           fi
           
-          rm -f ./*.json
-          cp "$T"/saida/*.json .
+          # Não apagamos nada: copiamos os arquivos bons por cima dos antigos
+          sed -i 's#https://redetoons\.cards#https://redetoons.my#g' "$T"/saida/*.json
+          
+          CHANGED=0
+          for f in "$T"/saida/*.json; do
+            n=$(basename "$f")
+            if [ ! -f "./$n" ] || ! cmp -s "$f" "./$n"; then
+              CHANGED=$((CHANGED + 1))
+            fi
+          done
+          echo "Arquivos novos ou alterados nesta rodada: $CHANGED"
+          if [ "$CHANGED" -gt 150 ] && [ "${FORCE_MASS_UPDATE:-false}" != "true" ]; then
+            echo "ABORTADO: $CHANGED arquivos mudariam (limite 150). Se for legitimo, rode manualmente com 'forcar' ligado."
+            exit 1
+          fi
+          
+          # Backup: guarda as 3 ultimas versoes anteriores de cada arquivo alterado,
+          # em backup/<arquivo>/<data>_<hora>.json (horario de Boa Vista)
+          STAMP=$(TZ=America/Boa_Vista date +%Y-%m-%d_%H-%M)
+          mkdir -p backup
+          for old in backup/*.json; do
+            [ -f "$old" ] || continue
+            b=$(basename "$old" .json)
+            mkdir -p "backup/$b"
+            mv "$old" "backup/$b/0000-00-00_00-00_antigo.json"
+          done
+          for f in "$T"/saida/*.json; do
+            n=$(basename "$f")
+            b="${n%.json}"
+            if [ -f "./$n" ] && ! cmp -s "$f" "./$n"; then
+              mkdir -p "backup/$b"
+              cp -f "./$n" "backup/$b/$STAMP.json"
+              ls -1 "backup/$b" | LC_ALL=C sort -r | tail -n +4 | while read -r velho; do
+                rm -f "backup/$b/$velho"
+              done
+            fi
+          done
+          
+          cp -f "$T"/saida/*.json .
           sed -i 's#https://redetoons\.cards#https://redetoons.my#g' ./*.json
           
           git add -A
@@ -129,10 +215,18 @@ jobs:
           git config user.name "Claudineybr"
           git config user.email "Claudineybr@users.noreply.github.com"
           
-          git diff --cached --name-only | while read -r file; do
+          git diff --cached --name-only -- . ':!backup' | while read -r file; do
             clean_name="${file%.json}"
             git commit -m "Create/Update HTML: ${clean_name}" -- "$file"
           done
           
-          git pull --rebase origin "${GITHUB_REF_NAME:-main}" || true
+          if ! git diff --cached --quiet; then
+            git commit -m "Backup: versoes anteriores dos arquivos alterados"
+          fi
+          
+          git pull --rebase origin "${GITHUB_REF_NAME:-main}" || {
+            git rebase --abort || true
+            echo "ABORTADO: falha no rebase. Nada foi publicado."
+            exit 1
+          }
           git push origin "HEAD:${GITHUB_REF_NAME:-main}"
