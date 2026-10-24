@@ -19,7 +19,7 @@
     },
     "userInteractionCount": 5237
   },
-  "duration": "PT42M",
+  "duration": "PTNaNM",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/EEB231EB438E42EB983CB1B1387283F2_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/EEB231EB438E42EB983CB1B1387283F2_media.mp4"
 }
@@ -96,7 +96,7 @@ h2 { font-size: 14px; color: #999; margin-bottom: 12px; }
 </svg>
 </a>
 <h1>IT: Bem-Vindos a Derry - T1E4 - O Grande Aparato Giratório do Funcionamento do Nosso Planeta</h1>
-<p style="color:#aaa;font-size:13px;margin:4px 0 2px">⏱ 42min</p>
+<p style="color:#aaa;font-size:13px;margin:4px 0 2px">⏱ NaNmin</p>
 <script>
 function t(id, el) {
 var e = document.getElementById(id);
