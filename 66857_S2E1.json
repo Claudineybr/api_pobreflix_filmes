@@ -19,7 +19,7 @@
     },
     "userInteractionCount": 5237
   },
-  "duration": "PT42M",
+  "duration": "PTNaNM",
   "contentUrl": "http://fcoidok.cisantkdh.com:80/vod/F6D6D79020194895846BD5A84BFF3DC5_media.mp4",
   "embedUrl": "http://fcoidok.cisantkdh.com:80/vod/F6D6D79020194895846BD5A84BFF3DC5_media.mp4"
 }
@@ -96,7 +96,7 @@ h2 { font-size: 14px; color: #999; margin-bottom: 12px; }
 </svg>
 </a>
 <h1>O Atirador - T2E1 - Grupo de Caça</h1>
-<p style="color:#aaa;font-size:13px;margin:4px 0 2px">⏱ 42min</p>
+<p style="color:#aaa;font-size:13px;margin:4px 0 2px">⏱ NaNmin</p>
 <script>
 function t(id, el) {
 var e = document.getElementById(id);
