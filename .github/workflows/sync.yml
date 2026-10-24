@@ -29,8 +29,6 @@ jobs:
 
           LD_RE = re.compile(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', re.S | re.I)
           PREFIX_RE = re.compile(r'(\\?"(?:contentUrl|embedUrl|player|url)\\?"\s*:\s*\\?")\d+\s+(https?://)')
-          NAN_RE = re.compile(r'(\\?"duration\\?"\s*:\s*\\?")PTNaN[A-Za-z]*(\\?")')
-          SHOWN_RE = re.compile(r'(⏱ )NaNmin')
 
           def fix_text(t):
               # Troca a marca antiga pela nova
@@ -39,10 +37,9 @@ jobs:
               t = t.replace('🕸️pk', '🍿Clau')
               t = t.replace('🕸️ pk', '🍿Clau')
               
+              # Corrige apenas o prefixo numérico
               t, n_prefix = PREFIX_RE.subn(r'\1\2', t)
-              t, n_nan = NAN_RE.subn(r'\1PT42M\2', t)
-              t, n_shown = SHOWN_RE.subn(r'\g<1>42min', t)
-              return t, n_prefix, n_nan, n_shown
+              return t, n_prefix
 
           def url_problem(v):
               if not isinstance(v, str) or not v:
@@ -59,14 +56,13 @@ jobs:
               return None
 
           ok = []
-          placeholder = []
           prefix_fixed = []
           skipped = {}
 
           for p in sorted(src.glob('*.json')):
               name = p.name
               raw = p.read_bytes().decode('utf-8-sig')
-              fixed, npx, nnan, nshown = fix_text(raw)
+              fixed, npx = fix_text(raw)
 
               if not raw.lstrip().startswith('<'):
                   try:
@@ -96,20 +92,14 @@ jobs:
               if bad:
                   skipped[name] = bad
                   continue
-              if 'NaN' in fixed:
-                  skipped[name] = 'ainda contém NaN'
-                  continue
 
               (out / name).write_bytes(fixed.encode('utf-8'))
               ok.append(name)
               if npx:
                   prefix_fixed.append(name)
-              if nnan:
-                  placeholder.append(name)
 
           print('ok:', len(ok))
           print('prefixo corrigido:', len(prefix_fixed))
-          print('duracao placeholder:', len(placeholder))
           print('pulados:', len(skipped))
           for k, v in skipped.items():
               print('  ', k, '|', v)
