@@ -1,31 +1,100 @@
-name: Sincronizar e corrigir (Massa com Backup)
+name: Sincronizar e Limpar
+
 on:
   schedule:
-    - cron: '17 */6 * * *'
+    - cron: '0 */2 * * *' # Roda a cada 2 horas
   workflow_dispatch:
+
 permissions:
   contents: write
+
 concurrency:
   group: sync
   cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: Baixar, corrigir e publicar
+        with:
+          fetch-depth: 0
+
+      - name: Baixar, Filtrar e Publicar
         run: |
           set -e
           T=$(mktemp -d)
           
-          # 1. Clona as duas fontes
-          git clone --depth 1 https://github.com/WaveLy2308/api_pobreflix_filmes.git "$T/origem"
+          # 1. Clona a fonte original e o seu catálogo
+          git clone --depth 1 https://github.com/WaveLy2308/api_pobreflix_filmes.git "$T/origem" || true
           git clone --depth 1 https://github.com/Claudineybr/catalogocompleto.git "$T/novos"
           
-          # 2. Junta tudo na pasta de saída (os novos têm prioridade)
-          mkdir -p "$T/saida"
-          cp -f "$T/origem"/*.json "$T/saida/" || true
-          cp -f "$T/novos"/*.json "$T/saida/" || true
+          # 2. Roda o script Python de filtragem
+          cat > "$T/filtrar.py" << 'PYEOF'
+          import json
+          import re
+          from pathlib import Path
+          import shutil
+
+          # Pegamos os caminhos passados pelo Bash
+          dir_origem = Path("ORIGEM_PATH") if Path("ORIGEM_PATH").exists() else None
+          dir_novos = Path("NOVOS_PATH")
+          dir_saida = Path("SAIDA_PATH")
+          dir_saida.mkdir(parents=True, exist_ok=True)
+
+          links_vistos = set()
+          copiados = 0
+          arquivos = []
+
+          if dir_origem:
+              arquivos.extend(list(dir_origem.glob("*.json")))
+          arquivos.extend(list(dir_novos.glob("*.json")))
+
+          # A MÁGICA: Ordena pelo "peso" do arquivo.
+          # 1. Os do repo novo têm prioridade (is_novo = 1)
+          # 2. Nomes mais longos (provavelmente a versão mais recente e detalhada) vêm primeiro
+          def prioridade(arq):
+              is_novo = 1 if dir_novos in arq.parents else 0
+              return (is_novo, len(arq.name))
+
+          # Ordena do maior para o menor (os "mais recentes" primeiro)
+          arquivos.sort(key=prioridade, reverse=True)
+
+          for arq in arquivos:
+              # Ignora arquivos de controle
+              if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados']):
+                  continue
+                  
+              try:
+                  texto = arq.read_text(encoding='utf-8-sig')
+                  match = re.search(r'<script type="application/ld\+json">(.*?)</script>', texto, re.S)
+                  if match:
+                      dados = json.loads(match.group(1))
+                  else:
+                      dados = json.loads(texto)
+                      
+                  url = dados.get("contentUrl", "").strip().lower()
+                  
+                  # Ignora links quebrados
+                  if not url or url.endswith(".ts") or ".m3u8" in url:
+                      continue
+                      
+                  # Se já vimos esse link, é porque o arquivo atual é mais antigo. Ignoramos.
+                  if url in links_vistos:
+                      continue
+                      
+                  links_vistos.add(url)
+                  shutil.copy2(arq, dir_saida / arq.name)
+                  copiados += 1
+              except Exception:
+                  pass
+
+          print(f"Total de arquivos limpos e únicos copiados: {copiados}")
+          PYEOF
+
+          # Injeta os caminhos no script e roda
+          sed -i "s|ORIGEM_PATH|$T/origem|g; s|NOVOS_PATH|$T/novos|g; s|SAIDA_PATH|$T/saida|g" "$T/filtrar.py"
+          python3 -I "$T/filtrar.py"
           
           N_OUT=$(ls "$T"/saida/*.json | wc -l)
           if [ "$N_OUT" -eq 0 ]; then
@@ -33,60 +102,28 @@ jobs:
             exit 1
           fi
           
-          # 3. Aplica marca d'água
+          # 3. Aplica a marca d'água e arruma os domínios
           sed -i 's#https://redetoons\.cards#https://redetoons.my#g' "$T"/saida/*.json
           sed -i 's#🕸️ PK#🍿Clau#g' "$T"/saida/*.json
           
-          # 4. SISTEMA DE BACKUP
-          # Guarda a versão antiga dos arquivos que estão prestes a serem sobrescritos
-          STAMP=$(TZ=America/Boa_Vista date +%Y-%m-%d_%H-%M)
-          mkdir -p backup
-          
-          # Migra backups antigos do formato plano, se existirem
-          for old in backup/*.json; do
-            [ -f "$old" ] || continue
-            b=$(basename "$old" .json)
-            mkdir -p "backup/$b"
-            mv "$old" "backup/$b/0000-00-00_00-00_antigo.json"
-          done
-          
-          # Verifica quais arquivos vão ser alterados e faz o backup
-          for f in "$T"/saida/*.json; do
-            n=$(basename "$f")
-            b="${n%.json}"
-            if [ -f "./$n" ] && ! cmp -s "$f" "./$n"; then
-              mkdir -p "backup/$b"
-              cp -f "./$n" "backup/$b/$STAMP.json"
-              # Mantém apenas as 3 últimas versões de cada arquivo
-              ls -1 "backup/$b" | LC_ALL=C sort -r | tail -n +4 | while read -r velho; do
-                rm -f "backup/$b/$velho"
-              done
-            fi
-          done
-          
-          # 5. Substitui os arquivos no repositório principal
+          # 4. Substitui tudo no repositório principal
           rm -f ./*.json
           cp -f "$T"/saida/*.json .
           
-          # 6. Configura o Git
+          # 5. Configura o Git e faz o commit
           git config user.name "Claudineybr"
           git config user.email "Claudineybr@users.noreply.github.com"
           
-          # 7. Faz o Commit do Backup (se houver)
-          git add backup
-          if ! git diff --cached --quiet; then
-            git commit -m "Backup: versoes anteriores a atualizacao massiva"
-          fi
-          
-          # 8. Faz o Commit Principal (Arquivos JSON)
           git add -A
           if git diff --cached --quiet; then
-            echo "Sem mudancas nos arquivos."
+            echo "Sem mudancas."
             exit 0
           fi
           
-          git commit -m "Atualizacao massiva: 15 mil itens + sync original"
+          git commit -m "sync: limpeza total, priorizando arquivos mais recentes"
           
-          # 9. Push final
-          git pull --rebase origin "${GITHUB_REF_NAME:-main}" || true
-          git push origin "HEAD:${GITHUB_REF_NAME:-main}"
+          if ! git push origin HEAD:main; then
+            echo "Conflito detectado. Sincronizando e forçando nossa versão..."
+            git pull origin main --no-rebase -X ours --no-edit || true
+            git push origin HEAD:main
+          fi
