@@ -1,0 +1,204 @@
+name: Adicionar Capas TMDB
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Roda 1x por dia como rede de segurança
+  workflow_dispatch:       # Permite rodar na mão
+
+permissions:
+  contents: write
+
+concurrency:
+  group: adicionar-capas
+  cancel-in-progress: false
+
+jobs:
+  extrair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Baixar repositorio
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Instalar dependencias
+        run: |
+          pip install beautifulsoup4 requests
+
+      - name: Buscar Capas no TMDB
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        run: |
+          cat > buscar_capas.py << 'PYEOF'
+          import os
+          import re
+          import json
+          import requests
+          import time
+          import sys
+          from bs4 import BeautifulSoup
+          from pathlib import Path
+
+          TMDB_API_KEY = os.environ.get("TMDB_API_KEY")
+          if not TMDB_API_KEY:
+              print("ERRO: TMDB_API_KEY nao configurada nos Secrets do GitHub.")
+              sys.exit(1)
+
+          ARQ_PROCESSADOS = Path("capas_processadas.txt")
+          processados = set()
+          if ARQ_PROCESSADOS.exists():
+              processados = set(line.strip() for line in ARQ_PROCESSADOS.read_text(encoding="utf-8").splitlines() if line.strip())
+
+          arquivos = list(Path(".").glob("*.json"))
+          faltam = [f for f in arquivos if f.name not in processados]
+
+          # Limita o lote para nao estourar tempo/API por run
+          lote = faltam[:1000]
+          
+          print(f"Total de JSONs: {len(arquivos)} | Ja processados: {len(processados)} | Restantes: {len(faltam)}")
+          print(f"Processando lote de {len(lote)} arquivos...")
+
+          def buscar_capa_tmdb(titulo, ano):
+              url = f"https://api.themoviedb.org/3/search/movie?api_key={TMDB_API_KEY}&language=pt-BR&query={requests.utils.quote(titulo)}&year={ano}"
+              try:
+                  r = requests.get(url, timeout=10)
+                  if r.status_code == 200:
+                      dados = r.json()
+                      if dados.get("results"):
+                          poster_path = dados["results"][0].get("poster_path")
+                          if poster_path:
+                              return f"https://image.tmdb.org/t/p/w500{poster_path}"
+              except: pass
+              return None
+
+          contador = 0
+          for arquivo in lote:
+              try:
+                  conteudo = arquivo.read_text(encoding="utf-8")
+                  
+                  # Se ja tem capa do TMDB, pula
+                  if "image.tmdb.org" in conteudo:
+                      with open(ARQ_PROCESSADOS, "a", encoding="utf-8") as f:
+                          f.write(arquivo.name + "\n")
+                      continue
+
+                  # Extrai o JSON de dentro do HTML
+                  soup = BeautifulSoup(conteudo, "html.parser")
+                  script_tag = soup.find("script", type="application/ld+json")
+                  if not script_tag: continue
+                  
+                  dados = json.loads(script_tag.string)
+                  nome_json = dados.get("name", "")
+                  
+                  # Extrai titulo e ano usando Regex (ex: "A Hipótese do Amor (2026) - 🍿Clau")
+                  match = re.search(r'^(.*?)\s*\((\d{4})\)\s*-', nome_json)
+                  if not match: 
+                      match = re.search(r'^(.*?)\s*-', nome_json)
+                      if not match: continue
+                      titulo = match.group(1).strip()
+                      ano = ""
+                  else:
+                      titulo = match.group(1).strip()
+                      ano = match.group(2)
+
+                  if not titulo: continue
+
+                  print(f"Buscando: {titulo} ({ano})...", end=" ")
+                  
+                  capa_url = buscar_capa_tmdb(titulo, ano)
+                  if capa_url:
+                      print("ACHEI!")
+                      dados["thumbnailUrl"] = [capa_url]
+                      novo_json_str = json.dumps(dados, ensure_ascii=False, indent=2)
+                      
+                      # Substitui no HTML original mantendo a estrutura
+                      novo_html = conteudo.replace(script_tag.string, novo_json_str)
+                      arquivo.write_text(novo_html, encoding="utf-8")
+                      contador += 1
+                  else:
+                      print("NAO ACHOU")
+                  
+                  # Marca como processado para nao tentar de novo
+                  with open(ARQ_PROCESSADOS, "a", encoding="utf-8") as f:
+                      f.write(arquivo.name + "\n")
+
+                  time.sleep(0.2) # Rate Limit do TMDB
+              except Exception as e:
+                  print(f"Erro no arquivo {arquivo.name}: {e}")
+
+          print(f"\nFinalizado! {contador} capas adicionadas.")
+          PYEOF
+
+          python3 buscar_capas.py
+
+      - name: Salvar arquivos e progresso
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          git add -f capas_processadas.txt 2>/dev/null || true
+          git add *.json
+          git add *.txt
+          git add *.py
+          
+          if git diff --cached --quiet; then
+            echo "Nada novo para commitar."
+            exit 0
+          fi
+          
+          git commit -m "feat: adicionar capas via TMDB"
+          
+          for i in $(seq 1 10); do
+            echo "== Push tentativa $i/10 =="
+            if git push origin HEAD:main; then
+              echo "[SUCESSO] Push OK na tentativa $i"
+              exit 0
+            fi
+            
+            echo "[FALHA] Push falhou. Sincronizando..."
+            if ! git pull --rebase origin main --autostash; then
+              git rebase --abort 2>/dev/null || true
+              git pull origin main --no-rebase -X ours --no-edit
+            fi
+            
+            git add -f capas_processadas.txt 2>/dev/null || true
+            git add *.json
+            git add *.txt
+            git add *.py
+            
+            if ! git diff --cached --quiet; then
+              git commit -m "feat: adicionar capas (retry $i)" || true
+            fi
+            sleep $((RANDOM % 10 + 5))
+          done
+          exit 1
+
+      - name: Disparar proxima run (se ainda faltarem capas)
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.PAT_CHAIN }}
+          REPO: ${{ github.repository }}
+        run: |
+          TOTAL=$(ls -1 *.json 2>/dev/null | wc -l)
+          PROCESSADOS=$(sort -u capas_processadas.txt 2>/dev/null | wc -l)
+          FALTAM=$((TOTAL - PROCESSADOS))
+          
+          echo "Total de JSONs: $TOTAL | Processados: $PROCESSADOS | Faltam: $FALTAM"
+          
+          if [ "$FALTAM" -le 0 ]; then
+            echo "✅ Todas as capas processadas. Chain encerrada."; exit 0
+          fi
+
+          echo "🔁 Disparando proxima run em 30 segundos..."
+          sleep 30
+          
+          for i in {1..5}; do
+            if gh workflow run "adicionar_capas.yml" --repo "$REPO" --ref main; then
+              echo "✅ Proxima run disparada com sucesso!"
+              break
+            else
+              echo "⚠️ Erro ao disparar (tentativa $i/5). Tentando de novo em 15s..."
+              sleep 15
+            fi
+          done
