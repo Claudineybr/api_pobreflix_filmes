@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "It: A Coisa - 🍿Clau",
+  "description": "Assista It: A Coisa",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/uYxz0lIiNgErrPhQbSjUdwYxtFc.jpg"
+  ],
+  "uploadDate": "2023-09-29T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H49M",
+  "contentUrl": "https://fcoidok.cisantkdh.com/vod/9AD02AA05390413498D013A2AF77CE6F_media.mp4",
+  "embedUrl": "https://fcoidok.cisantkdh.com/vod/9AD02AA05390413498D013A2AF77CE6F_media.mp4"
+}
+</script>
+<title>It: A Coisa - 🍿Clau</title>
+</head>
+<body>
+<h1>It: A Coisa - 🍿Clau</h1>
+</body>
+</html>

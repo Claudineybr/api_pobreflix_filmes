@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Meu Amigo Ninja - 🍿Clau",
+  "description": "Assista Meu Amigo Ninja",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/caBe5O2r4aJ8bUY3zT71qnyr1Vb.jpg"
+  ],
+  "uploadDate": "2018-12-25T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H23M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/0D912B5D108A4F9ABA9E7F95D9C2C211_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/0D912B5D108A4F9ABA9E7F95D9C2C211_media.mp4"
+}
+</script>
+<title>Meu Amigo Ninja - 🍿Clau</title>
+</head>
+<body>
+<h1>Meu Amigo Ninja - 🍿Clau</h1>
+</body>
+</html>

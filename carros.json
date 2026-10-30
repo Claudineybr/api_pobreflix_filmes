@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Carros - 🍿Clau",
+  "description": "Assista Carros",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/A7nssMRIPauZhEVf2dzwsf4EALO.jpg"
+  ],
+  "uploadDate": "2023-09-29T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H49M",
+  "contentUrl": "https://fcoidok.cisantkdh.com/vod/EF87A78B8E944E2BAA0D64B42CA415E2_media.mp4",
+  "embedUrl": "https://fcoidok.cisantkdh.com/vod/EF87A78B8E944E2BAA0D64B42CA415E2_media.mp4"
+}
+</script>
+<title>Carros - 🍿Clau</title>
+</head>
+<body>
+<h1>Carros - 🍿Clau</h1>
+</body>
+</html>

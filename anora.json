@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Anora - 🍿Clau",
+  "description": "Assista Anora",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/xmFdNzbUiT5XmH6rbIVGYDQHGeo.jpg"
+  ],
+  "uploadDate": "2024-10-14T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT2H19M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/81E98987C11F466FB560CABAEB10F4DB_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/81E98987C11F466FB560CABAEB10F4DB_media.mp4"
+}
+</script>
+<title>Anora - 🍿Clau</title>
+</head>
+<body>
+<h1>Anora - 🍿Clau</h1>
+</body>
+</html>

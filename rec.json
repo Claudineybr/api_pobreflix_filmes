@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "[REC] - 🍿Clau",
+  "description": "Assista [REC]",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/nfbO00NKXSzBIzcN3KbUMdPT1EU.jpg"
+  ],
+  "uploadDate": "2007-11-23T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H18M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/8B326814E62B45959A638185D4C3E2B0_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/8B326814E62B45959A638185D4C3E2B0_media.mp4"
+}
+</script>
+<title>[REC] - 🍿Clau</title>
+</head>
+<body>
+<h1>[REC] - 🍿Clau</h1>
+</body>
+</html>

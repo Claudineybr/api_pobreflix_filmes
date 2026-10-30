@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Cinquenta Tons De Cinza - 🍿Clau",
+  "description": "Assista Cinquenta Tons De Cinza",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/fAfsfaRyQV5LKNvYoqlav0Gr3uC.jpg"
+  ],
+  "uploadDate": "2023-09-29T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H49M",
+  "contentUrl": "http://fcoidok.cisantkdh.com:80/vod/9D7497D77F8A4236B171AA1311F862C7_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com:80/vod/9D7497D77F8A4236B171AA1311F862C7_media.mp4"
+}
+</script>
+<title>Cinquenta Tons De Cinza - 🍿Clau</title>
+</head>
+<body>
+<h1>Cinquenta Tons De Cinza - 🍿Clau</h1>
+</body>
+</html>

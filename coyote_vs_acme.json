@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Coyote vs. ACME - 🍿Clau",
+  "description": "Assista Coyote vs. ACME",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/fqnp3doSeUFLGUFIolHVPA41O4E.jpg"
+  ],
+  "uploadDate": "2026-08-20T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H40M",
+  "contentUrl": "https://hugh.cdn.rumble.cloud/video/fwe2/c9/s8/2/Q/L/n/U/QLnUA.aaa.mp4",
+  "embedUrl": "https://hugh.cdn.rumble.cloud/video/fwe2/c9/s8/2/Q/L/n/U/QLnUA.aaa.mp4"
+}
+</script>
+<title>Coyote vs. ACME - 🍿Clau</title>
+</head>
+<body>
+<h1>Coyote vs. ACME - 🍿Clau</h1>
+</body>
+</html>

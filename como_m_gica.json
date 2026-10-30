@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Como Mágica - 🍿Clau",
+  "description": "Assista Como Mágica",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/2TZiL4ZYOwWeIjGfz3glpMuPqpN.jpg"
+  ],
+  "uploadDate": "2023-09-29T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H49M",
+  "contentUrl": "http://fcoidok.cisantkdh.com:80/vod/9FE8F14D8430459EAEA6AD5BE40C8272_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com:80/vod/9FE8F14D8430459EAEA6AD5BE40C8272_media.mp4"
+}
+</script>
+<title>Como Mágica - 🍿Clau</title>
+</head>
+<body>
+<h1>Como Mágica - 🍿Clau</h1>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Observadores - 🍿Clau",
+  "description": "Assista Observadores",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/bOFs0xHCOSTvIUYL0LDd5qcuuDB.jpg"
+  ],
+  "uploadDate": "2021-08-25T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H57M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/B2C1BC353EB540CB8DE4CFD45AA5677F_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/B2C1BC353EB540CB8DE4CFD45AA5677F_media.mp4"
+}
+</script>
+<title>Observadores - 🍿Clau</title>
+</head>
+<body>
+<h1>Observadores - 🍿Clau</h1>
+</body>
+</html>

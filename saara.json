@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Saara - 🍿Clau",
+  "description": "Assista Saara",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/lhrdcA2Grmsqorp2iOm2rfoWHE5.jpg"
+  ],
+  "uploadDate": "2017-02-01T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H26M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/7DEDE38FE76F485F9A22758EA102A68C_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/7DEDE38FE76F485F9A22758EA102A68C_media.mp4"
+}
+</script>
+<title>Saara - 🍿Clau</title>
+</head>
+<body>
+<h1>Saara - 🍿Clau</h1>
+</body>
+</html>

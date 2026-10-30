@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Madame Teia - 🍿Clau",
+  "description": "Assista Madame Teia",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/zWEm5oy2tE9ku1KSNM089FmZJ2p.jpg"
+  ],
+  "uploadDate": "2023-09-29T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H49M",
+  "contentUrl": "http://fcoidok.cisantkdh.com:80/vod/101540F3C63A4CE897AD2F002D6ECDD1_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com:80/vod/101540F3C63A4CE897AD2F002D6ECDD1_media.mp4"
+}
+</script>
+<title>Madame Teia - 🍿Clau</title>
+</head>
+<body>
+<h1>Madame Teia - 🍿Clau</h1>
+</body>
+</html>

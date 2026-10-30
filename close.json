@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Close - 🍿Clau",
+  "description": "Assista Close",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/h9AAQbozDUc0hYJspmYZfAeCfM2.jpg"
+  ],
+  "uploadDate": "2022-11-01T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H44M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/E669D53A9A804DF2A4BFE1F7858C4720_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/E669D53A9A804DF2A4BFE1F7858C4720_media.mp4"
+}
+</script>
+<title>Close - 🍿Clau</title>
+</head>
+<body>
+<h1>Close - 🍿Clau</h1>
+</body>
+</html>

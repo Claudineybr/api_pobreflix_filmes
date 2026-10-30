@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "A Barraca do Beijo 2 - 🍿Clau",
+  "description": "Assista A Barraca do Beijo 2",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/70lUUh0XhpPXU0RQlBRfJlEUmB.jpg"
+  ],
+  "uploadDate": "2020-07-24T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT2H12M",
+  "contentUrl": "http://fcoidok.cisantkdh.com:80/vod/5E4AB2DEC5444718AD4A4EFE365EDB9F_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com:80/vod/5E4AB2DEC5444718AD4A4EFE365EDB9F_media.mp4"
+}
+</script>
+<title>A Barraca do Beijo 2 - 🍿Clau</title>
+</head>
+<body>
+<h1>A Barraca do Beijo 2 - 🍿Clau</h1>
+</body>
+</html>

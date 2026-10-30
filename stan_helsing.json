@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Stan Helsing - 🍿Clau",
+  "description": "Assista Stan Helsing",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/36LMQQh3AxrxFKWBMfpTlhWoyYr.jpg"
+  ],
+  "uploadDate": "2009-10-23T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H30M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/1F64E8A14A43474F89C2BA841EE85320_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/1F64E8A14A43474F89C2BA841EE85320_media.mp4"
+}
+</script>
+<title>Stan Helsing - 🍿Clau</title>
+</head>
+<body>
+<h1>Stan Helsing - 🍿Clau</h1>
+</body>
+</html>

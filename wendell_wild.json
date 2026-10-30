@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Wendell & Wild - 🍿Clau",
+  "description": "Assista Wendell & Wild",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/5dsX6UAHqkQz1kiV8bs8SvjyVNa.jpg"
+  ],
+  "uploadDate": "2022-10-21T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H45M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/6926A00756D64264B14C2CE693719163_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/6926A00756D64264B14C2CE693719163_media.mp4"
+}
+</script>
+<title>Wendell & Wild - 🍿Clau</title>
+</head>
+<body>
+<h1>Wendell & Wild - 🍿Clau</h1>
+</body>
+</html>

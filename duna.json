@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Duna - 🍿Clau",
+  "description": "Assista Duna",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/uzERcfV2rSHNhW5eViQiO9hNiA7.jpg"
+  ],
+  "uploadDate": "2021-09-15T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT2H35M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/6D78E3A2F17F48099FFE464751FA3419_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/6D78E3A2F17F48099FFE464751FA3419_media.mp4"
+}
+</script>
+<title>Duna - 🍿Clau</title>
+</head>
+<body>
+<h1>Duna - 🍿Clau</h1>
+</body>
+</html>

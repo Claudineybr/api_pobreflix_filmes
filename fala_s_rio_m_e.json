@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Fala Sério, Mãe! - 🍿Clau",
+  "description": "Assista Fala Sério, Mãe!",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/p4YiseA6zPrXQMAJ7dj9GxCTHmo.jpg"
+  ],
+  "uploadDate": "2017-12-28T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H19M",
+  "contentUrl": "http://awnagk.gviudclrb.com:80/vod/D26E37289BBE4B8EBE5E37F9A8603F49_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com:80/vod/D26E37289BBE4B8EBE5E37F9A8603F49_media.mp4"
+}
+</script>
+<title>Fala Sério, Mãe! - 🍿Clau</title>
+</head>
+<body>
+<h1>Fala Sério, Mãe! - 🍿Clau</h1>
+</body>
+</html>

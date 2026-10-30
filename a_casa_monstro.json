@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "A Casa Monstro - 🍿Clau",
+  "description": "Assista A Casa Monstro",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/hVtsIdJ9CogLz0NuqMKnfIu1uzR.jpg"
+  ],
+  "uploadDate": "2023-09-29T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H49M",
+  "contentUrl": "http://awnagk.gviudclrb.com:80/vod/0A6A4D25EF854D9B9B4AA87872E8D4F2_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com:80/vod/0A6A4D25EF854D9B9B4AA87872E8D4F2_media.mp4"
+}
+</script>
+<title>A Casa Monstro - 🍿Clau</title>
+</head>
+<body>
+<h1>A Casa Monstro - 🍿Clau</h1>
+</body>
+</html>

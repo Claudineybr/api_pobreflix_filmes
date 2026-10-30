@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Back to Black - 🍿Clau",
+  "description": "Assista Back to Black",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/xHQEeUT3Ac4fTY72UeNrI75xLtE.jpg"
+  ],
+  "uploadDate": "2024-04-11T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT2H2M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/F63C081F130E413C969D86AB18E55103_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/F63C081F130E413C969D86AB18E55103_media.mp4"
+}
+</script>
+<title>Back to Black - 🍿Clau</title>
+</head>
+<body>
+<h1>Back to Black - 🍿Clau</h1>
+</body>
+</html>

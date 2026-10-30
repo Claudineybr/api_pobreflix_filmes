@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "A Avó - 🍿Clau",
+  "description": "Assista A Avó",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/ozT3LrHVBiA6IDJcQ28hs0hUAVI.jpg"
+  ],
+  "uploadDate": "2022-01-28T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H41M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/72CAF6CF821B45FA8E1D5F7C6A517E0A_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/72CAF6CF821B45FA8E1D5F7C6A517E0A_media.mp4"
+}
+</script>
+<title>A Avó - 🍿Clau</title>
+</head>
+<body>
+<h1>A Avó - 🍿Clau</h1>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Bom Garoto - 🍿Clau",
+  "description": "Assista Bom Garoto",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/2HOEj9B6WoE3PMiSdtBIHd2kHhF.jpg"
+  ],
+  "uploadDate": "2022-06-03T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H16M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/3171DCB88B184A9EA37587A7FA737DA9_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/3171DCB88B184A9EA37587A7FA737DA9_media.mp4"
+}
+</script>
+<title>Bom Garoto - 🍿Clau</title>
+</head>
+<body>
+<h1>Bom Garoto - 🍿Clau</h1>
+</body>
+</html>

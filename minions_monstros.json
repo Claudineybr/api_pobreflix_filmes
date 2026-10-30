@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Minions & Monstros - 🍿Clau",
+  "description": "Assista Minions & Monstros",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/hTowtXrkCY7FJyoj4p91JckrJSE.jpg"
+  ],
+  "uploadDate": "2023-09-29T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H49M",
+  "contentUrl": "https://hugh.cdn.rumble.cloud/video/fww1/ab/s8/2/c/m/-/F/cm-FA.aaa.mp4",
+  "embedUrl": "https://hugh.cdn.rumble.cloud/video/fww1/ab/s8/2/c/m/-/F/cm-FA.aaa.mp4"
+}
+</script>
+<title>Minions & Monstros - 🍿Clau</title>
+</head>
+<body>
+<h1>Minions & Monstros - 🍿Clau</h1>
+</body>
+</html>

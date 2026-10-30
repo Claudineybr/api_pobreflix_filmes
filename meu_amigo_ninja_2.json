@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Meu Amigo Ninja 2 - 🍿Clau",
+  "description": "Assista Meu Amigo Ninja 2",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/vL5xYxFWc1XUWfVF5Rv1mljTMSq.jpg"
+  ],
+  "uploadDate": "2021-08-19T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H26M",
+  "contentUrl": "https://hugh.cdn.rumble.cloud/video/fwe2/c3/s8/2/o/V/r/S/oVrSA.aaa.mp4",
+  "embedUrl": "https://hugh.cdn.rumble.cloud/video/fwe2/c3/s8/2/o/V/r/S/oVrSA.aaa.mp4"
+}
+</script>
+<title>Meu Amigo Ninja 2 - 🍿Clau</title>
+</head>
+<body>
+<h1>Meu Amigo Ninja 2 - 🍿Clau</h1>
+</body>
+</html>
