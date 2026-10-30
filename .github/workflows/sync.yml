@@ -29,14 +29,13 @@ jobs:
           git clone --depth 1 https://github.com/WaveLy2308/api_pobreflix_filmes.git "$T/origem" || true
           git clone --depth 1 https://github.com/Claudineybr/catalogocompleto.git "$T/novos"
           
-          # 2. Roda o script Python de filtragem
+          # 2. Roda o script Python de filtragem e renomeação
           cat > "$T/filtrar.py" << 'PYEOF'
           import json
           import re
-          from pathlib import Path
           import shutil
+          from pathlib import Path
 
-          # Pegamos os caminhos passados pelo Bash
           dir_origem = Path("ORIGEM_PATH") if Path("ORIGEM_PATH").exists() else None
           dir_novos = Path("NOVOS_PATH")
           dir_saida = Path("SAIDA_PATH")
@@ -50,46 +49,79 @@ jobs:
               arquivos.extend(list(dir_origem.glob("*.json")))
           arquivos.extend(list(dir_novos.glob("*.json")))
 
-          # A MÁGICA: Ordena pelo "peso" do arquivo.
-          # 1. Os do repo novo têm prioridade (is_novo = 1)
-          # 2. Nomes mais longos (provavelmente a versão mais recente e detalhada) vêm primeiro
+          # Prioridade: 1. Repo novo; 2. Nomes mais longos (provavelmente versão mais recente)
           def prioridade(arq):
               is_novo = 1 if dir_novos in arq.parents else 0
               return (is_novo, len(arq.name))
 
-          # Ordena do maior para o menor (os "mais recentes" primeiro)
           arquivos.sort(key=prioridade, reverse=True)
 
           for arq in arquivos:
-              # Ignora arquivos de controle
-              if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados']):
+              if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache']): 
                   continue
                   
               try:
                   texto = arq.read_text(encoding='utf-8-sig')
                   match = re.search(r'<script type="application/ld\+json">(.*?)</script>', texto, re.S)
-                  if match:
-                      dados = json.loads(match.group(1))
-                  else:
-                      dados = json.loads(texto)
+                  dados = json.loads(match.group(1)) if match else json.loads(texto)
                       
-                  url = dados.get("contentUrl", "").strip().lower()
+                  url = dados.get("contentUrl", "").strip()
                   
-                  # Ignora links quebrados
-                  if not url or url.endswith(".ts") or ".m3u8" in url:
+                  # Ignora links quebrados ou vazios
+                  if not url or url.endswith(".ts") or ".m3u8" in url: 
                       continue
                       
-                  # Se já vimos esse link, é porque o arquivo atual é mais antigo. Ignoramos.
-                  if url in links_vistos:
+                  # LIMPEZA DE DUPLICATAS: Corta os tokens do S3 (?X-Amz...) para comparar a URL real
+                  clean_url = url.split('?')[0].lower()
+                  if clean_url in links_vistos: 
                       continue
-                      
-                  links_vistos.add(url)
-                  shutil.copy2(arq, dir_saida / arq.name)
+                  links_vistos.add(clean_url)
+
+                  # LIMPEZA DE NOMES: Extrai nome e ano do JSON
+                  nome_atual = dados.get("name", "Filme Desconhecido")
+                  nome_atual = nome_atual.replace('🕸️ PK', '').replace('🍿Clau', '').strip()
+                  nome_atual = re.sub(r'\s*-\s*$', '', nome_atual).strip()
+                  
+                  is_series = bool(re.search(r'_t\d+e\d+', arq.name, re.I))
+                  ep_tag = ""
+                  if is_series:
+                      match_ep = re.search(r'(_t\d+e\d+)', arq.name, re.I)
+                      if match_ep: ep_tag = match_ep.group(1).lower()
+
+                  match_ano = re.search(r'\((\d{4})\)', nome_atual)
+                  ano = match_ano.group(1) if match_ano else ""
+                  
+                  titulo = re.sub(r'\s*\(\d{4}\).*', '', nome_atual).strip()
+                  titulo = re.sub(r'\s*-\s*T\d+E\d+.*', '', titulo).strip()
+                  if not titulo: titulo = nome_atual
+                  
+                  # Define o nome padronizado para o JSON
+                  if is_series and ep_tag:
+                      novo_nome_json = f"{titulo} - {ep_tag.upper().replace('_', '')} - 🍿Clau"
+                  else:
+                      novo_nome_json = f"{titulo} ({ano}) - 🍿Clau" if ano else f"{titulo} - 🍿Clau"
+                  dados["name"] = novo_nome_json
+
+                  # Salva o JSON reestruturado
+                  json_str = json.dumps(dados, ensure_ascii=False, indent=2)
+                  novo_html = f"<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n<script type=\"application/ld+json\">\n{json_str}\n</script>\n<title>{novo_nome_json}</title>\n</head>\n<body>\n<h1>{novo_nome_json}</h1>\n</body>\n</html>"
+                  novo_html = novo_html.replace("https://redetoons.cards", "https://redetoons.my")
+                  
+                  # Define o nome padronizado para o ARQUIVO FÍSICO
+                  slug = re.sub(r'[^a-z0-9]', '_', titulo.lower())
+                  slug = re.sub(r'_+', '_', slug).strip('_')
+                  
+                  if is_series and ep_tag:
+                      novo_nome_arq = f"{slug}_{ano}{ep_tag}.json" if ano else f"{slug}{ep_tag}.json"
+                  else:
+                      novo_nome_arq = f"{slug}_{ano}.json" if ano else f"{slug}.json"
+
+                  (dir_saida / novo_nome_arq).write_text(novo_html, encoding='utf-8')
                   copiados += 1
               except Exception:
                   pass
 
-          print(f"Total de arquivos limpos e únicos copiados: {copiados}")
+          print(f"Total de arquivos limpos, renomeados e unicos copiados: {copiados}")
           PYEOF
 
           # Injeta os caminhos no script e roda
@@ -102,15 +134,11 @@ jobs:
             exit 1
           fi
           
-          # 3. Aplica a marca d'água e arruma os domínios
-          sed -i 's#https://redetoons\.cards#https://redetoons.my#g' "$T"/saida/*.json
-          sed -i 's#🕸️ PK#🍿Clau#g' "$T"/saida/*.json
-          
-          # 4. Substitui tudo no repositório principal
-          rm -f ./*.json
+          # 3. Substitui tudo no repositório principal
+          find . -maxdepth 1 -name "*.json" -delete
           cp -f "$T"/saida/*.json .
           
-          # 5. Configura o Git e faz o commit
+          # 4. Configura o Git e faz o commit
           git config user.name "Claudineybr"
           git config user.email "Claudineybr@users.noreply.github.com"
           
@@ -120,10 +148,31 @@ jobs:
             exit 0
           fi
           
-          git commit -m "sync: limpeza total, priorizando arquivos mais recentes"
+          git commit -m "sync: limpeza de duplicatas, padronizacao de nomes e arquivos"
           
-          if ! git push origin HEAD:main; then
-            echo "Conflito detectado. Sincronizando e forçando nossa versão..."
+          # Loop de Push para garantir
+          for i in $(seq 1 5); do
+            if git push origin HEAD:main; then
+              echo "[SUCESSO] Push OK"
+              break
+            fi
+            echo "[FALHA] Conflito. Sincronizando..."
             git pull origin main --no-rebase -X ours --no-edit || true
-            git push origin HEAD:main
+            sleep $((RANDOM % 5 + 3))
+          done
+
+      - name: Disparar Robô de Capas TMDB
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.PAT_CHAIN }}
+          REPO: ${{ github.repository }}
+        run: |
+          echo "🔁 Disparando workflow de adicionar capas em 5 segundos..."
+          sleep 5
+          
+          # ⚠️ ATENÇÃO: Verifique se o nome do arquivo do robô de capas é exatamente "adicionar_capas.yml". Se for outro, mude aqui!
+          if gh workflow run "adicionar_capas.yml" --repo "$REPO" --ref main; then
+            echo "✅ Robô de capas disparado com sucesso!"
+          else
+            echo "⚠️ Falha ao disparar o robô de capas. Verifique o nome do arquivo."
           fi
