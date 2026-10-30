@@ -1,0 +1,62 @@
+name: Limpar Repositório (Manutenção)
+
+on:
+  workflow_dispatch: # Só roda manualmente para evitar acidentes!
+
+permissions:
+  contents: write
+
+jobs:
+  limpar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Apagar tudo, exceto .git e .github
+        run: |
+          echo "Iniciando limpeza radical..."
+          
+          # O comando abaixo deleta tudo na raiz (-maxdepth 1) EXCETO a pasta .git e .github
+          find . -maxdepth 1 -mindepth 1 ! -name '.git' ! -name '.github' -exec rm -rf {} +
+          
+          echo "Limpeza concluída! O que sobrou foi:"
+          ls -la
+
+      - name: Salvar e enviar a limpeza
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          # Adiciona todas as deleções
+          git add -A
+          
+          if git diff --cached --quiet; then
+            echo "O repositório já está limpo (nada para deletar)."
+            exit 0
+          fi
+          
+          git commit -m "chore: LIMPEZA TOTAL - apagando todos os arquivos e mantendo apenas os YMLs"
+          
+          # Loop de push para garantir que vai subir
+          for i in $(seq 1 5); do
+            echo "== Push tentativa $i/5 =="
+            if git push origin HEAD:main; then
+              echo "[SUCESSO] Repositório limpo com sucesso!"
+              exit 0
+            fi
+            
+            echo "[FALHA] Push falhou. Sincronizando..."
+            if ! git pull --rebase origin main --autostash; then
+              git rebase --abort 2>/dev/null || true
+              git pull origin main --no-rebase -X ours --no-edit
+            fi
+            
+            git add -A
+            if ! git diff --cached --quiet; then
+              git commit -m "chore: limpeza total (retry $i)" || true
+            fi
+            sleep $((RANDOM % 5 + 3))
+          done
