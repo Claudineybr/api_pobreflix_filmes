@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Balto - 🍿Clau",
+  "description": "Assista Balto",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/vytLPTTIc82m9KAcuqk8svwqdoL.jpg"
+  ],
+  "uploadDate": "1995-12-22T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H18M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/6C0B8D1333D6453B9839CAC95B2A4641_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/6C0B8D1333D6453B9839CAC95B2A4641_media.mp4"
+}
+</script>
+<title>Balto - 🍿Clau</title>
+</head>
+<body>
+<h1>Balto - 🍿Clau</h1>
+</body>
+</html>

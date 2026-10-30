@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Vida de Inseto - 🍿Clau",
+  "description": "Assista Vida de Inseto",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/vvlbdBCuLt7nkQG7anNE6xHNbAO.jpg"
+  ],
+  "uploadDate": "2023-09-29T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H49M",
+  "contentUrl": "https://fcoidok.cisantkdh.com/vod/CF633ABD0DF3479CBC25C74AFBBD519B_media.mp4",
+  "embedUrl": "https://fcoidok.cisantkdh.com/vod/CF633ABD0DF3479CBC25C74AFBBD519B_media.mp4"
+}
+</script>
+<title>Vida de Inseto - 🍿Clau</title>
+</head>
+<body>
+<h1>Vida de Inseto - 🍿Clau</h1>
+</body>
+</html>

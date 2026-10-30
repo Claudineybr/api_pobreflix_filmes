@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Pantera Negra - 🍿Clau",
+  "description": "Assista Pantera Negra",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/ubXNpxL2ASSzY0f8Hxv08pOsV2L.jpg"
+  ],
+  "uploadDate": "2018-02-13T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT2H14M",
+  "contentUrl": "https://fcoidok.cisantkdh.com/vod/702406108B114C2CADB42EF3CA7832F5_media.mp4",
+  "embedUrl": "https://fcoidok.cisantkdh.com/vod/702406108B114C2CADB42EF3CA7832F5_media.mp4"
+}
+</script>
+<title>Pantera Negra - 🍿Clau</title>
+</head>
+<body>
+<h1>Pantera Negra - 🍿Clau</h1>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Viúva Negra - 🍿Clau",
+  "description": "Assista Viúva Negra",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/lrJ9QI2HMbO8N2S2r2v7fjtou5c.jpg"
+  ],
+  "uploadDate": "2023-09-29T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H49M",
+  "contentUrl": "https://fcoidok.cisantkdh.com/vod/2EB480591B2B4EEAA3DAD46086ECE3E9_media.mp4",
+  "embedUrl": "https://fcoidok.cisantkdh.com/vod/2EB480591B2B4EEAA3DAD46086ECE3E9_media.mp4"
+}
+</script>
+<title>Viúva Negra - 🍿Clau</title>
+</head>
+<body>
+<h1>Viúva Negra - 🍿Clau</h1>
+</body>
+</html>

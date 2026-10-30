@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Aristogatas - 🍿Clau",
+  "description": "Assista Aristogatas",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/feu311aXpDoSQC7tNZ6HpE7I1aw.jpg"
+  ],
+  "uploadDate": "1970-12-24T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H18M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/1BB81A4F936246B8BDF43A4713019371_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/1BB81A4F936246B8BDF43A4713019371_media.mp4"
+}
+</script>
+<title>Aristogatas - 🍿Clau</title>
+</head>
+<body>
+<h1>Aristogatas - 🍿Clau</h1>
+</body>
+</html>

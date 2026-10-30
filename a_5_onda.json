@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "A 5ª Onda - 🍿Clau",
+  "description": "Assista A 5ª Onda",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/oIWVwUKWcSiaBahE8NbiFfHVmiY.jpg"
+  ],
+  "uploadDate": "2016-01-14T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H52M",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/1C07DADCCAE447F9939B067CE7B4A571_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/1C07DADCCAE447F9939B067CE7B4A571_media.mp4"
+}
+</script>
+<title>A 5ª Onda - 🍿Clau</title>
+</head>
+<body>
+<h1>A 5ª Onda - 🍿Clau</h1>
+</body>
+</html>

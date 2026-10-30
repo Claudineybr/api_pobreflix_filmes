@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Sorria - 🍿Clau",
+  "description": "Assista Sorria",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/3LfJ1kQZv6OX687rJMOAMzFJlc9.jpg"
+  ],
+  "uploadDate": "2023-09-29T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H49M",
+  "contentUrl": "https://fcoidok.cisantkdh.com/vod/5E538DC96A864750ADE676EB0AFE79F2_media.mp4",
+  "embedUrl": "https://fcoidok.cisantkdh.com/vod/5E538DC96A864750ADE676EB0AFE79F2_media.mp4"
+}
+</script>
+<title>Sorria - 🍿Clau</title>
+</head>
+<body>
+<h1>Sorria - 🍿Clau</h1>
+</body>
+</html>

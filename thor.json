@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Thor - 🍿Clau",
+  "description": "Assista Thor",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/aEV9QmgBqjRTdjsvdCgdK89tavQ.jpg"
+  ],
+  "uploadDate": "2011-04-21T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H55M",
+  "contentUrl": "https://fcoidok.cisantkdh.com/vod/A203EE0D422340FC9B654403AEDBFA9D_media.mp4",
+  "embedUrl": "https://fcoidok.cisantkdh.com/vod/A203EE0D422340FC9B654403AEDBFA9D_media.mp4"
+}
+</script>
+<title>Thor - 🍿Clau</title>
+</head>
+<body>
+<h1>Thor - 🍿Clau</h1>
+</body>
+</html>

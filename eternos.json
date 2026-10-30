@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Eternos - 🍿Clau",
+  "description": "Assista Eternos",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/2IgZIYa8iTQuLNIcVERwXmh8pUj.jpg"
+  ],
+  "uploadDate": "2023-09-29T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H49M",
+  "contentUrl": "https://fcoidok.cisantkdh.com/vod/B16C0CD289E24BF98643BA2F4405FBCD_media.mp4",
+  "embedUrl": "https://fcoidok.cisantkdh.com/vod/B16C0CD289E24BF98643BA2F4405FBCD_media.mp4"
+}
+</script>
+<title>Eternos - 🍿Clau</title>
+</head>
+<body>
+<h1>Eternos - 🍿Clau</h1>
+</body>
+</html>

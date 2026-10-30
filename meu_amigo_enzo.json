@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Meu Amigo Enzo - 🍿Clau",
+  "description": "Assista Meu Amigo Enzo",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/26lLdJ8IG5EfzJwusx2DpfsuwLf.jpg"
+  ],
+  "uploadDate": "2019-08-08T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H49M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/03CB1B0BF42940478C822DFF1A81C034_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/03CB1B0BF42940478C822DFF1A81C034_media.mp4"
+}
+</script>
+<title>Meu Amigo Enzo - 🍿Clau</title>
+</head>
+<body>
+<h1>Meu Amigo Enzo - 🍿Clau</h1>
+</body>
+</html>

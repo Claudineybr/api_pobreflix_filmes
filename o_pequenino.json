@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "O Pequenino - 🍿Clau",
+  "description": "Assista O Pequenino",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/hhz8suBlc45xIyanIIAg7DmWHCB.jpg"
+  ],
+  "uploadDate": "2023-09-29T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H49M",
+  "contentUrl": "http://awnagk.gviudclrb.com:80/vod/14FF0341D4214B8DB30A2C95DD0644BA_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com:80/vod/14FF0341D4214B8DB30A2C95DD0644BA_media.mp4"
+}
+</script>
+<title>O Pequenino - 🍿Clau</title>
+</head>
+<body>
+<h1>O Pequenino - 🍿Clau</h1>
+</body>
+</html>

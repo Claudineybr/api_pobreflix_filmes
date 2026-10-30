@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Doutor Estranho - 🍿Clau",
+  "description": "Assista Doutor Estranho",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/pb4clPWRJ5AKlSFu1HrrHdt5uAw.jpg"
+  ],
+  "uploadDate": "2023-09-29T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H49M",
+  "contentUrl": "https://fcoidok.cisantkdh.com/vod/FF7E833A5E6644A986A5DC7AF8DE6916_media.mp4",
+  "embedUrl": "https://fcoidok.cisantkdh.com/vod/FF7E833A5E6644A986A5DC7AF8DE6916_media.mp4"
+}
+</script>
+<title>Doutor Estranho - 🍿Clau</title>
+</head>
+<body>
+<h1>Doutor Estranho - 🍿Clau</h1>
+</body>
+</html>

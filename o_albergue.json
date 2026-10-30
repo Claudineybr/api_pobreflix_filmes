@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "O Albergue - 🍿Clau",
+  "description": "Assista O Albergue",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/lF0qaRHBa86mOHomjunVg31fJMz.jpg"
+  ],
+  "uploadDate": "2006-01-06T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H34M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/E2C45282656240318F9B4E2AE70F0BBF_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/E2C45282656240318F9B4E2AE70F0BBF_media.mp4"
+}
+</script>
+<title>O Albergue - 🍿Clau</title>
+</head>
+<body>
+<h1>O Albergue - 🍿Clau</h1>
+</body>
+</html>

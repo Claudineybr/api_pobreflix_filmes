@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Lá Fora - 🍿Clau",
+  "description": "Assista Lá Fora",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/2mRpZ01DFVmZARJBEKPa1RMCKn2.jpg"
+  ],
+  "uploadDate": "2024-10-16T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT2H21M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/A1E97BFA0AAC4930A6335A5467F50A48_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/A1E97BFA0AAC4930A6335A5467F50A48_media.mp4"
+}
+</script>
+<title>Lá Fora - 🍿Clau</title>
+</head>
+<body>
+<h1>Lá Fora - 🍿Clau</h1>
+</body>
+</html>

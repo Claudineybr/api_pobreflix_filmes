@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Sem Cortes - 🍿Clau",
+  "description": "Assista Sem Cortes",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/jVCpljwYNJhGCBR9DzqiGV0jxAe.jpg"
+  ],
+  "uploadDate": "2026-05-08T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H25M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/0DAF2378406D4DF9891325AA2FB9677E_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/0DAF2378406D4DF9891325AA2FB9677E_media.mp4"
+}
+</script>
+<title>Sem Cortes - 🍿Clau</title>
+</head>
+<body>
+<h1>Sem Cortes - 🍿Clau</h1>
+</body>
+</html>

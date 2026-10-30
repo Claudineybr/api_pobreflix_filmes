@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "O Açougueiro - 🍿Clau",
+  "description": "Assista O Açougueiro",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/o8e9qY7OPruSSb8i1aiHGGF4EPB.jpg"
+  ],
+  "uploadDate": "2018-10-01T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H25M",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/EF7454D31F7841EDB677E5AA1721D176_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/EF7454D31F7841EDB677E5AA1721D176_media.mp4"
+}
+</script>
+<title>O Açougueiro - 🍿Clau</title>
+</head>
+<body>
+<h1>O Açougueiro - 🍿Clau</h1>
+</body>
+</html>

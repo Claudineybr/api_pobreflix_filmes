@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Fale Comigo - 🍿Clau",
+  "description": "Assista Fale Comigo",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/7U3lC4YnHD8zpeoxbY6Hsj9jyeu.jpg"
+  ],
+  "uploadDate": "2023-09-29T00:00:00+00:00",
+  "inLanguage": "pt",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": {
+      "@type": "WatchAction"
+    },
+    "userInteractionCount": 5237
+  },
+  "duration": "PT1H49M",
+  "contentUrl": "https://fcoidok.cisantkdh.com/vod/5C5CA4AB3A9D4166A820CA49A520A5D7_media.mp4",
+  "embedUrl": "https://fcoidok.cisantkdh.com/vod/5C5CA4AB3A9D4166A820CA49A520A5D7_media.mp4"
+}
+</script>
+<title>Fale Comigo - 🍿Clau</title>
+</head>
+<body>
+<h1>Fale Comigo - 🍿Clau</h1>
+</body>
+</html>
