@@ -64,15 +64,16 @@ jobs:
               elif not url.startswith('http'): url = 'http://' + url
               return url.split()[0] if url.split() else ""
 
-          # FUNÇÃO DE LIMPEZA BRUTAL
           def limpar_nome_exibicao(nome):
-              for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
-                  nome = nome.replace(lixo, '')
-              nome = re.sub(r'\b(19|20)\d{2}\b', '', nome)
-              nome = re.sub(r'\(\s*\)', '', nome)
-              nome = re.sub(r'\s*-\s*-\s*', ' - ', nome)
-              nome = re.sub(r'\s+', ' ', nome)
-              return nome.strip(' - ')
+              nome_norm = unicodedata.normalize('NFKD', str(nome))
+              nome_norm = "".join([c for c in nome_norm if not unicodedata.combining(c)])
+              for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Marcosx7', 'Clau', 'clau', 'ViNi7x', 'Vini7x', 'ViNi', 'Vini']:
+                  nome_norm = re.sub(re.escape(lixo), '', nome_norm, flags=re.I)
+              nome_norm = re.sub(r'\b(19|20)\d{2}\b', '', nome_norm)
+              nome_norm = re.sub(r'\(\s*\)', '', nome_norm)
+              nome_norm = re.sub(r'\s*-\s*-\s*', ' - ', nome_norm)
+              nome_norm = re.sub(r'\s+', ' ', nome_norm)
+              return nome_norm.strip(' - ')
 
           for arq in arquivos:
               if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache', 'renomeados', 'lista', 'catalog', 'index']): 
@@ -104,33 +105,24 @@ jobs:
                   nome_limpo = limpar_nome_exibicao(nome_exato)
                   nome_final_json = f"{nome_limpo} - 🍿Clau"
 
-                  # --- AQUI ESTÁ A MÁGICA DO RENOMEAR ---
-                  # Cria um nome de arquivo seguro baseado no NOME e não no ID
                   slug_base = re.sub(r'[^a-z0-9]', '_', nome_limpo.lower())
                   slug_base = re.sub(r'_+', '_', slug_base).strip('_')
                   
-                  # Tenta extrair a tag T1E1 do nome para garantir que o arquivo seja único
                   m_tag = re.search(r'\bT(\d+)E(\d+)\b', nome_limpo, re.I)
                   if m_tag:
                       slug_base += f"_t{int(m_tag.group(1))}e{int(m_tag.group(2))}"
                   
-                  # Se por algum motivo o slug ficar vazio, usa o nome do arquivo antigo
                   if not slug_base:
                       slug_base = arq.stem.lower()
 
                   novo_nome_arq = f"{slug_base}.html"
-                  # -------------------------------------
-
                   base_url = "https://api-pobreflix-filmes.pages.dev"
                   url_unica = f"{base_url}/{novo_nome_arq}"
 
                   novo_json = {
                       "@context": "https://schema.org", "@type": "VideoObject",
-                      "@id": url_unica, 
-                      "url": url_unica, 
-                      "name": nome_final_json,
-                      "description": f"Assista {nome_final_json}",
-                      "thumbnailUrl": [capa_url],
+                      "@id": url_unica, "url": url_unica, "name": nome_final_json,
+                      "description": f"Assista {nome_final_json}", "thumbnailUrl": [capa_url],
                       "uploadDate": "2020-01-01T00:00:00+00:00", "inLanguage": "pt",
                       "contentUrl": nova_url, "embedUrl": nova_url
                   }
@@ -144,6 +136,7 @@ jobs:
                       "<head>",
                       "    <meta charset=\"UTF-8\">",
                       "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+                      "    <link rel=\"icon\" href=\"data:,\">", # <--- LINHA DO FAVICON AQUI
                       "    <script type=\"application/ld+json\">",
                       json_str,
                       "    </script>",
@@ -166,60 +159,48 @@ jobs:
               except Exception as e:
                   print(f"Erro ao processar {arq.name}: {e}")
 
-          # ORDENAÇÃO (A-Z, DEPOIS T, DEPOIS E)
           def ordenar_por_serie_e_episodio(item):
               nome = item['name']
               match = re.search(r'\bT(\d+)E(\d+)\b', nome, re.I)
-              
               base_name = re.split(r'\s*-\s*T\d+E\d+', nome, flags=re.I)[0].strip().lower()
               base_name = re.sub(r'[\(\)\[\]\-]', '', base_name).strip()
-              
-              if match:
-                  return (base_name, int(match.group(1)), int(match.group(2)))
-              else:
-                  return (base_name, 0, 0)
+              if match: return (base_name, int(match.group(1)), int(match.group(2)))
+              return (base_name, 0, 0)
 
           catalogo = sorted(catalogo, key=ordenar_por_serie_e_episodio)
           (dir_saida / "catalog.json").write_text(json.dumps(catalogo, ensure_ascii=False, indent=2), encoding="utf-8")
 
-          # INDEX HTML (mantido igual, com a ordenação no frontend)
           index_html = '''<!DOCTYPE html>
           <html lang="pt-BR">
           <head>
               <meta charset="UTF-8">
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <link rel="icon" href="data:,"> <!-- LINHA DO FAVICON AQUI -->
               <title>Busca - Rave</title>
               <style>
+                  /* ... (Seus estilos CSS continuam aqui) ... */
                   * { box-sizing: border-box; }
-                  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0f0f13; color: #fff; padding: 20px; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+                  body { font-family: 'Segoe UI', Roboto, sans-serif; background-color: #0f0f13; color: #fff; padding: 20px; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
                   .header { text-align: center; margin-top: 10vh; margin-bottom: 30px; transition: 0.3s; }
                   .header.searching { margin-top: 5vh; }
                   h1 { color: #e50914; font-size: 2.5rem; margin: 0; display: flex; align-items: center; justify-content: center; gap: 10px; }
-                  h1 span { font-size: 2rem; }
                   .search-container { width: 100%; max-width: 650px; position: relative; margin-bottom: 40px; }
-                  input { width: 100%; padding: 18px 24px; font-size: 18px; border-radius: 50px; border: 1px solid #333; background: #1c1c24; color: #fff; outline: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-                  input:focus { border-color: #e50914; box-shadow: 0 0 20px rgba(229, 9, 20, 0.2); background: #22222b; }
-                  .welcome-screen { text-align: center; color: #666; display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 50px; animation: fadeIn 0.5s ease; }
-                  .welcome-screen svg { width: 60px; height: 60px; opacity: 0.5; }
+                  input { width: 100%; padding: 18px 24px; font-size: 18px; border-radius: 50px; border: 1px solid #333; background: #1c1c24; color: #fff; outline: none; transition: 0.3s; }
+                  input:focus { border-color: #e50914; box-shadow: 0 0 20px rgba(229, 9, 20, 0.2); }
+                  .welcome-screen { text-align: center; color: #666; display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 50px; }
                   #resultados { width: 100%; max-width: 650px; display: flex; flex-direction: column; gap: 12px; display: none; }
-                  a { color: #fff; text-decoration: none; background: #1c1c24; padding: 18px 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; border-left: 4px solid transparent; animation: slideUp 0.3s ease; }
+                  a { color: #fff; text-decoration: none; background: #1c1c24; padding: 18px 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; border-left: 4px solid transparent; }
                   a:hover { background: #22222b; border-left-color: #e50914; transform: translateX(5px); }
-                  .item-name { font-weight: 500; font-size: 16px; }
-                  .item-icon { color: #555; transition: 0.2s; }
+                  .item-icon { color: #555; }
                   a:hover .item-icon { color: #e50914; }
-                  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-                  @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
               </style>
           </head>
           <body>
-              <div class="header" id="header">
-                  <h1><span>🍿</span> Rave Search</h1>
-              </div>
+              <div class="header" id="header"><h1><span>🍿</span> Rave Search</h1></div>
               <div class="search-container">
                   <input type="text" id="pesquisa" placeholder="Pesquise por um filme ou série..." autocomplete="off">
               </div>
               <div class="welcome-screen" id="welcome-screen">
-                  <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg>
                   <p>Digite para encontrar seu próximo filme.</p>
               </div>
               <div id="resultados"></div>
@@ -230,10 +211,18 @@ jobs:
                   const welcomeScreen = document.getElementById('welcome-screen');
                   const headerElement = document.getElementById('header');
 
-                  fetch('catalog.json')
-                      .then(response => response.json())
-                      .then(data => { catalogoCompleto = data; })
-                      .catch(err => console.error("Erro ao carregar catálogo:", err));
+                  fetch('catalog.json?v=' + new Date().getTime())
+                      .then(r => r.json()).then(data => catalogoCompleto = data)
+                      .catch(err => console.error(err));
+
+                  function limparVisual(nome) {
+                      let n = nome.normalize('NFKC');
+                      n = n.replace(/(🍿clau|🍿|clau|🕸️\\s*pk|🕸️|pk|👾|marcos|vini7x|vini)/gi, '');
+                      n = n.replace(/\\b(19|20)\\d{2}\\b/g, '');
+                      n = n.replace(/\\(\\s*\\)/g, '');
+                      n = n.replace(/\\s*-\\s*-\\s*/g, ' - ');
+                      return n.replace(/\\s+/g, ' ').trim().replace(/^[-]+|[-]+$/g, '');
+                  }
 
                   inputElement.addEventListener('input', (e) => {
                       const termo = e.target.value.toLowerCase().trim();
@@ -248,51 +237,33 @@ jobs:
                       headerElement.classList.add('searching');
                       if (termo.length < 2) { containerResultados.innerHTML = ''; return; }
 
-                      let filtrados = catalogoCompleto.filter(item => item.name.toLowerCase().includes(termo));
+                      let filtrados = catalogoCompleto.filter(item => limparVisual(item.name).toLowerCase().includes(termo));
                       
                       filtrados.sort((a, b) => {
-                          const m_a = a.name.match(/T(\d+)E(\d+)/i);
-                          const m_b = b.name.match(/T(\d+)E(\d+)/i);
-                          
-                          const base_a = a.name.split(/ - T\d+E\d+/i)[0].replace(/[\(\)\[\]\-]/g, '').trim().toLowerCase();
-                          const base_b = b.name.split(/ - T\d+E\d+/i)[0].replace(/[\(\)\[\]\-]/g, '').trim().toLowerCase();
-
+                          const name_a = limparVisual(a.name), name_b = limparVisual(b.name);
+                          const m_a = name_a.match(/T(\\d+)E(\\d+)/i), m_b = name_b.match(/T(\\d+)E(\\d+)/i);
+                          const base_a = name_a.split(/ - T\\d+E\\d+/i)[0].replace(/[\\(\\)\\[\\]\\-]/g, '').trim().toLowerCase();
+                          const base_b = name_b.split(/ - T\\d+E\\d+/i)[0].replace(/[\\(\\)\\[\\]\\-]/g, '').trim().toLowerCase();
                           if (base_a < base_b) return -1;
                           if (base_a > base_b) return 1;
-
                           if (m_a && m_b) {
-                              const s_a = parseInt(m_a[1], 10);
-                              const s_b = parseInt(m_b[1], 10);
+                              const s_a = parseInt(m_a[1], 10), s_b = parseInt(m_b[1], 10);
                               if (s_a !== s_b) return s_a - s_b;
-                              
-                              const e_a = parseInt(m_a[2], 10);
-                              const e_b = parseInt(m_b[2], 10);
+                              const e_a = parseInt(m_a[2], 10), e_b = parseInt(m_b[2], 10);
                               return e_a - e_b;
                           }
                           return 0;
                       });
-
                       exibirResultados(filtrados.slice(0, 100));
                   });
 
                   function exibirResultados(itens) {
                       containerResultados.innerHTML = '';
-                      if (itens.length === 0) {
-                          containerResultados.innerHTML = '<div style="text-align:center; color:#666; margin-top:20px;">Nenhum resultado encontrado.</div>';
-                          return;
-                      }
+                      if (itens.length === 0) { containerResultados.innerHTML = '<div style="text-align:center; color:#666;">Nenhum resultado encontrado.</div>'; return; }
                       itens.forEach(item => {
                           const a = document.createElement('a');
-                          a.href = item.file;
-                          a.target = "_blank";
-                          const nameSpan = document.createElement('span');
-                          nameSpan.className = 'item-name';
-                          nameSpan.textContent = item.name;
-                          const iconSpan = document.createElement('span');
-                          iconSpan.className = 'item-icon';
-                          iconSpan.textContent = '▶';
-                          a.appendChild(nameSpan);
-                          a.appendChild(iconSpan);
+                          a.href = item.file; a.target = "_blank";
+                          a.innerHTML = `<span class="item-name">${limparVisual(item.name)} - 🍿Clau</span><span class="item-icon">▶</span>`;
                           containerResultados.appendChild(a);
                       });
                   }
@@ -308,11 +279,9 @@ jobs:
           sed -i "s|ORIGEM_PATH|$T/origem|g; s|NOVOS_PATH|$T/novos|g; s|SAIDA_PATH|$T/saida|g" "$T/filtrar.py"
           python3 -I "$T/filtrar.py"
           
-          # Deleta os HTML e JSON antigos (incluindo os "100088_S1E1.html")
           find . -maxdepth 1 -name "*.json" ! -name "catalog.json" -delete
           find . -maxdepth 1 -name "*.html" ! -name "index.html" -delete
           
-          # Copia os novos arquivos renomeados
           cp -f "$T"/saida/*.html .
           cp -f "$T"/saida/*.json .
           if [ -f "$T/saida/urls_invalidas.txt" ]; then cp -f "$T/saida/urls_invalidas.txt" .; fi
@@ -323,7 +292,7 @@ jobs:
           git config user.email "Claudineybr@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "sync: renomear arquivos usando o title do JSON"
+          git commit -m "sync: bloquear favicon e normalizar caracteres"
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then exit 0; fi
             git pull origin main --no-rebase -X ours --no-edit || true
