@@ -1,7 +1,7 @@
-name: Teste Catalogo de Busca (JSON)
+name: Teste Catalogo de Busca (Dashboard Clean)
 
 on:
-  workflow_dispatch: # Roda só na mão
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -17,63 +17,132 @@ jobs:
 
       - name: Criar Index e Gerar Catalog.json
         run: |
-          # 1. Cria o index.html com o visual bonito
+          # 1. Cria o index.html super clean
           cat > index.html << 'HTMLEOF'
           <!DOCTYPE html>
           <html lang="pt-BR">
           <head>
               <meta charset="UTF-8">
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>API Filmes</title>
+              <title>Busca - Rave</title>
               <style>
-                  body { font-family: Arial, sans-serif; background-color: #121212; color: #fff; padding: 20px; margin: 0; }
-                  h1 { color: #e50914; text-align: center; }
-                  input { width: 100%; max-width: 600px; padding: 12px; font-size: 16px; border-radius: 8px; border: 1px solid #333; background: #222; color: #fff; display: block; margin: 0 auto 20px auto; outline: none; }
-                  input:focus { border-color: #e50914; }
-                  #resultados { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
-                  a { color: #fff; text-decoration: none; background: #222; padding: 15px; border-radius: 8px; display: block; transition: 0.2s; border-left: 4px solid transparent; }
-                  a:hover { background: #333; border-left-color: #e50914; }
+                  * { box-sizing: border-box; }
+                  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0f0f13; color: #fff; padding: 20px; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+                  
+                  .header { text-align: center; margin-top: 10vh; margin-bottom: 30px; transition: 0.3s; }
+                  .header.searching { margin-top: 5vh; }
+                  
+                  h1 { color: #e50914; font-size: 2.5rem; margin: 0; display: flex; align-items: center; justify-content: center; gap: 10px; }
+                  h1 span { font-size: 2rem; }
+                  
+                  .search-container { width: 100%; max-width: 650px; position: relative; margin-bottom: 40px; }
+                  
+                  input { width: 100%; padding: 18px 24px; font-size: 18px; border-radius: 50px; border: 1px solid #333; background: #1c1c24; color: #fff; outline: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+                  input:focus { border-color: #e50914; box-shadow: 0 0 20px rgba(229, 9, 20, 0.2); background: #22222b; }
+                  
+                  .welcome-screen { text-align: center; color: #666; display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 50px; animation: fadeIn 0.5s ease; }
+                  .welcome-screen svg { width: 60px; height: 60px; opacity: 0.5; }
+                  
+                  #resultados { width: 100%; max-width: 650px; display: flex; flex-direction: column; gap: 12px; display: none; }
+                  
+                  a { color: #fff; text-decoration: none; background: #1c1c24; padding: 18px 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; border-left: 4px solid transparent; animation: slideUp 0.3s ease; }
+                  a:hover { background: #22222b; border-left-color: #e50914; transform: translateX(5px); }
+                  
+                  .item-name { font-weight: 500; font-size: 16px; }
+                  .item-icon { color: #555; transition: 0.2s; }
+                  a:hover .item-icon { color: #e50914; }
+
+                  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+                  @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
               </style>
           </head>
           <body>
-              <h1>🍿 Catálogo Rave</h1>
-              <input type="text" id="pesquisa" placeholder="Digite o nome do filme ou série...">
+
+              <div class="header" id="header">
+                  <h1><span>🍿</span> Rave Search</h1>
+              </div>
+              
+              <div class="search-container">
+                  <input type="text" id="pesquisa" placeholder="Pesquise por um filme ou série..." autocomplete="off">
+              </div>
+
+              <div class="welcome-screen" id="welcome-screen">
+                  <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg>
+                  <p>Digite para encontrar seu próximo filme.</p>
+              </div>
+
               <div id="resultados"></div>
+
               <script>
                   let catalogoCompleto = [];
+                  const inputElement = document.getElementById('pesquisa');
+                  const containerResultados = document.getElementById('resultados');
+                  const welcomeScreen = document.getElementById('welcome-screen');
+                  const headerElement = document.getElementById('header');
+
+                  // Carrega o catálogo silenciosamente
                   fetch('catalog.json')
                       .then(response => response.json())
                       .then(data => {
                           catalogoCompleto = data;
-                          exibirResultados(catalogoCompleto.slice(0, 50)); // Mostra os 50 primeiros ao abrir
                       })
                       .catch(err => console.error("Erro ao carregar catálogo:", err));
 
-                  document.getElementById('pesquisa').addEventListener('input', (e) => {
-                      const termo = e.target.value.toLowerCase();
-                      if (termo.length < 2) {
-                          exibirResultados(catalogoCompleto.slice(0, 50));
+                  // Filtra enquanto digita
+                  inputElement.addEventListener('input', (e) => {
+                      const termo = e.target.value.toLowerCase().trim();
+                      
+                      // Se estiver vazio, volta para a tela de boas vindas
+                      if (termo.length === 0) {
+                          containerResultados.style.display = 'none';
+                          welcomeScreen.style.display = 'flex';
+                          headerElement.classList.remove('searching');
                           return;
                       }
+
+                      // Se tiver digitando, esconde boas vindas
+                      welcomeScreen.style.display = 'none';
+                      containerResultados.style.display = 'flex';
+                      headerElement.classList.add('searching');
+
+                      // Se digitou menos de 2 letras, espera
+                      if (termo.length < 2) {
+                          containerResultados.innerHTML = '';
+                          return;
+                      }
+
+                      // Filtra os filmes
                       const filtrados = catalogoCompleto.filter(item => 
                           item.name.toLowerCase().includes(termo)
                       );
-                      exibirResultados(filtrados.slice(0, 50));
+                      
+                      exibirResultados(filtrados.slice(0, 50)); // Limita a 50 para não travar
                   });
 
                   function exibirResultados(itens) {
-                      const container = document.getElementById('resultados');
-                      container.innerHTML = '';
+                      containerResultados.innerHTML = '';
+                      
                       if (itens.length === 0) {
-                          container.innerHTML = '<p style="text-align:center; color:#888;">Nenhum filme encontrado.</p>';
+                          containerResultados.innerHTML = '<div style="text-align:center; color:#666; margin-top:20px;">Nenhum resultado encontrado.</div>';
                           return;
                       }
+
                       itens.forEach(item => {
                           const a = document.createElement('a');
-                          a.href = item.file; // Vai apontar para o .json por enquanto
-                          a.textContent = item.name;
+                          a.href = item.file;
                           a.target = "_blank";
-                          container.appendChild(a);
+                          
+                          const nameSpan = document.createElement('span');
+                          nameSpan.className = 'item-name';
+                          nameSpan.textContent = item.name;
+                          
+                          const iconSpan = document.createElement('span');
+                          iconSpan.className = 'item-icon';
+                          iconSpan.textContent = '▶';
+                          
+                          a.appendChild(nameSpan);
+                          a.appendChild(iconSpan);
+                          containerResultados.appendChild(a);
                       });
                   }
               </script>
@@ -81,48 +150,62 @@ jobs:
           </html>
           HTMLEOF
 
-          # 2. Gera o catalog.json lendo os arquivos .json existentes
+          # 2. Gera o catalog.json com filtros rigorosos
           cat > /tmp/gerar_catalogo.py << 'PYEOF'
           import os, json, re
 
           catalogo = []
           arquivos = os.listdir('.')
           
-          # Filtra só os .json de filmes/séries (ignora os de controle)
           arquivos_json = [f for f in arquivos if f.endswith('.json') and 'pendentes' not in f and 'catalog.json' not in f]
-          print(f"Total de arquivos .json encontrados: {len(arquivos_json)}")
+          
+          ignorados = 0
 
           for arquivo in arquivos_json:
               try:
                   with open(arquivo, 'r', encoding='utf-8') as f:
                       conteudo = f.read()
                       
-                      # Tenta ler o JSON puro
                       dados = None
                       try:
                           dados = json.loads(conteudo)
                       except:
-                          # Se for um HTML com JSON dentro, tenta pescar o bloco
                           match = re.search(r'<script type="application/ld\+json">(.*?)</script>', conteudo, re.S)
                           if match:
                               try: dados = json.loads(match.group(1))
                               except: pass
                       
                       if dados and "name" in dados:
-                          catalogo.append({
-                              "name": dados["name"],
-                              "file": arquivo # Mantém o link para o JSON
-                          })
-              except Exception as e:
-                  pass # Ignora arquivos corrompidos
+                          nome_original = dados["name"]
+                          
+                          # FILTRO: Ignora lixos que começam com símbolos estranhos
+                          if re.match(r'^[\-\+\(\[\#\.\s]', nome_original): 
+                              ignorados += 1
+                              continue
+                          
+                          # LIMPEZA: Tira o "- 🍿Clau" e o ano
+                          nome_limpo = re.sub(r'\s*-\s*🍿Clau\s*$', '', nome_original)
+                          nome_limpo = re.sub(r'\s*\(?\d{4}\)?\s*$', '', nome_limpo).strip()
+                          nome_limpo = re.sub(r'\s*-\s*$', '', nome_limpo).strip() # Tira traço solto no final
 
-          # Ordena de A a Z
-          catalogo = sorted(catalogo, key=lambda x: x['name'])
+                          if len(nome_limpo) < 3: 
+                              ignorados += 1
+                              continue
+
+                          catalogo.append({
+                              "name": nome_limpo,
+                              "file": arquivo
+                          })
+              except Exception:
+                  pass
+
+          # Ordena alfabeticamente
+          catalogo = sorted(catalogo, key=lambda x: x['name'].lower())
           
           with open('catalog.json', 'w', encoding='utf-8') as f:
               json.dump(catalogo, f, ensure_ascii=False, indent=2)
               
-          print(f"catalog.json gerado com {len(catalogo)} itens para pesquisa.")
+          print(f"Concluído! {len(catalogo)} filmes no catálogo. {ignorados} arquivos com nome sujo foram ignorados.")
           PYEOF
           python3 /tmp/gerar_catalogo.py
 
@@ -131,18 +214,18 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
-          # Salva o index e o catalog
+          # Adiciona APENAS o index e o catalog (os filmes em json não são tocados)
           git add index.html catalog.json
           
           if git diff --cached --quiet; then echo "Nada novo."; exit 0; fi
           
-          git commit -m "test: gerar index e catalog.json para pesquisa (json)"
+          git commit -m "feat: dashboard clean com pesquisa (sem alterar filmes)"
           
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then break; fi
             git fetch origin main
             git reset --mixed origin/main
             git add index.html catalog.json
-            git commit -m "test: retry $i" || true
+            git commit -m "feat: retry $i" || true
             sleep $((RANDOM % 10 + 5))
           done
