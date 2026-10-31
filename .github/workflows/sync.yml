@@ -2,7 +2,7 @@ name: Sincronizar, Limpar e Padronizar
 
 on:
   schedule:
-    - cron: '0 */6 * * *' # Roda a cada 6 horas
+    - cron: '0 */6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -25,11 +25,9 @@ jobs:
           set -e
           T=$(mktemp -d)
           
-          # 1. Clona a fonte original e o seu catálogo
           git clone --depth 1 https://github.com/WaveLy2308/api_pobreflix_filmes.git "$T/origem" || true
           git clone --depth 1 https://github.com/Claudineybr/catalogocompleto.git "$T/novos"
           
-          # 2. Roda o script Python
           cat > "$T/filtrar.py" << 'PYEOF'
           import re
           import shutil
@@ -50,23 +48,12 @@ jobs:
 
           if dir_origem:
               arquivos.extend(list(dir_origem.glob("*.json")))
-              arquivos.extend(list(dir_origem.glob("*.html")))
           arquivos.extend(list(dir_novos.glob("*.json")))
-          arquivos.extend(list(dir_novos.glob("*.html")))
 
           def prioridade(arq):
               is_novo = 1 if dir_novos in arq.parents else 0
               return (is_novo, len(arq.name))
           arquivos.sort(key=prioridade, reverse=True)
-
-          def limpar_nome(nome):
-              # Remove marcas d'água e lixos
-              for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
-                  nome = nome.replace(lixo, '')
-              # Arruma espaços e traços duplos
-              nome = re.sub(r'\s+', ' ', nome)
-              nome = re.sub(r'\s*-\s*-\s*', ' - ', nome)
-              return nome.strip(' -')
 
           def clean_url(url):
               if not url: return ""
@@ -90,9 +77,8 @@ jobs:
                   
                   if not nova_url:
                       urls_quebradas.append(arq.name)
-                      nova_url = url if url else "http://quebrado.com/video.mp4"
+                      continue
 
-                  # Trava de segurança: Só pula se o link do vídeo for EXATAMENTE o mesmo
                   clean_url_lower = nova_url.split('?')[0].lower()
                   if clean_url_lower in links_vistos: 
                       continue 
@@ -102,21 +88,13 @@ jobs:
                   match_capa = re.search(r'"thumbnailUrl"\s*:\s*\[\s*"([^"]+)"', content)
                   if match_capa: capa_url = match_capa.group(1)
 
-                  # LÊ O NOME DO JSON E CONFIA NELE
                   match_name = re.search(r'"name"\s*:\s*"([^"]*)"', content)
-                  nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '').replace('.html', '')
+                  nome_exato = match_name.group(1) if match_name else arq.stem
                   
-                  # Limpa o nome mantendo a formatação T1E1 que já veio do catálogo
-                  nome_final_json = limpar_nome(nome_atual)
-                  if " - 🍿Clau" not in nome_final_json:
-                      nome_final_json += " - 🍿Clau"
+                  nome_limpo = nome_exato.replace(' - 🍿Clau', '').replace('🍿Clau', '').strip(' - ')
+                  nome_final_json = f"{nome_limpo} - 🍿Clau"
 
-                  # Gera um nome de arquivo seguro baseado no nome do JSON
-                  slug = re.sub(r'[^a-z0-9]', '_', nome_final_json.lower())
-                  slug = re.sub(r'_+', '_', slug).strip('_')
-                  # Remove a extensão do clau e de anos duplicados no slug para não quebrar o link
-                  slug = slug.replace('_clau', '')
-                  novo_nome_arq = f"{slug}.html"
+                  novo_nome_arq = arq.with_suffix('.html').name
 
                   base_url = "https://api-pobreflix-filmes.pages.dev"
                   url_unica = f"{base_url}/{novo_nome_arq}"
@@ -163,11 +141,26 @@ jobs:
               except Exception as e:
                   print(f"Erro ao processar {arq.name}: {e}")
 
-          # SALVA O CATALOG.JSON PARA A BUSCA
-          catalogo = sorted(catalogo, key=lambda x: x['name'].lower())
+          # ==========================================
+          # AQUI ESTÁ A MÁGICA DA ORDENAÇÃO (A-Z -> T -> E)
+          # ==========================================
+          def ordenar_por_serie_e_episodio(item):
+              nome = item['name']
+              # Tenta achar T1E1
+              match = re.search(r'\bT(\d+)E(\d+)\b', nome, re.I)
+              
+              # Pega o nome base (tudo antes do T1E1)
+              base_name = re.split(r'\s*-\s*T\d+E\d+', nome, flags=re.I)[0].strip().lower()
+              
+              if match:
+                  return (base_name, int(match.group(1)), int(match.group(2)))
+              else:
+                  return (base_name, 0, 0) # Filmes vêm primeiro
+
+          catalogo = sorted(catalogo, key=ordenar_por_serie_e_episodio)
           (dir_saida / "catalog.json").write_text(json.dumps(catalogo, ensure_ascii=False, indent=2), encoding="utf-8")
 
-          # GERA O INDEX.HTML NOVAMENTE
+          # INDEX HTML
           index_html = '''<!DOCTYPE html>
           <html lang="pt-BR">
           <head>
@@ -233,8 +226,32 @@ jobs:
                       headerElement.classList.add('searching');
                       if (termo.length < 2) { containerResultados.innerHTML = ''; return; }
 
-                      const filtrados = catalogoCompleto.filter(item => item.name.toLowerCase().includes(termo));
-                      exibirResultados(filtrados.slice(0, 50));
+                      let filtrados = catalogoCompleto.filter(item => item.name.toLowerCase().includes(termo));
+                      
+                      // ORDENAÇÃO NO FRONTEND TAMBÉM (Garante que fique perfeito na tela)
+                      filtrados.sort((a, b) => {
+                          const m_a = a.name.match(/T(\d+)E(\d+)/i);
+                          const m_b = b.name.match(/T(\d+)E(\d+)/i);
+                          
+                          const base_a = a.name.split(/ - T\d+E\d+/i)[0].toLowerCase();
+                          const base_b = b.name.split(/ - T\d+E\d+/i)[0].toLowerCase();
+
+                          if (base_a < base_b) return -1;
+                          if (base_a > base_b) return 1;
+
+                          if (m_a && m_b) {
+                              const s_a = parseInt(m_a[1], 10);
+                              const s_b = parseInt(m_b[1], 10);
+                              if (s_a !== s_b) return s_a - s_b;
+                              
+                              const e_a = parseInt(m_a[2], 10);
+                              const e_b = parseInt(m_b[2], 10);
+                              return e_a - e_b;
+                          }
+                          return 0;
+                      });
+
+                      exibirResultados(filtrados.slice(0, 100));
                   });
 
                   function exibirResultados(itens) {
@@ -265,19 +282,14 @@ jobs:
 
           if urls_quebradas:
               (dir_saida / "urls_invalidas.txt").write_text("\n".join(urls_quebradas), encoding="utf-8")
-              
-          print(f"Total de arquivos HTML processados: {copiados}")
-          print(f"Catalog.json gerado com {len(catalogo)} itens.")
           PYEOF
 
           sed -i "s|ORIGEM_PATH|$T/origem|g; s|NOVOS_PATH|$T/novos|g; s|SAIDA_PATH|$T/saida|g" "$T/filtrar.py"
           python3 -I "$T/filtrar.py"
           
-          # SEGURANÇA: Não apaga o index.html e nem o catalog.json
           find . -maxdepth 1 -name "*.json" ! -name "catalog.json" -delete
           find . -maxdepth 1 -name "*.html" ! -name "index.html" -delete
           
-          # COPIA OS NOVOS ARQUIVOS
           cp -f "$T"/saida/*.html .
           cp -f "$T"/saida/*.json .
           if [ -f "$T/saida/urls_invalidas.txt" ]; then cp -f "$T/saida/urls_invalidas.txt" .; fi
@@ -288,7 +300,7 @@ jobs:
           git config user.email "Claudineybr@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "sync: conversao direta do json preservando nomes corretos"
+          git commit -m "sync: ordenacao A-Z, Temporada e Episodio"
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then exit 0; fi
             git pull origin main --no-rebase -X ours --no-edit || true
