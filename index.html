@@ -63,8 +63,32 @@
             headerElement.classList.add('searching');
             if (termo.length < 2) { containerResultados.innerHTML = ''; return; }
 
-            const filtrados = catalogoCompleto.filter(item => item.name.toLowerCase().includes(termo));
-            exibirResultados(filtrados.slice(0, 50));
+            let filtrados = catalogoCompleto.filter(item => item.name.toLowerCase().includes(termo));
+            
+            // ORDENAÇÃO NO FRONTEND TAMBÉM (Garante que fique perfeito na tela)
+            filtrados.sort((a, b) => {
+                const m_a = a.name.match(/T(\d+)E(\d+)/i);
+                const m_b = b.name.match(/T(\d+)E(\d+)/i);
+                
+                const base_a = a.name.split(/ - T\d+E\d+/i)[0].toLowerCase();
+                const base_b = b.name.split(/ - T\d+E\d+/i)[0].toLowerCase();
+
+                if (base_a < base_b) return -1;
+                if (base_a > base_b) return 1;
+
+                if (m_a && m_b) {
+                    const s_a = parseInt(m_a[1], 10);
+                    const s_b = parseInt(m_b[1], 10);
+                    if (s_a !== s_b) return s_a - s_b;
+                    
+                    const e_a = parseInt(m_a[2], 10);
+                    const e_b = parseInt(m_b[2], 10);
+                    return e_a - e_b;
+                }
+                return 0;
+            });
+
+            exibirResultados(filtrados.slice(0, 100));
         });
 
         function exibirResultados(itens) {
