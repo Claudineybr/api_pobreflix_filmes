@@ -1,4 +1,4 @@
-name: Sincronizar, Limpar e Converter para HTML
+name: Sincronizar, Limpar e Padronizar
 
 on:
   schedule:
@@ -20,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Baixar, Filtrar, Converter para HTML e Gerar Dashboard
+      - name: Baixar, Filtrar, Converter e Gerar Dashboard
         run: |
           set -e
           T=$(mktemp -d)
@@ -42,6 +42,7 @@ jobs:
           dir_saida = Path("SAIDA_PATH")
           dir_saida.mkdir(parents=True, exist_ok=True)
 
+          links_vistos = set() # <--- CONTROLE DE DUPLICADOS AQUI
           copiados = 0
           arquivos = []
           urls_quebradas = []
@@ -49,35 +50,41 @@ jobs:
 
           if dir_origem:
               arquivos.extend(list(dir_origem.glob("*.json")))
+              arquivos.extend(list(dir_origem.glob("*.html")))
           arquivos.extend(list(dir_novos.glob("*.json")))
+          arquivos.extend(list(dir_novos.glob("*.html")))
+
+          def prioridade(arq):
+              is_novo = 1 if dir_novos in arq.parents else 0
+              return (is_novo, len(arq.name))
+          arquivos.sort(key=prioridade, reverse=True)
+
+          def extract_episode(text):
+              if not text: return ""
+              m = re.search(r'(?i)t\s*(\d+)\s*[._-]?\s*(?:e|ep|epis[oó]dio)\s*[._-]?\s*(\d+)', text)
+              if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
+              m = re.search(r'\b(\d{1,2})x(\d{1,3})\b', text)
+              if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
+              return ""
 
           def limpar_titulo(raw_text):
               if not raw_text: return "Desconhecido"
-              
               texto_norm = unicodedata.normalize('NFKD', str(raw_text))
               texto_norm = "".join([c for c in texto_norm if not unicodedata.combining(c)])
               
               for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
                   texto_norm = texto_norm.replace(lixo, '')
                   
-              texto_norm = re.sub(r'(?i)Epis[oó]dio\s*\d+', '', texto_norm)
-              texto_norm = re.sub(r'(?i)\bepis[oó]dio\b', '', texto_norm)
+              texto_norm = re.sub(r'(?i)t\s*\d+\s*[._-]?\s*(?:e|ep|epis[oó]dio)\s*[._-]?\s*\d+', '', texto_norm)
+              texto_norm = re.sub(r'\b\d{1,2}x\d{1,3}\b', '', texto_norm)
               texto_norm = texto_norm.replace('_', ' ')
-              texto_norm = re.sub(r'\s*-\s*-\s*', ' - ', texto_norm)
               
               partes = [p.strip() for p in re.split(r'\s+[-–—]\s+', texto_norm) if p.strip()]
-              partes_limpas = []
+              partes_limpas = [p for p in partes if not any(pref in p.lower() for pref in ['vini', 'marcos', 'inix', 'lili', 'estrelinha', 'grave', 'site', 'online', 'blogspot', 'assistir', 'download'])]
               
-              for p in partes:
-                  p_lower = p.lower()
-                  if any(pref in p_lower for pref in ['vini', 'marcos', 'inix', 'lili', 'estrelinha', 'grave', 'site', 'online', 'blogspot', 'assistir', 'download']):
-                      continue
-                  partes_limpas.append(p)
-                  
-              titulo_final = ' - '.join(partes_limpas) if partes_limpas else partes[0] if partes else "Desconhecido"
-              titulo_final = re.sub(r'[\s.:;,]+$', '', titulo_final).strip()
-              
-              return titulo_final if titulo_final else "Desconhecido"
+              titulo_base = partes_limpas[0] if partes_limpas else "Desconhecido"
+              titulo_base = re.sub(r'\b(19\d{2}|20\d{2})\b', '', titulo_base).strip()
+              return re.sub(r'[\s.:;,]+$', '', titulo_base).strip()
 
           def clean_url(url):
               if not url: return ""
@@ -89,13 +96,12 @@ jobs:
               return url.split()[0] if url.split() else ""
 
           for arq in arquivos:
-              if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache', 'renomeados', 'lista', 'catalog']): 
+              if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache', 'renomeados', 'lista', 'catalog', 'index']): 
                   continue
                   
               try:
                   content = arq.read_text(encoding='utf-8-sig')
                   
-                  # 1. Extrai a URL do Vídeo
                   url_match = re.search(r'"(?:contentUrl|embedUrl)"\s*:\s*"([^"]*)"', content)
                   url = url_match.group(1) if url_match else ""
                   nova_url = clean_url(url)
@@ -104,61 +110,42 @@ jobs:
                       urls_quebradas.append(arq.name)
                       nova_url = url if url else "http://quebrado.com/video.mp4"
 
-                  # 2. Extrai a CAPA (Thumbnail)
-                  thumb_match = re.search(r'"thumbnailUrl"\s*:\s*\[\s*"([^"]*)"', content)
-                  capa_url = thumb_match.group(1) if thumb_match else "https://via.placeholder.com/500x750?text=Sem+Capa"
+                  # CHECAGEM DE DUPLICADO: Só ignora se o link for EXATAMENTE o mesmo
+                  clean_url_lower = nova_url.split('?')[0].lower()
+                  if clean_url_lower in links_vistos: 
+                      continue # Pula esse arquivo, pois é duplicado
+                  links_vistos.add(clean_url_lower)
 
-                  # 3. Extrai o Nome de dentro do JSON
+                  capa_url = "https://via.placeholder.com/500x750?text=Sem+Capa"
+                  match_capa = re.search(r'"thumbnailUrl"\s*:\s*\[\s*"([^"]+)"', content)
+                  if match_capa: capa_url = match_capa.group(1)
+
                   match_name = re.search(r'"name"\s*:\s*"([^"]*)"', content)
-                  nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '')
+                  nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '').replace('.html', '')
+                  if len(nome_atual) < 5: nome_atual = arq.name.replace('.json', '').replace('.html', '')
 
-                  # Tenta achar T1E1 no NOME DO JSON, senão no NOME DO ARQUIVO
-                  match_ep_nome = re.search(r'(?i)\bT(\d+)E(\d+)\b', nome_atual)
-                  match_ep_arq = re.search(r'(?i)_t(\d+)e(\d+)', arq.name)
-                  
-                  temp, ep = None, None
-                  if match_ep_nome:
-                      temp, ep = match_ep_nome.group(1), match_ep_nome.group(2)
-                  elif match_ep_arq:
-                      temp, ep = match_ep_arq.group(1), match_ep_arq.group(2)
+                  ep_tag = extract_episode(nome_atual) or extract_episode(arq.name) or extract_episode(nova_url)
 
                   titulo_limpo = limpar_titulo(nome_atual)
-                  
-                  # Pega o ano
                   match_ano = re.search(r'\b(19\d{2}|20\d{2})\b', nome_atual)
                   ano = match_ano.group(1) if match_ano else ""
 
-                  # Remove QUALQUER ano do título (para não duplicar)
-                  titulo_base = re.sub(r'\(?\d{4}\)?', '', titulo_limpo).strip()
-                  
-                  # Remove QUALQUER T1E1 do título (para não duplicar)
-                  titulo_base = re.sub(r'(?i)\bT\d+E\d+\b', '', titulo_base).strip()
-                  titulo_base = re.sub(r'\s*-\s*-\s*', ' - ', titulo_base).strip(' -')
+                  if ep_tag:
+                      novo_nome_json = f"{titulo_limpo} - {ep_tag} - 🍿Clau"
+                  else:
+                      novo_nome_json = f"{titulo_limpo} ({ano}) - 🍿Clau" if ano else f"{titulo_limpo} - 🍿Clau"
 
-                  if temp and ep:
-                      ep_tag = f"T{int(temp)}E{int(ep)}"
-                      
-                      partes = [p.strip() for p in titulo_base.split(' - ') if p.strip()]
-                      if len(partes) > 1:
-                          novo_nome_json = f"{partes[0]} - {ep_tag} - {' - '.join(partes[1:])} - 🍿Clau"
-                      else:
-                          novo_nome_json = f"{titulo_base} - {ep_tag} - 🍿Clau"
-                          
-                      slug = re.sub(r'[^a-z0-9]', '_', partes[0].lower() if partes else titulo_base.lower())
-                      slug = re.sub(r'_+', '_', slug).strip('_')
+                  slug = re.sub(r'[^a-z0-9]', '_', titulo_limpo.lower())
+                  slug = re.sub(r'_+', '_', slug).strip('_')
+                  
+                  if ep_tag:
                       novo_nome_arq = f"{slug}_{ep_tag.lower()}.html"
                   else:
-                      novo_nome_json = f"{titulo_base} ({ano}) - 🍿Clau" if ano else f"{titulo_base} - 🍿Clau"
-                      
-                      slug = re.sub(r'[^a-z0-9]', '_', titulo_base.lower())
-                      slug = re.sub(r'_+', '_', slug).strip('_')
                       novo_nome_arq = f"{slug}_{ano}.html" if ano else f"{slug}.html"
 
-                  # URL BASE DA CLOUDFLARE PARA O ID ÚNICO
                   base_url = "https://api-pobreflix-filmes.pages.dev"
                   url_unica = f"{base_url}/{novo_nome_arq}"
 
-                  # 5. CRIA O HTML COM O PLAYER, CAPA E ID ÚNICO
                   novo_json = {
                       "@context": "https://schema.org", "@type": "VideoObject",
                       "@id": url_unica, 
@@ -170,37 +157,42 @@ jobs:
                       "contentUrl": nova_url, "embedUrl": nova_url
                   }
                   
-                  html_final = f'''<!DOCTYPE html>
-          <html lang="pt-BR">
-          <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <script type="application/ld+json">
-          {json.dumps(novo_json, ensure_ascii=False, indent=2)}
-              </script>
-              <title>{novo_nome_json}</title>
-              <style>
-                  body, html {{ margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }}
-                  video {{ width: 100%; height: 100%; outline: none; }}
-              </style>
-          </head>
-          <body>
-              <video src="{nova_url}" poster="{capa_url}" controls autoplay playsinline></video>
-          </body>
-          </html>'''
-
-                  (dir_saida / novo_nome_arq).write_text(html_final, encoding='utf-8')
                   catalogo.append({"name": novo_nome_json, "file": novo_nome_arq})
+                  
+                  json_str = json.dumps(novo_json, ensure_ascii=False, indent=2)
+                  html_lines = [
+                      "<!DOCTYPE html>",
+                      "<html lang=\"pt-BR\">",
+                      "<head>",
+                      "    <meta charset=\"UTF-8\">",
+                      "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+                      "    <script type=\"application/ld+json\">",
+                      json_str,
+                      "    </script>",
+                      f"    <title>{novo_nome_json}</title>",
+                      "    <style>",
+                      "        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }",
+                      "        video { width: 100%; height: 100%; outline: none; }",
+                      "    </style>",
+                      "</head>",
+                      "<body>",
+                      f"    <video src=\"{nova_url}\" poster=\"{capa_url}\" controls autoplay playsinline></video>",
+                      "</body>",
+                      "</html>"
+                  ]
+                  novo_html = "\n".join(html_lines)
+
+                  (dir_saida / novo_nome_arq).write_text(novo_html, encoding='utf-8')
                   copiados += 1
                   
               except Exception as e:
-                  print(f"[ERRO] Falha em {arq.name}: {e}")
+                  print(f"Erro: {e}")
 
-          # Gera o catalog.json
+          # SALVA O CATALOG.JSON PARA A BUSCA
           catalogo = sorted(catalogo, key=lambda x: x['name'].lower())
-          (dir_saida / "catalog.json").write_text(json.dumps(catalogo, ensure_ascii=False, indent=2), encoding='utf-8')
+          (dir_saida / "catalog.json").write_text(json.dumps(catalogo, ensure_ascii=False, indent=2), encoding="utf-8")
 
-          # Gera o index.html
+          # GERA O INDEX.HTML NOVAMENTE
           index_html = '''<!DOCTYPE html>
           <html lang="pt-BR">
           <head>
@@ -299,40 +291,31 @@ jobs:
           if urls_quebradas:
               (dir_saida / "urls_invalidas.txt").write_text("\n".join(urls_quebradas), encoding="utf-8")
               
-          print(f"Total de arquivos processados e convertidos: {copiados}")
+          print(f"Total de arquivos HTML processados: {copiados}")
+          print(f"Catalog.json gerado com {len(catalogo)} itens.")
           PYEOF
 
-          # Injeta os caminhos e roda
           sed -i "s|ORIGEM_PATH|$T/origem|g; s|NOVOS_PATH|$T/novos|g; s|SAIDA_PATH|$T/saida|g" "$T/filtrar.py"
           python3 -I "$T/filtrar.py"
           
-          # Copia os arquivos gerados (sem deletar nada)
-          cp -f "$T"/saida/* .
+          # SEGURANÇA NA LIMPEZA: Não apaga o index.html e nem o catalog.json
+          find . -maxdepth 1 -name "*.json" ! -name "catalog.json" -delete
+          find . -maxdepth 1 -name "*.html" ! -name "index.html" -delete
           
-          if [ -f "$T/saida/urls_invalidas.txt" ]; then 
-            cp -f "$T/saida/urls_invalidas.txt" .
-          fi
+          # COPIA OS NOVOS ARQUIVOS
+          cp -f "$T"/saida/*.html .
+          cp -f "$T"/saida/*.json .
+          if [ -f "$T/saida/urls_invalidas.txt" ]; then cp -f "$T/saida/urls_invalidas.txt" .; fi
 
       - name: Salvar alterações
         run: |
           git config user.name "Claudineybr"
           git config user.email "Claudineybr@users.noreply.github.com"
-          
           git add -A
-          
-          if git diff --cached --quiet; then
-            echo "Sem mudancas."
-            exit 0
-          fi
-          
-          git commit -m "sync: rebuild catalog and dashboard without deleting files"
-          
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "sync: remove duplicatas por link, protege dashboard e adiciona @id"
           for i in $(seq 1 5); do
-            if git push origin HEAD:main; then
-              echo "[SUCESSO] Push OK"
-              exit 0
-            fi
-            echo "[FALHA] Conflito. Sincronizando..."
+            if git push origin HEAD:main; then exit 0; fi
             git pull origin main --no-rebase -X ours --no-edit || true
-            sleep $((RANDOM % 5 + 3))
+            sleep 3
           done
