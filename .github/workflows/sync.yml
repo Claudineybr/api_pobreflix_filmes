@@ -42,7 +42,7 @@ jobs:
           dir_saida = Path("SAIDA_PATH")
           dir_saida.mkdir(parents=True, exist_ok=True)
 
-          links_vistos = set() # <--- CONTROLE DE DUPLICADOS AQUI
+          links_vistos = set()
           copiados = 0
           arquivos = []
           urls_quebradas = []
@@ -59,32 +59,14 @@ jobs:
               return (is_novo, len(arq.name))
           arquivos.sort(key=prioridade, reverse=True)
 
-          def extract_episode(text):
-              if not text: return ""
-              m = re.search(r'(?i)t\s*(\d+)\s*[._-]?\s*(?:e|ep|epis[oó]dio)\s*[._-]?\s*(\d+)', text)
-              if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
-              m = re.search(r'\b(\d{1,2})x(\d{1,3})\b', text)
-              if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
-              return ""
-
-          def limpar_titulo(raw_text):
-              if not raw_text: return "Desconhecido"
-              texto_norm = unicodedata.normalize('NFKD', str(raw_text))
-              texto_norm = "".join([c for c in texto_norm if not unicodedata.combining(c)])
-              
+          def limpar_nome(nome):
+              # Remove marcas d'água e lixos
               for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
-                  texto_norm = texto_norm.replace(lixo, '')
-                  
-              texto_norm = re.sub(r'(?i)t\s*\d+\s*[._-]?\s*(?:e|ep|epis[oó]dio)\s*[._-]?\s*\d+', '', texto_norm)
-              texto_norm = re.sub(r'\b\d{1,2}x\d{1,3}\b', '', texto_norm)
-              texto_norm = texto_norm.replace('_', ' ')
-              
-              partes = [p.strip() for p in re.split(r'\s+[-–—]\s+', texto_norm) if p.strip()]
-              partes_limpas = [p for p in partes if not any(pref in p.lower() for pref in ['vini', 'marcos', 'inix', 'lili', 'estrelinha', 'grave', 'site', 'online', 'blogspot', 'assistir', 'download'])]
-              
-              titulo_base = partes_limpas[0] if partes_limpas else "Desconhecido"
-              titulo_base = re.sub(r'\b(19\d{2}|20\d{2})\b', '', titulo_base).strip()
-              return re.sub(r'[\s.:;,]+$', '', titulo_base).strip()
+                  nome = nome.replace(lixo, '')
+              # Arruma espaços e traços duplos
+              nome = re.sub(r'\s+', ' ', nome)
+              nome = re.sub(r'\s*-\s*-\s*', ' - ', nome)
+              return nome.strip(' -')
 
           def clean_url(url):
               if not url: return ""
@@ -110,38 +92,31 @@ jobs:
                       urls_quebradas.append(arq.name)
                       nova_url = url if url else "http://quebrado.com/video.mp4"
 
-                  # CHECAGEM DE DUPLICADO: Só ignora se o link for EXATAMENTE o mesmo
+                  # Trava de segurança: Só pula se o link do vídeo for EXATAMENTE o mesmo
                   clean_url_lower = nova_url.split('?')[0].lower()
                   if clean_url_lower in links_vistos: 
-                      continue # Pula esse arquivo, pois é duplicado
+                      continue 
                   links_vistos.add(clean_url_lower)
 
                   capa_url = "https://via.placeholder.com/500x750?text=Sem+Capa"
                   match_capa = re.search(r'"thumbnailUrl"\s*:\s*\[\s*"([^"]+)"', content)
                   if match_capa: capa_url = match_capa.group(1)
 
+                  # LÊ O NOME DO JSON E CONFIA NELE
                   match_name = re.search(r'"name"\s*:\s*"([^"]*)"', content)
                   nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '').replace('.html', '')
-                  if len(nome_atual) < 5: nome_atual = arq.name.replace('.json', '').replace('.html', '')
-
-                  ep_tag = extract_episode(nome_atual) or extract_episode(arq.name) or extract_episode(nova_url)
-
-                  titulo_limpo = limpar_titulo(nome_atual)
-                  match_ano = re.search(r'\b(19\d{2}|20\d{2})\b', nome_atual)
-                  ano = match_ano.group(1) if match_ano else ""
-
-                  if ep_tag:
-                      novo_nome_json = f"{titulo_limpo} - {ep_tag} - 🍿Clau"
-                  else:
-                      novo_nome_json = f"{titulo_limpo} ({ano}) - 🍿Clau" if ano else f"{titulo_limpo} - 🍿Clau"
-
-                  slug = re.sub(r'[^a-z0-9]', '_', titulo_limpo.lower())
-                  slug = re.sub(r'_+', '_', slug).strip('_')
                   
-                  if ep_tag:
-                      novo_nome_arq = f"{slug}_{ep_tag.lower()}.html"
-                  else:
-                      novo_nome_arq = f"{slug}_{ano}.html" if ano else f"{slug}.html"
+                  # Limpa o nome mantendo a formatação T1E1 que já veio do catálogo
+                  nome_final_json = limpar_nome(nome_atual)
+                  if " - 🍿Clau" not in nome_final_json:
+                      nome_final_json += " - 🍿Clau"
+
+                  # Gera um nome de arquivo seguro baseado no nome do JSON
+                  slug = re.sub(r'[^a-z0-9]', '_', nome_final_json.lower())
+                  slug = re.sub(r'_+', '_', slug).strip('_')
+                  # Remove a extensão do clau e de anos duplicados no slug para não quebrar o link
+                  slug = slug.replace('_clau', '')
+                  novo_nome_arq = f"{slug}.html"
 
                   base_url = "https://api-pobreflix-filmes.pages.dev"
                   url_unica = f"{base_url}/{novo_nome_arq}"
@@ -150,14 +125,14 @@ jobs:
                       "@context": "https://schema.org", "@type": "VideoObject",
                       "@id": url_unica, 
                       "url": url_unica, 
-                      "name": novo_nome_json,
-                      "description": f"Assista {novo_nome_json}",
+                      "name": nome_final_json,
+                      "description": f"Assista {nome_final_json}",
                       "thumbnailUrl": [capa_url],
                       "uploadDate": "2020-01-01T00:00:00+00:00", "inLanguage": "pt",
                       "contentUrl": nova_url, "embedUrl": nova_url
                   }
                   
-                  catalogo.append({"name": novo_nome_json, "file": novo_nome_arq})
+                  catalogo.append({"name": nome_final_json, "file": novo_nome_arq})
                   
                   json_str = json.dumps(novo_json, ensure_ascii=False, indent=2)
                   html_lines = [
@@ -169,7 +144,7 @@ jobs:
                       "    <script type=\"application/ld+json\">",
                       json_str,
                       "    </script>",
-                      f"    <title>{novo_nome_json}</title>",
+                      f"    <title>{nome_final_json}</title>",
                       "    <style>",
                       "        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }",
                       "        video { width: 100%; height: 100%; outline: none; }",
@@ -186,7 +161,7 @@ jobs:
                   copiados += 1
                   
               except Exception as e:
-                  print(f"Erro: {e}")
+                  print(f"Erro ao processar {arq.name}: {e}")
 
           # SALVA O CATALOG.JSON PARA A BUSCA
           catalogo = sorted(catalogo, key=lambda x: x['name'].lower())
@@ -298,7 +273,7 @@ jobs:
           sed -i "s|ORIGEM_PATH|$T/origem|g; s|NOVOS_PATH|$T/novos|g; s|SAIDA_PATH|$T/saida|g" "$T/filtrar.py"
           python3 -I "$T/filtrar.py"
           
-          # SEGURANÇA NA LIMPEZA: Não apaga o index.html e nem o catalog.json
+          # SEGURANÇA: Não apaga o index.html e nem o catalog.json
           find . -maxdepth 1 -name "*.json" ! -name "catalog.json" -delete
           find . -maxdepth 1 -name "*.html" ! -name "index.html" -delete
           
@@ -313,7 +288,7 @@ jobs:
           git config user.email "Claudineybr@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "sync: remove duplicatas por link, protege dashboard e adiciona @id"
+          git commit -m "sync: conversao direta do json preservando nomes corretos"
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then exit 0; fi
             git pull origin main --no-rebase -X ours --no-edit || true
