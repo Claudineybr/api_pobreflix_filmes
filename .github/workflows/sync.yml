@@ -42,7 +42,6 @@ jobs:
           dir_saida = Path("SAIDA_PATH")
           dir_saida.mkdir(parents=True, exist_ok=True)
 
-          links_vistos = set()
           copiados = 0
           arquivos = []
           urls_quebradas = []
@@ -51,11 +50,6 @@ jobs:
           if dir_origem:
               arquivos.extend(list(dir_origem.glob("*.json")))
           arquivos.extend(list(dir_novos.glob("*.json")))
-
-          def prioridade(arq):
-              is_novo = 1 if dir_novos in arq.parents else 0
-              return (is_novo, len(arq.name))
-          arquivos.sort(key=prioridade, reverse=True)
 
           def limpar_titulo(raw_text):
               if not raw_text: return "Desconhecido"
@@ -66,10 +60,8 @@ jobs:
               for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
                   texto_norm = texto_norm.replace(lixo, '')
                   
-              # Remove "Episódio X" e palavras soltas de episódios
               texto_norm = re.sub(r'(?i)Epis[oó]dio\s*\d+', '', texto_norm)
               texto_norm = re.sub(r'(?i)\bepis[oó]dio\b', '', texto_norm)
-              
               texto_norm = texto_norm.replace('_', ' ')
               texto_norm = re.sub(r'\s*-\s*-\s*', ' - ', texto_norm)
               
@@ -111,11 +103,6 @@ jobs:
                   if not nova_url:
                       urls_quebradas.append(arq.name)
                       nova_url = url if url else "http://quebrado.com/video.mp4"
-
-                  clean_url_lower = nova_url.split('?')[0].lower()
-                  if clean_url_lower in links_vistos: 
-                      continue
-                  links_vistos.add(clean_url_lower)
 
                   # 2. Extrai a CAPA (Thumbnail)
                   thumb_match = re.search(r'"thumbnailUrl"\s*:\s*\[\s*"([^"]*)"', content)
@@ -319,11 +306,7 @@ jobs:
           sed -i "s|ORIGEM_PATH|$T/origem|g; s|NOVOS_PATH|$T/novos|g; s|SAIDA_PATH|$T/saida|g" "$T/filtrar.py"
           python3 -I "$T/filtrar.py"
           
-          # Limpa a raiz antiga
-          find . -maxdepth 1 -name "*.json" -delete
-          find . -maxdepth 1 -name "*.html" -delete
-          
-          # Copia tudo novo
+          # Copia os arquivos gerados (sem deletar nada)
           cp -f "$T"/saida/* .
           
           if [ -f "$T/saida/urls_invalidas.txt" ]; then 
@@ -342,7 +325,7 @@ jobs:
             exit 0
           fi
           
-          git commit -m "sync: limpando 'episodio' e anos duplicados"
+          git commit -m "sync: rebuild catalog and dashboard without deleting files"
           
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then
