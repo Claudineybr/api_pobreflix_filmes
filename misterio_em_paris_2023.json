@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Misterio em Paris (2023) - 🍿Clau</h1>
     <video src="https://cdn-0020.speed-stream.online/o-nucleo-missao-ao-centro-da-terra-934620d1/dubbed/1/49f732ef-61d9-44f4-9c9c-2f257146858d/stream.mp4" poster="https://image.tmdb.org/t/p/w500/pf1dQDb55mJ13KQMEYa4O0fni64.jpg" controls autoplay playsinline></video>
 </body>
 </html>

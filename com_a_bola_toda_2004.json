@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Com a Bola Toda (2004) - 🍿Clau</h1>
     <video src="https://cdn-0084.speed-stream.online/com-a-bola-toda-597433b6/dubbed/1/2724bc8d-40a0-4a02-bd2c-70aa193aa05f/stream.mp4" poster="https://image.tmdb.org/t/p/w500/x5dkT5LwiBXJ100xV2nbjLRBWvp.jpg" controls autoplay playsinline></video>
 </body>
 </html>

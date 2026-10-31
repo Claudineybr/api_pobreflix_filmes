@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Atalho (2020) - 🍿Clau</h1>
     <video src="https://server-1.cnvods.com/m/Atalho_2020_tt8960138.mp4?cnvs_token=WXpZNVl6aGxNVEU0T0dFMVlqSTJPTE1nUVNaVWc2bkd1UUVqOFJkcGZ5d1VoVWdDWnkycndGSXFROUg5WW9rQUxiekUzb0hLd05MSjVhcUdBSUZHUG9YUXJqUnByQVIyTWVCK0dha0ZTK1U9" poster="https://image.tmdb.org/t/p/w500/7u88jLFC1VCWZoIKoWbHdWG1Abm.jpg" controls autoplay playsinline></video>
 </body>
 </html>

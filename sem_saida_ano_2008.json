@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Sem Saida Ano (2008) - 🍿Clau</h1>
     <video src="https://medias.tankie.tube/streaming-playlists/hls/fd13de16-1cf9-4eca-887f-1ce15b37552b/1b21ad95-407d-44bd-a5a4-4ceb5bbf2bb4-master.m3u8" poster="https://via.placeholder.com/500x750?text=Sem+Capa" controls autoplay playsinline></video>
 </body>
 </html>

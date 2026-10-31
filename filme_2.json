@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Filme 2 - 🍿Clau</h1>
     <video src="https://medias.tankie.tube/streaming-playlists/hls/8d9c8cce-988b-4703-b2e3-99fbaa561317/3ab5d88b-812d-4d0e-8839-fada4da7275a-master.m3u8" poster="https://image.tmdb.org/t/p/w500/f4SvCKIUrC2cDR7Xo4k1kaGAqQ2.jpg" controls autoplay playsinline></video>
 </body>
 </html>

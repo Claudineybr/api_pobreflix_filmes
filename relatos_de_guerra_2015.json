@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Relatos de Guerra (2015) - 🍿Clau</h1>
     <video src="https://cdn-0011.speed-stream.online/relatos-de-guerra-64d6704b/subtitled/1/2c5fda66-154a-4baa-927e-01948e15e7ab/stream.mp4" poster="https://image.tmdb.org/t/p/w500/mY8lGn9h379WmPbBSdhKZiV6F2n.jpg" controls autoplay playsinline></video>
 </body>
 </html>

@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Panico no Lago: Projeto Anaconda - 🍿Clau</h1>
     <video src="http://fcoidok.cisantkdh.com/vod/A0A7E040DF644F6E8D4E974C0B37522A_media.mp4" poster="https://image.tmdb.org/t/p/w500/nrMexDnyEBfdXIJhW4CIBw5Izir.jpg" controls autoplay playsinline></video>
 </body>
 </html>

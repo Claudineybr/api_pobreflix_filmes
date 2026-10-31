@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Pac-Man e as Aventuras Fantasmagoricas T3E8 - 🍿Clau</h1>
     <video src="http://awnagk.gviudclrb.com/vod/24826E2736F541C9922E89E2D12935BB_media.mp4" poster="https://image.tmdb.org/t/p/w500/ajVOL1OVMmZTotuJtFY9HyJE1DH.jpg" controls autoplay playsinline></video>
 </body>
 </html>

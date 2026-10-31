@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>O Cacador de Demonios (2009) - 🍿Clau</h1>
     <video src="https://medias.tankie.tube/streaming-playlists/hls/9dfdbacf-ff6d-4692-ae59-4f171c95d589/afae8ffc-688c-41d2-a9c1-2fadfdaa3c0e-master.m3u8" poster="https://image.tmdb.org/t/p/w500/fpf0wtnIZuPKxtM1V68efGuTNN5.jpg" controls autoplay playsinline></video>
 </body>
 </html>

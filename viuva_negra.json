@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Viuva Negra - 🍿Clau</h1>
     <video src="https://fcoidok.cisantkdh.com/vod/2EB480591B2B4EEAA3DAD46086ECE3E9_media.mp4" poster="https://image.tmdb.org/t/p/w500/lrJ9QI2HMbO8N2S2r2v7fjtou5c.jpg" controls autoplay playsinline></video>
 </body>
 </html>

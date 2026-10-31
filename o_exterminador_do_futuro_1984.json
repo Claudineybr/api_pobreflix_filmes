@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>O Exterminador do Futuro (1984) - 🍿Clau</h1>
     <video src="https://medias.tankie.tube/streaming-playlists/hls/d65f6f44-767f-49dc-a82a-d3ec993bc455/d10e0082-96bd-4fb4-9a93-cf07dcf30b41-master.m3u8" poster="https://image.tmdb.org/t/p/w500/fo4SSoNT1ASI4JP7dOLrosWNWKa.jpg" controls autoplay playsinline></video>
 </body>
 </html>

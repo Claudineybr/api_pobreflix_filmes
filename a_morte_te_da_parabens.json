@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>A Morte Te Da Parabens - 🍿Clau</h1>
     <video src="http://awnagk.gviudclrb.com/vod/91C14DB79EFF4F3C9DAD269174BE66BE_media.mp4" poster="https://image.tmdb.org/t/p/w500/xVx3I0a4o3nb8aJymcqafCD4y5o.jpg" controls autoplay playsinline></video>
 </body>
 </html>

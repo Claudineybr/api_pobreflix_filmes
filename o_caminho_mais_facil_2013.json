@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>O Caminho Mais Facil (2013) - 🍿Clau</h1>
     <video src="https://cdn-0013.speed-stream.online/o-caminho-mais-facil-9b72c989/subtitled/1/6f2f6f2d-d3f8-4244-b3a3-b94dd172093a/stream.mp4" poster="https://image.tmdb.org/t/p/w500/9C0gU9Vu49sMEzIqlfj4yHeNodL.jpg" controls autoplay playsinline></video>
 </body>
 </html>

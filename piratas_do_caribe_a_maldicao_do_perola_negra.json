@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Piratas Do Caribe: A Maldicao Do Perola Negra - 🍿Clau</h1>
     <video src="http://awnagk.gviudclrb.com:80/vod/28BABA4E1C9C404D83770A15F16DD714_media.mp4" poster="https://image.tmdb.org/t/p/w500/9Xcg7Ar4ketv4rl8yeK32yp9zQA.jpg" controls autoplay playsinline></video>
 </body>
 </html>

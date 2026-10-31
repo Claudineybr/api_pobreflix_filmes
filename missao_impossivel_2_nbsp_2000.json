@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Missao Impossivel 2&nbsp;- (2000) - 🍿Clau</h1>
     <video src="https://medias.tankie.tube/streaming-playlists/hls/38929341-fd64-46ad-bdc3-5c989a099d95/934051ae-d2a9-480b-88f3-b79bbe9eb0c9-master.m3u8" poster="https://via.placeholder.com/500x750?text=Sem+Capa" controls autoplay playsinline></video>
 </body>
 </html>

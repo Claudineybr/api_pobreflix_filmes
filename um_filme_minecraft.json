@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Um Filme Minecraft - 🍿Clau</h1>
     <video src="http://awnagk.gviudclrb.com/vod/71D239A67C064911BFA2F9026D2AD92D_media.mp4" poster="https://image.tmdb.org/t/p/w500/a227F8PnXDABR1JJTuasmJmxEhf.jpg" controls autoplay playsinline></video>
 </body>
 </html>

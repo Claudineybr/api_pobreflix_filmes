@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Fala Serio, Mae! - 🍿Clau</h1>
     <video src="http://awnagk.gviudclrb.com:80/vod/D26E37289BBE4B8EBE5E37F9A8603F49_media.mp4" poster="https://image.tmdb.org/t/p/w500/p4YiseA6zPrXQMAJ7dj9GxCTHmo.jpg" controls autoplay playsinline></video>
 </body>
 </html>

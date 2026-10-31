@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Universidade Monstros (2013) - 🍿Clau</h1>
     <video src="https://cdn-0034.speed-stream.online/ao-cair-da-noite-5bc4e280/dubbed/1/7f990277-9857-4ccb-96c5-b386ab0c678e/stream.mp4" poster="https://image.tmdb.org/t/p/w500/uHiklaxCoZcQqzsj5l1IgyieWgp.jpg" controls autoplay playsinline></video>
 </body>
 </html>

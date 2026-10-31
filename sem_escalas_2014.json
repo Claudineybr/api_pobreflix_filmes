@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Sem Escalas (2014) - 🍿Clau</h1>
     <video src="https://cdn-0008.speed-stream.online/sem-escalas-a1b670af/dubbed/1/112abe36-692d-4573-9715-5bcc039b1e77/stream.mp4" poster="https://image.tmdb.org/t/p/w500/lvnqzs55IyeLeNYOWAY01YEOBCK.jpg" controls autoplay playsinline></video>
 </body>
 </html>

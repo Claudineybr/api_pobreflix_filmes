@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Monster High: Por Que os Monstros Se Apaixonam? (2012) - 🍿Clau</h1>
     <video src="https://medias.tankie.tube/streaming-playlists/hls/81d231db-2aac-4587-a6e7-01f82bc5c25c/2d1b215b-357a-4991-bd74-df7a9651be5a-master.m3u8" poster="https://image.tmdb.org/t/p/w500/yE6bNqgYHyvxjd89Fg3EghQX8Kj.jpg" controls autoplay playsinline></video>
 </body>
 </html>

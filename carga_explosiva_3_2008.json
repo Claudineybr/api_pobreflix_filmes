@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Carga Explosiva 3 (2008) - 🍿Clau</h1>
     <video src="https://medias.tankie.tube/streaming-playlists/hls/a131e6c1-a78d-43e1-b3d4-f8e8717e4df8/29ec4164-8600-4a3a-8875-d875632459fa-master.m3u8" poster="https://image.tmdb.org/t/p/w500/t6ayrfuhmKl6VUOByP7RJL047X1.jpg" controls autoplay playsinline></video>
 </body>
 </html>

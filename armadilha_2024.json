@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Armadilha (2024) - 🍿Clau</h1>
     <video src="https://server-1.cnvods.com/m/Armadilha_2024_tt26753003.mp4?cnvs_token=TXpjMFlUVTNabUV6WkdFMFpHRXlONkdxWGNFM0pMa0xJRjR4YjZKVUJiUmVzU3NXdWQ5TzNZcURmRVhuR3VEdVlzWCtkcjBDR2hhRUQrTmQycEx6dVZUVFl3akt3UTFoMXFqOC9vQjZ3N2JST0svUDlvRlMyR0I5WUN4YTBlbW0" poster="https://image.tmdb.org/t/p/w500/xfvQkIldbPq2NPZUXHwTz5a76T8.jpg" controls autoplay playsinline></video>
 </body>
 </html>

@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Escape Room - 🍿Clau</h1>
     <video src="http://awnagk.gviudclrb.com/vod/B8D707C25542412F8A1B5422858890C1_media.mp4" poster="https://image.tmdb.org/t/p/w500/dCthgwsV0AXIMqliQL6njAWf7Sb.jpg" controls autoplay playsinline></video>
 </body>
 </html>

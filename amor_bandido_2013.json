@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Amor Bandido (2013) - 🍿Clau</h1>
     <video src="https://cdn-0032.speed-stream.online/amor-bandido-08fb884d/dubbed/1/f555f230-c6d9-4964-8132-9c75ab740f3e/stream.mp4" poster="https://image.tmdb.org/t/p/w500/qb3YySysqo8ikQoagBIz29BZOmi.jpg" controls autoplay playsinline></video>
 </body>
 </html>

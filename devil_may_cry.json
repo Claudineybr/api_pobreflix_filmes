@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Devil May Cry - 🍿Clau</h1>
     <video src="https://cdn-0027.speed-stream.online/devil-may-cry-bf02ed39/s1/dubbed/5/61ad945c-16fb-4665-a593-09729abd77ed/stream.mp4" poster="https://image.tmdb.org/t/p/w500/75KximV3WhtvlWFneTrf1Pw61cu.jpg" controls autoplay playsinline></video>
 </body>
 </html>

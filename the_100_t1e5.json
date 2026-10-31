@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>The 100 T1E5 - 🍿Clau</h1>
     <video src="https://cdn-0086.speed-stream.online/the-100-010d0989/s6/dubbed/5/a5736b16-1cc4-4b37-a3aa-ef9f97139eac/stream.mp4" poster="https://image.tmdb.org/t/p/w500/cfhfcEt4bOXuVZkTC0nNBpqqiWb.jpg" controls autoplay playsinline></video>
 </body>
 </html>

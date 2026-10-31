@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Interceptor (2022) - 🍿Clau</h1>
     <video src="https://cdn-0093.speed-stream.online/interceptor-d0153a68/dubbed/1/86971113-c860-4eb5-bb75-0e2ad91548c7/stream.mp4" poster="https://image.tmdb.org/t/p/w500/jBKNAfANo4e3rzJtb7aHfYNd7b3.jpg" controls autoplay playsinline></video>
 </body>
 </html>

@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Amor de Redencao - 🍿Clau</h1>
     <video src="http://fcoidok.cisantkdh.com/vod/CB0BC37FF0F54C00B664D15294E58CEC_media.mp4" poster="https://image.tmdb.org/t/p/w500/dxvOzqkZ0ghsNq95eY03Z9EGeS3.jpg" controls autoplay playsinline></video>
 </body>
 </html>

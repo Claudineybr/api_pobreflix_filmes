@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>007 Spectre (2015) - 🍿Clau</h1>
     <video src="https://cdn-0038.speed-stream.online/007-contra-spectre-7c8954ec/dubbed/1/984aaaa5-415d-4789-9d8c-aebe731ef11d/stream.mp4" poster="https://image.tmdb.org/t/p/w500/vetwfKSMJ1yqfuI98k6XExu7GFH.jpg" controls autoplay playsinline></video>
 </body>
 </html>

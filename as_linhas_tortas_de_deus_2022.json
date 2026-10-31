@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>As Linhas Tortas de Deus () (2022) - 🍿Clau</h1>
     <video src="http://fhd4.oneplayer.site/343rt342wtg34wetg34retg4rgh5kh4/FHD4/tt13229894.mp4" poster="https://image.tmdb.org/t/p/w500/i7xCXKYkuFxx6UglVbSFaBmrwcO.jpg" controls autoplay playsinline></video>
 </body>
 </html>

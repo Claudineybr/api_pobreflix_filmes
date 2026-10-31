@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Matrix Resurrections (2021) - 🍿Clau</h1>
     <video src="https://medias.tankie.tube/streaming-playlists/hls/909b5acc-f078-465b-8c07-e0f6c71b6a01/e177a6dc-93b3-4b18-b09c-69a358a04ae3-master.m3u8" poster="https://image.tmdb.org/t/p/w500/9DT4WVqZqBEI9Kub18gZ3m1D89m.jpg" controls autoplay playsinline></video>
 </body>
 </html>

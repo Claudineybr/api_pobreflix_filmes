@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>As Cronicas de Narnia: A Viagem do Peregrino da Alvorada - 🍿Clau</h1>
     <video src="http://fcoidok.cisantkdh.com/vod/35CE91A5797941CFB581ACAD923AB566_media.mp4" poster="https://image.tmdb.org/t/p/w500/axMY6DSfkMdgUzejBqAPagynr6w.jpg" controls autoplay playsinline></video>
 </body>
 </html>

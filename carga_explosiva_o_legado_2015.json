@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Carga Explosiva: O Legado (2015) - 🍿Clau</h1>
     <video src="https://medias.tankie.tube/streaming-playlists/hls/de0fee0b-97e6-4c05-be24-92836c3310f1/3668d1f1-7d41-46bc-87d7-18e0ac9fe645-master.m3u8" poster="https://image.tmdb.org/t/p/w500/iti0ub1R6JBCfwJarLktNL47HC.jpg" controls autoplay playsinline></video>
 </body>
 </html>

@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Lobisomens (2024) - 🍿Clau</h1>
     <video src="https://server-1.cnvods.com/m/Memory_2022_tt11827628.mp4?cnvs_token=TXpRMU9UWm1abVJrTW1GbU5XRXdOS1RlRVk1M3BaUkZUTFNQbVNEakJsaU80MjR1MVg0M2MrZUxEODZaYmxEaGxvZ1pRWVA4U2FRQmdqZEp0Y2R5MDZVdGRFZS9WdnBTWWpsTGFoc2VkVEE9" poster="https://image.tmdb.org/t/p/w500/jt99DRVbB7DKHNEWsZd1Xgi2M4o.jpg" controls autoplay playsinline></video>
 </body>
 </html>

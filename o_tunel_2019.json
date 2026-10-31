@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>O Tunel (2019) - 🍿Clau</h1>
     <video src="https://cdn-0046.speed-stream.online/o-tunel-1a2480ad/dubbed/1/f909d302-b6e4-43f7-a3ce-56ef924840ad/stream.mp4" poster="https://image.tmdb.org/t/p/w500/6gNjFMFdx0AcujftDGHXSSBVkBM.jpg" controls autoplay playsinline></video>
 </body>
 </html>

@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Dolittle 3 (2006) - 🍿Clau</h1>
     <video src="https://medias.tankie.tube/streaming-playlists/hls/4c262cbb-1dd4-4ef9-8926-b04ea330dc5c/b409a548-fc6e-4fbc-bde2-df9b31088429-master.m3u8" poster="https://image.tmdb.org/t/p/w500/mODEH6RuoL8s9ptF1Mbrq1Z6aYz.jpg" controls autoplay playsinline></video>
 </body>
 </html>

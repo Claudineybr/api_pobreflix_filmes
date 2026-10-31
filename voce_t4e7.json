@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Voce T4E7 - 🍿Clau</h1>
     <video src="https://redetoons.fun/voce-2018/etRjYqLpvp.mp4" poster="https://image.tmdb.org/t/p/w500/ivqi64qY0S3ZAimvjlqXLEH7D6W.jpg" controls autoplay playsinline></video>
 </body>
 </html>

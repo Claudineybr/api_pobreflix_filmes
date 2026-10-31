@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>A Maldicao de Chucky - 🍿Clau</h1>
     <video src="http://fcoidok.cisantkdh.com/vod/C85AD7C23A3144199C0AB9A7CBC1EA5F_media.mp4" poster="https://image.tmdb.org/t/p/w500/uR9Pa7yed4fL73oxqd0xW3K1gDH.jpg" controls autoplay playsinline></video>
 </body>
 </html>

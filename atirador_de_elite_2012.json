@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Atirador de Elite (2012) - 🍿Clau</h1>
     <video src="https://cdn-0023.speed-stream.online/atirador-de-elite-aa303638/dubbed/1/03243ae9-a15d-4512-9b50-a3129ed9359f/stream.mp4" poster="https://image.tmdb.org/t/p/w500/j6FEq9yYNDp7pAPQCG2yl5qTY3U.jpg" controls autoplay playsinline></video>
 </body>
 </html>

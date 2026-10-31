@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Crash: No Limite (2005) - 🍿Clau</h1>
     <video src="https://cdn-0029.speed-stream.online/crash-no-limite-575ac230/dubbed/1/296eae63-f654-4926-bab3-2673aa3a998f/stream.mp4" poster="https://image.tmdb.org/t/p/w500/4pwHDsYeOVsdLT8TykM047hIkKA.jpg" controls autoplay playsinline></video>
 </body>
 </html>

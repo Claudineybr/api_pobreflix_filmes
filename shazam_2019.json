@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Shazam! (2019) - 🍿Clau</h1>
     <video src="https://server-1.cnvods.com/m/Shazam!_2019_tt0448115.mp4?cnvs_token=WXpBeU1tTTNZVFZoWldJM1pEbGhNNFBxM0Uxa3UwM0JjWmt2NHB1RDhEdlBCMG1Mb3pGR2J0Y2NwZXJTR0pOcGpkRWVQMnJ6c3NpS2xveEtoRGJwdTdkTGlRb0s2NGFSckl0RWlOS200TUU9" poster="https://image.tmdb.org/t/p/w500/rwkriXzzP9FoiIF5nTdxBsUcds4.jpg" controls autoplay playsinline></video>
 </body>
 </html>

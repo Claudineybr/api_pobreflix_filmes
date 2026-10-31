@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Furiosa: Uma Saga Mad Max (2024) - 🍿Clau</h1>
     <video src="https://medias.tankie.tube/streaming-playlists/hls/094cd22d-f555-42b1-9583-f1a1d3925f93/bffa78fd-5e59-41f7-9761-c0495504d1bd-master.m3u8" poster="https://image.tmdb.org/t/p/w500/7qOSKoOAPgemYhBwbJgBWcCxPWZ.jpg" controls autoplay playsinline></video>
 </body>
 </html>

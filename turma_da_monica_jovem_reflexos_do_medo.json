@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Turma da Monica Jovem: Reflexos do Medo - 🍿Clau</h1>
     <video src="http://awnagk.gviudclrb.com/vod/799306070D1D41BCB7F82BD33A1EC56A_media.mp4" poster="https://image.tmdb.org/t/p/w500/zG1YYywzTRf791p146Ae5REh9h6.jpg" controls autoplay playsinline></video>
 </body>
 </html>

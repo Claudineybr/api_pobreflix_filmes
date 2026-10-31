@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Esquadrao Suicida (2021) - 🍿Clau</h1>
     <video src="https://server-1.cnvods.com/m/O%20Esquadr%C3%A3o%20Suicida_2021_tt6334354.mp4?cnvs_token=WlRBME1UUXhaVFF4TXpSak9UZGxNNk9WZ3lVbThoVnBxMGo5RWgyOGZOeW5oMTgzUUt3TGNweGwydFEwclBicGF1YUdpanZSN3JKdU9nZDkxbzRmV3lnTWh6OWVERlFiODdxY2xrWjU1cUlxR3hnbGQzYmpBVlBzTGVOdUFsOGxKOEdaWUFXbCtWdFpNVDdXbFkyL2dPcHN6TERpTExzUENFVDRhOURGUXZvPQ==" poster="https://image.tmdb.org/t/p/w500/wTS3dS2DJiMFFgqKDz5fxMTri.jpg" controls autoplay playsinline></video>
 </body>
 </html>

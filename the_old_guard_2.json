@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>The Old Guard 2 - 🍿Clau</h1>
     <video src="http://awnagk.gviudclrb.com/vod/2B9BB2A6A8E045F9935A3B2FCC1DF012_media.mp4" poster="https://image.tmdb.org/t/p/w500/kuM9Q0jxeJ1431rJPJ7Xen2gRX5.jpg" controls autoplay playsinline></video>
 </body>
 </html>

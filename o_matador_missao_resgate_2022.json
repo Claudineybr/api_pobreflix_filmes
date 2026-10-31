@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>O Matador: Missao Resgate (2022) - 🍿Clau</h1>
     <video src="https://cdn-0054.speed-stream.online/o-matador-missao-resgate-4bedde30/dubbed/1/2a5b6dd8-a2c8-4389-9d61-287e4669d625/stream.mp4" poster="https://image.tmdb.org/t/p/w500/9aVY0w3q2bxZX9rcGOGSWiM7mH8.jpg" controls autoplay playsinline></video>
 </body>
 </html>

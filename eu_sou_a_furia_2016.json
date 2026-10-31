@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Eu Sou a Furia (2016) - 🍿Clau</h1>
     <video src="https://server-1.cnvods.com/m/Eu%20Sou%20a%20F%C3%BAria_2016_tt3212232.mp4?cnvs_token=WkdObFpqZG1NVGMwT0RJNVltWXdaUkwwUkY0SFppMW1acDFzK2pVd3d0K3QzUm83NTB3WkNGNnlhb0U5Y2dhZzhpUkZkRDRkZCtrR0VsWTN4OHdFWWZ3UktQcHJqQ0RKVCtweWZWV2loUWRIL1JES05VQ2VYRW0xdUgrTGJHblI4azBOK1pGRlZPQU03VHp6eUlwaHd3PT0" poster="https://image.tmdb.org/t/p/w500/aivG9fJXA4P7vg5BKCxR9Vy74GD.jpg" controls autoplay playsinline></video>
 </body>
 </html>

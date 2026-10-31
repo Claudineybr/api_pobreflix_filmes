@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>The End of the F***ing World T2E1 - 🍿Clau</h1>
     <video src="http://awnagk.gviudclrb.com/vod/87D2CE3D417C4E4AAC12FC8C7C95552E_media.mp4" poster="https://image.tmdb.org/t/p/w500/zQ5fG5NAQ5K8cMm58bxQNwUEbMj.jpg" controls autoplay playsinline></video>
 </body>
 </html>

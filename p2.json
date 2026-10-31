@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>P2 - 🍿Clau</h1>
     <video src="http://awnagk.gviudclrb.com/vod/8647C9B4DFA24179B9146592FEECEA24_media.mp4" poster="https://image.tmdb.org/t/p/w500/kVqChV1Q8t1e0ynY8HSL4Oz8un1.jpg" controls autoplay playsinline></video>
 </body>
 </html>

@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Rick e Morty T1E3 - 🍿Clau</h1>
     <video src="https://cdn-0004.speed-stream.online/rick-e-morty-b3decbc5/s3/dubbed/3/b27d6b7a-dd12-4dc8-9c87-b209a798f1b7/stream.mp4" poster="https://image.tmdb.org/t/p/w500/5qfd0e2uMbVInX3YdeFbDsfxi1t.jpg" controls autoplay playsinline></video>
 </body>
 </html>

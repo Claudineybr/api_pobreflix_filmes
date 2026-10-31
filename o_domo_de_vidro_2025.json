@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>O Domo de Vidro (2025) - 🍿Clau</h1>
     <video src="https://cdn-0092.speed-stream.online/mulan-2-a-lenda-continua-ad11a36e/dubbed/1/97719c19-16c6-4061-8657-2d2a2dc869ee/stream.mp4" poster="https://image.tmdb.org/t/p/w500/yBr4e9H0rdeAzbZTqlJolseKGjP.jpg" controls autoplay playsinline></video>
 </body>
 </html>

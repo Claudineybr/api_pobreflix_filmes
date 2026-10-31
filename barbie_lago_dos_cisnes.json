@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Barbie: Lago dos Cisnes - 🍿Clau</h1>
     <video src="http://awnagk.gviudclrb.com/vod/33363595FC7E43A699FDB78ABBA51D51_media.mp4" poster="https://image.tmdb.org/t/p/w500/oOIdyQDj06G8V6AHQl4I7i1UCTT.jpg" controls autoplay playsinline></video>
 </body>
 </html>

@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Dexter: Ressurreicao T1E9 - 🍿Clau</h1>
     <video src="http://shd13.oneplayer.site/SHD13/259909/1x9.mp4" poster="https://image.tmdb.org/t/p/w500/wG6GBTreXHoBhxsFY4vVSQtYey5.jpg" controls autoplay playsinline></video>
 </body>
 </html>

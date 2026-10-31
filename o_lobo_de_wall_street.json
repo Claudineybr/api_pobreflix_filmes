@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>O Lobo de Wall Street - 🍿Clau</h1>
     <video src="http://awnagk.gviudclrb.com/vod/C2145D73AFC24A2C973661A1F8E5EDB1_media.mp4" poster="https://image.tmdb.org/t/p/w500/xfbnEVFKS26YHLuuckP0i58GPlo.jpg" controls autoplay playsinline></video>
 </body>
 </html>

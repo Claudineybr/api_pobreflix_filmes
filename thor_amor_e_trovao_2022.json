@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Thor: Amor e Trovao (2022) - 🍿Clau</h1>
     <video src="https://medias.tankie.tube/streaming-playlists/hls/8847bb81-3238-4d66-bac6-3b7c3e389716/f2661d76-160d-49cf-a615-51a6f375e40e-master.m3u8" poster="https://image.tmdb.org/t/p/w500/wSE3IdCWSrsAXkNC9XwnxgJJqIq.jpg" controls autoplay playsinline></video>
 </body>
 </html>

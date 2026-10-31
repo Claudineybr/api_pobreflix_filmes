@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Bandido (2022) - 🍿Clau</h1>
     <video src="https://cdn-0067.speed-stream.online/bandido-8444c48f/dubbed/1/942852c5-807c-4e66-89a8-3d0f71eeee58/stream.mp4" poster="https://image.tmdb.org/t/p/w500/yA9T1l9nGhVdCPv0CfDLus1IwsO.jpg" controls autoplay playsinline></video>
 </body>
 </html>

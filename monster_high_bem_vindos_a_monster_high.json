@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Monster High: Bem vindos a Monster High - 🍿Clau</h1>
     <video src="https://medias.tankie.tube/streaming-playlists/hls/7a8a8614-a6b3-4b18-8cb4-af1c9889dc69/871307cf-fcce-4e58-ab0a-f8990a0da570-master.m3u8" poster="https://image.tmdb.org/t/p/w500/8HWvsB4pjym9Cu8B08YnLPeTDfo.jpg" controls autoplay playsinline></video>
 </body>
 </html>

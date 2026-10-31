@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Fora de Controle (2008) - 🍿Clau</h1>
     <video src="https://cdn-0064.speed-stream.online/fora-de-controle-db2663b9/dubbed/1/e56db5ee-6da2-49f4-a52a-3bd5e00e05f2/stream.mp4" poster="https://image.tmdb.org/t/p/w500/54c7VczaCFKC3L39ZicaPrwEm78.jpg" controls autoplay playsinline></video>
 </body>
 </html>

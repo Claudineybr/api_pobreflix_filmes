@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>Mickey 17 (2025) - 🍿Clau</h1>
     <video src="https://server-1.cnvods.com/m/Mickey%2017_2025_tt12299608.mp4?cnvs_token=WTJNNFptRmlaakptT0RVeE1ERmtPUUY4bGNFTlYyckRrMU44RU41MTd6Vm9GRkYzVXd5em9pMUduM2MyNHh6N2ZrUjJiZUpWSTBkWGkvUDROaTVrWlVsYWJhMFAvRHczWFRuY1dzVlVWaDVVUC94a0hIcTVzSFI2UHpJQy91WVc" poster="https://image.tmdb.org/t/p/w500/is1U9n0e9ofg50U1T7p2WZuIwiO.jpg" controls autoplay playsinline></video>
 </body>
 </html>

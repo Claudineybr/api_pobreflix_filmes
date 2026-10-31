@@ -22,9 +22,11 @@
     <style>
         body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
         video { width: 100%; height: 100%; outline: none; }
+        h1 { color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }
     </style>
 </head>
 <body>
+    <h1>X-Men: Apocalipse (2016) - 🍿Clau</h1>
     <video src="https://medias.tankie.tube/streaming-playlists/hls/ddb06e59-7aa5-49b6-810a-94903609879c/f548c708-3c7b-440e-8e4d-395ec65cf1f8-master.m3u8" poster="https://image.tmdb.org/t/p/w500/czKpsvSmpzMoOuuJXGjBHMoH1qq.jpg" controls autoplay playsinline></video>
 </body>
 </html>
