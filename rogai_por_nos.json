@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">
-{
+<script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Rogai Por Nos - 🍿Clau",
   "description": "Assista Rogai Por Nos - 🍿Clau",
   "thumbnailUrl": [
-    "https://via.placeholder.com/500x750?text=Sem+Capa"
+    "https://image.tmdb.org/t/p/w500/zduyzcjyahZtP4fGZE6789h04IM.jpg"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "https://fcoidok.cisantkdh.com/vod/A0EDEAEDC6524A099161E43E6B871B4C_media.mp4",
   "embedUrl": "https://fcoidok.cisantkdh.com/vod/A0EDEAEDC6524A099161E43E6B871B4C_media.mp4"
-}
-</script>
+}</script>
 <title>Rogai Por Nos - 🍿Clau</title>
 </head>
 <body>

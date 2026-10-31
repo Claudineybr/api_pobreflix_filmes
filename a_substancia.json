@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">
-{
+<script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "A Substancia - 🍿Clau",
   "description": "Assista A Substancia - 🍿Clau",
   "thumbnailUrl": [
-    "https://via.placeholder.com/500x750?text=Sem+Capa"
+    "https://image.tmdb.org/t/p/w500/vWeOgzlhnP1sS23H3rzctGHB9Nb.jpg"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/3A4E3F99AF4D4ACC84127807F81556DF_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/3A4E3F99AF4D4ACC84127807F81556DF_media.mp4"
-}
-</script>
+}</script>
 <title>A Substancia - 🍿Clau</title>
 </head>
 <body>

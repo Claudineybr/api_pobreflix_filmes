@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">
-{
+<script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Alice no Pais das Maravilhas - 🍿Clau",
   "description": "Assista Alice no Pais das Maravilhas - 🍿Clau",
   "thumbnailUrl": [
-    "https://via.placeholder.com/500x750?text=Sem+Capa"
+    "https://image.tmdb.org/t/p/w500/rtBRW9xkP94PRuyDa9zTZahuo27.jpg"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/592F3FC5F7444D92B94262B39F219E6F_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/592F3FC5F7444D92B94262B39F219E6F_media.mp4"
-}
-</script>
+}</script>
 <title>Alice no Pais das Maravilhas - 🍿Clau</title>
 </head>
 <body>
