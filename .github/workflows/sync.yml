@@ -33,6 +33,7 @@ jobs:
           cat > "$T/filtrar.py" << 'PYEOF'
           import re
           import shutil
+          import unicodedata
           from pathlib import Path
 
           dir_origem = Path("ORIGEM_PATH") if Path("ORIGEM_PATH").exists() else None
@@ -54,6 +55,40 @@ jobs:
               return (is_novo, len(arq.name))
           arquivos.sort(key=prioridade, reverse=True)
 
+          # SUA NOVA FUNÇÃO DE LIMPEZA
+          def limpar_titulo(raw_text):
+              if not raw_text:
+                  return "Desconhecido"
+                  
+              # 1. Normaliza caracteres fancy (𝑽 -> V, 𝟕 -> 7)
+              texto_norm = unicodedata.normalize('NFKD', str(raw_text))
+              texto_norm = "".join([c for c in texto_norm if not unicodedata.combining(c)])
+              
+              # 2. Separa o título por traços ou hífens
+              partes = [p.strip() for p in re.split(r'\s+[-–—]\s+', texto_norm) if p.strip()]
+              partes_limpas = []
+              
+              for p in partes:
+                  p_lower = p.lower()
+                  # 3. Ignora a parte se ela contiver um dos prefixos indesejados
+                  if any(pref in p_lower for pref in ['vini', 'marcos', 'inix', 'lili', 'estrelinha', 'grave', 'site', 'online', 'blogspot', 'assistir', 'download']):
+                      continue
+                      
+                  # Mantém a parte se for válida
+                  partes_limpas.append(p)
+                  
+              # 4. Junta as partes válidas de volta
+              titulo_final = ' - '.join(partes_limpas) if partes_limpas else partes[0] if partes else "Desconhecido"
+              
+              # Remove o emoji 👾 se tiver sobrado
+              titulo_final = titulo_final.replace('👾', '').strip()
+              
+              # 5. Remove o ano do final e limpa pontuação
+              titulo_final = re.sub(r'\s*\(?\d{4}\)?\s*$', '', titulo_final).strip()
+              titulo_final = re.sub(r'[\s.:;,]+$', '', titulo_final).strip()
+              
+              return titulo_final
+
           for arq in arquivos:
               if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache', 'renomeados', 'lista']): 
                   continue
@@ -72,24 +107,20 @@ jobs:
                       continue
                   links_vistos.add(clean_url)
 
-                  # 2. Pega o nome atual e limpa o lixo
+                  # 2. Pega o nome atual para extrair o ANO original antes de limpar
                   match_name = re.search(r'"name"\s*:\s*"((?:[^"\\]|\\.)*)"', content)
                   nome_atual = match_name.group(1).replace('\\"', '"') if match_name else ""
                   
-                  titulo = re.sub(r'[\(\)\[\]]', '', nome_atual)
-                  titulo = re.sub(r'\b(19|20)\d{2}\b', '', titulo)
-                  titulo = re.sub(r'(?i)-\s*T\d+E\d+.*', '', titulo)
-                  titulo = re.sub(r'(?i)\bT\d+E\d+\b.*', '', titulo)
-                  titulo = re.sub(r'(?i)Epis[oó]dio\s*\d+.*', '', titulo)
-                  titulo = titulo.replace('🍿Clau', '').replace('🕸️ PK', '').replace('Marcos', '').replace('👾', '').strip()
-                  titulo = re.sub(r'[-_]+', ' ', titulo)
-                  titulo = re.sub(r'\s+', ' ', titulo).strip()
-                  
-                  # Deixa as primeiras letras maiúsculas
-                  titulo = titulo.title()
-                  if not titulo: titulo = "Sem Nome"
+                  # Extrai o ano (com 4 dígitos) do nome antigo
+                  match_ano = re.search(r'\b(19\d{2}|20\d{2})\b', nome_atual)
+                  ano = match_ano.group(1) if match_ano else ""
 
-                  # 3. Verifica se é série (procura T1E1 no nome do arquivo ou no texto)
+                  # 3. Usa a sua função para limpar o título
+                  titulo_limpo = limpar_titulo(nome_atual)
+                  if not titulo_limpo or titulo_limpo == "Desconhecido": 
+                      continue
+
+                  # 4. Verifica se é série (procura T1E1 no nome do arquivo ou no texto)
                   m_ep = re.search(r'(?i)t(\d+)e(\d+)', arq.name)
                   if not m_ep:
                       m_ep = re.search(r'(?i)t(\d+)e(\d+)', nome_atual)
@@ -98,13 +129,12 @@ jobs:
                       season = str(int(m_ep.group(1)))
                       episode = str(int(m_ep.group(2)))
                       ep_tag = f"T{season}E{episode}"
-                      novo_nome_json = f"{titulo} {ep_tag}"  # Ex: O Atirador T2E1
+                      novo_nome_json = f"{titulo_limpo} {ep_tag} - 🍿Clau"  # Ex: Crystal Lake T1E1 - 🍿Clau
                   else:
                       ep_tag = ""
-                      novo_nome_json = titulo  # Ex: A Culpa é das Estrelas
+                      novo_nome_json = f"{titulo_limpo} ({ano}) - 🍿Clau" if ano else f"{titulo_limpo} - 🍿Clau"
 
-                  # 4. Substitui as informações dentro do arquivo de forma segura (Regex)
-                  # Escapa possíveis aspas do nome novo para não quebrar o JSON
+                  # 5. Substitui as informações dentro do arquivo de forma segura (Regex)
                   safe_name = novo_nome_json.replace('"', '\\"')
                   
                   content = re.sub(r'("name"\s*:\s*")(?:[^"\\]|\\.)*(")', rf'\g<1>{safe_name}\g<2>', content)
@@ -113,14 +143,14 @@ jobs:
                   content = re.sub(r'(<h1>).*?(</h1>)', rf'\g<1>{novo_nome_json}\g<2>', content, flags=re.DOTALL)
                   content = content.replace("https://redetoons.cards", "https://redetoons.my")
 
-                  # 5. Define o nome do arquivo físico (slug)
-                  slug = re.sub(r'[^a-z0-9]', '_', titulo.lower())
+                  # 6. Define o nome do arquivo físico (slug)
+                  slug = re.sub(r'[^a-z0-9]', '_', titulo_limpo.lower())
                   slug = re.sub(r'_+', '_', slug).strip('_')
                   
                   if ep_tag:
                       novo_nome_arq = f"{slug}_{ep_tag.lower()}.json"
                   else:
-                      novo_nome_arq = f"{slug}.json"
+                      novo_nome_arq = f"{slug}_{ano}.json" if ano else f"{slug}.json"
 
                   # Salva o arquivo na pasta de saída
                   (dir_saida / novo_nome_arq).write_text(content, encoding='utf-8')
@@ -190,7 +220,7 @@ jobs:
             exit 0
           fi
           
-          git commit -m "sync: padronizacao de nomes (Filmes: Nome / Series: Nome T1E1)"
+          git commit -m "sync: limpeza com unicodedata e padronizacao de nomes"
           
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then
