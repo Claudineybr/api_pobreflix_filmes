@@ -175,7 +175,7 @@ jobs:
                   shutil.copy2(arq, dir_saida / arq.name)
 
           if urls_quebradas:
-              Path("urls_invalidas.txt").write_text("\n".join(urls_quebradas), encoding="utf-8")
+              (dir_saida / "urls_invalidas.txt").write_text("\n".join(urls_quebradas), encoding="utf-8")
               
           print(f"Total de arquivos processados e padronizados: {copiados}")
           PYEOF
@@ -187,7 +187,11 @@ jobs:
           # 3. Substitui os arquivos na raiz do repositório
           find . -maxdepth 1 -name "*.json" -delete
           cp -f "$T"/saida/*.json .
-          if [ -f "urls_invalidas.txt" ]; then mv urls_invalidas.txt .; fi
+          
+          # Correção do erro: copia o arquivo de urls invalidas se ele existir, sem usar "mv"
+          if [ -f "$T/saida/urls_invalidas.txt" ]; then 
+            cp -f "$T/saida/urls_invalidas.txt" .
+          fi
 
       - name: Salvar alterações
         run: |
