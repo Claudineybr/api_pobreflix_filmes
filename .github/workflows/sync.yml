@@ -46,11 +46,8 @@ jobs:
           copiados = 0
           arquivos = []
           urls_quebradas = []
-          
-          # LISTA PARA O CATALOG.JSON
           catalogo = []
 
-          # Lê tanto JSON quanto HTML da origem
           if dir_origem:
               arquivos.extend(list(dir_origem.glob("*.json")))
               arquivos.extend(list(dir_origem.glob("*.html")))
@@ -62,19 +59,11 @@ jobs:
               return (is_novo, len(arq.name))
           arquivos.sort(key=prioridade, reverse=True)
 
-          # FUNÇÃO DE EXTRAÇÃO DE EPISÓDIO
+          # MÁGICA DO EPISÓDIO (Aceita T01EP01, T1E1, 3x5)
           def extract_episode(text):
               if not text: return ""
-              # T01E01, T1E1, T01.E01
-              m = re.search(r'(?i)t\s*(\d+)\s*[._-]?\s*e\s*(\d+)', text)
+              m = re.search(r'(?i)t\s*(\d+)\s*[._-]?\s*(?:e|ep|epis[oó]dio)\s*[._-]?\s*(\d+)', text)
               if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
-              # T01EP01, T1EP1
-              m = re.search(r'(?i)t\s*(\d+)\s*[._-]?\s*ep\s*(\d+)', text)
-              if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
-              # Temporada 1 Episodio 1
-              m = re.search(r'(?i)temporada\s*(\d+).*?epis[oó]dio\s*(\d+)', text)
-              if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
-              # 3x5 (evita pegar resolução 1080x720 limitando a 2 e 3 dígitos)
               m = re.search(r'\b(\d{1,2})x(\d{1,3})\b', text)
               if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
               return ""
@@ -83,13 +72,13 @@ jobs:
               if not raw_text: return "Desconhecido"
               texto_norm = unicodedata.normalize('NFKD', str(raw_text))
               texto_norm = "".join([c for c in texto_norm if not unicodedata.combining(c)])
-              # Limpa marcas d'água
+              
+              # Remove lixos
               for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
                   texto_norm = texto_norm.replace(lixo, '')
-              # Remove tags de episódio
-              texto_norm = re.sub(r'(?i)t\s*\d+\s*[._-]?\s*e\s*\d+', '', texto_norm)
-              texto_norm = re.sub(r'(?i)t\s*\d+\s*[._-]?\s*ep\s*\d+', '', texto_norm)
-              texto_norm = re.sub(r'(?i)temporada\s*\d+.*?epis[oó]dio\s*\d+', '', texto_norm)
+                  
+              # Remove o T01EP01 do titulo
+              texto_norm = re.sub(r'(?i)t\s*\d+\s*[._-]?\s*(?:e|ep|epis[oó]dio)\s*[._-]?\s*\d+', '', texto_norm)
               texto_norm = re.sub(r'\b\d{1,2}x\d{1,3}\b', '', texto_norm)
               texto_norm = texto_norm.replace('_', ' ')
               
@@ -131,17 +120,13 @@ jobs:
 
                   capa_url = "https://via.placeholder.com/500x750?text=Sem+Capa"
                   match_capa = re.search(r'"thumbnailUrl"\s*:\s*\[\s*"([^"]+)"', content)
-                  if match_capa:
-                      capa_url = match_capa.group(1)
+                  if match_capa: capa_url = match_capa.group(1)
 
                   match_name = re.search(r'"name"\s*:\s*"([^"]*)"', content)
                   nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '').replace('.html', '')
-                  if len(nome_atual) < 5: 
-                      nome_atual = arq.name.replace('.json', '').replace('.html', '')
+                  if len(nome_atual) < 5: nome_atual = arq.name.replace('.json', '').replace('.html', '')
 
-                  ep_tag = extract_episode(nova_url)
-                  if not ep_tag: ep_tag = extract_episode(nome_atual)
-                  if not ep_tag: ep_tag = extract_episode(arq.name)
+                  ep_tag = extract_episode(nova_url) or extract_episode(nome_atual) or extract_episode(arq.name)
 
                   titulo_limpo = limpar_titulo(nome_atual)
                   match_ano = re.search(r'\b(19\d{2}|20\d{2})\b', nome_atual)
@@ -161,10 +146,9 @@ jobs:
                       "contentUrl": nova_url, "embedUrl": nova_url
                   }
                   
-                  # ADICIONA AO CATALOG.JSON
                   catalogo.append(novo_json)
                   
-                  # MONTA O HTML
+                  # GERA O HTML
                   json_str = json.dumps(novo_json, ensure_ascii=False, indent=2)
                   html_lines = [
                       "<!DOCTYPE html>",
@@ -203,9 +187,8 @@ jobs:
               except Exception as e:
                   shutil.copy2(arq, dir_saida / arq.name)
 
-          # SALVA O CATALOG.JSON NO FINAL
-          catalogo_json = json.dumps(catalogo, ensure_ascii=False, indent=2)
-          (dir_saida / "catalog.json").write_text(catalogo_json, encoding="utf-8")
+          # SALVA O CATALOG.JSON
+          (dir_saida / "catalog.json").write_text(json.dumps(catalogo, ensure_ascii=False, indent=2), encoding="utf-8")
 
           if urls_quebradas:
               (dir_saida / "urls_invalidas.txt").write_text("\n".join(urls_quebradas), encoding="utf-8")
@@ -232,7 +215,7 @@ jobs:
           git config user.email "Claudineybr@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "fix: salva arquivos como .html, gera catalog.json e corrige extração de episodios"
+          git commit -m "fix: conserta regex T01EP01, salva .html e gera catalog.json"
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then exit 0; fi
             git pull origin main --no-rebase -X ours --no-edit || true
