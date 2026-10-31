@@ -50,9 +50,12 @@ jobs:
           # LISTA PARA O CATALOG.JSON
           catalogo = []
 
+          # Lê tanto JSON quanto HTML da origem
           if dir_origem:
               arquivos.extend(list(dir_origem.glob("*.json")))
+              arquivos.extend(list(dir_origem.glob("*.html")))
           arquivos.extend(list(dir_novos.glob("*.json")))
+          arquivos.extend(list(dir_novos.glob("*.html")))
 
           def prioridade(arq):
               is_novo = 1 if dir_novos in arq.parents else 0
@@ -98,7 +101,7 @@ jobs:
               return url.split()[0] if url.split() else ""
 
           for arq in arquivos:
-              # Adicionado 'catalog' na lista de ignorados para não ler o próprio catalog.json
+              # Ignora arquivos de controle e o próprio catalog
               if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache', 'renomeados', 'lista', 'catalog']): 
                   continue
                   
@@ -124,8 +127,8 @@ jobs:
                       capa_url = match_capa.group(1)
 
                   match_name = re.search(r'"name"\s*:\s*"([^"]*)"', content)
-                  nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '')
-                  if len(nome_atual) < 5: nome_atual = arq.name.replace('.json', '')
+                  nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '').replace('.html', '')
+                  if len(nome_atual) < 5: nome_atual = arq.name.replace('.json', '').replace('.html', '')
 
                   ep_tag = extract_episode(nova_url)
                   if not ep_tag: ep_tag = extract_episode(nome_atual)
@@ -152,7 +155,7 @@ jobs:
                   # ADICIONA AO CATALOGO
                   catalogo.append(novo_json)
                   
-                  # MONTA O HTML LINHA POR LINHA
+                  # MONTA O HTML
                   json_str = json.dumps(novo_json, ensure_ascii=False, indent=2)
                   html_lines = [
                       "<!DOCTYPE html>",
@@ -179,10 +182,11 @@ jobs:
                   slug = re.sub(r'[^a-z0-9]', '_', titulo_limpo.lower())
                   slug = re.sub(r'_+', '_', slug).strip('_')
                   
+                  # CORREÇÃO CRÍTICA AQUI: EXTENSÃO .html
                   if ep_tag:
-                      novo_nome_arq = f"{slug}_{ep_tag.lower()}.json"
+                      novo_nome_arq = f"{slug}_{ep_tag.lower()}.html"
                   else:
-                      novo_nome_arq = f"{slug}_{ano}.json" if ano else f"{slug}.json"
+                      novo_nome_arq = f"{slug}_{ano}.html" if ano else f"{slug}.html"
 
                   (dir_saida / novo_nome_arq).write_text(novo_html, encoding='utf-8')
                   copiados += 1
@@ -204,7 +208,12 @@ jobs:
           sed -i "s|ORIGEM_PATH|$T/origem|g; s|NOVOS_PATH|$T/novos|g; s|SAIDA_PATH|$T/saida|g" "$T/filtrar.py"
           python3 -I "$T/filtrar.py"
           
-          find . -maxdepth 1 -name "*.json" -delete
+          # LIMPA TUDO QUE É JSON E HTML ANTIGO (EXCETO O CATALOG)
+          find . -maxdepth 1 -name "*.json" ! -name "catalog.json" -delete
+          find . -maxdepth 1 -name "*.html" -delete
+          
+          # COPIA OS NOVOS ARQUIVOS
+          cp -f "$T"/saida/*.html .
           cp -f "$T"/saida/*.json .
           if [ -f "$T/saida/urls_invalidas.txt" ]; then cp -f "$T/saida/urls_invalidas.txt" .; fi
 
@@ -214,7 +223,7 @@ jobs:
           git config user.email "Claudineybr@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "fix: adiciona geracao do catalog.json e mantem arquivos html com player"
+          git commit -m "fix: EXTENSAO .HTML nos arquivos e geracao do catalog.json"
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then exit 0; fi
             git pull origin main --no-rebase -X ours --no-edit || true
