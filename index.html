@@ -50,14 +50,6 @@
             .then(data => { catalogoCompleto = data; })
             .catch(err => console.error("Erro ao carregar catálogo:", err));
 
-        // FUNÇÃO PARA LIMPAR O NOME E ORDENAR NO FRONTEND
-        function normalizarNomeBase(nome) {
-            let base = nome.split(/ - T\d+E\d+/i)[0].toLowerCase();
-            base = base.replace(/(19|20)\d{2}/g, ''); // Tira anos
-            base = base.replace(/[\(\)\[\]]/g, ''); // Tira parênteses
-            return base.replace(/\s+/g, ' ').trim();
-        }
-
         inputElement.addEventListener('input', (e) => {
             const termo = e.target.value.toLowerCase().trim();
             if (termo.length === 0) {
@@ -73,16 +65,16 @@
 
             let filtrados = catalogoCompleto.filter(item => item.name.toLowerCase().includes(termo));
             
-            // ORDENAÇÃO NO FRONTEND
+            // ORDENAÇÃO NO FRONTEND (Garante a ordem exata na tela)
             filtrados.sort((a, b) => {
-                const base_a = normalizarNomeBase(a.name);
-                const base_b = normalizarNomeBase(b.name);
+                const m_a = a.name.match(/T(\d+)E(\d+)/i);
+                const m_b = b.name.match(/T(\d+)E(\d+)/i);
+                
+                const base_a = a.name.split(/ - T\d+E\d+/i)[0].replace(/[\(\)\[\]]/g, '').trim().toLowerCase();
+                const base_b = b.name.split(/ - T\d+E\d+/i)[0].replace(/[\(\)\[\]]/g, '').trim().toLowerCase();
 
                 if (base_a < base_b) return -1;
                 if (base_a > base_b) return 1;
-
-                const m_a = a.name.match(/T(\d+)E(\d+)/i);
-                const m_b = b.name.match(/T(\d+)E(\d+)/i);
 
                 if (m_a && m_b) {
                     const s_a = parseInt(m_a[1], 10);
