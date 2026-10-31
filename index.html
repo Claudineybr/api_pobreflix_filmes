@@ -65,13 +65,12 @@
 
             let filtrados = catalogoCompleto.filter(item => item.name.toLowerCase().includes(termo));
             
-            // ORDENAÇÃO NO FRONTEND (Garante a ordem exata na tela)
             filtrados.sort((a, b) => {
                 const m_a = a.name.match(/T(\d+)E(\d+)/i);
                 const m_b = b.name.match(/T(\d+)E(\d+)/i);
                 
-                const base_a = a.name.split(/ - T\d+E\d+/i)[0].replace(/[\(\)\[\]]/g, '').trim().toLowerCase();
-                const base_b = b.name.split(/ - T\d+E\d+/i)[0].replace(/[\(\)\[\]]/g, '').trim().toLowerCase();
+                const base_a = a.name.split(/ - T\d+E\d+/i)[0].replace(/[\(\)\[\]\-]/g, '').trim().toLowerCase();
+                const base_b = b.name.split(/ - T\d+E\d+/i)[0].replace(/[\(\)\[\]\-]/g, '').trim().toLowerCase();
 
                 if (base_a < base_b) return -1;
                 if (base_a > base_b) return 1;
