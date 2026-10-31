@@ -15,50 +15,41 @@
     </style>
 </head>
 <body>
-
     <h1>🍿 Catálogo Rave</h1>
     <input type="text" id="pesquisa" placeholder="Digite o nome do filme ou série...">
     <div id="resultados"></div>
-
     <script>
         let catalogoCompleto = [];
-
-        // Busca a lista de filmes no arquivo catalog.json
         fetch('catalog.json')
             .then(response => response.json())
             .then(data => {
                 catalogoCompleto = data;
-                exibirResultados(catalogoCompleto.slice(0, 50)); // Mostra os 50 primeiros
+                exibirResultados(catalogoCompleto.slice(0, 50));
             })
             .catch(err => console.error("Erro ao carregar catálogo:", err));
 
-        // Filtra quando o usuário digita
         document.getElementById('pesquisa').addEventListener('input', (e) => {
             const termo = e.target.value.toLowerCase();
             if (termo.length < 2) {
                 exibirResultados(catalogoCompleto.slice(0, 50));
                 return;
             }
-            
             const filtrados = catalogoCompleto.filter(item => 
                 item.name.toLowerCase().includes(termo)
             );
-            exibirResultados(filtrados.slice(0, 50)); // Limita a 50 resultados na tela
+            exibirResultados(filtrados.slice(0, 50));
         });
 
-        // Coloca na tela
         function exibirResultados(itens) {
             const container = document.getElementById('resultados');
             container.innerHTML = '';
-            
             if (itens.length === 0) {
                 container.innerHTML = '<p style="text-align:center; color:#888;">Nenhum filme encontrado.</p>';
                 return;
             }
-
             itens.forEach(item => {
                 const a = document.createElement('a');
-                a.href = item.file; // Abre o HTML do filme
+                a.href = item.file;
                 a.textContent = item.name;
                 a.target = "_blank";
                 container.appendChild(a);
