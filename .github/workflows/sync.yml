@@ -142,20 +142,27 @@ jobs:
                   print(f"Erro ao processar {arq.name}: {e}")
 
           # ==========================================
-          # AQUI ESTÁ A MÁGICA DA ORDENAÇÃO (A-Z -> T -> E)
+          # A MÁGICA DA ORDENAÇÃO (A-Z -> T -> E)
           # ==========================================
+          def normalizar_nome_base(nome):
+              # Pega tudo antes do T1E1
+              base_name = re.split(r'\s*-\s*T\d+E\d+', nome, flags=re.I)[0].strip().lower()
+              # Remove anos (2012, 2020, etc)
+              base_name = re.sub(r'\b(19|20)\d{2}\b', '', base_name)
+              # Remove parênteses e colchetes
+              base_name = re.sub(r'[\(\)\[\]]', '', base_name)
+              # Remove espaços extras
+              return re.sub(r'\s+', ' ', base_name).strip()
+
           def ordenar_por_serie_e_episodio(item):
               nome = item['name']
-              # Tenta achar T1E1
               match = re.search(r'\bT(\d+)E(\d+)\b', nome, re.I)
-              
-              # Pega o nome base (tudo antes do T1E1)
-              base_name = re.split(r'\s*-\s*T\d+E\d+', nome, flags=re.I)[0].strip().lower()
+              base_name = normalizar_nome_base(nome)
               
               if match:
                   return (base_name, int(match.group(1)), int(match.group(2)))
               else:
-                  return (base_name, 0, 0) # Filmes vêm primeiro
+                  return (base_name, 0, 0)
 
           catalogo = sorted(catalogo, key=ordenar_por_serie_e_episodio)
           (dir_saida / "catalog.json").write_text(json.dumps(catalogo, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -213,6 +220,14 @@ jobs:
                       .then(data => { catalogoCompleto = data; })
                       .catch(err => console.error("Erro ao carregar catálogo:", err));
 
+                  // FUNÇÃO PARA LIMPAR O NOME E ORDENAR NO FRONTEND
+                  function normalizarNomeBase(nome) {
+                      let base = nome.split(/ - T\d+E\d+/i)[0].toLowerCase();
+                      base = base.replace(/\b(19|20)\d{2}\b/g, ''); // Tira anos
+                      base = base.replace(/[\(\)\[\]]/g, ''); // Tira parênteses
+                      return base.replace(/\s+/g, ' ').trim();
+                  }
+
                   inputElement.addEventListener('input', (e) => {
                       const termo = e.target.value.toLowerCase().trim();
                       if (termo.length === 0) {
@@ -228,16 +243,16 @@ jobs:
 
                       let filtrados = catalogoCompleto.filter(item => item.name.toLowerCase().includes(termo));
                       
-                      // ORDENAÇÃO NO FRONTEND TAMBÉM (Garante que fique perfeito na tela)
+                      // ORDENAÇÃO NO FRONTEND
                       filtrados.sort((a, b) => {
-                          const m_a = a.name.match(/T(\d+)E(\d+)/i);
-                          const m_b = b.name.match(/T(\d+)E(\d+)/i);
-                          
-                          const base_a = a.name.split(/ - T\d+E\d+/i)[0].toLowerCase();
-                          const base_b = b.name.split(/ - T\d+E\d+/i)[0].toLowerCase();
+                          const base_a = normalizarNomeBase(a.name);
+                          const base_b = normalizarNomeBase(b.name);
 
                           if (base_a < base_b) return -1;
                           if (base_a > base_b) return 1;
+
+                          const m_a = a.name.match(/T(\d+)E(\d+)/i);
+                          const m_b = b.name.match(/T(\d+)E(\d+)/i);
 
                           if (m_a && m_b) {
                               const s_a = parseInt(m_a[1], 10);
@@ -300,7 +315,7 @@ jobs:
           git config user.email "Claudineybr@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "sync: ordenacao A-Z, Temporada e Episodio"
+          git commit -m "sync: ordenacao blindada (ignora ano e ordena t/e numericamente)"
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then exit 0; fi
             git pull origin main --no-rebase -X ours --no-edit || true
