@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">
-{
+<script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "A Maldicao de Chucky - 🍿Clau",
   "description": "Assista A Maldicao de Chucky - 🍿Clau",
   "thumbnailUrl": [
-    "https://via.placeholder.com/500x750?text=Sem+Capa"
+    "https://image.tmdb.org/t/p/w500/uR9Pa7yed4fL73oxqd0xW3K1gDH.jpg"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://fcoidok.cisantkdh.com/vod/C85AD7C23A3144199C0AB9A7CBC1EA5F_media.mp4",
   "embedUrl": "http://fcoidok.cisantkdh.com/vod/C85AD7C23A3144199C0AB9A7CBC1EA5F_media.mp4"
-}
-</script>
+}</script>
 <title>A Maldicao de Chucky - 🍿Clau</title>
 </head>
 <body>

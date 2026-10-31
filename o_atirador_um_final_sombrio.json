@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">
-{
+<script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "O Atirador - - Um Final Sombrio - 🍿Clau",
   "description": "Assista O Atirador - - Um Final Sombrio - 🍿Clau",
   "thumbnailUrl": [
-    "https://via.placeholder.com/500x750?text=Sem+Capa"
+    "https://image.tmdb.org/t/p/w500/2kH2ZTHfhiZc6E2wM6Pxp0CW8DZ.jpg"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://fcoidok.cisantkdh.com:80/vod/9705455F08104A3D8C71584A98FAE505_media.mp4",
   "embedUrl": "http://fcoidok.cisantkdh.com:80/vod/9705455F08104A3D8C71584A98FAE505_media.mp4"
-}
-</script>
+}</script>
 <title>O Atirador - - Um Final Sombrio - 🍿Clau</title>
 </head>
 <body>
