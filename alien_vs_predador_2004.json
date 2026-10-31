@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Alien vs. Predador (2004) - 🍿Clau",
+  "description": "Assista Alien vs. Predador (2004) - 🍿Clau",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/3geC51BIBZYSttTfDHXO82Heoec.jpg"
+  ],
+  "uploadDate": "2020-01-01T00:00:00+00:00",
+  "inLanguage": "pt",
+  "contentUrl": "https://play-1.cnvods.com/m/Alien%20vs.%20Predador_2004_tt0370263.mp4?cnvs_token=1772810614-VJ2vsykteOGN%2BfAp7xteNeCkJiFMHIx23bTKsL6KCl4%3D&vid=&pid=&t=1772810614",
+  "embedUrl": "https://play-1.cnvods.com/m/Alien%20vs.%20Predador_2004_tt0370263.mp4?cnvs_token=1772810614-VJ2vsykteOGN%2BfAp7xteNeCkJiFMHIx23bTKsL6KCl4%3D&vid=&pid=&t=1772810614"
+}
+    </script>
+    <title>Alien vs. Predador (2004) - 🍿Clau</title>
+    <style>
+        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
+        video { width: 100%; height: 100%; outline: none; }
+    </style>
+</head>
+<body>
+    <video src="https://play-1.cnvods.com/m/Alien%20vs.%20Predador_2004_tt0370263.mp4?cnvs_token=1772810614-VJ2vsykteOGN%2BfAp7xteNeCkJiFMHIx23bTKsL6KCl4%3D&vid=&pid=&t=1772810614" poster="https://image.tmdb.org/t/p/w500/3geC51BIBZYSttTfDHXO82Heoec.jpg" controls autoplay playsinline></video>
+</body>
+</html>

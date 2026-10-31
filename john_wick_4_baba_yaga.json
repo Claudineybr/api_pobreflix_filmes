@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "John Wick 4: Baba Yaga - 🍿Clau",
+  "description": "Assista John Wick 4: Baba Yaga - 🍿Clau",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/rXTqhpkpj6E0YilQ49PK1SSqLhm.jpg"
+  ],
+  "uploadDate": "2020-01-01T00:00:00+00:00",
+  "inLanguage": "pt",
+  "contentUrl": "http://fcoidok.cisantkdh.com/vod/05DAC7EA385A4F158C2A72ECD4B98876_media.mp4",
+  "embedUrl": "http://fcoidok.cisantkdh.com/vod/05DAC7EA385A4F158C2A72ECD4B98876_media.mp4"
+}
+    </script>
+    <title>John Wick 4: Baba Yaga - 🍿Clau</title>
+    <style>
+        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
+        video { width: 100%; height: 100%; outline: none; }
+    </style>
+</head>
+<body>
+    <video src="http://fcoidok.cisantkdh.com/vod/05DAC7EA385A4F158C2A72ECD4B98876_media.mp4" poster="https://image.tmdb.org/t/p/w500/rXTqhpkpj6E0YilQ49PK1SSqLhm.jpg" controls autoplay playsinline></video>
+</body>
+</html>

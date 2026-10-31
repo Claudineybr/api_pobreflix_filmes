@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "O Homem nas Trevas 2 - 🍿Clau",
+  "description": "Assista O Homem nas Trevas 2 - 🍿Clau",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/bE46qkPtUnff8READ0AYZP9mVj2.jpg"
+  ],
+  "uploadDate": "2020-01-01T00:00:00+00:00",
+  "inLanguage": "pt",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/7FFEFC250E7549BA982055729A1A89F0_media.ts",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/7FFEFC250E7549BA982055729A1A89F0_media.ts"
+}
+    </script>
+    <title>O Homem nas Trevas 2 - 🍿Clau</title>
+    <style>
+        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
+        video { width: 100%; height: 100%; outline: none; }
+    </style>
+</head>
+<body>
+    <video src="http://awnagk.gviudclrb.com/vod/7FFEFC250E7549BA982055729A1A89F0_media.ts" poster="https://image.tmdb.org/t/p/w500/bE46qkPtUnff8READ0AYZP9mVj2.jpg" controls autoplay playsinline></video>
+</body>
+</html>

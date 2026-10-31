@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Tini: Depois de Violetta - 🍿Clau",
+  "description": "Assista Tini: Depois de Violetta - 🍿Clau",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/bLu1MLkVGxaweqfcu0XOQEhsCLX.jpg"
+  ],
+  "uploadDate": "2020-01-01T00:00:00+00:00",
+  "inLanguage": "pt",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/A121B073907B4D379B78572C483D3714_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/A121B073907B4D379B78572C483D3714_media.mp4"
+}
+    </script>
+    <title>Tini: Depois de Violetta - 🍿Clau</title>
+    <style>
+        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
+        video { width: 100%; height: 100%; outline: none; }
+    </style>
+</head>
+<body>
+    <video src="http://awnagk.gviudclrb.com/vod/A121B073907B4D379B78572C483D3714_media.mp4" poster="https://image.tmdb.org/t/p/w500/bLu1MLkVGxaweqfcu0XOQEhsCLX.jpg" controls autoplay playsinline></video>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Dexter: Pecado Original - 🍿Clau",
+  "description": "Assista Dexter: Pecado Original - 🍿Clau",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/w1iM0vkMz9XVCH1ZBiU3m1288G5.jpg"
+  ],
+  "uploadDate": "2020-01-01T00:00:00+00:00",
+  "inLanguage": "pt",
+  "contentUrl": "https://cdn-0004.speed-stream.online/dexter-pecado-original-4a9ba934/s1/dubbed/9/aac8d0e6-895d-4e32-8d83-05df15855b2d/stream.mp4",
+  "embedUrl": "https://cdn-0004.speed-stream.online/dexter-pecado-original-4a9ba934/s1/dubbed/9/aac8d0e6-895d-4e32-8d83-05df15855b2d/stream.mp4"
+}
+    </script>
+    <title>Dexter: Pecado Original - 🍿Clau</title>
+    <style>
+        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
+        video { width: 100%; height: 100%; outline: none; }
+    </style>
+</head>
+<body>
+    <video src="https://cdn-0004.speed-stream.online/dexter-pecado-original-4a9ba934/s1/dubbed/9/aac8d0e6-895d-4e32-8d83-05df15855b2d/stream.mp4" poster="https://image.tmdb.org/t/p/w500/w1iM0vkMz9XVCH1ZBiU3m1288G5.jpg" controls autoplay playsinline></video>
+</body>
+</html>

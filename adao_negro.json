@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Adao Negro - 🍿Clau",
+  "description": "Assista Adao Negro - 🍿Clau",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/ZTzxi5aKXua2eIlmaMbxxcoW7v.jpg"
+  ],
+  "uploadDate": "2020-01-01T00:00:00+00:00",
+  "inLanguage": "pt",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/E98BE4CB3CD845349D67378460A05C63_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/E98BE4CB3CD845349D67378460A05C63_media.mp4"
+}
+    </script>
+    <title>Adao Negro - 🍿Clau</title>
+    <style>
+        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
+        video { width: 100%; height: 100%; outline: none; }
+    </style>
+</head>
+<body>
+    <video src="http://awnagk.gviudclrb.com/vod/E98BE4CB3CD845349D67378460A05C63_media.mp4" poster="https://image.tmdb.org/t/p/w500/ZTzxi5aKXua2eIlmaMbxxcoW7v.jpg" controls autoplay playsinline></video>
+</body>
+</html>

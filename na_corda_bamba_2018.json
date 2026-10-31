@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Na Corda Bamba (2018) - 🍿Clau",
+  "description": "Assista Na Corda Bamba (2018) - 🍿Clau",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/srP57zD9P0Uj1ZgZRBs8Iy2PvEM.jpg"
+  ],
+  "uploadDate": "2020-01-01T00:00:00+00:00",
+  "inLanguage": "pt",
+  "contentUrl": "https://cdn-0033.speed-stream.online/na-corda-bamba-b2a1bd9a/dubbed/1/74216c2e-a6c4-4e44-a475-6e16e4b8ce19/stream.mp4",
+  "embedUrl": "https://cdn-0033.speed-stream.online/na-corda-bamba-b2a1bd9a/dubbed/1/74216c2e-a6c4-4e44-a475-6e16e4b8ce19/stream.mp4"
+}
+    </script>
+    <title>Na Corda Bamba (2018) - 🍿Clau</title>
+    <style>
+        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
+        video { width: 100%; height: 100%; outline: none; }
+    </style>
+</head>
+<body>
+    <video src="https://cdn-0033.speed-stream.online/na-corda-bamba-b2a1bd9a/dubbed/1/74216c2e-a6c4-4e44-a475-6e16e4b8ce19/stream.mp4" poster="https://image.tmdb.org/t/p/w500/srP57zD9P0Uj1ZgZRBs8Iy2PvEM.jpg" controls autoplay playsinline></video>
+</body>
+</html>

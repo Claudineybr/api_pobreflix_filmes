@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "No Jogo do Amor - 🍿Clau",
+  "description": "Assista No Jogo do Amor - 🍿Clau",
+  "thumbnailUrl": [
+    "https://image.tmdb.org/t/p/w500/xiNXACFvtjn0rCzArwnzMfCGK05.jpg"
+  ],
+  "uploadDate": "2020-01-01T00:00:00+00:00",
+  "inLanguage": "pt",
+  "contentUrl": "http://awnagk.gviudclrb.com/vod/77EB0BCE493949C0B5E9A9EC464BDCC2_media.mp4",
+  "embedUrl": "http://awnagk.gviudclrb.com/vod/77EB0BCE493949C0B5E9A9EC464BDCC2_media.mp4"
+}
+    </script>
+    <title>No Jogo do Amor - 🍿Clau</title>
+    <style>
+        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
+        video { width: 100%; height: 100%; outline: none; }
+    </style>
+</head>
+<body>
+    <video src="http://awnagk.gviudclrb.com/vod/77EB0BCE493949C0B5E9A9EC464BDCC2_media.mp4" poster="https://image.tmdb.org/t/p/w500/xiNXACFvtjn0rCzArwnzMfCGK05.jpg" controls autoplay playsinline></video>
+</body>
+</html>
