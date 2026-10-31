@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Snoopy & Charlie Brown: Peanuts, o Filme - 🍿Clau",
   "description": "Assista Snoopy & Charlie Brown: Peanuts, o Filme - 🍿Clau",
   "thumbnailUrl": [
-    "https://via.placeholder.com/500x750?text=Sem+Capa"
+    "https://image.tmdb.org/t/p/w500/lODoiWjYCWCPCWK29lXjONLcqhg.jpg"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/F944F0891BC44BF79C5C97A1ECE2FDF3_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/F944F0891BC44BF79C5C97A1ECE2FDF3_media.mp4"
 }
-</script>
-<title>Snoopy & Charlie Brown: Peanuts, o Filme - 🍿Clau</title>
+    </script>
+    <title>Snoopy & Charlie Brown: Peanuts, o Filme - 🍿Clau</title>
+    <style>
+        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
+        video { width: 100%; height: 100%; outline: none; }
+    </style>
 </head>
 <body>
-<h1>Snoopy & Charlie Brown: Peanuts, o Filme - 🍿Clau</h1>
+    <video src="http://awnagk.gviudclrb.com/vod/F944F0891BC44BF79C5C97A1ECE2FDF3_media.mp4" poster="https://image.tmdb.org/t/p/w500/lODoiWjYCWCPCWK29lXjONLcqhg.jpg" controls autoplay playsinline></video>
 </body>
 </html>

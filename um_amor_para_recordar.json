@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Um Amor para Recordar - 🍿Clau",
   "description": "Assista Um Amor para Recordar - 🍿Clau",
   "thumbnailUrl": [
-    "https://via.placeholder.com/500x750?text=Sem+Capa"
+    "https://image.tmdb.org/t/p/w500/2TyQCwl1qVW8gusXWryxD9pxV3b.jpg"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/6458F666C5B749ADB11E3C22BCB0EFD5_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/6458F666C5B749ADB11E3C22BCB0EFD5_media.mp4"
 }
-</script>
-<title>Um Amor para Recordar - 🍿Clau</title>
+    </script>
+    <title>Um Amor para Recordar - 🍿Clau</title>
+    <style>
+        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
+        video { width: 100%; height: 100%; outline: none; }
+    </style>
 </head>
 <body>
-<h1>Um Amor para Recordar - 🍿Clau</h1>
+    <video src="http://awnagk.gviudclrb.com/vod/6458F666C5B749ADB11E3C22BCB0EFD5_media.mp4" poster="https://image.tmdb.org/t/p/w500/2TyQCwl1qVW8gusXWryxD9pxV3b.jpg" controls autoplay playsinline></video>
 </body>
 </html>

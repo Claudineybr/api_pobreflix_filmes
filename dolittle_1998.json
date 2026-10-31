@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Dolittle (1998) - 🍿Clau",
   "description": "Assista Dolittle (1998) - 🍿Clau",
   "thumbnailUrl": [
-    "https://via.placeholder.com/500x750?text=Sem+Capa"
+    "https://image.tmdb.org/t/p/w500/tsa2NZ3QzR6zHg2e20yJfSOhUnS.jpg"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "https://medias.tankie.tube/streaming-playlists/hls/30ce7889-847d-463a-ae22-fca74d972ca0/be8a1ba0-f409-4319-8c30-b28dec202e7c-master.m3u8",
   "embedUrl": "https://medias.tankie.tube/streaming-playlists/hls/30ce7889-847d-463a-ae22-fca74d972ca0/be8a1ba0-f409-4319-8c30-b28dec202e7c-master.m3u8"
 }
-</script>
-<title>Dolittle (1998) - 🍿Clau</title>
+    </script>
+    <title>Dolittle (1998) - 🍿Clau</title>
+    <style>
+        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
+        video { width: 100%; height: 100%; outline: none; }
+    </style>
 </head>
 <body>
-<h1>Dolittle (1998) - 🍿Clau</h1>
+    <video src="https://medias.tankie.tube/streaming-playlists/hls/30ce7889-847d-463a-ae22-fca74d972ca0/be8a1ba0-f409-4319-8c30-b28dec202e7c-master.m3u8" poster="https://image.tmdb.org/t/p/w500/tsa2NZ3QzR6zHg2e20yJfSOhUnS.jpg" controls autoplay playsinline></video>
 </body>
 </html>

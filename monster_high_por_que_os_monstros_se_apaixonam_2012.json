@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Monster High: Por Que os Monstros Se Apaixonam? (2012) - 🍿Clau",
   "description": "Assista Monster High: Por Que os Monstros Se Apaixonam? (2012) - 🍿Clau",
   "thumbnailUrl": [
-    "https://via.placeholder.com/500x750?text=Sem+Capa"
+    "https://image.tmdb.org/t/p/w500/yE6bNqgYHyvxjd89Fg3EghQX8Kj.jpg"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "https://medias.tankie.tube/streaming-playlists/hls/81d231db-2aac-4587-a6e7-01f82bc5c25c/2d1b215b-357a-4991-bd74-df7a9651be5a-master.m3u8",
   "embedUrl": "https://medias.tankie.tube/streaming-playlists/hls/81d231db-2aac-4587-a6e7-01f82bc5c25c/2d1b215b-357a-4991-bd74-df7a9651be5a-master.m3u8"
 }
-</script>
-<title>Monster High: Por Que os Monstros Se Apaixonam? (2012) - 🍿Clau</title>
+    </script>
+    <title>Monster High: Por Que os Monstros Se Apaixonam? (2012) - 🍿Clau</title>
+    <style>
+        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
+        video { width: 100%; height: 100%; outline: none; }
+    </style>
 </head>
 <body>
-<h1>Monster High: Por Que os Monstros Se Apaixonam? (2012) - 🍿Clau</h1>
+    <video src="https://medias.tankie.tube/streaming-playlists/hls/81d231db-2aac-4587-a6e7-01f82bc5c25c/2d1b215b-357a-4991-bd74-df7a9651be5a-master.m3u8" poster="https://image.tmdb.org/t/p/w500/yE6bNqgYHyvxjd89Fg3EghQX8Kj.jpg" controls autoplay playsinline></video>
 </body>
 </html>
