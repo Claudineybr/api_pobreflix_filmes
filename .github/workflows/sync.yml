@@ -29,7 +29,7 @@ jobs:
           git clone --depth 1 https://github.com/WaveLy2308/api_pobreflix_filmes.git "$T/origem" || true
           git clone --depth 1 https://github.com/Claudineybr/catalogocompleto.git "$T/novos"
           
-          # 2. Roda o script Python de filtragem, padronização, conversão HTML e catálogo
+          # 2. Roda o script Python
           cat > "$T/filtrar.py" << 'PYEOF'
           import re
           import shutil
@@ -46,7 +46,7 @@ jobs:
           copiados = 0
           arquivos = []
           urls_quebradas = []
-          catalogo = [] # Lista para a barra de pesquisa
+          catalogo = []
 
           if dir_origem:
               arquivos.extend(list(dir_origem.glob("*.json")))
@@ -57,25 +57,19 @@ jobs:
               return (is_novo, len(arq.name))
           arquivos.sort(key=prioridade, reverse=True)
 
-          # FUNÇÃO DE LIMPEZA CORRIGIDA (NÃO APAGA T1E1 E NÃO DEIXA TRAÇOS DUPLOS)
           def limpar_titulo(raw_text):
               if not raw_text: return "Desconhecido"
               
               texto_norm = unicodedata.normalize('NFKD', str(raw_text))
               texto_norm = "".join([c for c in texto_norm if not unicodedata.combining(c)])
               
-              # 1. Remove lixos e marcas d'água
               for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
                   texto_norm = texto_norm.replace(lixo, '')
                   
-              # 2. Remove apenas "Episódio X", mas MANTÉM o T1E1
               texto_norm = re.sub(r'(?i)Epis[oó]dio\s*\d+', '', texto_norm)
               texto_norm = texto_norm.replace('_', ' ')
-              
-              # 3. Arruma traços duplos
               texto_norm = re.sub(r'\s*-\s*-\s*', ' - ', texto_norm)
               
-              # 4. Separa por hífens e filtra nomes de sites
               partes = [p.strip() for p in re.split(r'\s+[-–—]\s+', texto_norm) if p.strip()]
               partes_limpas = []
               
@@ -86,8 +80,6 @@ jobs:
                   partes_limpas.append(p)
                   
               titulo_final = ' - '.join(partes_limpas) if partes_limpas else partes[0] if partes else "Desconhecido"
-              
-              # 5. Limpeza final (Tira o ano se estiver no final)
               titulo_final = re.sub(r'\s*\(?\d{4}\)?\s*$', '', titulo_final).strip()
               titulo_final = re.sub(r'[\s.:;,]+$', '', titulo_final).strip()
               
@@ -109,7 +101,7 @@ jobs:
               try:
                   content = arq.read_text(encoding='utf-8-sig')
                   
-                  # 1. Extrai a URL
+                  # 1. Extrai a URL do Vídeo
                   url_match = re.search(r'"(?:contentUrl|embedUrl)"\s*:\s*"([^"]*)"', content)
                   url = url_match.group(1) if url_match else ""
                   nova_url = clean_url(url)
@@ -123,7 +115,11 @@ jobs:
                       continue
                   links_vistos.add(clean_url_lower)
 
-                  # 2. Extrai o Nome e o Ano
+                  # 2. Extrai a CAPA (Thumbnail)
+                  thumb_match = re.search(r'"thumbnailUrl"\s*:\s*\[\s*"([^"]*)"', content)
+                  capa_url = thumb_match.group(1) if thumb_match else "https://via.placeholder.com/500x750?text=Sem+Capa"
+
+                  # 3. Extrai o Nome e o Ano
                   match_name = re.search(r'"name"\s*:\s*"([^"]*)"', content)
                   nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '')
                   
@@ -135,7 +131,7 @@ jobs:
 
                   titulo_limpo = limpar_titulo(nome_atual)
                   
-                  # 3. Detecta Série ou Filme
+                  # 4. Detecta Série ou Filme
                   m_ep = re.search(r'(?i)_t(\d+)e(\d+)', arq.name)
                   if m_ep:
                       ep_tag = f"T{int(m_ep.group(1))}E{int(m_ep.group(2))}"
@@ -152,7 +148,7 @@ jobs:
                       ep_tag = ""
                       novo_nome_json = f"{titulo_limpo} ({ano}) - 🍿Clau" if ano else f"{titulo_limpo} - 🍿Clau"
 
-                  # 4. GERA O NOME DO ARQUIVO FÍSICO (.html)
+                  # 5. GERA O NOME DO ARQUIVO FÍSICO (.html)
                   titulo_base = re.sub(r'(?i)\bT\d+E\d+\b', '', titulo_limpo).strip()
                   slug = re.sub(r'[^a-z0-9]', '_', titulo_base.lower())
                   slug = re.sub(r'_+', '_', slug).strip('_')
@@ -162,12 +158,12 @@ jobs:
                   else:
                       novo_nome_arq = f"{slug}_{ano}.html" if ano else f"{slug}.html"
 
-                  # 5. CRIA O HTML COM O PLAYER DE TELA PRETA
+                  # 6. CRIA O HTML COM O PLAYER E A CAPA CORRETA
                   novo_json = {
                       "@context": "https://schema.org", "@type": "VideoObject",
                       "name": novo_nome_json,
                       "description": f"Assista {novo_nome_json}",
-                      "thumbnailUrl": ["https://via.placeholder.com/500x750?text=Sem+Capa"],
+                      "thumbnailUrl": [capa_url], # <--- CAPA CORRIGIDA AQUI
                       "uploadDate": "2020-01-01T00:00:00+00:00", "inLanguage": "pt",
                       "contentUrl": nova_url, "embedUrl": nova_url
                   }
@@ -187,25 +183,22 @@ jobs:
               </style>
           </head>
           <body>
-              <video src="{nova_url}" poster="https://via.placeholder.com/500x750?text=Sem+Capa" controls autoplay playsinline></video>
+              <video src="{nova_url}" poster="{capa_url}" controls autoplay playsinline></video>
           </body>
           </html>'''
 
-                  # Salva o HTML na pasta de saída
                   (dir_saida / novo_nome_arq).write_text(html_final, encoding='utf-8')
-                  
-                  # Adiciona à lista do catálogo
                   catalogo.append({"name": novo_nome_json, "file": novo_nome_arq})
                   copiados += 1
                   
               except Exception as e:
                   print(f"[ERRO] Falha em {arq.name}: {e}")
 
-          # Gera o catalog.json para a busca
+          # Gera o catalog.json
           catalogo = sorted(catalogo, key=lambda x: x['name'].lower())
           (dir_saida / "catalog.json").write_text(json.dumps(catalogo, ensure_ascii=False, indent=2), encoding='utf-8')
 
-          # Gera o index.html (A Dashboard Clean)
+          # Gera o index.html
           index_html = '''<!DOCTYPE html>
           <html lang="pt-BR">
           <head>
@@ -255,9 +248,7 @@ jobs:
 
                   fetch('catalog.json')
                       .then(response => response.json())
-                      .then(data => {
-                          catalogoCompleto = data;
-                      })
+                      .then(data => { catalogoCompleto = data; })
                       .catch(err => console.error("Erro ao carregar catálogo:", err));
 
                   inputElement.addEventListener('input', (e) => {
@@ -306,18 +297,18 @@ jobs:
           if urls_quebradas:
               (dir_saida / "urls_invalidas.txt").write_text("\n".join(urls_quebradas), encoding="utf-8")
               
-          print(f"Total de arquivos processados, convertidos para HTML e catalogados: {copiados}")
+          print(f"Total de arquivos processados e convertidos: {copiados}")
           PYEOF
 
-          # Injeta os caminhos no script e roda
+          # Injeta os caminhos e roda
           sed -i "s|ORIGEM_PATH|$T/origem|g; s|NOVOS_PATH|$T/novos|g; s|SAIDA_PATH|$T/saida|g" "$T/filtrar.py"
           python3 -I "$T/filtrar.py"
           
-          # 3. Limpa a raiz do repositório (apaga .json e .html antigos, exceto workflows)
+          # Limpa a raiz antiga
           find . -maxdepth 1 -name "*.json" -delete
           find . -maxdepth 1 -name "*.html" -delete
           
-          # 4. Copia os novos arquivos gerados
+          # Copia tudo novo
           cp -f "$T"/saida/* .
           
           if [ -f "$T/saida/urls_invalidas.txt" ]; then 
@@ -336,7 +327,7 @@ jobs:
             exit 0
           fi
           
-          git commit -m "sync: conversao html, dashboard e nomes T1E1 corrigidos"
+          git commit -m "sync: capas corrigidas, html e dashboard atualizados"
           
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then
