@@ -1,0 +1,133 @@
+name: Teste Catalogo de Busca (Manual)
+
+on:
+  workflow_dispatch: # Roda só na mão
+
+permissions:
+  contents: write
+
+jobs:
+  gerar_catalogo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Criar Index e Gerar Catalog.json
+        run: |
+          # 1. Cria o novo visual da página (index.html)
+          cat > index.html << 'HTMLEOF'
+          <!DOCTYPE html>
+          <html lang="pt-BR">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>API Filmes</title>
+              <style>
+                  body { font-family: Arial, sans-serif; background-color: #121212; color: #fff; padding: 20px; margin: 0; }
+                  h1 { color: #e50914; text-align: center; }
+                  input { width: 100%; max-width: 600px; padding: 12px; font-size: 16px; border-radius: 8px; border: 1px solid #333; background: #222; color: #fff; display: block; margin: 0 auto 20px auto; outline: none; }
+                  input:focus { border-color: #e50914; }
+                  #resultados { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+                  a { color: #fff; text-decoration: none; background: #222; padding: 15px; border-radius: 8px; display: block; transition: 0.2s; border-left: 4px solid transparent; }
+                  a:hover { background: #333; border-left-color: #e50914; }
+              </style>
+          </head>
+          <body>
+              <h1>🍿 Catálogo Rave</h1>
+              <input type="text" id="pesquisa" placeholder="Digite o nome do filme ou série...">
+              <div id="resultados"></div>
+              <script>
+                  let catalogoCompleto = [];
+                  fetch('catalog.json')
+                      .then(response => response.json())
+                      .then(data => {
+                          catalogoCompleto = data;
+                          exibirResultados(catalogoCompleto.slice(0, 50));
+                      })
+                      .catch(err => console.error("Erro ao carregar catálogo:", err));
+
+                  document.getElementById('pesquisa').addEventListener('input', (e) => {
+                      const termo = e.target.value.toLowerCase();
+                      if (termo.length < 2) {
+                          exibirResultados(catalogoCompleto.slice(0, 50));
+                          return;
+                      }
+                      const filtrados = catalogoCompleto.filter(item => 
+                          item.name.toLowerCase().includes(termo)
+                      );
+                      exibirResultados(filtrados.slice(0, 50));
+                  });
+
+                  function exibirResultados(itens) {
+                      const container = document.getElementById('resultados');
+                      container.innerHTML = '';
+                      if (itens.length === 0) {
+                          container.innerHTML = '<p style="text-align:center; color:#888;">Nenhum filme encontrado.</p>';
+                          return;
+                      }
+                      itens.forEach(item => {
+                          const a = document.createElement('a');
+                          a.href = item.file;
+                          a.textContent = item.name;
+                          a.target = "_blank";
+                          container.appendChild(a);
+                      });
+                  }
+              </script>
+          </body>
+          </html>
+          HTMLEOF
+
+          # 2. Gera o catalog.json lendo os arquivos .html
+          cat > /tmp/gerar_catalogo.py << 'PYEOF'
+          import os, json, re
+
+          catalogo = []
+          for arquivo in os.listdir('.'):
+              if arquivo.endswith('.html') and arquivo != 'index.html':
+                  nome = arquivo.replace('.html', '').replace('_', ' ').title()
+                  try:
+                      with open(arquivo, 'r', encoding='utf-8') as f:
+                          conteudo = f.read()
+                          match = re.search(r'"name"\s*:\s*"([^"]+)"', conteudo)
+                          if match:
+                              nome = match.group(1)
+                  except:
+                      pass
+                  
+                  catalogo.append({
+                      "name": nome,
+                      "file": arquivo
+                  })
+
+          catalogo = sorted(catalogo, key=lambda x: x['name'])
+          
+          with open('catalog.json', 'w', encoding='utf-8') as f:
+              json.dump(catalogo, f, ensure_ascii=False, indent=2)
+              
+          print(f"catalog.json gerado com {len(catalogo)} itens.")
+          PYEOF
+          python3 /tmp/gerar_catalogo.py
+
+      - name: Salvar arquivos
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          git add index.html catalog.json
+          
+          if git diff --cached --quiet; then echo "Nada novo."; exit 0; fi
+          
+          git commit -m "test: gerar index e catalog.json para pesquisa"
+          
+          for i in $(seq 1 5); do
+            if git push origin HEAD:main; then break; fi
+            git fetch origin main
+            git reset --mixed origin/main
+            git add index.html catalog.json
+            git commit -m "test: retry $i" || true
+            sleep $((RANDOM % 10 + 5))
+          done
