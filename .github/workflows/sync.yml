@@ -2,7 +2,7 @@ name: Sincronizar, Limpar e Padronizar
 
 on:
   schedule:
-    - cron: '0 */2 * * *' # Roda a cada 2 horas
+    - cron: '0 */12 * * *' # <-- MUDOU AQUI (A cada 12 horas)
   workflow_dispatch:
 
 permissions:
@@ -57,26 +57,19 @@ jobs:
           arquivos.sort(key=prioridade, reverse=True)
 
           def limpar_titulo(raw_text):
-              if not raw_text: return "Desconhecido", "", ""
+              if not raw_text: return "Desconhecido"
               
-              # Normaliza caracteres
               texto_norm = unicodedata.normalize('NFKD', str(raw_text))
               texto_norm = "".join([c for c in texto_norm if not unicodedata.combining(c)])
               
-              # 1. Busca por QUALQUER formato de episódio (T1EP1, TP1EP01, T1E1, etc.)
-              match_ep = re.search(r'(?i)(?:t|tp|temporada)[\s._-]*(\d+)[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*(\d+)', texto_norm)
-              ep_tag = ""
-              if match_ep:
-                  s = int(match_ep.group(1))
-                  e = int(match_ep.group(2))
-                  ep_tag = f"T{s}E{e}"  # Força o padrão T1E1
-                  # Remove essa parte do texto para não sujar o título
-                  texto_norm = re.sub(r'(?i)(?:t|tp|temporada)[\s._-]*\d+[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*\d+', '', texto_norm)
-
-              # 2. Remove lixos e marcas d'água
+              # 1. Remove lixos e marcas d'água
               for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
                   texto_norm = texto_norm.replace(lixo, '')
                   
+              # 2. Remove QUALQUER tag de episódio que esteja no título
+              texto_norm = re.sub(r'(?i)\b(?:t|tp|temporada)[\s._-]*\d+[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*\d+', '', texto_norm)
+              texto_norm = re.sub(r'(?i)\bT\d+E\d+\b', '', texto_norm)
+              texto_norm = re.sub(r'(?i)Epis[oó]dio\s*\d+', '', texto_norm)
               texto_norm = texto_norm.replace('_', ' ')
               
               # 3. Separa por hífens
@@ -89,28 +82,11 @@ jobs:
                       continue
                   partes_limpas.append(p)
               
-              # 4. Mantém a primeira parte que não for um ano (geralmente o nome em PT-BR)
-              titulo_base = ""
-              if partes_limpas:
-                  for p in partes_limpas:
-                      if not re.fullmatch(r'\(?\d{4}\)?', p.strip()):
-                          titulo_base = p
-                          break
+              # 4. Mantém a primeira parte válida
+              titulo_base = partes_limpas[0] if partes_limpas else "Desconhecido"
+              titulo_final = re.sub(r'[\s.:;,]+$', '', titulo_base).strip()
               
-              if not titulo_base and partes_limpas:
-                  titulo_base = partes_limpas[0]
-                  
-              if not titulo_base:
-                  titulo_base = "Desconhecido"
-
-              # 5. Extrai o ano
-              match_ano = re.search(r'\b(19\d{2}|20\d{2})\b', texto_norm)
-              ano = match_ano.group(1) if match_ano else ""
-              
-              titulo_final = re.sub(r'\s*\(?\d{4}\)?\s*$', '', titulo_base).strip()
-              titulo_final = re.sub(r'[\s.:;,]+$', '', titulo_final).strip()
-              
-              return titulo_final, ep_tag, ano
+              return titulo_final
 
           def clean_url(url):
               if not url: return ""
@@ -142,20 +118,28 @@ jobs:
                       continue
                   links_vistos.add(clean_url_lower)
 
-                  # Extrai Nome
                   match_name = re.search(r'"name"\s*:\s*"([^"]*)"', content)
                   nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '')
                   
                   if len(nome_atual) < 5:
                       nome_atual = arq.name.replace('.json', '')
 
-                  # Limpa o título e extrai o padrão T1E1
-                  titulo_limpo, ep_tag, ano = limpar_titulo(nome_atual)
+                  # --- A MÁGICA: LÊ O EPISÓDIO DO JSON PRIMEIRO ---
+                  # 1. Tenta achar o episódio no nome que está DENTRO do arquivo
+                  match_ep = re.search(r'(?i)(?:t|tp|temporada)[\s._-]*(\d+)[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*(\d+)', nome_atual)
                   
-                  # Se não achou o episódio no nome do JSON, tenta achar no nome do arquivo físico (ex: arrow_t1ep1.json)
-                  if not ep_tag:
-                      _, ep_tag_file, _ = limpar_titulo(arq.name)
-                      ep_tag = ep_tag_file
+                  # 2. Se não achar no JSON, tenta achar no nome físico do arquivo (Fallback)
+                  if not match_ep:
+                      match_ep = re.search(r'(?i)(?:t|tp|temporada)[\s._-]*(\d+)[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*(\d+)', arq.name)
+
+                  ep_tag = ""
+                  if match_ep:
+                      ep_tag = f"T{int(match_ep.group(1))}E{int(match_ep.group(2))}"
+
+                  titulo_limpo = limpar_titulo(nome_atual)
+                  
+                  match_ano = re.search(r'\b(19\d{2}|20\d{2})\b', nome_atual)
+                  ano = match_ano.group(1) if match_ano else ""
 
                   # Monta o JSON final
                   if ep_tag:
@@ -175,7 +159,7 @@ jobs:
                   novo_html = f"<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n<script type=\"application/ld+json\">\n{json.dumps(novo_json, ensure_ascii=False, indent=2)}\n</script>\n<title>{novo_nome_json}</title>\n</head>\n<body>\n<h1>{novo_nome_json}</h1>\n</body>\n</html>"
                   novo_html = novo_html.replace("https://redetoons.cards", "https://redetoons.my")
 
-                  # Nome do arquivo físico perfeito (arrow_t1e1.json)
+                  # Define o nome do arquivo físico
                   slug = re.sub(r'[^a-z0-9]', '_', titulo_limpo.lower())
                   slug = re.sub(r'_+', '_', slug).strip('_')
                   
@@ -209,7 +193,7 @@ jobs:
           git config user.email "Claudineybr@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "fix: ajusta formato de episodios para T1E1 e padroniza titulos"
+          git commit -m "sync: (12h) respeitando episodios do JSON e limpando nomes"
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then exit 0; fi
             git pull origin main --no-rebase -X ours --no-edit || true
