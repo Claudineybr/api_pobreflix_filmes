@@ -1,8 +1,8 @@
-name: Sincronizar, Limpar e Padronizar
+name: Sincronizar, Limpar e Converter para HTML
 
 on:
   schedule:
-    - cron: '0 */12 * * *' # Roda a cada 12 horas
+    - cron: '0 */6 * * *' # Roda a cada 6 horas
   workflow_dispatch:
 
 permissions:
@@ -20,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Baixar, Filtrar e Padronizar Nomes
+      - name: Baixar, Filtrar, Converter para HTML e Gerar Dashboard
         run: |
           set -e
           T=$(mktemp -d)
@@ -50,44 +50,40 @@ jobs:
 
           if dir_origem:
               arquivos.extend(list(dir_origem.glob("*.json")))
-              arquivos.extend(list(dir_origem.glob("*.html")))
           arquivos.extend(list(dir_novos.glob("*.json")))
-          arquivos.extend(list(dir_novos.glob("*.html")))
 
           def prioridade(arq):
               is_novo = 1 if dir_novos in arq.parents else 0
               return (is_novo, len(arq.name))
           arquivos.sort(key=prioridade, reverse=True)
 
-          # MÁGICA DO EPISÓDIO (Aceita T01EP01, T1E1, 3x5)
-          def extract_episode(text):
-              if not text: return ""
-              m = re.search(r'(?i)t\s*(\d+)\s*[._-]?\s*(?:e|ep|epis[oó]dio)\s*[._-]?\s*(\d+)', text)
-              if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
-              m = re.search(r'\b(\d{1,2})x(\d{1,3})\b', text)
-              if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
-              return ""
-
           def limpar_titulo(raw_text):
               if not raw_text: return "Desconhecido"
+              
               texto_norm = unicodedata.normalize('NFKD', str(raw_text))
               texto_norm = "".join([c for c in texto_norm if not unicodedata.combining(c)])
               
-              # Remove lixos
               for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
                   texto_norm = texto_norm.replace(lixo, '')
                   
-              # Remove o T01EP01 do titulo
-              texto_norm = re.sub(r'(?i)t\s*\d+\s*[._-]?\s*(?:e|ep|epis[oó]dio)\s*[._-]?\s*\d+', '', texto_norm)
-              texto_norm = re.sub(r'\b\d{1,2}x\d{1,3}\b', '', texto_norm)
+              texto_norm = re.sub(r'(?i)Epis[oó]dio\s*\d+', '', texto_norm)
               texto_norm = texto_norm.replace('_', ' ')
+              texto_norm = re.sub(r'\s*-\s*-\s*', ' - ', texto_norm)
               
               partes = [p.strip() for p in re.split(r'\s+[-–—]\s+', texto_norm) if p.strip()]
-              partes_limpas = [p for p in partes if not any(pref in p.lower() for pref in ['vini', 'marcos', 'inix', 'lili', 'estrelinha', 'grave', 'site', 'online', 'blogspot', 'assistir', 'download'])]
+              partes_limpas = []
               
-              titulo_base = partes_limpas[0] if partes_limpas else "Desconhecido"
-              titulo_base = re.sub(r'\b(19\d{2}|20\d{2})\b', '', titulo_base).strip()
-              return re.sub(r'[\s.:;,]+$', '', titulo_base).strip()
+              for p in partes:
+                  p_lower = p.lower()
+                  if any(pref in p_lower for pref in ['vini', 'marcos', 'inix', 'lili', 'estrelinha', 'grave', 'site', 'online', 'blogspot', 'assistir', 'download']):
+                      continue
+                  partes_limpas.append(p)
+                  
+              titulo_final = ' - '.join(partes_limpas) if partes_limpas else partes[0] if partes else "Desconhecido"
+              titulo_final = re.sub(r'\s*\(?\d{4}\)?\s*$', '', titulo_final).strip()
+              titulo_final = re.sub(r'[\s.:;,]+$', '', titulo_final).strip()
+              
+              return titulo_final if titulo_final else "Desconhecido"
 
           def clean_url(url):
               if not url: return ""
@@ -105,6 +101,7 @@ jobs:
               try:
                   content = arq.read_text(encoding='utf-8-sig')
                   
+                  # 1. Extrai a URL do Vídeo
                   url_match = re.search(r'"(?:contentUrl|embedUrl)"\s*:\s*"([^"]*)"', content)
                   url = url_match.group(1) if url_match else ""
                   nova_url = clean_url(url)
@@ -118,27 +115,67 @@ jobs:
                       continue
                   links_vistos.add(clean_url_lower)
 
-                  capa_url = "https://via.placeholder.com/500x750?text=Sem+Capa"
-                  match_capa = re.search(r'"thumbnailUrl"\s*:\s*\[\s*"([^"]+)"', content)
-                  if match_capa: capa_url = match_capa.group(1)
+                  # 2. Extrai a CAPA (Thumbnail)
+                  thumb_match = re.search(r'"thumbnailUrl"\s*:\s*\[\s*"([^"]*)"', content)
+                  capa_url = thumb_match.group(1) if thumb_match else "https://via.placeholder.com/500x750?text=Sem+Capa"
 
+                  # 3. Extrai o Nome e o Ano de dentro do JSON
                   match_name = re.search(r'"name"\s*:\s*"([^"]*)"', content)
-                  nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '').replace('.html', '')
-                  if len(nome_atual) < 5: nome_atual = arq.name.replace('.json', '').replace('.html', '')
-
-                  ep_tag = extract_episode(nova_url) or extract_episode(nome_atual) or extract_episode(arq.name)
-
-                  titulo_limpo = limpar_titulo(nome_atual)
+                  nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '')
+                  
+                  if len(nome_atual) < 5:
+                      nome_atual = arq.name.replace('.json', '')
+                      
                   match_ano = re.search(r'\b(19\d{2}|20\d{2})\b', nome_atual)
                   ano = match_ano.group(1) if match_ano else ""
 
-                  if ep_tag:
-                      novo_nome_json = f"{titulo_limpo} {ep_tag} - 🍿Clau"
+                  titulo_limpo = limpar_titulo(nome_atual)
+                  
+                  # 4. DETECTA SÉRIE OU FILME (O VERDADEIRO CONSERTO AQUI)
+                  # Tenta primeiro achar o T1E1 no NOME do JSON
+                  match_ep_nome = re.search(r'(?i)\bT(\d+)E(\d+)\b', titulo_limpo)
+                  # Se não achar no nome, tenta achar no nome do ARQUIVO
+                  match_ep_arq = re.search(r'(?i)_t(\d+)e(\d+)', arq.name)
+                  
+                  temp, ep = None, None
+                  if match_ep_nome:
+                      temp, ep = match_ep_nome.group(1), match_ep_nome.group(2)
+                  elif match_ep_arq:
+                      temp, ep = match_ep_arq.group(1), match_ep_arq.group(2)
+                      
+                  if temp and ep:
+                      ep_tag = f"T{int(temp)}E{int(ep)}"
+                      
+                      # Arranca o T1E1 antigo para não duplicar
+                      titulo_base = re.sub(r'(?i)\bT\d+E\d+\b', '', titulo_limpo).strip()
+                      titulo_base = re.sub(r'\s*-\s*-\s*', ' - ', titulo_base).strip(' -')
+                      
+                      partes = [p.strip() for p in titulo_base.split(' - ') if p.strip()]
+                      if len(partes) > 1:
+                          novo_nome_json = f"{partes[0]} - {ep_tag} - {' - '.join(partes[1:])} - 🍿Clau"
+                      else:
+                          novo_nome_json = f"{titulo_base} - {ep_tag} - 🍿Clau"
+                          
+                      slug = re.sub(r'[^a-z0-9]', '_', partes[0].lower() if partes else titulo_base.lower())
+                      slug = re.sub(r'_+', '_', slug).strip('_')
+                      novo_nome_arq = f"{slug}_{ep_tag.lower()}.html"
                   else:
+                      ep_tag = ""
                       novo_nome_json = f"{titulo_limpo} ({ano}) - 🍿Clau" if ano else f"{titulo_limpo} - 🍿Clau"
+                      
+                      slug = re.sub(r'[^a-z0-9]', '_', titulo_limpo.lower())
+                      slug = re.sub(r'_+', '_', slug).strip('_')
+                      novo_nome_arq = f"{slug}_{ano}.html" if ano else f"{slug}.html"
 
+                  # URL BASE DA CLOUDFLARE PARA O ID ÚNICO
+                  base_url = "https://api-pobreflix-filmes.pages.dev"
+                  url_unica = f"{base_url}/{novo_nome_arq}"
+
+                  # 6. CRIA O HTML COM O PLAYER, CAPA E ID ÚNICO
                   novo_json = {
                       "@context": "https://schema.org", "@type": "VideoObject",
+                      "@id": url_unica, 
+                      "url": url_unica, 
                       "name": novo_nome_json,
                       "description": f"Assista {novo_nome_json}",
                       "thumbnailUrl": [capa_url],
@@ -146,78 +183,173 @@ jobs:
                       "contentUrl": nova_url, "embedUrl": nova_url
                   }
                   
-                  catalogo.append(novo_json)
-                  
-                  # GERA O HTML
-                  json_str = json.dumps(novo_json, ensure_ascii=False, indent=2)
-                  html_lines = [
-                      "<!DOCTYPE html>",
-                      "<html lang=\"pt-BR\">",
-                      "<head>",
-                      "    <meta charset=\"UTF-8\">",
-                      "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
-                      "    <script type=\"application/ld+json\">",
-                      json_str,
-                      "    </script>",
-                      f"    <title>{novo_nome_json}</title>",
-                      "    <style>",
-                      "        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }",
-                      "        video { width: 100%; height: 100%; outline: none; }",
-                      "    </style>",
-                      "</head>",
-                      "<body>",
-                      f"    <video src=\"{nova_url}\" poster=\"{capa_url}\" controls autoplay playsinline></video>",
-                      "</body>",
-                      "</html>"
-                  ]
-                  novo_html = "\n".join(html_lines).replace("https://redetoons.cards", "https://redetoons.my")
+                  html_final = f'''<!DOCTYPE html>
+          <html lang="pt-BR">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <script type="application/ld+json">
+          {json.dumps(novo_json, ensure_ascii=False, indent=2)}
+              </script>
+              <title>{novo_nome_json}</title>
+              <style>
+                  body, html {{ margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }}
+                  video {{ width: 100%; height: 100%; outline: none; }}
+              </style>
+          </head>
+          <body>
+              <video src="{nova_url}" poster="{capa_url}" controls autoplay playsinline></video>
+          </body>
+          </html>'''
 
-                  slug = re.sub(r'[^a-z0-9]', '_', titulo_limpo.lower())
-                  slug = re.sub(r'_+', '_', slug).strip('_')
-                  
-                  # SALVA COMO .HTML
-                  if ep_tag:
-                      novo_nome_arq = f"{slug}_{ep_tag.lower()}.html"
-                  else:
-                      novo_nome_arq = f"{slug}_{ano}.html" if ano else f"{slug}.html"
-
-                  (dir_saida / novo_nome_arq).write_text(novo_html, encoding='utf-8')
+                  (dir_saida / novo_nome_arq).write_text(html_final, encoding='utf-8')
+                  catalogo.append({"name": novo_nome_json, "file": novo_nome_arq})
                   copiados += 1
                   
               except Exception as e:
-                  shutil.copy2(arq, dir_saida / arq.name)
+                  print(f"[ERRO] Falha em {arq.name}: {e}")
 
-          # SALVA O CATALOG.JSON
-          (dir_saida / "catalog.json").write_text(json.dumps(catalogo, ensure_ascii=False, indent=2), encoding="utf-8")
+          # Gera o catalog.json
+          catalogo = sorted(catalogo, key=lambda x: x['name'].lower())
+          (dir_saida / "catalog.json").write_text(json.dumps(catalogo, ensure_ascii=False, indent=2), encoding='utf-8')
+
+          # Gera o index.html
+          index_html = '''<!DOCTYPE html>
+          <html lang="pt-BR">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Busca - Rave</title>
+              <style>
+                  * { box-sizing: border-box; }
+                  body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0f0f13; color: #fff; padding: 20px; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+                  .header { text-align: center; margin-top: 10vh; margin-bottom: 30px; transition: 0.3s; }
+                  .header.searching { margin-top: 5vh; }
+                  h1 { color: #e50914; font-size: 2.5rem; margin: 0; display: flex; align-items: center; justify-content: center; gap: 10px; }
+                  h1 span { font-size: 2rem; }
+                  .search-container { width: 100%; max-width: 650px; position: relative; margin-bottom: 40px; }
+                  input { width: 100%; padding: 18px 24px; font-size: 18px; border-radius: 50px; border: 1px solid #333; background: #1c1c24; color: #fff; outline: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+                  input:focus { border-color: #e50914; box-shadow: 0 0 20px rgba(229, 9, 20, 0.2); background: #22222b; }
+                  .welcome-screen { text-align: center; color: #666; display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 50px; animation: fadeIn 0.5s ease; }
+                  .welcome-screen svg { width: 60px; height: 60px; opacity: 0.5; }
+                  #resultados { width: 100%; max-width: 650px; display: flex; flex-direction: column; gap: 12px; display: none; }
+                  a { color: #fff; text-decoration: none; background: #1c1c24; padding: 18px 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; border-left: 4px solid transparent; animation: slideUp 0.3s ease; }
+                  a:hover { background: #22222b; border-left-color: #e50914; transform: translateX(5px); }
+                  .item-name { font-weight: 500; font-size: 16px; }
+                  .item-icon { color: #555; transition: 0.2s; }
+                  a:hover .item-icon { color: #e50914; }
+                  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+                  @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+              </style>
+          </head>
+          <body>
+              <div class="header" id="header">
+                  <h1><span>🍿</span> Rave Search</h1>
+              </div>
+              <div class="search-container">
+                  <input type="text" id="pesquisa" placeholder="Pesquise por um filme ou série..." autocomplete="off">
+              </div>
+              <div class="welcome-screen" id="welcome-screen">
+                  <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg>
+                  <p>Digite para encontrar seu próximo filme.</p>
+              </div>
+              <div id="resultados"></div>
+              <script>
+                  let catalogoCompleto = [];
+                  const inputElement = document.getElementById('pesquisa');
+                  const containerResultados = document.getElementById('resultados');
+                  const welcomeScreen = document.getElementById('welcome-screen');
+                  const headerElement = document.getElementById('header');
+
+                  fetch('catalog.json')
+                      .then(response => response.json())
+                      .then(data => { catalogoCompleto = data; })
+                      .catch(err => console.error("Erro ao carregar catálogo:", err));
+
+                  inputElement.addEventListener('input', (e) => {
+                      const termo = e.target.value.toLowerCase().trim();
+                      if (termo.length === 0) {
+                          containerResultados.style.display = 'none';
+                          welcomeScreen.style.display = 'flex';
+                          headerElement.classList.remove('searching');
+                          return;
+                      }
+                      welcomeScreen.style.display = 'none';
+                      containerResultados.style.display = 'flex';
+                      headerElement.classList.add('searching');
+                      if (termo.length < 2) { containerResultados.innerHTML = ''; return; }
+
+                      const filtrados = catalogoCompleto.filter(item => item.name.toLowerCase().includes(termo));
+                      exibirResultados(filtrados.slice(0, 50));
+                  });
+
+                  function exibirResultados(itens) {
+                      containerResultados.innerHTML = '';
+                      if (itens.length === 0) {
+                          containerResultados.innerHTML = '<div style="text-align:center; color:#666; margin-top:20px;">Nenhum resultado encontrado.</div>';
+                          return;
+                      }
+                      itens.forEach(item => {
+                          const a = document.createElement('a');
+                          a.href = item.file;
+                          a.target = "_blank";
+                          const nameSpan = document.createElement('span');
+                          nameSpan.className = 'item-name';
+                          nameSpan.textContent = item.name;
+                          const iconSpan = document.createElement('span');
+                          iconSpan.className = 'item-icon';
+                          iconSpan.textContent = '▶';
+                          a.appendChild(nameSpan);
+                          a.appendChild(iconSpan);
+                          containerResultados.appendChild(a);
+                      });
+                  }
+              </script>
+          </body>
+          </html>'''
+          (dir_saida / "index.html").write_text(index_html, encoding='utf-8')
 
           if urls_quebradas:
               (dir_saida / "urls_invalidas.txt").write_text("\n".join(urls_quebradas), encoding="utf-8")
               
-          print(f"Total de arquivos HTML processados: {copiados}")
-          print(f"Catalog.json gerado com {len(catalogo)} itens.")
+          print(f"Total de arquivos processados e convertidos: {copiados}")
           PYEOF
 
+          # Injeta os caminhos e roda
           sed -i "s|ORIGEM_PATH|$T/origem|g; s|NOVOS_PATH|$T/novos|g; s|SAIDA_PATH|$T/saida|g" "$T/filtrar.py"
           python3 -I "$T/filtrar.py"
           
-          # LIMPA TUDO QUE É JSON E HTML ANTIGO (EXCETO O CATALOG)
-          find . -maxdepth 1 -name "*.json" ! -name "catalog.json" -delete
+          # Limpa a raiz antiga
+          find . -maxdepth 1 -name "*.json" -delete
           find . -maxdepth 1 -name "*.html" -delete
           
-          # COPIA OS NOVOS ARQUIVOS
-          cp -f "$T"/saida/*.html .
-          cp -f "$T"/saida/*.json .
-          if [ -f "$T/saida/urls_invalidas.txt" ]; then cp -f "$T/saida/urls_invalidas.txt" .; fi
+          # Copia tudo novo
+          cp -f "$T"/saida/* .
+          
+          if [ -f "$T/saida/urls_invalidas.txt" ]; then 
+            cp -f "$T/saida/urls_invalidas.txt" .
+          fi
 
       - name: Salvar alterações
         run: |
           git config user.name "Claudineybr"
           git config user.email "Claudineybr@users.noreply.github.com"
+          
           git add -A
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m "fix: conserta regex T01EP01, salva .html e gera catalog.json"
+          
+          if git diff --cached --quiet; then
+            echo "Sem mudancas."
+            exit 0
+          fi
+          
+          git commit -m "sync: confiando na tag T#E# do JSON e consertando capas"
+          
           for i in $(seq 1 5); do
-            if git push origin HEAD:main; then exit 0; fi
+            if git push origin HEAD:main; then
+              echo "[SUCESSO] Push OK"
+              exit 0
+            fi
+            echo "[FALHA] Conflito. Sincronizando..."
             git pull origin main --no-rebase -X ours --no-edit || true
-            sleep 3
+            sleep $((RANDOM % 5 + 3))
           done
