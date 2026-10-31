@@ -1,4 +1,4 @@
-name: Sincronizar e Limpar
+name: Sincronizar, Limpar e Corrigir
 
 on:
   schedule:
@@ -49,7 +49,6 @@ jobs:
               arquivos.extend(list(dir_origem.glob("*.json")))
           arquivos.extend(list(dir_novos.glob("*.json")))
 
-          # Prioridade: 1. Repo novo; 2. Nomes mais longos (provavelmente versão mais recente)
           def prioridade(arq):
               is_novo = 1 if dir_novos in arq.parents else 0
               return (is_novo, len(arq.name))
@@ -67,17 +66,14 @@ jobs:
                       
                   url = dados.get("contentUrl", "").strip()
                   
-                  # Ignora links quebrados ou vazios
                   if not url or url.endswith(".ts") or ".m3u8" in url: 
                       continue
                       
-                  # LIMPEZA DE DUPLICATAS: Corta os tokens do S3 (?X-Amz...) para comparar a URL real
                   clean_url = url.split('?')[0].lower()
                   if clean_url in links_vistos: 
                       continue
                   links_vistos.add(clean_url)
 
-                  # LIMPEZA DE NOMES: Extrai nome e ano do JSON
                   nome_atual = dados.get("name", "Filme Desconhecido")
                   nome_atual = nome_atual.replace('🕸️ PK', '').replace('🍿Clau', '').strip()
                   nome_atual = re.sub(r'\s*-\s*$', '', nome_atual).strip()
@@ -95,19 +91,16 @@ jobs:
                   titulo = re.sub(r'\s*-\s*T\d+E\d+.*', '', titulo).strip()
                   if not titulo: titulo = nome_atual
                   
-                  # Define o nome padronizado para o JSON
                   if is_series and ep_tag:
                       novo_nome_json = f"{titulo} - {ep_tag.upper().replace('_', '')} - 🍿Clau"
                   else:
                       novo_nome_json = f"{titulo} ({ano}) - 🍿Clau" if ano else f"{titulo} - 🍿Clau"
                   dados["name"] = novo_nome_json
 
-                  # Salva o JSON reestruturado
                   json_str = json.dumps(dados, ensure_ascii=False, indent=2)
                   novo_html = f"<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n<script type=\"application/ld+json\">\n{json_str}\n</script>\n<title>{novo_nome_json}</title>\n</head>\n<body>\n<h1>{novo_nome_json}</h1>\n</body>\n</html>"
                   novo_html = novo_html.replace("https://redetoons.cards", "https://redetoons.my")
                   
-                  # Define o nome padronizado para o ARQUIVO FÍSICO
                   slug = re.sub(r'[^a-z0-9]', '_', titulo.lower())
                   slug = re.sub(r'_+', '_', slug).strip('_')
                   
@@ -121,10 +114,9 @@ jobs:
               except Exception:
                   pass
 
-          print(f"Total de arquivos limpos, renomeados e unicos copiados: {copiados}")
+          print(f"Total de arquivos limpos e unicos copiados: {copiados}")
           PYEOF
 
-          # Injeta os caminhos no script e roda
           sed -i "s|ORIGEM_PATH|$T/origem|g; s|NOVOS_PATH|$T/novos|g; s|SAIDA_PATH|$T/saida|g" "$T/filtrar.py"
           python3 -I "$T/filtrar.py"
           
@@ -134,11 +126,81 @@ jobs:
             exit 1
           fi
           
-          # 3. Substitui tudo no repositório principal
           find . -maxdepth 1 -name "*.json" -delete
           cp -f "$T"/saida/*.json .
-          
-          # 4. Configura o Git e faz o commit
+
+      - name: Corrigir Defeitos (URLs e JSON)
+        run: |
+          cat > fix_defects.py << 'PYEOF'
+          import os
+          import re
+          import json
+          from pathlib import Path
+
+          def clean_url(url):
+              if not url: return url
+              url = url.strip()
+              
+              # Defeito 3: Remove tags HTML (ex: <b></b>)
+              url = re.sub(r'<[^>]+>', '', url)
+              
+              # Defeito 1: Remove texto na frente do endereço (ex: "7 http://...")
+              match = re.search(r'(https?://.+?)(?:\s|$)', url)
+              if match:
+                  url = match.group(1)
+              else:
+                  # Defeito 4: Adiciona http:// se não tiver
+                  if not url.startswith('http'):
+                      url = 'http://' + url
+                      
+              # Defeito 2: Remove endereço repetido (ex: "http://AAA http://AAA")
+              parts = url.split()
+              if parts:
+                  url = parts[0]
+                  
+              return url
+
+          def fix_json_file(filepath):
+              try:
+                  content = filepath.read_text(encoding='utf-8')
+                  match = re.search(r'<script type="application/ld\+json">(.*?)</script>', content, re.DOTALL)
+                  if not match: return
+                  
+                  json_str = match.group(1)
+                  
+                  # Defeito 5: Aspas sem escape no título (quebra o JSON)
+                  try:
+                      json.loads(json_str)
+                  except json.JSONDecodeError:
+                      json_str = re.sub(r'("name":\s*")(.*?)(",\n)', lambda m: m.group(1) + m.group(2).replace('"', '\\"') + m.group(3), json_str)
+                      json_str = re.sub(r'("description":\s*")(.*?)(",\n|\n})', lambda m: m.group(1) + m.group(2).replace('"', '\\"') + m.group(3), json_str)
+
+                  # Aplica os consertos de URL
+                  def repl_url(m):
+                      return f'"{m.group(1)}": "{clean_url(m.group(2))}"'
+                  
+                  json_str = re.sub(r'"(contentUrl|embedUrl)":\s*"([^"]*)"', repl_url, json_str)
+                  
+                  # Valida o JSON final
+                  data = json.loads(json_str)
+                  new_json_str = json.dumps(data, ensure_ascii=False, indent=2)
+                  
+                  new_content = content.replace(match.group(1), new_json_str)
+                  filepath.write_text(new_content, encoding='utf-8')
+                  print(f"[OK] Consertado: {filepath.name}")
+              except Exception as e:
+                  print(f"[ERRO] Falha ao consertar {filepath.name}: {e}")
+
+          for filepath in Path('.').glob('*.json'):
+              if any(x in filepath.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache']):
+                  continue
+              fix_json_file(filepath)
+          PYEOF
+
+          python3 fix_defects.py
+
+      - name: Salvar alterações
+        run: |
           git config user.name "Claudineybr"
           git config user.email "Claudineybr@users.noreply.github.com"
           
@@ -148,31 +210,14 @@ jobs:
             exit 0
           fi
           
-          git commit -m "sync: limpeza de duplicatas, padronizacao de nomes e arquivos"
+          git commit -m "sync: limpeza, renomeacao e correcao automatica de defeitos (URLs e JSON)"
           
-          # Loop de Push para garantir
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then
               echo "[SUCESSO] Push OK"
-              break
+              exit 0
             fi
             echo "[FALHA] Conflito. Sincronizando..."
             git pull origin main --no-rebase -X ours --no-edit || true
             sleep $((RANDOM % 5 + 3))
           done
-
-      - name: Disparar Robô de Capas TMDB
-        if: success()
-        env:
-          GH_TOKEN: ${{ secrets.PAT_CHAIN }}
-          REPO: ${{ github.repository }}
-        run: |
-          echo "🔁 Disparando workflow de adicionar capas em 5 segundos..."
-          sleep 5
-          
-          # ⚠️ ATENÇÃO: Verifique se o nome do arquivo do robô de capas é exatamente "adicionar_capas.yml". Se for outro, mude aqui!
-          if gh workflow run "adicionar_capas.yml" --repo "$REPO" --ref main; then
-            echo "✅ Robô de capas disparado com sucesso!"
-          else
-            echo "⚠️ Falha ao disparar o robô de capas. Verifique o nome do arquivo."
-          fi
