@@ -2,7 +2,7 @@ name: Sincronizar, Limpar e Padronizar
 
 on:
   schedule:
-    - cron: '0 */12 * * *' # <-- MUDOU AQUI (A cada 12 horas)
+    - cron: '0 */12 * * *' # Roda a cada 12 horas
   workflow_dispatch:
 
 permissions:
@@ -25,11 +25,9 @@ jobs:
           set -e
           T=$(mktemp -d)
           
-          # 1. Clona a fonte original e o seu catálogo
           git clone --depth 1 https://github.com/WaveLy2308/api_pobreflix_filmes.git "$T/origem" || true
           git clone --depth 1 https://github.com/Claudineybr/catalogocompleto.git "$T/novos"
           
-          # 2. Roda o script Python
           cat > "$T/filtrar.py" << 'PYEOF'
           import re
           import shutil
@@ -62,17 +60,17 @@ jobs:
               texto_norm = unicodedata.normalize('NFKD', str(raw_text))
               texto_norm = "".join([c for c in texto_norm if not unicodedata.combining(c)])
               
-              # 1. Remove lixos e marcas d'água
+              # Remove lixos e marcas d'água
               for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
                   texto_norm = texto_norm.replace(lixo, '')
                   
-              # 2. Remove QUALQUER tag de episódio que esteja no título
+              # Remove qualquer tag de episódio do título
               texto_norm = re.sub(r'(?i)\b(?:t|tp|temporada)[\s._-]*\d+[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*\d+', '', texto_norm)
               texto_norm = re.sub(r'(?i)\bT\d+E\d+\b', '', texto_norm)
               texto_norm = re.sub(r'(?i)Epis[oó]dio\s*\d+', '', texto_norm)
               texto_norm = texto_norm.replace('_', ' ')
               
-              # 3. Separa por hífens
+              # Separa por hífens e limpa prefixos de sites
               partes = [p.strip() for p in re.split(r'\s+[-–—]\s+', texto_norm) if p.strip()]
               partes_limpas = []
               
@@ -82,8 +80,11 @@ jobs:
                       continue
                   partes_limpas.append(p)
               
-              # 4. Mantém a primeira parte válida
+              # Pega a primeira parte (título principal)
               titulo_base = partes_limpas[0] if partes_limpas else "Desconhecido"
+              
+              # Limpa anos soltos no título (ex: Arqueiro Verde (Arrow) 2012 -> Arqueiro Verde (Arrow))
+              titulo_base = re.sub(r'\b(19\d{2}|20\d{2})\b', '', titulo_base).strip()
               titulo_final = re.sub(r'[\s.:;,]+$', '', titulo_base).strip()
               
               return titulo_final
@@ -104,7 +105,7 @@ jobs:
               try:
                   content = arq.read_text(encoding='utf-8-sig')
                   
-                  # Extrai URL
+                  # 1. Extrai URL
                   url_match = re.search(r'"(?:contentUrl|embedUrl)"\s*:\s*"([^"]*)"', content)
                   url = url_match.group(1) if url_match else ""
                   nova_url = clean_url(url)
@@ -118,30 +119,43 @@ jobs:
                       continue
                   links_vistos.add(clean_url_lower)
 
+                  # 2. Extrai a Capa Original (Se existir)
+                  capa_url = "https://via.placeholder.com/500x750?text=Sem+Capa"
+                  match_capa = re.search(r'"thumbnailUrl"\s*:\s*\[\s*"([^"]+)"', content)
+                  if match_capa:
+                      capa_url = match_capa.group(1)
+
+                  # 3. Extrai o Nome
                   match_name = re.search(r'"name"\s*:\s*"([^"]*)"', content)
                   nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '')
                   
                   if len(nome_atual) < 5:
                       nome_atual = arq.name.replace('.json', '')
 
-                  # --- A MÁGICA: LÊ O EPISÓDIO DO JSON PRIMEIRO ---
-                  # 1. Tenta achar o episódio no nome que está DENTRO do arquivo
-                  match_ep = re.search(r'(?i)(?:t|tp|temporada)[\s._-]*(\d+)[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*(\d+)', nome_atual)
-                  
-                  # 2. Se não achar no JSON, tenta achar no nome físico do arquivo (Fallback)
-                  if not match_ep:
-                      match_ep = re.search(r'(?i)(?:t|tp|temporada)[\s._-]*(\d+)[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*(\d+)', arq.name)
-
+                  # --- A MÁGICA DO EPISÓDIO ---
                   ep_tag = ""
-                  if match_ep:
-                      ep_tag = f"T{int(match_ep.group(1))}E{int(match_ep.group(2))}"
+                  # Prioridade 1: Extrair do Link do vídeo (ex: /3x5.mp4 -> T3E5)
+                  match_url_ep = re.search(r'/(\d+)x(\d+)(?:\.|\?|$)', nova_url, re.I)
+                  if match_url_ep:
+                      ep_tag = f"T{int(match_url_ep.group(1))}E{int(match_url_ep.group(2))}"
+                  else:
+                      # Prioridade 2: Extrair do JSON
+                      match_json_ep = re.search(r'(?i)(?:t|tp|temporada)[\s._-]*(\d+)[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*(\d+)', nome_atual)
+                      if match_json_ep:
+                          ep_tag = f"T{int(match_json_ep.group(1))}E{int(match_json_ep.group(2))}"
+                      else:
+                          # Prioridade 3: Extrair do nome do arquivo físico
+                          match_file_ep = re.search(r'(?i)(?:t|tp|temporada)[\s._-]*(\d+)[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*(\d+)', arq.name)
+                          if match_file_ep:
+                              ep_tag = f"T{int(match_file_ep.group(1))}E{int(match_file_ep.group(2))}"
 
+                  # 4. Limpa o título
                   titulo_limpo = limpar_titulo(nome_atual)
                   
                   match_ano = re.search(r'\b(19\d{2}|20\d{2})\b', nome_atual)
                   ano = match_ano.group(1) if match_ano else ""
 
-                  # Monta o JSON final
+                  # 5. Monta o JSON final
                   if ep_tag:
                       novo_nome_json = f"{titulo_limpo} {ep_tag} - 🍿Clau"
                   else:
@@ -151,15 +165,34 @@ jobs:
                       "@context": "https://schema.org", "@type": "VideoObject",
                       "name": novo_nome_json,
                       "description": f"Assista {novo_nome_json}",
-                      "thumbnailUrl": ["https://via.placeholder.com/500x750?text=Sem+Capa"],
+                      "thumbnailUrl": [capa_url],
                       "uploadDate": "2020-01-01T00:00:00+00:00", "inLanguage": "pt",
                       "contentUrl": nova_url, "embedUrl": nova_url
                   }
                   
-                  novo_html = f"<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n<script type=\"application/ld+json\">\n{json.dumps(novo_json, ensure_ascii=False, indent=2)}\n</script>\n<title>{novo_nome_json}</title>\n</head>\n<body>\n<h1>{novo_nome_json}</h1>\n</body>\n</html>"
+                  # 6. RECONSTRÓI O HTML COM O PLAYER DE VÍDEO BONITO
+                  novo_html = f"""<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="application/ld+json">
+{json.dumps(novo_json, ensure_ascii=False, indent=2)}
+    </script>
+    <title>{novo_nome_json}</title>
+    <style>
+        body, html {{ margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }}
+        video {{ width: 100%; height: 100%; outline: none; }}
+    </style>
+</head>
+<body>
+    <video src="{nova_url}" poster="{capa_url}" controls autoplay playsinline></video>
+</body>
+</html>"""
+                  
                   novo_html = novo_html.replace("https://redetoons.cards", "https://redetoons.my")
 
-                  # Define o nome do arquivo físico
+                  # 7. Nome do arquivo físico
                   slug = re.sub(r'[^a-z0-9]', '_', titulo_limpo.lower())
                   slug = re.sub(r'_+', '_', slug).strip('_')
                   
@@ -193,7 +226,7 @@ jobs:
           git config user.email "Claudineybr@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "sync: (12h) respeitando episodios do JSON e limpando nomes"
+          git commit -m "fix: extrai episodio do link do video (ex: 3x5), mantem player e capa do TMDB"
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then exit 0; fi
             git pull origin main --no-rebase -X ours --no-edit || true
