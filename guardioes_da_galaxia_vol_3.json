@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Guardioes da Galaxia: Vol. 3 - 🍿Clau",
   "description": "Assista Guardioes da Galaxia: Vol. 3 - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/4yycSPnchdNAZirGkmCYQwTd3cr.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "https://fcoidok.cisantkdh.com/vod/0355C8A9978F41598815AA715C11A6EB_media.mp4",
   "embedUrl": "https://fcoidok.cisantkdh.com/vod/0355C8A9978F41598815AA715C11A6EB_media.mp4"
-}</script>
+}
+</script>
 <title>Guardioes da Galaxia: Vol. 3 - 🍿Clau</title>
 </head>
 <body>

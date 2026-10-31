@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Panico Na Floresta 2 - 🍿Clau",
   "description": "Assista Panico Na Floresta 2 - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/4Ra0ejDcncJTZJfHOVRV2bm4DMd.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "https://fcoidok.cisantkdh.com/vod/AA1494D7F58C4558AF05C854620081A8_media.mp4",
   "embedUrl": "https://fcoidok.cisantkdh.com/vod/AA1494D7F58C4558AF05C854620081A8_media.mp4"
-}</script>
+}
+</script>
 <title>Panico Na Floresta 2 - 🍿Clau</title>
 </head>
 <body>

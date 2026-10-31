@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Operacao Sombra - 🍿Clau",
   "description": "Assista Operacao Sombra - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/zI4UdGnD4KMjiaGQTgF5PMiagVF.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://fcoidok.cisantkdh.com/vod/FD136B3A5C6548EBA3CA0FA32C8B7AF1_media.mp4",
   "embedUrl": "http://fcoidok.cisantkdh.com/vod/FD136B3A5C6548EBA3CA0FA32C8B7AF1_media.mp4"
-}</script>
+}
+</script>
 <title>Operacao Sombra - 🍿Clau</title>
 </head>
 <body>

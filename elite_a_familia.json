@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Elite - - A familia - 🍿Clau",
   "description": "Assista Elite - - A familia - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/bA571EuifSbOhXjMNBMfqTCUD9o.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/954367AC00EA439A88A4727736CCCEA8_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/954367AC00EA439A88A4727736CCCEA8_media.mp4"
-}</script>
+}
+</script>
 <title>Elite - - A familia - 🍿Clau</title>
 </head>
 <body>

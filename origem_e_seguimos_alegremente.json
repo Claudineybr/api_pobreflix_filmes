@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Origem - - E Seguimos Alegremente - 🍿Clau",
   "description": "Assista Origem - - E Seguimos Alegremente - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/9e3Dz7aCANy5aRUQF745IlNloJ1.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://fcoidok.cisantkdh.com/vod/013D61B82F79455398996C7E57AFC3E4_media.mp4",
   "embedUrl": "http://fcoidok.cisantkdh.com/vod/013D61B82F79455398996C7E57AFC3E4_media.mp4"
-}</script>
+}
+</script>
 <title>Origem - - E Seguimos Alegremente - 🍿Clau</title>
 </head>
 <body>

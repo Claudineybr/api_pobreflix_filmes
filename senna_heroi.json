@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Senna - - Heroi - 🍿Clau",
   "description": "Assista Senna - - Heroi - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/j0DbcqFzXB6Bk9fqvgcp1iZG8wj.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/2EDC498C35664B04BEE000484F541FC0_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/2EDC498C35664B04BEE000484F541FC0_media.mp4"
-}</script>
+}
+</script>
 <title>Senna - - Heroi - 🍿Clau</title>
 </head>
 <body>

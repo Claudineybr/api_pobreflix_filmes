@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Os Miseraveis - 🍿Clau",
   "description": "Assista Os Miseraveis - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/BNYPwiysQXdFdNy41PDDIIjW5D.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/D287CA5B38234145B57FAE6CF1E31F8B_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/D287CA5B38234145B57FAE6CF1E31F8B_media.mp4"
-}</script>
+}
+</script>
 <title>Os Miseraveis - 🍿Clau</title>
 </head>
 <body>

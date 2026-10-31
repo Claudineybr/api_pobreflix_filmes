@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Jumanji: Proxima Fase - 🍿Clau",
   "description": "Assista Jumanji: Proxima Fase - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/bBRDUTr6jgbD8I8A9DvVGrVbdfB.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/176A67FC7386460AAAFCEA9022EF5598_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/176A67FC7386460AAAFCEA9022EF5598_media.mp4"
-}</script>
+}
+</script>
 <title>Jumanji: Proxima Fase - 🍿Clau</title>
 </head>
 <body>

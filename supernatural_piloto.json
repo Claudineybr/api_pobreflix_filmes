@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Supernatural - - Piloto - 🍿Clau",
   "description": "Assista Supernatural - - Piloto - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/9TWJeTVglgb0aESZtEmbUPTHoei.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://fcoidok.cisantkdh.com/vod/A9FCBF6C26544EC58DDE6D768B9EEE04_media.mp4",
   "embedUrl": "http://fcoidok.cisantkdh.com/vod/A9FCBF6C26544EC58DDE6D768B9EEE04_media.mp4"
-}</script>
+}
+</script>
 <title>Supernatural - - Piloto - 🍿Clau</title>
 </head>
 <body>

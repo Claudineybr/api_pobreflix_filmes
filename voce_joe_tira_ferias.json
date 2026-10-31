@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Voce - - Joe tira ferias - 🍿Clau",
   "description": "Assista Voce - - Joe tira ferias - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/sI4Ylkss2RrpAjoN5IG0PRoiTvF.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "https://redetoons.fun/voce-2018/YSCFuwdush.mp4",
   "embedUrl": "https://redetoons.fun/voce-2018/YSCFuwdush.mp4"
-}</script>
+}
+</script>
 <title>Voce - - Joe tira ferias - 🍿Clau</title>
 </head>
 <body>

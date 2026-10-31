@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Boa Noite, Mamae! - 🍿Clau",
   "description": "Assista Boa Noite, Mamae! - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/lwq6ct0AeroUxlXwr49QJiMzf4k.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/9D610EEA8BD247FAAD6C997ED208E3D6_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/9D610EEA8BD247FAAD6C997ED208E3D6_media.mp4"
-}</script>
+}
+</script>
 <title>Boa Noite, Mamae! - 🍿Clau</title>
 </head>
 <body>

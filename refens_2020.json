@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Refens (2020) - 🍿Clau",
   "description": "Assista Refens (2020) - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/sPMSGy6OxQndxl1O0yLS4pZIQq4.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "https://server-1.cnvods.com/m/Ref%C3%A9ns_2021_tt10713340.mp4?cnvs_token=TWpVNE0yTTNNV1k1TWpnek1XTTJabmJuL3REdHVrSTVRRnpDakRPQ2RHR1NKR050aGI5Rk9aM2RVaCtaM0plQUY4VU0yN2VTbUxvZHZKaGdYc05WZ0s1MitLOTgvaTlndlUzeFNwUTNueDlEdlJXTnlzOU9FYTIrLzVBK3BkSzg",
   "embedUrl": "https://server-1.cnvods.com/m/Ref%C3%A9ns_2021_tt10713340.mp4?cnvs_token=TWpVNE0yTTNNV1k1TWpnek1XTTJabmJuL3REdHVrSTVRRnpDakRPQ2RHR1NKR050aGI5Rk9aM2RVaCtaM0plQUY4VU0yN2VTbUxvZHZKaGdYc05WZ0s1MitLOTgvaTlndlUzeFNwUTNueDlEdlJXTnlzOU9FYTIrLzVBK3BkSzg"
-}</script>
+}
+</script>
 <title>Refens (2020) - 🍿Clau</title>
 </head>
 <body>

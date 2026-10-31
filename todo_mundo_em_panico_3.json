@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Todo Mundo em Panico 3 - 🍿Clau",
   "description": "Assista Todo Mundo em Panico 3 - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/y14q7jWS0vH8ZuWPS1v8t8qCmBO.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/2AF92231E0A8419180C7F0CE8DF1F1EF_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/2AF92231E0A8419180C7F0CE8DF1F1EF_media.mp4"
-}</script>
+}
+</script>
 <title>Todo Mundo em Panico 3 - 🍿Clau</title>
 </head>
 <body>

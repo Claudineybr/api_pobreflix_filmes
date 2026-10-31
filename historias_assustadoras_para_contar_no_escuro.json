@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Historias Assustadoras para Contar no Escuro - 🍿Clau",
   "description": "Assista Historias Assustadoras para Contar no Escuro - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/3ERMp3C8BEm4OAvgxfCr68otBCo.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://fcoidok.cisantkdh.com/vod/B0FDB9809F0446D99E6DCD1C1D258E3A_media.mp4",
   "embedUrl": "http://fcoidok.cisantkdh.com/vod/B0FDB9809F0446D99E6DCD1C1D258E3A_media.mp4"
-}</script>
+}
+</script>
 <title>Historias Assustadoras para Contar no Escuro - 🍿Clau</title>
 </head>
 <body>

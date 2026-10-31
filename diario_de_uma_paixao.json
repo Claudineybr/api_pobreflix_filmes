@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Diario de uma Paixao - 🍿Clau",
   "description": "Assista Diario de uma Paixao - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/hO6k34ZNDwWzgcnzFbqYf2Rjg5W.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/16AE1EEE453C46DCA4A755D9057C0257_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/16AE1EEE453C46DCA4A755D9057C0257_media.mp4"
-}</script>
+}
+</script>
 <title>Diario de uma Paixao - 🍿Clau</title>
 </head>
 <body>

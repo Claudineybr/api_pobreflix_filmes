@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Por Agua Abaixo - 🍿Clau",
   "description": "Assista Por Agua Abaixo - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/w6ODQ3TOsBtI1gDRYfQ4nucA1Qj.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://fdnfjsnfsvb.mp4",
   "embedUrl": "http://fdnfjsnfsvb.mp4"
-}</script>
+}
+</script>
 <title>Por Agua Abaixo - 🍿Clau</title>
 </head>
 <body>

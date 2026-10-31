@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Mamae, Virei Um Peixe! - 🍿Clau",
   "description": "Assista Mamae, Virei Um Peixe! - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/gHLKVcEcqIazjqoE20Hgyl2zS5S.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/01F9E0C6DEC04A538E57B9DE16077E61_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/01F9E0C6DEC04A538E57B9DE16077E61_media.mp4"
-}</script>
+}
+</script>
 <title>Mamae, Virei Um Peixe! - 🍿Clau</title>
 </head>
 <body>

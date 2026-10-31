@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Capitao America: O Soldado Invernal - 🍿Clau",
   "description": "Assista Capitao America: O Soldado Invernal - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/9sTDXtIIfHza1rAbmHU2djyzEXA.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "https://fcoidok.cisantkdh.com/vod/E5DE17C9652F43179F729647FAA0070F_media.mp4",
   "embedUrl": "https://fcoidok.cisantkdh.com/vod/E5DE17C9652F43179F729647FAA0070F_media.mp4"
-}</script>
+}
+</script>
 <title>Capitao America: O Soldado Invernal - 🍿Clau</title>
 </head>
 <body>

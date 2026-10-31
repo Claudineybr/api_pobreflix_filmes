@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "The Society - - Gota a gota - 🍿Clau",
   "description": "Assista The Society - - Gota a gota - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/wNWiCtt6ELBz9y1W0xTwCEavBrX.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/06C57950459C4459AF79BA727E9A1E9D_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/06C57950459C4459AF79BA727E9A1E9D_media.mp4"
-}</script>
+}
+</script>
 <title>The Society - - Gota a gota - 🍿Clau</title>
 </head>
 <body>

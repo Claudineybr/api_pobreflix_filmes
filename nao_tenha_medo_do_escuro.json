@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Nao Tenha Medo do Escuro - 🍿Clau",
   "description": "Assista Nao Tenha Medo do Escuro - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/c7uCVXn8DSGYUapLDlYuBLlGs7S.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/313EC051EF8F448BBA4F998DB809B68F_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/313EC051EF8F448BBA4F998DB809B68F_media.mp4"
-}</script>
+}
+</script>
 <title>Nao Tenha Medo do Escuro - 🍿Clau</title>
 </head>
 <body>

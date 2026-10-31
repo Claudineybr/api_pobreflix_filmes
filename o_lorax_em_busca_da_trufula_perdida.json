@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "O Lorax: Em Busca Da Trufula Perdida - 🍿Clau",
   "description": "Assista O Lorax: Em Busca Da Trufula Perdida - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/3rfClKuMmhFawkdCJXMEV3OGOJ3.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/EA37F402EB61450E86AAEFE78BE950CC_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/EA37F402EB61450E86AAEFE78BE950CC_media.mp4"
-}</script>
+}
+</script>
 <title>O Lorax: Em Busca Da Trufula Perdida - 🍿Clau</title>
 </head>
 <body>

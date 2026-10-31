@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Chaves - – O Parque de Diversoes - 🍿Clau",
   "description": "Assista Chaves - – O Parque de Diversoes - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/qFm8vHExdrcKguJqKEIlVPV5vLF.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "https://cdn-0078.speed-stream.online/chaves-71b01341/s2/dubbed/23/5f335bb6-6ac0-4cbd-8008-08e8a6969dcd/stream.mp4",
   "embedUrl": "https://cdn-0078.speed-stream.online/chaves-71b01341/s2/dubbed/23/5f335bb6-6ac0-4cbd-8008-08e8a6969dcd/stream.mp4"
-}</script>
+}
+</script>
 <title>Chaves - – O Parque de Diversoes - 🍿Clau</title>
 </head>
 <body>

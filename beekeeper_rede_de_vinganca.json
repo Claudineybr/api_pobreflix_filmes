@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Beekeeper: Rede de Vinganca - 🍿Clau",
   "description": "Assista Beekeeper: Rede de Vinganca - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/raNfPn7DGbh1Ffwq4Y9BO1Iektv.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://fcoidok.cisantkdh.com/vod/F03FE89154EE4E2198BA776DCA70565F_media.mp4",
   "embedUrl": "http://fcoidok.cisantkdh.com/vod/F03FE89154EE4E2198BA776DCA70565F_media.mp4"
-}</script>
+}
+</script>
 <title>Beekeeper: Rede de Vinganca - 🍿Clau</title>
 </head>
 <body>

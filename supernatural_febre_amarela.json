@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Supernatural - - Febre Amarela - 🍿Clau",
   "description": "Assista Supernatural - - Febre Amarela - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/9TWJeTVglgb0aESZtEmbUPTHoei.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://fcoidok.cisantkdh.com/vod/31699122B5234A82A8A49D5DEC04C632_media.mp4",
   "embedUrl": "http://fcoidok.cisantkdh.com/vod/31699122B5234A82A8A49D5DEC04C632_media.mp4"
-}</script>
+}
+</script>
 <title>Supernatural - - Febre Amarela - 🍿Clau</title>
 </head>
 <body>

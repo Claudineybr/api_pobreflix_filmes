@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Backrooms: Um Nao-Lugar - 🍿Clau",
   "description": "Assista Backrooms: Um Nao-Lugar - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/3Rd8YUpupcJh0jxjqLn79UHb2in.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/0B68C43EB2F246E6A3D737E00F5869CB_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/0B68C43EB2F246E6A3D737E00F5869CB_media.mp4"
-}</script>
+}
+</script>
 <title>Backrooms: Um Nao-Lugar - 🍿Clau</title>
 </head>
 <body>

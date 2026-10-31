@@ -1,6 +1,0 @@
-// gerar-indice.js  (rode com: node gerar-indice.js)
-const fs = require("fs");
-const arquivos = fs.readdirSync(".")
-  .filter(f => f.endsWith(".json") && f !== "index.json");
-fs.writeFileSync("index.json", JSON.stringify(arquivos));
-console.log(arquivos.length + " arquivos indexados");

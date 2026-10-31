@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Agatha Desde Sempre - - Ache o Caminho - 🍿Clau",
   "description": "Assista Agatha Desde Sempre - - Ache o Caminho - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/8gJ4SkWVzFDcUfYVJDTWl85HnNU.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/022A0001309B4FC7805A5C136B0F9830_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/022A0001309B4FC7805A5C136B0F9830_media.mp4"
-}</script>
+}
+</script>
 <title>Agatha Desde Sempre - - Ache o Caminho - 🍿Clau</title>
 </head>
 <body>

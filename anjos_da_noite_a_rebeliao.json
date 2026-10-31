@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Anjos da Noite: A Rebeliao - 🍿Clau",
   "description": "Assista Anjos da Noite: A Rebeliao - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/528X7QClKw4xFH7Vfj8iYS4TTNg.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://fcoidok.cisantkdh.com:80/vod/CCC16021E1804636B0194302E1E0E9E4_media.mp4",
   "embedUrl": "http://fcoidok.cisantkdh.com:80/vod/CCC16021E1804636B0194302E1E0E9E4_media.mp4"
-}</script>
+}
+</script>
 <title>Anjos da Noite: A Rebeliao - 🍿Clau</title>
 </head>
 <body>

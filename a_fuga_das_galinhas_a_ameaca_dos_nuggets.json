@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "A Fuga das Galinhas - A Ameaca dos Nuggets - 🍿Clau",
   "description": "Assista A Fuga das Galinhas - A Ameaca dos Nuggets - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/hp5shw8xyuYId322rT9am3HrKCQ.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/945136AD97414D1AAC25B6BF80C5EAB0_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/945136AD97414D1AAC25B6BF80C5EAB0_media.mp4"
-}</script>
+}
+</script>
 <title>A Fuga das Galinhas - A Ameaca dos Nuggets - 🍿Clau</title>
 </head>
 <body>

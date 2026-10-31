@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "O Fantastico Sr. Raposo - 🍿Clau",
   "description": "Assista O Fantastico Sr. Raposo - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/1Ey4LYUzTqzizPNjcBi20pU9joC.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/BACECC2EC96E492E90BE0C756098D8A4_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/BACECC2EC96E492E90BE0C756098D8A4_media.mp4"
-}</script>
+}
+</script>
 <title>O Fantastico Sr. Raposo - 🍿Clau</title>
 </head>
 <body>

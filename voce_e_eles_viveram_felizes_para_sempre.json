@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Voce - - E eles viveram felizes para sempre - 🍿Clau",
   "description": "Assista Voce - - E eles viveram felizes para sempre - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/sI4Ylkss2RrpAjoN5IG0PRoiTvF.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "https://redetoons.fun/voce-2018/TWkTD5jAtd.mp4",
   "embedUrl": "https://redetoons.fun/voce-2018/TWkTD5jAtd.mp4"
-}</script>
+}
+</script>
 <title>Voce - - E eles viveram felizes para sempre - 🍿Clau</title>
 </head>
 <body>

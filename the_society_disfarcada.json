@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "The Society - - Disfarcada - 🍿Clau",
   "description": "Assista The Society - - Disfarcada - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/wNWiCtt6ELBz9y1W0xTwCEavBrX.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/C86AFBED7C5E47FAB08621F698228855_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/C86AFBED7C5E47FAB08621F698228855_media.mp4"
-}</script>
+}
+</script>
 <title>The Society - - Disfarcada - 🍿Clau</title>
 </head>
 <body>

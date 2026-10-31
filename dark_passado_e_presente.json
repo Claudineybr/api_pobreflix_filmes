@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Dark - - Passado e presente - 🍿Clau",
   "description": "Assista Dark - - Passado e presente - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/4lj1ikfsSmMZNyfdi8R8Tv5tsgb.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://fcoidok.cisantkdh.com/vod/582BADB0D67F4D269A2237E9F12F750A_media.mp4",
   "embedUrl": "http://fcoidok.cisantkdh.com/vod/582BADB0D67F4D269A2237E9F12F750A_media.mp4"
-}</script>
+}
+</script>
 <title>Dark - - Passado e presente - 🍿Clau</title>
 </head>
 <body>

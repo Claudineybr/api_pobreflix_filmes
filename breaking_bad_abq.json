@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Breaking Bad - - ABQ - 🍿Clau",
   "description": "Assista Breaking Bad - - ABQ - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/8sOZcIGJ8ihQELnhKS2qStxe1dh.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/0B6D47D045544E0BAA1E92BA75DF50A3_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/0B6D47D045544E0BAA1E92BA75DF50A3_media.mp4"
-}</script>
+}
+</script>
 <title>Breaking Bad - - ABQ - 🍿Clau</title>
 </head>
 <body>

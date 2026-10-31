@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "A Maldicao da Chorona - 🍿Clau",
   "description": "Assista A Maldicao da Chorona - 🍿Clau",
   "thumbnailUrl": [
-    "https://image.tmdb.org/t/p/w500/x7GUGVMn8c9sMZeD1jZRsLoGQUc.jpg"
+    "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://fcoidok.cisantkdh.com/vod/4452CD39D51D45CCB02BF620EA72FEC8_media.mp4",
   "embedUrl": "http://fcoidok.cisantkdh.com/vod/4452CD39D51D45CCB02BF620EA72FEC8_media.mp4"
-}</script>
+}
+</script>
 <title>A Maldicao da Chorona - 🍿Clau</title>
 </head>
 <body>
