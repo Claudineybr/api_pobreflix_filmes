@@ -66,7 +66,10 @@ jobs:
               for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
                   texto_norm = texto_norm.replace(lixo, '')
                   
+              # Remove "Episódio X" e palavras soltas de episódios
               texto_norm = re.sub(r'(?i)Epis[oó]dio\s*\d+', '', texto_norm)
+              texto_norm = re.sub(r'(?i)\bepis[oó]dio\b', '', texto_norm)
+              
               texto_norm = texto_norm.replace('_', ' ')
               texto_norm = re.sub(r'\s*-\s*-\s*', ' - ', texto_norm)
               
@@ -80,7 +83,6 @@ jobs:
                   partes_limpas.append(p)
                   
               titulo_final = ' - '.join(partes_limpas) if partes_limpas else partes[0] if partes else "Desconhecido"
-              titulo_final = re.sub(r'\s*\(?\d{4}\)?\s*$', '', titulo_final).strip()
               titulo_final = re.sub(r'[\s.:;,]+$', '', titulo_final).strip()
               
               return titulo_final if titulo_final else "Desconhecido"
@@ -119,22 +121,12 @@ jobs:
                   thumb_match = re.search(r'"thumbnailUrl"\s*:\s*\[\s*"([^"]*)"', content)
                   capa_url = thumb_match.group(1) if thumb_match else "https://via.placeholder.com/500x750?text=Sem+Capa"
 
-                  # 3. Extrai o Nome e o Ano de dentro do JSON
+                  # 3. Extrai o Nome de dentro do JSON
                   match_name = re.search(r'"name"\s*:\s*"([^"]*)"', content)
                   nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '')
-                  
-                  if len(nome_atual) < 5:
-                      nome_atual = arq.name.replace('.json', '')
-                      
-                  match_ano = re.search(r'\b(19\d{2}|20\d{2})\b', nome_atual)
-                  ano = match_ano.group(1) if match_ano else ""
 
-                  titulo_limpo = limpar_titulo(nome_atual)
-                  
-                  # 4. DETECTA SÉRIE OU FILME (O VERDADEIRO CONSERTO AQUI)
-                  # Tenta primeiro achar o T1E1 no NOME do JSON
-                  match_ep_nome = re.search(r'(?i)\bT(\d+)E(\d+)\b', titulo_limpo)
-                  # Se não achar no nome, tenta achar no nome do ARQUIVO
+                  # Tenta achar T1E1 no NOME DO JSON, senão no NOME DO ARQUIVO
+                  match_ep_nome = re.search(r'(?i)\bT(\d+)E(\d+)\b', nome_atual)
                   match_ep_arq = re.search(r'(?i)_t(\d+)e(\d+)', arq.name)
                   
                   temp, ep = None, None
@@ -142,13 +134,22 @@ jobs:
                       temp, ep = match_ep_nome.group(1), match_ep_nome.group(2)
                   elif match_ep_arq:
                       temp, ep = match_ep_arq.group(1), match_ep_arq.group(2)
-                      
+
+                  titulo_limpo = limpar_titulo(nome_atual)
+                  
+                  # Pega o ano
+                  match_ano = re.search(r'\b(19\d{2}|20\d{2})\b', nome_atual)
+                  ano = match_ano.group(1) if match_ano else ""
+
+                  # Remove QUALQUER ano do título (para não duplicar)
+                  titulo_base = re.sub(r'\(?\d{4}\)?', '', titulo_limpo).strip()
+                  
+                  # Remove QUALQUER T1E1 do título (para não duplicar)
+                  titulo_base = re.sub(r'(?i)\bT\d+E\d+\b', '', titulo_base).strip()
+                  titulo_base = re.sub(r'\s*-\s*-\s*', ' - ', titulo_base).strip(' -')
+
                   if temp and ep:
                       ep_tag = f"T{int(temp)}E{int(ep)}"
-                      
-                      # Arranca o T1E1 antigo para não duplicar
-                      titulo_base = re.sub(r'(?i)\bT\d+E\d+\b', '', titulo_limpo).strip()
-                      titulo_base = re.sub(r'\s*-\s*-\s*', ' - ', titulo_base).strip(' -')
                       
                       partes = [p.strip() for p in titulo_base.split(' - ') if p.strip()]
                       if len(partes) > 1:
@@ -160,10 +161,9 @@ jobs:
                       slug = re.sub(r'_+', '_', slug).strip('_')
                       novo_nome_arq = f"{slug}_{ep_tag.lower()}.html"
                   else:
-                      ep_tag = ""
-                      novo_nome_json = f"{titulo_limpo} ({ano}) - 🍿Clau" if ano else f"{titulo_limpo} - 🍿Clau"
+                      novo_nome_json = f"{titulo_base} ({ano}) - 🍿Clau" if ano else f"{titulo_base} - 🍿Clau"
                       
-                      slug = re.sub(r'[^a-z0-9]', '_', titulo_limpo.lower())
+                      slug = re.sub(r'[^a-z0-9]', '_', titulo_base.lower())
                       slug = re.sub(r'_+', '_', slug).strip('_')
                       novo_nome_arq = f"{slug}_{ano}.html" if ano else f"{slug}.html"
 
@@ -171,7 +171,7 @@ jobs:
                   base_url = "https://api-pobreflix-filmes.pages.dev"
                   url_unica = f"{base_url}/{novo_nome_arq}"
 
-                  # 6. CRIA O HTML COM O PLAYER, CAPA E ID ÚNICO
+                  # 5. CRIA O HTML COM O PLAYER, CAPA E ID ÚNICO
                   novo_json = {
                       "@context": "https://schema.org", "@type": "VideoObject",
                       "@id": url_unica, 
@@ -342,7 +342,7 @@ jobs:
             exit 0
           fi
           
-          git commit -m "sync: confiando na tag T#E# do JSON e consertando capas"
+          git commit -m "sync: limpando 'episodio' e anos duplicados"
           
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then
