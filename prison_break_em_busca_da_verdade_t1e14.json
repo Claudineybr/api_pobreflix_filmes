@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": "Prison Break: Em Busca da Verdade - T1E14 - 🍿Clau",
-  "description": "Assista Prison Break: Em Busca da Verdade - T1E14 - João Ninguém - 🍿Clau",
+  "name": "Prison Break: Em Busca Da Verdade T1E14",
+  "description": "Assista Prison Break: Em Busca Da Verdade T1E14",
   "thumbnailUrl": [
     "https://image.tmdb.org/t/p/w500/rK3Vwe0Wm0VXxf4IJCdlHeEREYx.jpg"
   ],
@@ -13,10 +14,14 @@
   "inLanguage": "pt",
   "contentUrl": "http://shd2.oneplayer.site/5yu456y45tge4rtfg4w3ertf34t43retg54y65uj65npw/SHD2/2288/2x14.mp4",
   "embedUrl": "http://shd2.oneplayer.site/5yu456y45tge4rtfg4w3ertf34t43retg54y65uj65npw/SHD2/2288/2x14.mp4"
-}</script>
-<title>Prison Break: Em Busca da Verdade - T1E14 - 🍿Clau</title>
+}
+</script>
+<title>Prison Break: Em Busca Da Verdade T1E14</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
-<h1>Prison Break: Em Busca da Verdade - T1E14 - 🍿Clau</h1>
+<img src="https://image.tmdb.org/t/p/w500/rK3Vwe0Wm0VXxf4IJCdlHeEREYx.jpg" alt="Prison Break: Em Busca da Verdade - T1E14 - João Ninguém - 🍿Clau" style="width:100%;max-height:220px;object-fit:cover;border-radius:8px">
+<h1>Prison Break: Em Busca Da Verdade T1E14</h1>
 </body>
 </html>

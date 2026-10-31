@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": "Constantine - E07 - 🍿Clau",
-  "description": "Assista Constantine - E07 - 🍿Clau",
+  "name": "Constantine E07",
+  "description": "Assista Constantine E07",
   "thumbnailUrl": [
     "https://image.tmdb.org/t/p/w500/dd4uzgUAbBIiRW7dcY0AcgSWohJ.jpg"
   ],
@@ -13,10 +14,14 @@
   "inLanguage": "pt",
   "contentUrl": "https://video.wixstatic.com/video/a53466_e5fcb2270d1c43e6a44c996274430a62/480p/mp4/file.mp4",
   "embedUrl": "https://video.wixstatic.com/video/a53466_e5fcb2270d1c43e6a44c996274430a62/480p/mp4/file.mp4"
-}</script>
-<title>Constantine - E07 - 🍿Clau</title>
+}
+</script>
+<title>Constantine E07</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
-<h1>Constantine - E07 - 🍿Clau</h1>
+<img src="https://image.tmdb.org/t/p/w500/dd4uzgUAbBIiRW7dcY0AcgSWohJ.jpg" alt="Constantine - E07 - 🍿Clau" style="width:100%;max-height:220px;object-fit:cover;border-radius:8px">
+<h1>Constantine E07</h1>
 </body>
 </html>

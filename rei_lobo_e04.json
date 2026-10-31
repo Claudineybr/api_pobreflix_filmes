@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": "Rei Lobo - E04 - 🍿Clau",
-  "description": "Assista Rei Lobo - E04 - 🍿Clau",
+  "name": "Rei Lobo E04",
+  "description": "Assista Rei Lobo E04",
   "thumbnailUrl": [
     "https://image.tmdb.org/t/p/w500/91zwIlegbqaWKBJbXv473q4yJ7h.jpg"
   ],
@@ -13,10 +14,14 @@
   "inLanguage": "pt",
   "contentUrl": "https://cdn-0063.speed-stream.online/rei-lobo-b10721c9/s1/dubbed/4/9c703d39-6ed3-4097-9735-46f7c8038d9e/stream.mp4",
   "embedUrl": "https://cdn-0063.speed-stream.online/rei-lobo-b10721c9/s1/dubbed/4/9c703d39-6ed3-4097-9735-46f7c8038d9e/stream.mp4"
-}</script>
-<title>Rei Lobo - E04 - 🍿Clau</title>
+}
+</script>
+<title>Rei Lobo E04</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
-<h1>Rei Lobo - E04 - 🍿Clau</h1>
+<img src="https://image.tmdb.org/t/p/w500/91zwIlegbqaWKBJbXv473q4yJ7h.jpg" alt="Rei Lobo - E04 - 🍿Clau" style="width:100%;max-height:220px;object-fit:cover;border-radius:8px">
+<h1>Rei Lobo E04</h1>
 </body>
 </html>

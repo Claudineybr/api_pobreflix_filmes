@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": "Z Nation - T1E6 - 🍿Clau",
-  "description": "Assista Z Nation - T1E6 - Ressurreição Z - 🍿Clau",
+  "name": "Z Nation T1E6",
+  "description": "Assista Z Nation T1E6",
   "thumbnailUrl": [
     "https://image.tmdb.org/t/p/w500/gXfeDMkEcHoYBvtkbU11g3F81b.jpg"
   ],
@@ -13,10 +14,14 @@
   "inLanguage": "pt",
   "contentUrl": "https://cdn-0096.speed-stream.online/z-nation-0462b090/s1/dubbed/6/f14b0e5b-260c-4464-8ab5-942b44bf52d8/stream.mp4",
   "embedUrl": "https://cdn-0096.speed-stream.online/z-nation-0462b090/s1/dubbed/6/f14b0e5b-260c-4464-8ab5-942b44bf52d8/stream.mp4"
-}</script>
-<title>Z Nation - T1E6 - 🍿Clau</title>
+}
+</script>
+<title>Z Nation T1E6</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
-<h1>Z Nation - T1E6 - 🍿Clau</h1>
+<img src="https://image.tmdb.org/t/p/w500/gXfeDMkEcHoYBvtkbU11g3F81b.jpg" alt="Z Nation - T1E6 - Ressurreição Z - 🍿Clau" style="width:100%;max-height:220px;object-fit:cover;border-radius:8px">
+<h1>Z Nation T1E6</h1>
 </body>
 </html>

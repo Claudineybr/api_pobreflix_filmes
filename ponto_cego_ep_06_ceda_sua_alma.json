@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": "Ponto Cego - Ep 06 - Ceda Sua Alma - 🍿Clau",
-  "description": "Assista Ponto Cego - Ep 06 - Ceda Sua Alma - 🍿Clau",
+  "name": "Ponto Cego Ep 06 Ceda Sua Alma",
+  "description": "Assista Ponto Cego Ep 06 Ceda Sua Alma",
   "thumbnailUrl": [
     "https://image.tmdb.org/t/p/w500/pYyKZZlb3nd5ASbiuIxva718bp2.jpg"
   ],
@@ -13,10 +14,14 @@
   "inLanguage": "pt",
   "contentUrl": "https://cdn-0068.speed-stream.online/ponto-cego-9c51be59/s1/dubbed/6/c4b9e21a-9ded-43cb-8139-fca65b293c87/stream.mp4",
   "embedUrl": "https://cdn-0068.speed-stream.online/ponto-cego-9c51be59/s1/dubbed/6/c4b9e21a-9ded-43cb-8139-fca65b293c87/stream.mp4"
-}</script>
-<title>Ponto Cego - Ep 06 - Ceda Sua Alma - 🍿Clau</title>
+}
+</script>
+<title>Ponto Cego Ep 06 Ceda Sua Alma</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
-<h1>Ponto Cego - Ep 06 - Ceda Sua Alma - 🍿Clau</h1>
+<img src="https://image.tmdb.org/t/p/w500/pYyKZZlb3nd5ASbiuIxva718bp2.jpg" alt="Ponto Cego - Ep 06 - Ceda Sua Alma - 🍿Clau" style="width:100%;max-height:220px;object-fit:cover;border-radius:8px">
+<h1>Ponto Cego Ep 06 Ceda Sua Alma</h1>
 </body>
 </html>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": "Dan Da Dan - T2E12 - 🍿Clau",
-  "description": "Assista Dan Da Dan - T2E12 - Choque! Kaiju espacial vs. robô gigante! - 🍿Clau",
+  "name": "Dan Da Dan T2E12",
+  "description": "Assista Dan Da Dan T2E12",
   "thumbnailUrl": [
     "https://via.placeholder.com/500x750?text=Sem+Capa"
   ],
@@ -13,10 +14,11 @@
   "inLanguage": "pt",
   "contentUrl": "http://shd12.oneplayer.site/token/SHD12/240411/2x12.mp4",
   "embedUrl": "http://shd12.oneplayer.site/token/SHD12/240411/2x12.mp4"
-}</script>
-<title>Dan Da Dan - T2E12 - 🍿Clau</title>
+}
+</script>
+<title>Dan Da Dan T2E12</title>
 </head>
 <body>
-<h1>Dan Da Dan - T2E12 - 🍿Clau</h1>
+<h1>Dan Da Dan T2E12</h1>
 </body>
 </html>

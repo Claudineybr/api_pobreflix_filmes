@@ -1,30 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": "Off Campus: Amores Improváveis - 🍿Clau",
-  "description": "Assista Off Campus: Amores Improváveis - T1E7 - Episódio Sete - O Confronto",
+  "name": "Off Campus: Amores Improváveis",
+  "description": "Assista Off Campus: Amores Improváveis",
   "thumbnailUrl": [
     "https://image.tmdb.org/t/p/w500/iQ1WbmoC08ql4qRZkfUD2LlzNOL.jpg"
   ],
-  "uploadDate": "2026-05-13T00:00:00+00:00",
+  "uploadDate": "2026-01-01T00:00:00+00:00",
   "inLanguage": "pt",
-  "interactionStatistic": {
-    "@type": "InteractionCounter",
-    "interactionType": {
-      "@type": "WatchAction"
-    },
-    "userInteractionCount": 5237
-  },
-  "duration": "PTNaNM",
-  "contentUrl": "http://awnagk.gviudclrb.com/vod/CDADAF92B4794A109320F77DF59618E0_media.mp4",
-  "embedUrl": "http://awnagk.gviudclrb.com/vod/CDADAF92B4794A109320F77DF59618E0_media.mp4"
-}</script>
-<title>Off Campus: Amores Improváveis - 🍿Clau</title>
+  "contentUrl": "http://shd13.oneplayer.site/SHD13/273240/1x8.mp4",
+  "embedUrl": "http://shd13.oneplayer.site/SHD13/273240/1x8.mp4"
+}
+</script>
+<title>Off Campus: Amores Improváveis</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
-<h1>Off Campus: Amores Improváveis - 🍿Clau</h1>
+<img src="https://image.tmdb.org/t/p/w500/iQ1WbmoC08ql4qRZkfUD2LlzNOL.jpg" alt="Off Campus: Amores Improváveis 2026 - Episódio 8 – A Final - 🍿Clau" style="width:100%;max-height:220px;object-fit:cover;border-radius:8px">
+<h1>Off Campus: Amores Improváveis</h1>
 </body>
 </html>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": "Hora de Aventuras - Episódio - 🍿Clau",
-  "description": "Assista Hora de Aventuras - Episódio - 🍿Clau",
+  "name": "Hora De Aventuras Episódio",
+  "description": "Assista Hora De Aventuras Episódio",
   "thumbnailUrl": [
     "https://image.tmdb.org/t/p/w500/gslEVybs2mXWZSTBN9BPVQqO5GT.jpg"
   ],
@@ -13,10 +14,14 @@
   "inLanguage": "pt",
   "contentUrl": "http://hd5.oneplayer.site/token/FHD5/tt1935859.mp4",
   "embedUrl": "http://hd5.oneplayer.site/token/FHD5/tt1935859.mp4"
-}</script>
-<title>Hora de Aventuras - Episódio - 🍿Clau</title>
+}
+</script>
+<title>Hora De Aventuras Episódio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
-<h1>Hora de Aventuras - Episódio - 🍿Clau</h1>
+<img src="https://image.tmdb.org/t/p/w500/gslEVybs2mXWZSTBN9BPVQqO5GT.jpg" alt="Hora de Aventuras - Episódio - 🍿Clau" style="width:100%;max-height:220px;object-fit:cover;border-radius:8px">
+<h1>Hora De Aventuras Episódio</h1>
 </body>
 </html>

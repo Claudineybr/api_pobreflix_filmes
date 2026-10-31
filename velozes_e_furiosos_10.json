@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": "Velozes e Furiosos 10 - 🍿Clau",
-  "description": "Assista Velozes e Furiosos 10 - 2023 - 🍿Clau",
+  "name": "Velozes E Furiosos 10",
+  "description": "Assista Velozes E Furiosos 10",
   "thumbnailUrl": [
     "https://image.tmdb.org/t/p/w500/xaRzhQZ3zK5lN6vEetG8PD17KPF.jpg"
   ],
@@ -13,10 +14,11 @@
   "inLanguage": "pt",
   "contentUrl": "http://fhd4.oneplayer.site/343rt342wtg34wetg34retg4rgh5kh4/FHD4/tt5433140.mp4",
   "embedUrl": "http://fhd4.oneplayer.site/343rt342wtg34wetg34retg4rgh5kh4/FHD4/tt5433140.mp4"
-}</script>
-<title>Velozes e Furiosos 10 - 🍿Clau</title>
+}
+</script>
+<title>Velozes E Furiosos 10</title>
 </head>
 <body>
-<h1>Velozes e Furiosos 10 - 🍿Clau</h1>
+<h1>Velozes E Furiosos 10</h1>
 </body>
 </html>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": "Z Nation - T1E12 - 🍿Clau",
-  "description": "Assista Z Nation - T1E12 - A Lei de Murphy - 🍿Clau",
+  "name": "Z Nation T1E12",
+  "description": "Assista Z Nation T1E12",
   "thumbnailUrl": [
     "https://image.tmdb.org/t/p/w500/gXfeDMkEcHoYBvtkbU11g3F81b.jpg"
   ],
@@ -13,10 +14,14 @@
   "inLanguage": "pt",
   "contentUrl": "https://cdn-0096.speed-stream.online/z-nation-0462b090/s1/dubbed/12/c157d502-98ff-4839-819b-3174b4e4770e/stream.mp4",
   "embedUrl": "https://cdn-0096.speed-stream.online/z-nation-0462b090/s1/dubbed/12/c157d502-98ff-4839-819b-3174b4e4770e/stream.mp4"
-}</script>
-<title>Z Nation - T1E12 - 🍿Clau</title>
+}
+</script>
+<title>Z Nation T1E12</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
-<h1>Z Nation - T1E12 - 🍿Clau</h1>
+<img src="https://image.tmdb.org/t/p/w500/gXfeDMkEcHoYBvtkbU11g3F81b.jpg" alt="Z Nation - T1E12 - A Lei de Murphy - 🍿Clau" style="width:100%;max-height:220px;object-fit:cover;border-radius:8px">
+<h1>Z Nation T1E12</h1>
 </body>
 </html>

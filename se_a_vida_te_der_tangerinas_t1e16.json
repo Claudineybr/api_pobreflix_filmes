@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": "Se a Vida Te Der Tangerinas? - T1E16 - 🍿Clau",
-  "description": "Assista Se a Vida Te Der Tangerinas? - T1E16 - Um Brinde a Tudo o que Vivemos - 🍿Clau",
+  "name": "Se A Vida Te Der Tangerinas? T1E16",
+  "description": "Assista Se A Vida Te Der Tangerinas? T1E16",
   "thumbnailUrl": [
     "https://image.tmdb.org/t/p/w500/k42rlc5drUiSl9s8lqeM9dLjHQw.jpg"
   ],
@@ -13,10 +14,14 @@
   "inLanguage": "pt",
   "contentUrl": "http://shd12.oneplayer.site/token/SHD12/219246/1x16.mp4",
   "embedUrl": "http://shd12.oneplayer.site/token/SHD12/219246/1x16.mp4"
-}</script>
-<title>Se a Vida Te Der Tangerinas? - T1E16 - 🍿Clau</title>
+}
+</script>
+<title>Se A Vida Te Der Tangerinas? T1E16</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
-<h1>Se a Vida Te Der Tangerinas? - T1E16 - 🍿Clau</h1>
+<img src="https://image.tmdb.org/t/p/w500/k42rlc5drUiSl9s8lqeM9dLjHQw.jpg" alt="Se a Vida Te Der Tangerinas? - T1E16 - Um Brinde a Tudo o que Vivemos - 🍿Clau" style="width:100%;max-height:220px;object-fit:cover;border-radius:8px">
+<h1>Se A Vida Te Der Tangerinas? T1E16</h1>
 </body>
 </html>
