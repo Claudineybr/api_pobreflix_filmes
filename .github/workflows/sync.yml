@@ -64,23 +64,15 @@ jobs:
               elif not url.startswith('http'): url = 'http://' + url
               return url.split()[0] if url.split() else ""
 
-          # FUNÇÃO PARA LIMPAR O ANO E DEIXAR O NOME PERFEITO
-          def limpar_titulo_exibicao(nome):
-              # Se for série (tem T1E1, etc.)
-              if re.search(r'\bT\d+E\d+\b', nome, re.I):
-                  match = re.search(r'^(.*?)\s*-\s*(T\d+E\d+.*)$', nome, re.I)
-                  if match:
-                      titulo = match.group(1).strip()
-                      episodio = match.group(2).strip()
-                      # Remove o ano do título
-                      titulo = re.sub(r'\b(19|20)\d{2}\b', '', titulo).strip()
-                      # Remove parênteses vazios ou traços soltos
-                      titulo = re.sub(r'\(\s*\)', '', titulo).strip()
-                      titulo = re.sub(r'\s+', ' ', titulo).strip(' -')
-                      return f"{titulo} - {episodio}"
-              
-              # Se for filme, remove espaços extras
-              return re.sub(r'\s+', ' ', nome).strip(' -')
+          # FUNÇÃO DE LIMPEZA BRUTAL
+          def limpar_nome_exibicao(nome):
+              for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
+                  nome = nome.replace(lixo, '')
+              nome = re.sub(r'\b(19|20)\d{2}\b', '', nome)
+              nome = re.sub(r'\(\s*\)', '', nome)
+              nome = re.sub(r'\s*-\s*-\s*', ' - ', nome)
+              nome = re.sub(r'\s+', ' ', nome)
+              return nome.strip(' - ')
 
           for arq in arquivos:
               if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache', 'renomeados', 'lista', 'catalog', 'index']): 
@@ -109,14 +101,25 @@ jobs:
                   match_name = re.search(r'"name"\s*:\s*"([^"]*)"', content)
                   nome_exato = match_name.group(1) if match_name else arq.stem
                   
-                  # Remove o 🍿Clau para limpar
-                  nome_base = nome_exato.replace(' - 🍿Clau', '').replace('🍿Clau', '').strip(' - ')
-                  
-                  # LIMPA O ANO E FORMATA O NOME
-                  nome_limpo = limpar_titulo_exibicao(nome_base)
+                  nome_limpo = limpar_nome_exibicao(nome_exato)
                   nome_final_json = f"{nome_limpo} - 🍿Clau"
 
-                  novo_nome_arq = arq.with_suffix('.html').name
+                  # --- AQUI ESTÁ A MÁGICA DO RENOMEAR ---
+                  # Cria um nome de arquivo seguro baseado no NOME e não no ID
+                  slug_base = re.sub(r'[^a-z0-9]', '_', nome_limpo.lower())
+                  slug_base = re.sub(r'_+', '_', slug_base).strip('_')
+                  
+                  # Tenta extrair a tag T1E1 do nome para garantir que o arquivo seja único
+                  m_tag = re.search(r'\bT(\d+)E(\d+)\b', nome_limpo, re.I)
+                  if m_tag:
+                      slug_base += f"_t{int(m_tag.group(1))}e{int(m_tag.group(2))}"
+                  
+                  # Se por algum motivo o slug ficar vazio, usa o nome do arquivo antigo
+                  if not slug_base:
+                      slug_base = arq.stem.lower()
+
+                  novo_nome_arq = f"{slug_base}.html"
+                  # -------------------------------------
 
                   base_url = "https://api-pobreflix-filmes.pages.dev"
                   url_unica = f"{base_url}/{novo_nome_arq}"
@@ -168,10 +171,8 @@ jobs:
               nome = item['name']
               match = re.search(r'\bT(\d+)E(\d+)\b', nome, re.I)
               
-              # Pega o nome base ignorando o T1E1
               base_name = re.split(r'\s*-\s*T\d+E\d+', nome, flags=re.I)[0].strip().lower()
-              # Tira parênteses do nome base para ordenar perfeitamente
-              base_name = re.sub(r'[\(\)\[\]]', '', base_name).strip()
+              base_name = re.sub(r'[\(\)\[\]\-]', '', base_name).strip()
               
               if match:
                   return (base_name, int(match.group(1)), int(match.group(2)))
@@ -181,7 +182,7 @@ jobs:
           catalogo = sorted(catalogo, key=ordenar_por_serie_e_episodio)
           (dir_saida / "catalog.json").write_text(json.dumps(catalogo, ensure_ascii=False, indent=2), encoding="utf-8")
 
-          # INDEX HTML
+          # INDEX HTML (mantido igual, com a ordenação no frontend)
           index_html = '''<!DOCTYPE html>
           <html lang="pt-BR">
           <head>
@@ -249,13 +250,12 @@ jobs:
 
                       let filtrados = catalogoCompleto.filter(item => item.name.toLowerCase().includes(termo));
                       
-                      // ORDENAÇÃO NO FRONTEND (Garante a ordem exata na tela)
                       filtrados.sort((a, b) => {
                           const m_a = a.name.match(/T(\d+)E(\d+)/i);
                           const m_b = b.name.match(/T(\d+)E(\d+)/i);
                           
-                          const base_a = a.name.split(/ - T\d+E\d+/i)[0].replace(/[\(\)\[\]]/g, '').trim().toLowerCase();
-                          const base_b = b.name.split(/ - T\d+E\d+/i)[0].replace(/[\(\)\[\]]/g, '').trim().toLowerCase();
+                          const base_a = a.name.split(/ - T\d+E\d+/i)[0].replace(/[\(\)\[\]\-]/g, '').trim().toLowerCase();
+                          const base_b = b.name.split(/ - T\d+E\d+/i)[0].replace(/[\(\)\[\]\-]/g, '').trim().toLowerCase();
 
                           if (base_a < base_b) return -1;
                           if (base_a > base_b) return 1;
@@ -308,9 +308,11 @@ jobs:
           sed -i "s|ORIGEM_PATH|$T/origem|g; s|NOVOS_PATH|$T/novos|g; s|SAIDA_PATH|$T/saida|g" "$T/filtrar.py"
           python3 -I "$T/filtrar.py"
           
+          # Deleta os HTML e JSON antigos (incluindo os "100088_S1E1.html")
           find . -maxdepth 1 -name "*.json" ! -name "catalog.json" -delete
           find . -maxdepth 1 -name "*.html" ! -name "index.html" -delete
           
+          # Copia os novos arquivos renomeados
           cp -f "$T"/saida/*.html .
           cp -f "$T"/saida/*.json .
           if [ -f "$T/saida/urls_invalidas.txt" ]; then cp -f "$T/saida/urls_invalidas.txt" .; fi
@@ -321,7 +323,7 @@ jobs:
           git config user.email "Claudineybr@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "sync: remove o ano do titulo de series e garante ordenacao"
+          git commit -m "sync: renomear arquivos usando o title do JSON"
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then exit 0; fi
             git pull origin main --no-rebase -X ours --no-edit || true
