@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">
-{
+<script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Por Água Abaixo - 🍿Clau",
@@ -20,10 +19,9 @@
     "userInteractionCount": 5237
   },
   "duration": "PT1H49M",
-  "contentUrl": "fdnfjsnfsvb.mp4",
-  "embedUrl": "fdnfjsnfsvb.mp4"
-}
-</script>
+  "contentUrl": "http://fdnfjsnfsvb.mp4",
+  "embedUrl": "http://fdnfjsnfsvb.mp4"
+}</script>
 <title>Por Água Abaixo - 🍿Clau</title>
 </head>
 <body>
