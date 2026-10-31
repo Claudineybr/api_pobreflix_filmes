@@ -1,4 +1,4 @@
-name: Teste Catalogo de Busca (Manual)
+name: Teste Catalogo de Busca (JSON)
 
 on:
   workflow_dispatch: # Roda só na mão
@@ -17,7 +17,7 @@ jobs:
 
       - name: Criar Index e Gerar Catalog.json
         run: |
-          # 1. Cria o novo visual da página (index.html)
+          # 1. Cria o index.html com o visual bonito
           cat > index.html << 'HTMLEOF'
           <!DOCTYPE html>
           <html lang="pt-BR">
@@ -45,7 +45,7 @@ jobs:
                       .then(response => response.json())
                       .then(data => {
                           catalogoCompleto = data;
-                          exibirResultados(catalogoCompleto.slice(0, 50));
+                          exibirResultados(catalogoCompleto.slice(0, 50)); // Mostra os 50 primeiros ao abrir
                       })
                       .catch(err => console.error("Erro ao carregar catálogo:", err));
 
@@ -70,7 +70,7 @@ jobs:
                       }
                       itens.forEach(item => {
                           const a = document.createElement('a');
-                          a.href = item.file;
+                          a.href = item.file; // Vai apontar para o .json por enquanto
                           a.textContent = item.name;
                           a.target = "_blank";
                           container.appendChild(a);
@@ -81,34 +81,48 @@ jobs:
           </html>
           HTMLEOF
 
-          # 2. Gera o catalog.json lendo os arquivos .html
+          # 2. Gera o catalog.json lendo os arquivos .json existentes
           cat > /tmp/gerar_catalogo.py << 'PYEOF'
           import os, json, re
 
           catalogo = []
-          for arquivo in os.listdir('.'):
-              if arquivo.endswith('.html') and arquivo != 'index.html':
-                  nome = arquivo.replace('.html', '').replace('_', ' ').title()
-                  try:
-                      with open(arquivo, 'r', encoding='utf-8') as f:
-                          conteudo = f.read()
-                          match = re.search(r'"name"\s*:\s*"([^"]+)"', conteudo)
-                          if match:
-                              nome = match.group(1)
-                  except:
-                      pass
-                  
-                  catalogo.append({
-                      "name": nome,
-                      "file": arquivo
-                  })
+          arquivos = os.listdir('.')
+          
+          # Filtra só os .json de filmes/séries (ignora os de controle)
+          arquivos_json = [f for f in arquivos if f.endswith('.json') and 'pendentes' not in f and 'catalog.json' not in f]
+          print(f"Total de arquivos .json encontrados: {len(arquivos_json)}")
 
+          for arquivo in arquivos_json:
+              try:
+                  with open(arquivo, 'r', encoding='utf-8') as f:
+                      conteudo = f.read()
+                      
+                      # Tenta ler o JSON puro
+                      dados = None
+                      try:
+                          dados = json.loads(conteudo)
+                      except:
+                          # Se for um HTML com JSON dentro, tenta pescar o bloco
+                          match = re.search(r'<script type="application/ld\+json">(.*?)</script>', conteudo, re.S)
+                          if match:
+                              try: dados = json.loads(match.group(1))
+                              except: pass
+                      
+                      if dados and "name" in dados:
+                          catalogo.append({
+                              "name": dados["name"],
+                              "file": arquivo # Mantém o link para o JSON
+                          })
+              except Exception as e:
+                  pass # Ignora arquivos corrompidos
+
+          # Ordena de A a Z
           catalogo = sorted(catalogo, key=lambda x: x['name'])
           
           with open('catalog.json', 'w', encoding='utf-8') as f:
               json.dump(catalogo, f, ensure_ascii=False, indent=2)
               
-          print(f"catalog.json gerado com {len(catalogo)} itens.")
+          print(f"catalog.json gerado com {len(catalogo)} itens para pesquisa.")
           PYEOF
           python3 /tmp/gerar_catalogo.py
 
@@ -117,11 +131,12 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
+          # Salva o index e o catalog
           git add index.html catalog.json
           
           if git diff --cached --quiet; then echo "Nada novo."; exit 0; fi
           
-          git commit -m "test: gerar index e catalog.json para pesquisa"
+          git commit -m "test: gerar index e catalog.json para pesquisa (json)"
           
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then break; fi
