@@ -1,17 +1,69 @@
-<!-- index.html -->
-<!doctype html>
-<meta charset="utf-8">
-<title>API Filmes</title>
-<h1>API Filmes</h1>
-<input id="q" placeholder="Buscar...">
-<ul id="lista"></ul>
-<script>
-fetch("index.json").then(r => r.json()).then(arqs => {
-  const ul = document.getElementById("lista");
-  const render = f => ul.innerHTML = arqs
-    .filter(a => a.includes(f)).slice(0, 100)
-    .map(a => `<li><a href="${a}">${a}</a></li>`).join("");
-  render("");
-  document.getElementById("q").oninput = e => render(e.target.value);
-});
-</script>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Filmes</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #121212; color: #fff; padding: 20px; margin: 0; }
+        h1 { color: #e50914; text-align: center; }
+        input { width: 100%; max-width: 600px; padding: 12px; font-size: 16px; border-radius: 8px; border: 1px solid #333; background: #222; color: #fff; display: block; margin: 0 auto 20px auto; outline: none; }
+        input:focus { border-color: #e50914; }
+        #resultados { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+        a { color: #fff; text-decoration: none; background: #222; padding: 15px; border-radius: 8px; display: block; transition: 0.2s; border-left: 4px solid transparent; }
+        a:hover { background: #333; border-left-color: #e50914; }
+    </style>
+</head>
+<body>
+
+    <h1>🍿 Catálogo Rave</h1>
+    <input type="text" id="pesquisa" placeholder="Digite o nome do filme ou série...">
+    <div id="resultados"></div>
+
+    <script>
+        let catalogoCompleto = [];
+
+        // Busca a lista de filmes no arquivo catalog.json
+        fetch('catalog.json')
+            .then(response => response.json())
+            .then(data => {
+                catalogoCompleto = data;
+                exibirResultados(catalogoCompleto.slice(0, 50)); // Mostra os 50 primeiros
+            })
+            .catch(err => console.error("Erro ao carregar catálogo:", err));
+
+        // Filtra quando o usuário digita
+        document.getElementById('pesquisa').addEventListener('input', (e) => {
+            const termo = e.target.value.toLowerCase();
+            if (termo.length < 2) {
+                exibirResultados(catalogoCompleto.slice(0, 50));
+                return;
+            }
+            
+            const filtrados = catalogoCompleto.filter(item => 
+                item.name.toLowerCase().includes(termo)
+            );
+            exibirResultados(filtrados.slice(0, 50)); // Limita a 50 resultados na tela
+        });
+
+        // Coloca na tela
+        function exibirResultados(itens) {
+            const container = document.getElementById('resultados');
+            container.innerHTML = '';
+            
+            if (itens.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#888;">Nenhum filme encontrado.</p>';
+                return;
+            }
+
+            itens.forEach(item => {
+                const a = document.createElement('a');
+                a.href = item.file; // Abre o HTML do filme
+                a.textContent = item.name;
+                a.target = "_blank";
+                container.appendChild(a);
+            });
+        }
+    </script>
+</body>
+</html>
