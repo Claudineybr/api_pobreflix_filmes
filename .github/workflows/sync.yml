@@ -1,4 +1,4 @@
-name: Sincronizar, Limpar e Corrigir
+name: Sincronizar, Limpar e Padronizar
 
 on:
   schedule:
@@ -20,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Baixar, Filtrar e Publicar
+      - name: Baixar, Filtrar e Padronizar Nomes
         run: |
           set -e
           T=$(mktemp -d)
@@ -29,9 +29,8 @@ jobs:
           git clone --depth 1 https://github.com/WaveLy2308/api_pobreflix_filmes.git "$T/origem" || true
           git clone --depth 1 https://github.com/Claudineybr/catalogocompleto.git "$T/novos"
           
-          # 2. Roda o script Python de filtragem e renomeação
+          # 2. Roda o script Python de filtragem e padronização
           cat > "$T/filtrar.py" << 'PYEOF'
-          import json
           import re
           import shutil
           from pathlib import Path
@@ -49,154 +48,134 @@ jobs:
               arquivos.extend(list(dir_origem.glob("*.json")))
           arquivos.extend(list(dir_novos.glob("*.json")))
 
+          # Prioriza os arquivos do repositório novo
           def prioridade(arq):
               is_novo = 1 if dir_novos in arq.parents else 0
               return (is_novo, len(arq.name))
-
           arquivos.sort(key=prioridade, reverse=True)
 
           for arq in arquivos:
-              if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache']): 
+              if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache', 'renomeados', 'lista']): 
                   continue
                   
               try:
-                  texto = arq.read_text(encoding='utf-8-sig')
-                  match = re.search(r'<script type="application/ld\+json">(.*?)</script>', texto, re.S)
-                  dados = json.loads(match.group(1)) if match else json.loads(texto)
-                      
-                  url = dados.get("contentUrl", "").strip()
+                  content = arq.read_text(encoding='utf-8-sig')
+                  
+                  # 1. Captura e limpa a URL para não ter duplicatas
+                  match_url = re.search(r'"contentUrl"\s*:\s*"([^"]*)"', content)
+                  url = match_url.group(1).strip() if match_url else ""
+                  clean_url = url.split('?')[0].lower()
                   
                   if not url or url.endswith(".ts") or ".m3u8" in url: 
                       continue
-                      
-                  clean_url = url.split('?')[0].lower()
                   if clean_url in links_vistos: 
                       continue
                   links_vistos.add(clean_url)
 
-                  nome_atual = dados.get("name", "Filme Desconhecido")
-                  nome_atual = nome_atual.replace('🕸️ PK', '').replace('🍿Clau', '').strip()
-                  nome_atual = re.sub(r'\s*-\s*$', '', nome_atual).strip()
+                  # 2. Pega o nome atual e limpa o lixo
+                  match_name = re.search(r'"name"\s*:\s*"((?:[^"\\]|\\.)*)"', content)
+                  nome_atual = match_name.group(1).replace('\\"', '"') if match_name else ""
                   
-                  is_series = bool(re.search(r'_t\d+e\d+', arq.name, re.I))
-                  ep_tag = ""
-                  if is_series:
-                      match_ep = re.search(r'(_t\d+e\d+)', arq.name, re.I)
-                      if match_ep: ep_tag = match_ep.group(1).lower()
+                  titulo = re.sub(r'[\(\)\[\]]', '', nome_atual)
+                  titulo = re.sub(r'\b(19|20)\d{2}\b', '', titulo)
+                  titulo = re.sub(r'(?i)-\s*T\d+E\d+.*', '', titulo)
+                  titulo = re.sub(r'(?i)\bT\d+E\d+\b.*', '', titulo)
+                  titulo = re.sub(r'(?i)Epis[oó]dio\s*\d+.*', '', titulo)
+                  titulo = titulo.replace('🍿Clau', '').replace('🕸️ PK', '').replace('Marcos', '').replace('👾', '').strip()
+                  titulo = re.sub(r'[-_]+', ' ', titulo)
+                  titulo = re.sub(r'\s+', ' ', titulo).strip()
+                  
+                  # Deixa as primeiras letras maiúsculas
+                  titulo = titulo.title()
+                  if not titulo: titulo = "Sem Nome"
 
-                  match_ano = re.search(r'\((\d{4})\)', nome_atual)
-                  ano = match_ano.group(1) if match_ano else ""
-                  
-                  titulo = re.sub(r'\s*\(\d{4}\).*', '', nome_atual).strip()
-                  titulo = re.sub(r'\s*-\s*T\d+E\d+.*', '', titulo).strip()
-                  if not titulo: titulo = nome_atual
-                  
-                  if is_series and ep_tag:
-                      novo_nome_json = f"{titulo} - {ep_tag.upper().replace('_', '')} - 🍿Clau"
+                  # 3. Verifica se é série (procura T1E1 no nome do arquivo ou no texto)
+                  m_ep = re.search(r'(?i)t(\d+)e(\d+)', arq.name)
+                  if not m_ep:
+                      m_ep = re.search(r'(?i)t(\d+)e(\d+)', nome_atual)
+
+                  if m_ep:
+                      season = str(int(m_ep.group(1)))
+                      episode = str(int(m_ep.group(2)))
+                      ep_tag = f"T{season}E{episode}"
+                      novo_nome_json = f"{titulo} {ep_tag}"  # Ex: O Atirador T2E1
                   else:
-                      novo_nome_json = f"{titulo} ({ano}) - 🍿Clau" if ano else f"{titulo} - 🍿Clau"
-                  dados["name"] = novo_nome_json
+                      ep_tag = ""
+                      novo_nome_json = titulo  # Ex: A Culpa é das Estrelas
 
-                  json_str = json.dumps(dados, ensure_ascii=False, indent=2)
-                  novo_html = f"<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n<script type=\"application/ld+json\">\n{json_str}\n</script>\n<title>{novo_nome_json}</title>\n</head>\n<body>\n<h1>{novo_nome_json}</h1>\n</body>\n</html>"
-                  novo_html = novo_html.replace("https://redetoons.cards", "https://redetoons.my")
+                  # 4. Substitui as informações dentro do arquivo de forma segura (Regex)
+                  # Escapa possíveis aspas do nome novo para não quebrar o JSON
+                  safe_name = novo_nome_json.replace('"', '\\"')
                   
+                  content = re.sub(r'("name"\s*:\s*")(?:[^"\\]|\\.)*(")', rf'\g<1>{safe_name}\g<2>', content)
+                  content = re.sub(r'("description"\s*:\s*")(?:[^"\\]|\\.)*(")', rf'\g<1>Assista {safe_name}\g<2>', content)
+                  content = re.sub(r'(<title>).*?(</title>)', rf'\g<1>{novo_nome_json}\g<2>', content, flags=re.DOTALL)
+                  content = re.sub(r'(<h1>).*?(</h1>)', rf'\g<1>{novo_nome_json}\g<2>', content, flags=re.DOTALL)
+                  content = content.replace("https://redetoons.cards", "https://redetoons.my")
+
+                  # 5. Define o nome do arquivo físico (slug)
                   slug = re.sub(r'[^a-z0-9]', '_', titulo.lower())
                   slug = re.sub(r'_+', '_', slug).strip('_')
                   
-                  if is_series and ep_tag:
-                      novo_nome_arq = f"{slug}_{ano}{ep_tag}.json" if ano else f"{slug}{ep_tag}.json"
+                  if ep_tag:
+                      novo_nome_arq = f"{slug}_{ep_tag.lower()}.json"
                   else:
-                      novo_nome_arq = f"{slug}_{ano}.json" if ano else f"{slug}.json"
+                      novo_nome_arq = f"{slug}.json"
 
-                  (dir_saida / novo_nome_arq).write_text(novo_html, encoding='utf-8')
+                  # Salva o arquivo na pasta de saída
+                  (dir_saida / novo_nome_arq).write_text(content, encoding='utf-8')
                   copiados += 1
-              except Exception:
-                  pass
+                  
+              except Exception as e:
+                  print(f"[ERRO] Falha em {arq.name}: {e}")
+                  # TRAVA DE SEGURANÇA: Se der erro, copia o arquivo original para não ser deletado!
+                  shutil.copy2(arq, dir_saida / arq.name)
 
-          print(f"Total de arquivos limpos e unicos copiados: {copiados}")
+          print(f"Total de arquivos processados e padronizados: {copiados}")
           PYEOF
 
+          # Injeta os caminhos no script e roda
           sed -i "s|ORIGEM_PATH|$T/origem|g; s|NOVOS_PATH|$T/novos|g; s|SAIDA_PATH|$T/saida|g" "$T/filtrar.py"
           python3 -I "$T/filtrar.py"
           
-          N_OUT=$(ls "$T"/saida/*.json | wc -l)
-          if [ "$N_OUT" -eq 0 ]; then
-            echo "ABORTADO: saida vazia."
-            exit 1
-          fi
-          
+          # 3. Substitui os arquivos na raiz do repositório
           find . -maxdepth 1 -name "*.json" -delete
           cp -f "$T"/saida/*.json .
 
-      - name: Corrigir Defeitos (URLs e JSON)
+      - name: Corrigir Defeitos (URLs e Aspas)
         run: |
           cat > fix_defects.py << 'PYEOF'
-          import os
           import re
-          import json
           from pathlib import Path
 
           def clean_url(url):
               if not url: return url
               url = url.strip()
-              
-              # Defeito 3: Remove tags HTML (ex: <b></b>)
               url = re.sub(r'<[^>]+>', '', url)
-              
-              # Defeito 1: Remove texto na frente do endereço (ex: "7 http://...")
-              match = re.search(r'(https?://.+?)(?:\s|$)', url)
+              match = re.search(r'(https?://[^\s"]+)', url)
               if match:
                   url = match.group(1)
-              else:
-                  # Defeito 4: Adiciona http:// se não tiver
-                  if not url.startswith('http'):
-                      url = 'http://' + url
-                      
-              # Defeito 2: Remove endereço repetido (ex: "http://AAA http://AAA")
+              elif not url.startswith('http'):
+                  url = 'http://' + url
               parts = url.split()
-              if parts:
-                  url = parts[0]
-                  
+              if parts: url = parts[0]
               return url
 
-          def fix_json_file(filepath):
+          for filepath in Path('.').glob('*.json'):
+              if any(x in filepath.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache']): continue
               try:
                   content = filepath.read_text(encoding='utf-8')
-                  match = re.search(r'<script type="application/ld\+json">(.*?)</script>', content, re.DOTALL)
-                  if not match: return
+                  original = content
                   
-                  json_str = match.group(1)
-                  
-                  # Defeito 5: Aspas sem escape no título (quebra o JSON)
-                  try:
-                      json.loads(json_str)
-                  except json.JSONDecodeError:
-                      json_str = re.sub(r'("name":\s*")(.*?)(",\n)', lambda m: m.group(1) + m.group(2).replace('"', '\\"') + m.group(3), json_str)
-                      json_str = re.sub(r'("description":\s*")(.*?)(",\n|\n})', lambda m: m.group(1) + m.group(2).replace('"', '\\"') + m.group(3), json_str)
-
-                  # Aplica os consertos de URL
+                  # Conserta as URLs de forma segura
                   def repl_url(m):
                       return f'"{m.group(1)}": "{clean_url(m.group(2))}"'
+                  content = re.sub(r'"(contentUrl|embedUrl)":\s*"([^"]*)"', repl_url, content)
                   
-                  json_str = re.sub(r'"(contentUrl|embedUrl)":\s*"([^"]*)"', repl_url, json_str)
-                  
-                  # Valida o JSON final
-                  data = json.loads(json_str)
-                  new_json_str = json.dumps(data, ensure_ascii=False, indent=2)
-                  
-                  new_content = content.replace(match.group(1), new_json_str)
-                  filepath.write_text(new_content, encoding='utf-8')
-                  print(f"[OK] Consertado: {filepath.name}")
-              except Exception as e:
-                  print(f"[ERRO] Falha ao consertar {filepath.name}: {e}")
-
-          for filepath in Path('.').glob('*.json'):
-              if any(x in filepath.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache']):
-                  continue
-              fix_json_file(filepath)
+                  if content != original:
+                      filepath.write_text(content, encoding='utf-8')
+              except Exception: pass
           PYEOF
-
           python3 fix_defects.py
 
       - name: Salvar alterações
@@ -205,12 +184,13 @@ jobs:
           git config user.email "Claudineybr@users.noreply.github.com"
           
           git add -A
+          
           if git diff --cached --quiet; then
             echo "Sem mudancas."
             exit 0
           fi
           
-          git commit -m "sync: limpeza, renomeacao e correcao automatica de defeitos (URLs e JSON)"
+          git commit -m "sync: padronizacao de nomes (Filmes: Nome / Series: Nome T1E1)"
           
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then
