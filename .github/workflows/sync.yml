@@ -62,14 +62,19 @@ jobs:
               return (is_novo, len(arq.name))
           arquivos.sort(key=prioridade, reverse=True)
 
+          # FUNÇÃO DE EXTRAÇÃO DE EPISÓDIO
           def extract_episode(text):
               if not text: return ""
+              # T01E01, T1E1, T01.E01
               m = re.search(r'(?i)t\s*(\d+)\s*[._-]?\s*e\s*(\d+)', text)
               if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
+              # T01EP01, T1EP1
               m = re.search(r'(?i)t\s*(\d+)\s*[._-]?\s*ep\s*(\d+)', text)
               if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
+              # Temporada 1 Episodio 1
               m = re.search(r'(?i)temporada\s*(\d+).*?epis[oó]dio\s*(\d+)', text)
               if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
+              # 3x5 (evita pegar resolução 1080x720 limitando a 2 e 3 dígitos)
               m = re.search(r'\b(\d{1,2})x(\d{1,3})\b', text)
               if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
               return ""
@@ -78,15 +83,19 @@ jobs:
               if not raw_text: return "Desconhecido"
               texto_norm = unicodedata.normalize('NFKD', str(raw_text))
               texto_norm = "".join([c for c in texto_norm if not unicodedata.combining(c)])
+              # Limpa marcas d'água
               for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
                   texto_norm = texto_norm.replace(lixo, '')
+              # Remove tags de episódio
               texto_norm = re.sub(r'(?i)t\s*\d+\s*[._-]?\s*e\s*\d+', '', texto_norm)
               texto_norm = re.sub(r'(?i)t\s*\d+\s*[._-]?\s*ep\s*\d+', '', texto_norm)
               texto_norm = re.sub(r'(?i)temporada\s*\d+.*?epis[oó]dio\s*\d+', '', texto_norm)
               texto_norm = re.sub(r'\b\d{1,2}x\d{1,3}\b', '', texto_norm)
               texto_norm = texto_norm.replace('_', ' ')
+              
               partes = [p.strip() for p in re.split(r'\s+[-–—]\s+', texto_norm) if p.strip()]
               partes_limpas = [p for p in partes if not any(pref in p.lower() for pref in ['vini', 'marcos', 'inix', 'lili', 'estrelinha', 'grave', 'site', 'online', 'blogspot', 'assistir', 'download'])]
+              
               titulo_base = partes_limpas[0] if partes_limpas else "Desconhecido"
               titulo_base = re.sub(r'\b(19\d{2}|20\d{2})\b', '', titulo_base).strip()
               return re.sub(r'[\s.:;,]+$', '', titulo_base).strip()
@@ -101,7 +110,6 @@ jobs:
               return url.split()[0] if url.split() else ""
 
           for arq in arquivos:
-              # Ignora arquivos de controle e o próprio catalog
               if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache', 'renomeados', 'lista', 'catalog']): 
                   continue
                   
@@ -128,7 +136,8 @@ jobs:
 
                   match_name = re.search(r'"name"\s*:\s*"([^"]*)"', content)
                   nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '').replace('.html', '')
-                  if len(nome_atual) < 5: nome_atual = arq.name.replace('.json', '').replace('.html', '')
+                  if len(nome_atual) < 5: 
+                      nome_atual = arq.name.replace('.json', '').replace('.html', '')
 
                   ep_tag = extract_episode(nova_url)
                   if not ep_tag: ep_tag = extract_episode(nome_atual)
@@ -152,7 +161,7 @@ jobs:
                       "contentUrl": nova_url, "embedUrl": nova_url
                   }
                   
-                  # ADICIONA AO CATALOGO
+                  # ADICIONA AO CATALOG.JSON
                   catalogo.append(novo_json)
                   
                   # MONTA O HTML
@@ -182,7 +191,7 @@ jobs:
                   slug = re.sub(r'[^a-z0-9]', '_', titulo_limpo.lower())
                   slug = re.sub(r'_+', '_', slug).strip('_')
                   
-                  # CORREÇÃO CRÍTICA AQUI: EXTENSÃO .html
+                  # SALVA COMO .HTML
                   if ep_tag:
                       novo_nome_arq = f"{slug}_{ep_tag.lower()}.html"
                   else:
@@ -195,13 +204,13 @@ jobs:
                   shutil.copy2(arq, dir_saida / arq.name)
 
           # SALVA O CATALOG.JSON NO FINAL
-          if catalogo:
-              (dir_saida / "catalog.json").write_text(json.dumps(catalogo, ensure_ascii=False, indent=2), encoding="utf-8")
+          catalogo_json = json.dumps(catalogo, ensure_ascii=False, indent=2)
+          (dir_saida / "catalog.json").write_text(catalogo_json, encoding="utf-8")
 
           if urls_quebradas:
               (dir_saida / "urls_invalidas.txt").write_text("\n".join(urls_quebradas), encoding="utf-8")
               
-          print(f"Total processados: {copiados}")
+          print(f"Total de arquivos HTML processados: {copiados}")
           print(f"Catalog.json gerado com {len(catalogo)} itens.")
           PYEOF
 
@@ -223,7 +232,7 @@ jobs:
           git config user.email "Claudineybr@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "fix: EXTENSAO .HTML nos arquivos e geracao do catalog.json"
+          git commit -m "fix: salva arquivos como .html, gera catalog.json e corrige extração de episodios"
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then exit 0; fi
             git pull origin main --no-rebase -X ours --no-edit || true
