@@ -59,7 +59,7 @@
         const welcomeScreen = document.getElementById('welcome-screen');
         const headerElement = document.getElementById('header');
 
-        // Carrega o catálogo silenciosamente
+        // Carrega o catálogo
         fetch('catalog.json')
             .then(response => response.json())
             .then(data => {
@@ -71,7 +71,6 @@
         inputElement.addEventListener('input', (e) => {
             const termo = e.target.value.toLowerCase().trim();
             
-            // Se estiver vazio, volta para a tela de boas vindas
             if (termo.length === 0) {
                 containerResultados.style.display = 'none';
                 welcomeScreen.style.display = 'flex';
@@ -79,23 +78,20 @@
                 return;
             }
 
-            // Se tiver digitando, esconde boas vindas
             welcomeScreen.style.display = 'none';
             containerResultados.style.display = 'flex';
             headerElement.classList.add('searching');
 
-            // Se digitou menos de 2 letras, espera
             if (termo.length < 2) {
                 containerResultados.innerHTML = '';
                 return;
             }
 
-            // Filtra os filmes
             const filtrados = catalogoCompleto.filter(item => 
                 item.name.toLowerCase().includes(termo)
             );
             
-            exibirResultados(filtrados.slice(0, 50)); // Limita a 50 para não travar
+            exibirResultados(filtrados.slice(0, 50));
         });
 
         function exibirResultados(itens) {
