@@ -62,17 +62,14 @@ jobs:
               texto_norm = unicodedata.normalize('NFKD', str(raw_text))
               texto_norm = "".join([c for c in texto_norm if not unicodedata.combining(c)])
               
-              # Remove lixos e marcas d'água
               for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
                   texto_norm = texto_norm.replace(lixo, '')
                   
-              # Remove qualquer tag de episódio do título
               texto_norm = re.sub(r'(?i)\b(?:t|tp|temporada)[\s._-]*\d+[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*\d+', '', texto_norm)
               texto_norm = re.sub(r'(?i)\bT\d+E\d+\b', '', texto_norm)
               texto_norm = re.sub(r'(?i)Epis[oó]dio\s*\d+', '', texto_norm)
               texto_norm = texto_norm.replace('_', ' ')
               
-              # Separa por hífens e limpa prefixos de sites
               partes = [p.strip() for p in re.split(r'\s+[-–—]\s+', texto_norm) if p.strip()]
               partes_limpas = []
               
@@ -82,10 +79,7 @@ jobs:
                       continue
                   partes_limpas.append(p)
               
-              # Pega a primeira parte (título principal)
               titulo_base = partes_limpas[0] if partes_limpas else "Desconhecido"
-              
-              # Limpa anos soltos no título
               titulo_base = re.sub(r'\b(19\d{2}|20\d{2})\b', '', titulo_base).strip()
               titulo_final = re.sub(r'[\s.:;,]+$', '', titulo_base).strip()
               
@@ -107,7 +101,6 @@ jobs:
               try:
                   content = arq.read_text(encoding='utf-8-sig')
                   
-                  # Extrai URL
                   url_match = re.search(r'"(?:contentUrl|embedUrl)"\s*:\s*"([^"]*)"', content)
                   url = url_match.group(1) if url_match else ""
                   nova_url = clean_url(url)
@@ -121,43 +114,34 @@ jobs:
                       continue
                   links_vistos.add(clean_url_lower)
 
-                  # Extrai a Capa Original
                   capa_url = "https://via.placeholder.com/500x750?text=Sem+Capa"
                   match_capa = re.search(r'"thumbnailUrl"\s*:\s*\[\s*"([^"]+)"', content)
                   if match_capa:
                       capa_url = match_capa.group(1)
 
-                  # Extrai o Nome
                   match_name = re.search(r'"name"\s*:\s*"([^"]*)"', content)
                   nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '')
                   
                   if len(nome_atual) < 5:
                       nome_atual = arq.name.replace('.json', '')
 
-                  # --- A MÁGICA DO EPISÓDIO ---
                   ep_tag = ""
-                  # Prioridade 1: Extrair do Link do vídeo (ex: /3x5.mp4 -> T3E5)
                   match_url_ep = re.search(r'/(\d+)x(\d+)(?:\.|\?|$)', nova_url, re.I)
                   if match_url_ep:
                       ep_tag = f"T{int(match_url_ep.group(1))}E{int(match_url_ep.group(2))}"
                   else:
-                      # Prioridade 2: Extrair do JSON
                       match_json_ep = re.search(r'(?i)(?:t|tp|temporada)[\s._-]*(\d+)[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*(\d+)', nome_atual)
                       if match_json_ep:
                           ep_tag = f"T{int(match_json_ep.group(1))}E{int(match_json_ep.group(2))}"
                       else:
-                          # Prioridade 3: Extrair do nome do arquivo físico
                           match_file_ep = re.search(r'(?i)(?:t|tp|temporada)[\s._-]*(\d+)[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*(\d+)', arq.name)
                           if match_file_ep:
                               ep_tag = f"T{int(match_file_ep.group(1))}E{int(match_file_ep.group(2))}"
 
-                  # Limpa o título
                   titulo_limpo = limpar_titulo(nome_atual)
-                  
                   match_ano = re.search(r'\b(19\d{2}|20\d{2})\b', nome_atual)
                   ano = match_ano.group(1) if match_ano else ""
 
-                  # Monta o JSON final
                   if ep_tag:
                       novo_nome_json = f"{titulo_limpo} {ep_tag} - 🍿Clau"
                   else:
@@ -172,30 +156,31 @@ jobs:
                       "contentUrl": nova_url, "embedUrl": nova_url
                   }
                   
-                  # RECONSTRÓI O HTML COM CONCATENAÇÃO (Evita erro de indentação no YAML)
+                  # HTML COMPLETO, COM PLAYER, H1, E IDENTAÇÃO CORRETA
                   json_str = json.dumps(novo_json, ensure_ascii=False, indent=2)
-                  novo_html = "<!DOCTYPE html>\n"
-                  novo_html += "<html lang=\"pt-BR\">\n"
-                  novo_html += "<head>\n"
-                  novo_html += "    <meta charset=\"UTF-8\">\n"
-                  novo_html += "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
-                  novo_html += "    <script type=\"application/ld+json\">\n"
-                  novo_html += json_str + "\n"
-                  novo_html += "    </script>\n"
-                  novo_html += f"    <title>{novo_nome_json}</title>\n"
-                  novo_html += "    <style>\n"
-                  novo_html += "        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }\n"
-                  novo_html += "        video { width: 100%; height: 100%; outline: none; }\n"
-                  novo_html += "    </style>\n"
-                  novo_html += "</head>\n"
-                  novo_html += "<body>\n"
-                  novo_html += f"    <video src=\"{nova_url}\" poster=\"{capa_url}\" controls autoplay playsinline></video>\n"
-                  novo_html += "</body>\n"
-                  novo_html += "</html>"
-                  
+                  novo_html = f"""<!DOCTYPE html>
+          <html lang="pt-BR">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <script type="application/ld+json">
+          {json_str}
+              </script>
+              <title>{novo_nome_json}</title>
+              <style>
+                  body, html {{ margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }}
+                  video {{ width: 100%; height: 100%; outline: none; }}
+                  h1 {{ color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }}
+              </style>
+          </head>
+          <body>
+              <h1>{novo_nome_json}</h1>
+              <video src="{nova_url}" poster="{capa_url}" controls autoplay playsinline></video>
+          </body>
+          </html>"""
+
                   novo_html = novo_html.replace("https://redetoons.cards", "https://redetoons.my")
 
-                  # Nome do arquivo físico
                   slug = re.sub(r'[^a-z0-9]', '_', titulo_limpo.lower())
                   slug = re.sub(r'_+', '_', slug).strip('_')
                   
@@ -229,7 +214,7 @@ jobs:
           git config user.email "Claudineybr@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "fix: resolve erro de yaml na linha 175, extrai episodio do link (ex: 3x5) e mantem player"
+          git commit -m "fix: reconstrói arquivo HTML com player de video, tag h1 e extrai episodio do link"
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then exit 0; fi
             git pull origin main --no-rebase -X ours --no-edit || true
