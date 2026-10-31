@@ -17,7 +17,7 @@ jobs:
 
       - name: Criar Index e Gerar Catalog.json
         run: |
-          # 1. Cria o index.html super clean
+          # 1. Cria o index.html (mantendo o visual clean que você gostou)
           cat > index.html << 'HTMLEOF'
           <!DOCTYPE html>
           <html lang="pt-BR">
@@ -80,7 +80,7 @@ jobs:
                   const welcomeScreen = document.getElementById('welcome-screen');
                   const headerElement = document.getElementById('header');
 
-                  // Carrega o catálogo silenciosamente
+                  // Carrega o catálogo
                   fetch('catalog.json')
                       .then(response => response.json())
                       .then(data => {
@@ -92,7 +92,6 @@ jobs:
                   inputElement.addEventListener('input', (e) => {
                       const termo = e.target.value.toLowerCase().trim();
                       
-                      // Se estiver vazio, volta para a tela de boas vindas
                       if (termo.length === 0) {
                           containerResultados.style.display = 'none';
                           welcomeScreen.style.display = 'flex';
@@ -100,23 +99,20 @@ jobs:
                           return;
                       }
 
-                      // Se tiver digitando, esconde boas vindas
                       welcomeScreen.style.display = 'none';
                       containerResultados.style.display = 'flex';
                       headerElement.classList.add('searching');
 
-                      // Se digitou menos de 2 letras, espera
                       if (termo.length < 2) {
                           containerResultados.innerHTML = '';
                           return;
                       }
 
-                      // Filtra os filmes
                       const filtrados = catalogoCompleto.filter(item => 
                           item.name.toLowerCase().includes(termo)
                       );
                       
-                      exibirResultados(filtrados.slice(0, 50)); // Limita a 50 para não travar
+                      exibirResultados(filtrados.slice(0, 50));
                   });
 
                   function exibirResultados(itens) {
@@ -150,7 +146,7 @@ jobs:
           </html>
           HTMLEOF
 
-          # 2. Gera o catalog.json com filtros rigorosos
+          # 2. Gera o catalog.json com a formatação de Episódios (T1E1)
           cat > /tmp/gerar_catalogo.py << 'PYEOF'
           import os, json, re
 
@@ -158,7 +154,6 @@ jobs:
           arquivos = os.listdir('.')
           
           arquivos_json = [f for f in arquivos if f.endswith('.json') and 'pendentes' not in f and 'catalog.json' not in f]
-          
           ignorados = 0
 
           for arquivo in arquivos_json:
@@ -178,16 +173,27 @@ jobs:
                       if dados and "name" in dados:
                           nome_original = dados["name"]
                           
-                          # FILTRO: Ignora lixos que começam com símbolos estranhos
-                          if re.match(r'^[\-\+\(\[\#\.\s]', nome_original): 
+                          # Remove o "- 🍿Clau" do final
+                          nome_limpo = re.sub(r'\s*-\s*🍿Clau\s*$', '', nome_original).strip()
+                          
+                          # Procura padrão de série: "Nome da Série - T1E2 - Nome do Episódio"
+                          match_serie = re.match(r'^(.*?)\s*-\s*T(\d+)E(\d+).*$', nome_limpo, re.I)
+                          
+                          if match_serie:
+                              serie_nome = match_serie.group(1).strip()
+                              temp = int(match_serie.group(2))
+                              ep = int(match_serie.group(3))
+                              # Formata como "O Atirador - T1E1"
+                              nome_limpo = f"{serie_nome} - T{temp}E{ep}"
+                          else:
+                              # Se for filme, só remove o ano do final
+                              nome_limpo = re.sub(r'\s*\(?\d{4}\)?\s*$', '', nome_limpo).strip()
+
+                          # Filtro para não mostrar lixos que começam com símbolos
+                          if re.match(r'^[\-\+\(\[\#\.\s]', nome_limpo): 
                               ignorados += 1
                               continue
                           
-                          # LIMPEZA: Tira o "- 🍿Clau" e o ano
-                          nome_limpo = re.sub(r'\s*-\s*🍿Clau\s*$', '', nome_original)
-                          nome_limpo = re.sub(r'\s*\(?\d{4}\)?\s*$', '', nome_limpo).strip()
-                          nome_limpo = re.sub(r'\s*-\s*$', '', nome_limpo).strip() # Tira traço solto no final
-
                           if len(nome_limpo) < 3: 
                               ignorados += 1
                               continue
@@ -205,7 +211,7 @@ jobs:
           with open('catalog.json', 'w', encoding='utf-8') as f:
               json.dump(catalogo, f, ensure_ascii=False, indent=2)
               
-          print(f"Concluído! {len(catalogo)} filmes no catálogo. {ignorados} arquivos com nome sujo foram ignorados.")
+          print(f"Concluído! {len(catalogo)} itens. {ignorados} sujeiras ignoradas.")
           PYEOF
           python3 /tmp/gerar_catalogo.py
 
@@ -214,12 +220,11 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
-          # Adiciona APENAS o index e o catalog (os filmes em json não são tocados)
           git add index.html catalog.json
           
           if git diff --cached --quiet; then echo "Nada novo."; exit 0; fi
           
-          git commit -m "feat: dashboard clean com pesquisa (sem alterar filmes)"
+          git commit -m "feat: formatar titulos de series (T1E1) na busca"
           
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then break; fi
