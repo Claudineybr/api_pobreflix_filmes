@@ -29,11 +29,12 @@ jobs:
           git clone --depth 1 https://github.com/WaveLy2308/api_pobreflix_filmes.git "$T/origem" || true
           git clone --depth 1 https://github.com/Claudineybr/catalogocompleto.git "$T/novos"
           
-          # 2. Roda o script Python de filtragem e padronização
+          # 2. Roda o script Python de filtragem, padronização e reconstrução
           cat > "$T/filtrar.py" << 'PYEOF'
           import re
           import shutil
           import unicodedata
+          import json
           from pathlib import Path
 
           dir_origem = Path("ORIGEM_PATH") if Path("ORIGEM_PATH").exists() else None
@@ -44,50 +45,61 @@ jobs:
           links_vistos = set()
           copiados = 0
           arquivos = []
+          urls_quebradas = []
 
           if dir_origem:
               arquivos.extend(list(dir_origem.glob("*.json")))
           arquivos.extend(list(dir_novos.glob("*.json")))
 
-          # Prioriza os arquivos do repositório novo
           def prioridade(arq):
               is_novo = 1 if dir_novos in arq.parents else 0
               return (is_novo, len(arq.name))
           arquivos.sort(key=prioridade, reverse=True)
 
-          # SUA NOVA FUNÇÃO DE LIMPEZA
+          # SUA FUNÇÃO DE LIMPEZA BLINDADA
           def limpar_titulo(raw_text):
-              if not raw_text:
-                  return "Desconhecido"
-                  
-              # 1. Normaliza caracteres fancy (𝑽 -> V, 𝟕 -> 7)
+              if not raw_text: return "Desconhecido"
+              
               texto_norm = unicodedata.normalize('NFKD', str(raw_text))
               texto_norm = "".join([c for c in texto_norm if not unicodedata.combining(c)])
               
-              # 2. Separa o título por traços ou hífens
+              # 1. Remove lixos e marcas d'água da string antes de separar
+              for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau', '_t1e1', '_t2e1', '_t1e2', '_t1e3', '_t1e4', '_t1e5', '_t1e6', '_t1e7', '_t1e8', '_t1e9', '_t1e10']:
+                  texto_norm = texto_norm.replace(lixo, '')
+                  
+              # 2. Remove episódios no meio do texto
+              texto_norm = re.sub(r'(?i)\bT\d+E\d+\b', '', texto_norm)
+              texto_norm = re.sub(r'(?i)_t\d+e\d+', '', texto_norm)
+              texto_norm = re.sub(r'(?i)Epis[oó]dio\s*\d+', '', texto_norm)
+              texto_norm = texto_norm.replace('_', ' ')
+              
+              # 3. Separa por hífens
               partes = [p.strip() for p in re.split(r'\s+[-–—]\s+', texto_norm) if p.strip()]
               partes_limpas = []
               
               for p in partes:
                   p_lower = p.lower()
-                  # 3. Ignora a parte se ela contiver um dos prefixos indesejados
                   if any(pref in p_lower for pref in ['vini', 'marcos', 'inix', 'lili', 'estrelinha', 'grave', 'site', 'online', 'blogspot', 'assistir', 'download']):
                       continue
-                      
-                  # Mantém a parte se for válida
                   partes_limpas.append(p)
                   
-              # 4. Junta as partes válidas de volta
               titulo_final = ' - '.join(partes_limpas) if partes_limpas else partes[0] if partes else "Desconhecido"
               
-              # Remove o emoji 👾 se tiver sobrado
-              titulo_final = titulo_final.replace('👾', '').strip()
-              
-              # 5. Remove o ano do final e limpa pontuação
+              # 4. Limpeza final
+              titulo_final = re.sub(r'(?i)\bT\d+E\d+\b', '', titulo_final).strip()
               titulo_final = re.sub(r'\s*\(?\d{4}\)?\s*$', '', titulo_final).strip()
               titulo_final = re.sub(r'[\s.:;,]+$', '', titulo_final).strip()
               
-              return titulo_final
+              return titulo_final if titulo_final else "Desconhecido"
+
+          def clean_url(url):
+              if not url: return ""
+              url = url.strip()
+              url = re.sub(r'<[^>]+>', '', url)
+              match = re.search(r'(https?://[^\s"]+)', url)
+              if match: url = match.group(1)
+              elif not url.startswith('http'): url = 'http://' + url
+              return url.split()[0] if url.split() else ""
 
           for arq in arquivos:
               if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache', 'renomeados', 'lista']): 
@@ -96,55 +108,58 @@ jobs:
               try:
                   content = arq.read_text(encoding='utf-8-sig')
                   
-                  # 1. Captura e limpa a URL para não ter duplicatas
-                  match_url = re.search(r'"contentUrl"\s*:\s*"([^"]*)"', content)
-                  url = match_url.group(1).strip() if match_url else ""
-                  clean_url = url.split('?')[0].lower()
+                  # 1. Extrai a URL de forma bruta (mesmo se o JSON estiver quebrado)
+                  url_match = re.search(r'"(?:contentUrl|embedUrl)"\s*:\s*"([^"]*)"', content)
+                  url = url_match.group(1) if url_match else ""
+                  nova_url = clean_url(url)
                   
-                  if not url or url.endswith(".ts") or ".m3u8" in url: 
-                      continue
-                  if clean_url in links_vistos: 
-                      continue
-                  links_vistos.add(clean_url)
+                  if not nova_url:
+                      urls_quebradas.append(arq.name)
+                      nova_url = url if url else "http://quebrado.com/video.mp4"
 
-                  # 2. Pega o nome atual para extrair o ANO original antes de limpar
-                  match_name = re.search(r'"name"\s*:\s*"((?:[^"\\]|\\.)*)"', content)
-                  nome_atual = match_name.group(1).replace('\\"', '"') if match_name else ""
+                  clean_url_lower = nova_url.split('?')[0].lower()
+                  if clean_url_lower in links_vistos: 
+                      continue
+                  links_vistos.add(clean_url_lower)
+
+                  # 2. Extrai o Nome de forma bruta
+                  match_name = re.search(r'"name"\s*:\s*"([^"]*)"', content)
+                  nome_atual = match_name.group(1) if match_name else arq.name.replace('.json', '')
                   
-                  # Extrai o ano (com 4 dígitos) do nome antigo
+                  # Se o nome for muito curto (quebrou no "Zumbi"), usa o nome do arquivo para se salvar
+                  if len(nome_atual) < 5:
+                      nome_atual = arq.name.replace('.json', '')
+                      
                   match_ano = re.search(r'\b(19\d{2}|20\d{2})\b', nome_atual)
                   ano = match_ano.group(1) if match_ano else ""
 
-                  # 3. Usa a sua função para limpar o título
                   titulo_limpo = limpar_titulo(nome_atual)
-                  if not titulo_limpo or titulo_limpo == "Desconhecido": 
-                      continue
-
-                  # 4. Verifica se é série (procura T1E1 no nome do arquivo ou no texto)
-                  m_ep = re.search(r'(?i)t(\d+)e(\d+)', arq.name)
-                  if not m_ep:
-                      m_ep = re.search(r'(?i)t(\d+)e(\d+)', nome_atual)
-
+                  
+                  # 3. Detecta Série ou Filme (olhando o nome do arquivo original)
+                  m_ep = re.search(r'(?i)_t(\d+)e(\d+)', arq.name)
                   if m_ep:
-                      season = str(int(m_ep.group(1)))
-                      episode = str(int(m_ep.group(2)))
-                      ep_tag = f"T{season}E{episode}"
-                      novo_nome_json = f"{titulo_limpo} {ep_tag} - 🍿Clau"  # Ex: Crystal Lake T1E1 - 🍿Clau
+                      ep_tag = f"T{int(m_ep.group(1))}E{int(m_ep.group(2))}"
+                      novo_nome_json = f"{titulo_limpo} {ep_tag} - 🍿Clau"
                   else:
                       ep_tag = ""
                       novo_nome_json = f"{titulo_limpo} ({ano}) - 🍿Clau" if ano else f"{titulo_limpo} - 🍿Clau"
 
-                  # 5. Substitui as informações dentro do arquivo de forma segura (Regex)
-                  safe_name = novo_nome_json.replace('"', '\\"')
+                  # 4. RECONSTRÓI O ARQUIVO HTML/JSON DO ZERO (Garante que o lixo desapareça)
+                  novo_json = {
+                      "@context": "https://schema.org", "@type": "VideoObject",
+                      "name": novo_nome_json,
+                      "description": f"Assista {novo_nome_json}",
+                      "thumbnailUrl": ["https://via.placeholder.com/500x750?text=Sem+Capa"],
+                      "uploadDate": "2020-01-01T00:00:00+00:00", "inLanguage": "pt",
+                      "contentUrl": nova_url, "embedUrl": nova_url
+                  }
                   
-                  content = re.sub(r'("name"\s*:\s*")(?:[^"\\]|\\.)*(")', rf'\g<1>{safe_name}\g<2>', content)
-                  content = re.sub(r'("description"\s*:\s*")(?:[^"\\]|\\.)*(")', rf'\g<1>Assista {safe_name}\g<2>', content)
-                  content = re.sub(r'(<title>).*?(</title>)', rf'\g<1>{novo_nome_json}\g<2>', content, flags=re.DOTALL)
-                  content = re.sub(r'(<h1>).*?(</h1>)', rf'\g<1>{novo_nome_json}\g<2>', content, flags=re.DOTALL)
-                  content = content.replace("https://redetoons.cards", "https://redetoons.my")
+                  novo_html = f"<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n<script type=\"application/ld+json\">\n{json.dumps(novo_json, ensure_ascii=False, indent=2)}\n</script>\n<title>{novo_nome_json}</title>\n</head>\n<body>\n<h1>{novo_nome_json}</h1>\n</body>\n</html>"
+                  novo_html = novo_html.replace("https://redetoons.cards", "https://redetoons.my")
 
-                  # 6. Define o nome do arquivo físico (slug)
-                  slug = re.sub(r'[^a-z0-9]', '_', titulo_limpo.lower())
+                  # 5. GERA O NOME DO ARQUIVO FÍSICO PERFEITO
+                  titulo_base = re.sub(r'(?i)\bT\d+E\d+\b', '', titulo_limpo).strip()
+                  slug = re.sub(r'[^a-z0-9]', '_', titulo_base.lower())
                   slug = re.sub(r'_+', '_', slug).strip('_')
                   
                   if ep_tag:
@@ -152,15 +167,16 @@ jobs:
                   else:
                       novo_nome_arq = f"{slug}_{ano}.json" if ano else f"{slug}.json"
 
-                  # Salva o arquivo na pasta de saída
-                  (dir_saida / novo_nome_arq).write_text(content, encoding='utf-8')
+                  (dir_saida / novo_nome_arq).write_text(novo_html, encoding='utf-8')
                   copiados += 1
                   
               except Exception as e:
                   print(f"[ERRO] Falha em {arq.name}: {e}")
-                  # TRAVA DE SEGURANÇA: Se der erro, copia o arquivo original para não ser deletado!
                   shutil.copy2(arq, dir_saida / arq.name)
 
+          if urls_quebradas:
+              Path("urls_invalidas.txt").write_text("\n".join(urls_quebradas), encoding="utf-8")
+              
           print(f"Total de arquivos processados e padronizados: {copiados}")
           PYEOF
 
@@ -171,42 +187,7 @@ jobs:
           # 3. Substitui os arquivos na raiz do repositório
           find . -maxdepth 1 -name "*.json" -delete
           cp -f "$T"/saida/*.json .
-
-      - name: Corrigir Defeitos (URLs e Aspas)
-        run: |
-          cat > fix_defects.py << 'PYEOF'
-          import re
-          from pathlib import Path
-
-          def clean_url(url):
-              if not url: return url
-              url = url.strip()
-              url = re.sub(r'<[^>]+>', '', url)
-              match = re.search(r'(https?://[^\s"]+)', url)
-              if match:
-                  url = match.group(1)
-              elif not url.startswith('http'):
-                  url = 'http://' + url
-              parts = url.split()
-              if parts: url = parts[0]
-              return url
-
-          for filepath in Path('.').glob('*.json'):
-              if any(x in filepath.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache']): continue
-              try:
-                  content = filepath.read_text(encoding='utf-8')
-                  original = content
-                  
-                  # Conserta as URLs de forma segura
-                  def repl_url(m):
-                      return f'"{m.group(1)}": "{clean_url(m.group(2))}"'
-                  content = re.sub(r'"(contentUrl|embedUrl)":\s*"([^"]*)"', repl_url, content)
-                  
-                  if content != original:
-                      filepath.write_text(content, encoding='utf-8')
-              except Exception: pass
-          PYEOF
-          python3 fix_defects.py
+          if [ -f "urls_invalidas.txt" ]; then mv urls_invalidas.txt .; fi
 
       - name: Salvar alterações
         run: |
@@ -220,7 +201,7 @@ jobs:
             exit 0
           fi
           
-          git commit -m "sync: limpeza com unicodedata e padronizacao de nomes"
+          git commit -m "sync: limpeza absoluta, reconstrucao de JSONs e nomes padronizados"
           
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then
