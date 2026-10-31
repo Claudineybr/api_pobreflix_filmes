@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">
-{
+<script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Kubo e as Cordas Magicas - 🍿Clau",
   "description": "Assista Kubo e as Cordas Magicas - 🍿Clau",
   "thumbnailUrl": [
-    "https://via.placeholder.com/500x750?text=Sem+Capa"
+    "https://image.tmdb.org/t/p/w500/ict1oX2qqv59k2NKnlAX4rXdGeg.jpg"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://fcoidok.cisantkdh.com/vod/3D6A89EB6E02488B85C0D675B184A878_media.mp4",
   "embedUrl": "http://fcoidok.cisantkdh.com/vod/3D6A89EB6E02488B85C0D675B184A878_media.mp4"
-}
-</script>
+}</script>
 <title>Kubo e as Cordas Magicas - 🍿Clau</title>
 </head>
 <body>

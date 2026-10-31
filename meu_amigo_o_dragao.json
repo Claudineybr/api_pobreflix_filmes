@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">
-{
+<script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Meu Amigo, O Dragao - 🍿Clau",
   "description": "Assista Meu Amigo, O Dragao - 🍿Clau",
   "thumbnailUrl": [
-    "https://via.placeholder.com/500x750?text=Sem+Capa"
+    "https://image.tmdb.org/t/p/w500/gozblxrP4IhkEWXNjsRWpFmny04.jpg"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "http://awnagk.gviudclrb.com/vod/F28C537DD2534F8C951136586CDA6AC8_media.mp4",
   "embedUrl": "http://awnagk.gviudclrb.com/vod/F28C537DD2534F8C951136586CDA6AC8_media.mp4"
-}
-</script>
+}</script>
 <title>Meu Amigo, O Dragao - 🍿Clau</title>
 </head>
 <body>
