@@ -1,0 +1,17 @@
+<!-- index.html -->
+<!doctype html>
+<meta charset="utf-8">
+<title>API Filmes</title>
+<h1>API Filmes</h1>
+<input id="q" placeholder="Buscar...">
+<ul id="lista"></ul>
+<script>
+fetch("index.json").then(r => r.json()).then(arqs => {
+  const ul = document.getElementById("lista");
+  const render = f => ul.innerHTML = arqs
+    .filter(a => a.includes(f)).slice(0, 100)
+    .map(a => `<li><a href="${a}">${a}</a></li>`).join("");
+  render("");
+  document.getElementById("q").oninput = e => render(e.target.value);
+});
+</script>
