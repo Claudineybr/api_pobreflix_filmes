@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="application/ld+json">
-{
+<script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "VideoObject",
   "name": "Voce - - Ela nao esta la - 🍿Clau",
   "description": "Assista Voce - - Ela nao esta la - 🍿Clau",
   "thumbnailUrl": [
-    "https://via.placeholder.com/500x750?text=Sem+Capa"
+    "https://image.tmdb.org/t/p/w500/sI4Ylkss2RrpAjoN5IG0PRoiTvF.jpg"
   ],
   "uploadDate": "2020-01-01T00:00:00+00:00",
   "inLanguage": "pt",
   "contentUrl": "https://redetoons.fun/voce-2018/Ra9rhKa8ce.mp4",
   "embedUrl": "https://redetoons.fun/voce-2018/Ra9rhKa8ce.mp4"
-}
-</script>
+}</script>
 <title>Voce - - Ela nao esta la - 🍿Clau</title>
 </head>
 <body>
