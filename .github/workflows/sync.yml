@@ -56,18 +56,43 @@ jobs:
               return (is_novo, len(arq.name))
           arquivos.sort(key=prioridade, reverse=True)
 
+          # FUNÇÃO DE EXTRAÇÃO DE EPISÓDIO BLINDADA
+          def extract_episode(text):
+              if not text: return ""
+              # Padrão 1: T01E01, T1E1, T01.E01
+              m = re.search(r'(?i)t\s*(\d+)\s*[._-]?\s*e\s*(\d+)', text)
+              if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
+              
+              # Padrão 2: T01EP01, T1EP1
+              m = re.search(r'(?i)t\s*(\d+)\s*[._-]?\s*ep\s*(\d+)', text)
+              if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
+              
+              # Padrão 3: Temporada 1 Episodio 1
+              m = re.search(r'(?i)temporada\s*(\d+).*?epis[oó]dio\s*(\d+)', text)
+              if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
+              
+              # Padrão 4: 1x01, 3x5 (Máximo 2 dígitos para não pegar resolução 1080x720)
+              m = re.search(r'\b(\d{1,2})x(\d{1,3})\b', text)
+              if m: return f"T{int(m.group(1))}E{int(m.group(2))}"
+              
+              return ""
+
           def limpar_titulo(raw_text):
               if not raw_text: return "Desconhecido"
               
               texto_norm = unicodedata.normalize('NFKD', str(raw_text))
               texto_norm = "".join([c for c in texto_norm if not unicodedata.combining(c)])
               
+              # Remove lixos e marcas d'água
               for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
                   texto_norm = texto_norm.replace(lixo, '')
                   
-              texto_norm = re.sub(r'(?i)\b(?:t|tp|temporada)[\s._-]*\d+[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*\d+', '', texto_norm)
-              texto_norm = re.sub(r'(?i)\bT\d+E\d+\b', '', texto_norm)
-              texto_norm = re.sub(r'(?i)Epis[oó]dio\s*\d+', '', texto_norm)
+              # Remove QUALQUER tag de episódio do título SEM usar \b (para pegar _t01ep01)
+              texto_norm = re.sub(r'(?i)t\s*\d+\s*[._-]?\s*e\s*\d+', '', texto_norm)
+              texto_norm = re.sub(r'(?i)t\s*\d+\s*[._-]?\s*ep\s*\d+', '', texto_norm)
+              texto_norm = re.sub(r'(?i)temporada\s*\d+.*?epis[oó]dio\s*\d+', '', texto_norm)
+              texto_norm = re.sub(r'\b\d{1,2}x\d{1,3}\b', '', texto_norm)
+              
               texto_norm = texto_norm.replace('_', ' ')
               
               partes = [p.strip() for p in re.split(r'\s+[-–—]\s+', texto_norm) if p.strip()]
@@ -125,18 +150,10 @@ jobs:
                   if len(nome_atual) < 5:
                       nome_atual = arq.name.replace('.json', '')
 
-                  ep_tag = ""
-                  match_url_ep = re.search(r'/(\d+)x(\d+)(?:\.|\?|$)', nova_url, re.I)
-                  if match_url_ep:
-                      ep_tag = f"T{int(match_url_ep.group(1))}E{int(match_url_ep.group(2))}"
-                  else:
-                      match_json_ep = re.search(r'(?i)(?:t|tp|temporada)[\s._-]*(\d+)[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*(\d+)', nome_atual)
-                      if match_json_ep:
-                          ep_tag = f"T{int(match_json_ep.group(1))}E{int(match_json_ep.group(2))}"
-                      else:
-                          match_file_ep = re.search(r'(?i)(?:t|tp|temporada)[\s._-]*(\d+)[\s._-]*(?:ep|e|epis[oó]dio)[\s._-]*(\d+)', arq.name)
-                          if match_file_ep:
-                              ep_tag = f"T{int(match_file_ep.group(1))}E{int(match_file_ep.group(2))}"
+                  # EXTRAI O EPISÓDIO (Prioridade: URL > JSON > Nome do Arquivo)
+                  ep_tag = extract_episode(nova_url)
+                  if not ep_tag: ep_tag = extract_episode(nome_atual)
+                  if not ep_tag: ep_tag = extract_episode(arq.name)
 
                   titulo_limpo = limpar_titulo(nome_atual)
                   match_ano = re.search(r'\b(19\d{2}|20\d{2})\b', nome_atual)
@@ -156,30 +173,29 @@ jobs:
                       "contentUrl": nova_url, "embedUrl": nova_url
                   }
                   
-                  # HTML COMPLETO, COM PLAYER, H1, E IDENTAÇÃO CORRETA
+                  # MONTA O HTML LINHA POR LINHA (Evita erro de indentação no YAML)
                   json_str = json.dumps(novo_json, ensure_ascii=False, indent=2)
-                  novo_html = f"""<!DOCTYPE html>
-          <html lang="pt-BR">
-          <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <script type="application/ld+json">
-          {json_str}
-              </script>
-              <title>{novo_nome_json}</title>
-              <style>
-                  body, html {{ margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }}
-                  video {{ width: 100%; height: 100%; outline: none; }}
-                  h1 {{ color: white; position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 1.2rem; font-family: sans-serif; }}
-              </style>
-          </head>
-          <body>
-              <h1>{novo_nome_json}</h1>
-              <video src="{nova_url}" poster="{capa_url}" controls autoplay playsinline></video>
-          </body>
-          </html>"""
-
-                  novo_html = novo_html.replace("https://redetoons.cards", "https://redetoons.my")
+                  html_lines = [
+                      "<!DOCTYPE html>",
+                      "<html lang=\"pt-BR\">",
+                      "<head>",
+                      "    <meta charset=\"UTF-8\">",
+                      "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+                      "    <script type=\"application/ld+json\">",
+                      json_str,
+                      "    </script>",
+                      f"    <title>{novo_nome_json}</title>",
+                      "    <style>",
+                      "        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }",
+                      "        video { width: 100%; height: 100%; outline: none; }",
+                      "    </style>",
+                      "</head>",
+                      "<body>",
+                      f"    <video src=\"{nova_url}\" poster=\"{capa_url}\" controls autoplay playsinline></video>",
+                      "</body>",
+                      "</html>"
+                  ]
+                  novo_html = "\n".join(html_lines).replace("https://redetoons.cards", "https://redetoons.my")
 
                   slug = re.sub(r'[^a-z0-9]', '_', titulo_limpo.lower())
                   slug = re.sub(r'_+', '_', slug).strip('_')
@@ -214,7 +230,7 @@ jobs:
           git config user.email "Claudineybr@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "fix: reconstrói arquivo HTML com player de video, tag h1 e extrai episodio do link"
+          git commit -m "fix: regex blindada para t01ep01, evita duplicacao e mantem html do player"
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then exit 0; fi
             git pull origin main --no-rebase -X ours --no-edit || true
