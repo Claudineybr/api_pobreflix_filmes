@@ -1,15 +1,15 @@
-name: Adicionar Capas TMDB
+name: Baixar Capas Oficiais do Site
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Roda 1x por dia como rede de segurança
+    - cron: '0 0 * * *' # Rede de segurança
   workflow_dispatch:       # Permite rodar na mão
 
 permissions:
   contents: write
 
 concurrency:
-  group: adicionar-capas
+  group: baixar-capas-site
   cancel-in-progress: false
 
 jobs:
@@ -23,171 +23,195 @@ jobs:
           fetch-depth: 0
 
       - name: Instalar dependencias
-        run: |
-          pip install beautifulsoup4 requests
+        run: pip install beautifulsoup4 requests
 
-      - name: Buscar Capas no TMDB
-        env:
-          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+      - name: Raspar e Atualizar Capas
         run: |
-          cat > buscar_capas.py << 'PYEOF'
-          import os
-          import re
-          import json
+          cat > raspar_capas.py << 'PYEOF'
           import requests
           import time
           import sys
+          import re
+          import unicodedata
+          import json
           from bs4 import BeautifulSoup
           from pathlib import Path
 
-          TMDB_API_KEY = os.environ.get("TMDB_API_KEY")
-          if not TMDB_API_KEY:
-              print("ERRO: TMDB_API_KEY nao configurada nos Secrets do GitHub.")
-              sys.exit(1)
+          BASE_URL = "https://www.vini7xgrave.site"
+          HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+          
+          ARQ_FILA_FILMES = Path("filmes_fila.txt")
+          ARQ_FILA_SERIES = Path("series_fila.txt")
+          ARQ_PROCESSADOS = Path("capas_baixadas.txt")
 
-          ARQ_PROCESSADOS = Path("capas_processadas.txt")
+          # 1. Mapeia os arquivos locais
+          print("Mapeando arquivos locais...")
+          mapa_jsons = {}
+          for arq in Path(".").glob("*.json"):
+              if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache']): 
+                  continue
+              try:
+                  txt = arq.read_text(encoding="utf-8")
+                  soup = BeautifulSoup(txt, "html.parser")
+                  script = soup.find("script", type="application/ld+json")
+                  if script:
+                      dados = json.loads(script.string)
+                      nome = dados.get("name", "")
+                      nome_base = re.sub(r'(?i)\bT\d+E\d+\b', '', nome).strip()
+                      nome_base = re.sub(r'[\s\-]+$', '', nome_base).strip()
+                      mapa_jsons[nome_base.lower()] = arq.name
+              except: pass
+          
+          print(f"Total de JSONs mapeados: {len(mapa_jsons)}")
+
+          # 2. Lê os links do site
+          urls = []
+          if ARQ_FILA_FILMES.exists():
+              urls.extend([u.strip() for u in ARQ_FILA_FILMES.read_text(encoding="utf-8").splitlines() if u.strip()])
+          if ARQ_FILA_SERIES.exists():
+              urls.extend([u.strip() for u in ARQ_FILA_SERIES.read_text(encoding="utf-8").splitlines() if u.strip()])
+          
+          urls = list(dict.fromkeys(urls)) # Remove duplicatas
+          
           processados = set()
           if ARQ_PROCESSADOS.exists():
-              processados = set(line.strip() for line in ARQ_PROCESSADOS.read_text(encoding="utf-8").splitlines() if line.strip())
+              processados = set(l.strip() for l in ARQ_PROCESSADOS.read_text(encoding="utf-8").splitlines() if l.strip())
 
-          arquivos = list(Path(".").glob("*.json"))
-          faltam = [f for f in arquivos if f.name not in processados]
+          faltam = [u for u in urls if u not in processados]
+          lote = faltam[:300] # Processa 300 links por vez
 
-          # Limita o lote para nao estourar tempo/API por run
-          lote = faltam[:1000]
-          
-          print(f"Total de JSONs: {len(arquivos)} | Ja processados: {len(processados)} | Restantes: {len(faltam)}")
-          print(f"Processando lote de {len(lote)} arquivos...")
+          print(f"Total na fila: {len(urls)} | Faltam: {len(faltam)} | Processando lote de: {len(lote)}")
 
-          def buscar_capa_tmdb(titulo, ano):
-              url = f"https://api.themoviedb.org/3/search/movie?api_key={TMDB_API_KEY}&language=pt-BR&query={requests.utils.quote(titulo)}&year={ano}"
-              try:
-                  r = requests.get(url, timeout=10)
-                  if r.status_code == 200:
-                      dados = r.json()
-                      if dados.get("results"):
-                          poster_path = dados["results"][0].get("poster_path")
-                          if poster_path:
-                              return f"https://image.tmdb.org/t/p/w500{poster_path}"
-              except: pass
-              return None
-
-          contador = 0
-          for arquivo in lote:
-              try:
-                  conteudo = arquivo.read_text(encoding="utf-8")
-                  
-                  # Se ja tem capa do TMDB, pula
-                  if "image.tmdb.org" in conteudo:
-                      with open(ARQ_PROCESSADOS, "a", encoding="utf-8") as f:
-                          f.write(arquivo.name + "\n")
+          def limpar_titulo(raw_text):
+              if not raw_text: return "Desconhecido"
+              texto_norm = unicodedata.normalize('NFKD', str(raw_text))
+              texto_norm = "".join([c for c in texto_norm if not unicodedata.combining(c)])
+              for lixo in ['🍿Clau', '🕸️ PK', '🕸️', 'PK', '👾', 'Marcos', 'Clau', 'clau']:
+                  texto_norm = texto_norm.replace(lixo, '')
+              texto_norm = re.sub(r'(?i)\bT\d+E\d+\b', '', texto_norm)
+              texto_norm = re.sub(r'(?i)_t\d+e\d+', '', texto_norm)
+              partes = [p.strip() for p in re.split(r'\s+[-–—]\s+', texto_norm) if p.strip()]
+              partes_limpas = []
+              for p in partes:
+                  p_lower = p.lower()
+                  if any(pref in p_lower for pref in ['vini', 'marcos', 'inix', 'lili', 'estrelinha', 'grave', 'site', 'online', 'blogspot', 'assistir', 'download']):
                       continue
+                  partes_limpas.append(p)
+              titulo_final = ' - '.join(partes_limpas) if partes_limpas else partes[0] if partes else "Desconhecido"
+              titulo_final = re.sub(r'(?i)\bT\d+E\d+\b', '', titulo_final).strip()
+              titulo_final = re.sub(r'\s*\(?\d{4}\)?\s*$', '', titulo_final).strip()
+              return titulo_final if titulo_final else "Desconhecido"
 
-                  # Extrai o JSON de dentro do HTML
-                  soup = BeautifulSoup(conteudo, "html.parser")
-                  script_tag = soup.find("script", type="application/ld+json")
-                  if not script_tag: continue
-                  
-                  dados = json.loads(script_tag.string)
-                  nome_json = dados.get("name", "")
-                  
-                  # Extrai titulo e ano usando Regex (ex: "A Hipótese do Amor (2026) - 🍿Clau")
-                  match = re.search(r'^(.*?)\s*\((\d{4})\)\s*-', nome_json)
-                  if not match: 
-                      match = re.search(r'^(.*?)\s*-', nome_json)
-                      if not match: continue
-                      titulo = match.group(1).strip()
-                      ano = ""
-                  else:
-                      titulo = match.group(1).strip()
-                      ano = match.group(2)
+          sucessos = 0
+          falhas = 0
 
-                  if not titulo: continue
-
-                  print(f"Buscando: {titulo} ({ano})...", end=" ")
+          for i, url in enumerate(lote):
+              try:
+                  print(f"[{i+1}/{len(lote)}] Acessando: {url}", end=" ... ")
+                  r = requests.get(url, headers=HEADERS, timeout=15)
                   
-                  capa_url = buscar_capa_tmdb(titulo, ano)
-                  if capa_url:
-                      print("ACHEI!")
-                      dados["thumbnailUrl"] = [capa_url]
-                      novo_json_str = json.dumps(dados, ensure_ascii=False, indent=2)
+                  if r.status_code == 200:
+                      soup = BeautifulSoup(r.text, 'html.parser')
+                      og_img = soup.find('meta', property='og:image')
                       
-                      # Substitui no HTML original mantendo a estrutura
-                      novo_html = conteudo.replace(script_tag.string, novo_json_str)
-                      arquivo.write_text(novo_html, encoding="utf-8")
-                      contador += 1
+                      if og_img and og_img.get('content'):
+                          img_url = og_img['content']
+                          
+                          h1 = soup.find('h1')
+                          title_text = h1.get_text(strip=True) if h1 else (soup.title.text if soup.title else "")
+                          titulo_limpo = limpar_titulo(title_text)
+                          
+                          if titulo_limpo.lower() in mapa_jsons:
+                              arq_json_nome = mapa_jsons[titulo_limpo.lower()]
+                              arq_json = Path(arq_json_nome)
+                              
+                              # 3. ATUALIZA O JSON (usando BeautifulSoup e json.loads)
+                              txt = arq_json.read_text(encoding="utf-8")
+                              soup_local = BeautifulSoup(txt, 'html.parser')
+                              script_local = soup_local.find("script", type="application/ld+json")
+                              
+                              if script_local:
+                                  try:
+                                      dados = json.loads(script_local.string)
+                                      # Substitui a capa
+                                      if dados.get("thumbnailUrl") != [img_url]:
+                                          dados["thumbnailUrl"] = [img_url]
+                                          
+                                          # Escreve o novo JSON de volta no HTML
+                                          novo_script_str = json.dumps(dados, ensure_ascii=False, indent=2)
+                                          novo_html = txt.replace(script_local.string, novo_script_str)
+                                          arq_json.write_text(novo_html, encoding="utf-8")
+                                          print(f"CAPA ATUALIZADA! ({arq_json_nome})")
+                                          sucessos += 1
+                                      else:
+                                          print("capa já estava atualizada.")
+                                  except Exception as e:
+                                      print(f"Erro ao processar JSON interno: {e}")
+                          else:
+                              print(f"JSON não encontrado para o título: '{titulo_limpo}'")
+                              falhas += 1
+                      else:
+                          print("Sem og:image na página.")
+                          falhas += 1
                   else:
-                      print("NAO ACHOU")
-                  
-                  # Marca como processado para nao tentar de novo
-                  with open(ARQ_PROCESSADOS, "a", encoding="utf-8") as f:
-                      f.write(arquivo.name + "\n")
-
-                  time.sleep(0.2) # Rate Limit do TMDB
+                      print(f"Erro HTTP {r.status_code}")
+                      falhas += 1
+                      
               except Exception as e:
-                  print(f"Erro no arquivo {arquivo.name}: {e}")
+                  print(f"Erro: {e}")
+                  falhas += 1
+              
+              with open(ARQ_PROCESSADOS, "a", encoding="utf-8") as f:
+                  f.write(url + "\n")
+                  
+              time.sleep(1)
 
-          print(f"\nFinalizado! {contador} capas adicionadas.")
+          print(f"\nFinalizado! {sucessos} capas adicionadas, {falhas} falhas.")
           PYEOF
 
-          python3 buscar_capas.py
+          python3 raspar_capas.py
 
       - name: Salvar arquivos e progresso
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
-          git add -f capas_processadas.txt 2>/dev/null || true
+          git add -f capas_baixadas.txt 2>/dev/null || true
           git add *.json
           git add *.txt
-          git add *.py
           
           if git diff --cached --quiet; then
-            echo "Nada novo para commitar."
+            echo "Nada novo."
             exit 0
           fi
           
-          git commit -m "feat: adicionar capas via TMDB"
+          git commit -m "feat: adicionar capas oficiais do site aos HTMLs"
           
           for i in $(seq 1 10); do
-            echo "== Push tentativa $i/10 =="
             if git push origin HEAD:main; then
-              echo "[SUCESSO] Push OK na tentativa $i"
+              echo "[SUCESSO] Push OK"
               exit 0
             fi
-            
             echo "[FALHA] Push falhou. Sincronizando..."
-            if ! git pull --rebase origin main --autostash; then
-              git rebase --abort 2>/dev/null || true
-              git pull origin main --no-rebase -X ours --no-edit
-            fi
-            
-            git add -f capas_processadas.txt 2>/dev/null || true
-            git add *.json
-            git add *.txt
-            git add *.py
-            
-            if ! git diff --cached --quiet; then
-              git commit -m "feat: adicionar capas (retry $i)" || true
-            fi
+            git pull --rebase origin main --autostash || git pull origin main --no-rebase -X ours --no-edit
             sleep $((RANDOM % 10 + 5))
           done
           exit 1
 
-      - name: Disparar proxima run (se ainda faltarem capas)
+      - name: Disparar proxima run
         if: success()
         env:
           GH_TOKEN: ${{ secrets.PAT_CHAIN }}
           REPO: ${{ github.repository }}
         run: |
-          TOTAL=$(ls -1 *.json 2>/dev/null | wc -l)
-          PROCESSADOS=$(sort -u capas_processadas.txt 2>/dev/null | wc -l)
+          TOTAL=$(cat filmes_fila.txt series_fila.txt 2>/dev/null | sort -u | wc -l)
+          PROCESSADOS=$(wc -l < capas_baixadas.txt 2>/dev/null || echo 0)
           FALTAM=$((TOTAL - PROCESSADOS))
           
-          echo "Total de JSONs: $TOTAL | Processados: $PROCESSADOS | Faltam: $FALTAM"
+          echo "Total: $TOTAL | Processados: $PROCESSADOS | Faltam: $FALTAM"
           
           if [ "$FALTAM" -le 0 ]; then
-            echo "✅ Todas as capas processadas. Chain encerrada."; exit 0
+            echo "✅ Todas as capas do site foram processadas!"; exit 0
           fi
 
           echo "🔁 Disparando proxima run em 30 segundos..."
@@ -195,7 +219,7 @@ jobs:
           
           for i in {1..5}; do
             if gh workflow run "adicionar_capas.yml" --repo "$REPO" --ref main; then
-              echo "✅ Proxima run disparada com sucesso!"
+              echo "✅ Proxima run disparada!"
               break
             else
               echo "⚠️ Erro ao disparar (tentativa $i/5). Tentando de novo em 15s..."
