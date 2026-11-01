@@ -40,14 +40,37 @@ jobs:
           BASE_URL = "https://www.vini7xgrave.site"
           HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
           
-          ARQ_FILA_FILMES = Path("filmes_fila.txt")
-          ARQ_FILA_SERIES = Path("series_fila.txt")
-          ARQ_PROCESSADOS = Path("capas_baixadas.txt")
+          ARQ_FILA = Path("capas_fila.txt")
+          ARQ_PROCESSADOS = Path("capas_processadas.txt")
 
-          # 1. Mapeia os arquivos locais
+          # 1. CRIA O CAPAS_FILA.TXT SE NÃO EXISTIR
+          if not ARQ_FILA.exists():
+              print("Criando capas_fila.txt a partir do feed do site...")
+              urls = []
+              start_index = 1
+              while True:
+                  url_feed = f"{BASE_URL}/feeds/posts/default?alt=json&max-results=150&start-index={start_index}"
+                  try:
+                      r = requests.get(url_feed, headers=HEADERS, timeout=15)
+                      if r.status_code != 200: break
+                      data = r.json()
+                      entries = data.get("feed", {}).get("entry", [])
+                      if not entries: break
+                      for entry in entries:
+                          link = next((l["href"] for l in entry.get("link", []) if l.get("rel") == "alternate"), None)
+                          if link: urls.append(link.split("?")[0].strip())
+                      start_index += 150
+                      if len(entries) < 150: break
+                  except Exception as e:
+                      print(f"Erro ao ler feed: {e}")
+                      break
+              ARQ_FILA.write_text("\n".join(urls), encoding="utf-8")
+              print(f"capas_fila.txt criado com {len(urls)} links.")
+
+          # 2. MAPEIA OS ARQUIVOS LOCAIS (JSON e HTML)
           print("Mapeando arquivos locais...")
           mapa_jsons = {}
-          for arq in Path(".").glob("*.json"):
+          for arq in list(Path(".").glob("*.json")) + list(Path(".").glob("*.html")):
               if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache']): 
                   continue
               try:
@@ -62,16 +85,10 @@ jobs:
                       mapa_jsons[nome_base.lower()] = arq.name
               except: pass
           
-          print(f"Total de JSONs mapeados: {len(mapa_jsons)}")
+          print(f"Total de arquivos locais mapeados: {len(mapa_jsons)}")
 
-          # 2. Lê os links do site
-          urls = []
-          if ARQ_FILA_FILMES.exists():
-              urls.extend([u.strip() for u in ARQ_FILA_FILMES.read_text(encoding="utf-8").splitlines() if u.strip()])
-          if ARQ_FILA_SERIES.exists():
-              urls.extend([u.strip() for u in ARQ_FILA_SERIES.read_text(encoding="utf-8").splitlines() if u.strip()])
-          
-          urls = list(dict.fromkeys(urls)) # Remove duplicatas
+          # 3. LÊ OS LINKS PARA PROCESSAR
+          urls = [u.strip() for u in ARQ_FILA.read_text(encoding="utf-8").splitlines() if u.strip()]
           
           processados = set()
           if ARQ_PROCESSADOS.exists():
@@ -125,7 +142,7 @@ jobs:
                               arq_json_nome = mapa_jsons[titulo_limpo.lower()]
                               arq_json = Path(arq_json_nome)
                               
-                              # 3. ATUALIZA O JSON (usando BeautifulSoup e json.loads)
+                              # ATUALIZA O HTML/JSON LOCAL
                               txt = arq_json.read_text(encoding="utf-8")
                               soup_local = BeautifulSoup(txt, 'html.parser')
                               script_local = soup_local.find("script", type="application/ld+json")
@@ -133,11 +150,8 @@ jobs:
                               if script_local:
                                   try:
                                       dados = json.loads(script_local.string)
-                                      # Substitui a capa
                                       if dados.get("thumbnailUrl") != [img_url]:
                                           dados["thumbnailUrl"] = [img_url]
-                                          
-                                          # Escreve o novo JSON de volta no HTML
                                           novo_script_str = json.dumps(dados, ensure_ascii=False, indent=2)
                                           novo_html = txt.replace(script_local.string, novo_script_str)
                                           arq_json.write_text(novo_html, encoding="utf-8")
@@ -148,7 +162,7 @@ jobs:
                                   except Exception as e:
                                       print(f"Erro ao processar JSON interno: {e}")
                           else:
-                              print(f"JSON não encontrado para o título: '{titulo_limpo}'")
+                              print(f"Arquivo local não encontrado para: '{titulo_limpo}'")
                               falhas += 1
                       else:
                           print("Sem og:image na página.")
@@ -176,8 +190,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
-          git add -f capas_baixadas.txt 2>/dev/null || true
+          git add -f capas_fila.txt capas_processadas.txt 2>/dev/null || true
           git add *.json
+          git add *.html
           git add *.txt
           
           if git diff --cached --quiet; then
@@ -185,7 +200,7 @@ jobs:
             exit 0
           fi
           
-          git commit -m "feat: adicionar capas oficiais do site aos HTMLs"
+          git commit -m "feat: adicionar capas oficiais do site aos arquivos HTML"
           
           for i in $(seq 1 10); do
             if git push origin HEAD:main; then
@@ -204,8 +219,8 @@ jobs:
           GH_TOKEN: ${{ secrets.PAT_CHAIN }}
           REPO: ${{ github.repository }}
         run: |
-          TOTAL=$(cat filmes_fila.txt series_fila.txt 2>/dev/null | sort -u | wc -l)
-          PROCESSADOS=$(wc -l < capas_baixadas.txt 2>/dev/null || echo 0)
+          TOTAL=$(wc -l < capas_fila.txt 2>/dev/null || echo 0)
+          PROCESSADOS=$(wc -l < capas_processadas.txt 2>/dev/null || echo 0)
           FALTAM=$((TOTAL - PROCESSADOS))
           
           echo "Total: $TOTAL | Processados: $PROCESSADOS | Faltam: $FALTAM"
