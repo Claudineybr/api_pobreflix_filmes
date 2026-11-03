@@ -35,6 +35,7 @@ jobs:
           import shutil
           import unicodedata
           import json
+          import textwrap
           from pathlib import Path
 
           dir_origem = Path("ORIGEM_PATH") if Path("ORIGEM_PATH").exists() else None
@@ -96,46 +97,50 @@ jobs:
               elif not url.startswith('http'): url = 'http://' + url
               return url.split()[0] if url.split() else ""
 
-          # TEMPLATES HTML (Evita erros de indentação no YAML)
-          template_video = """<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="data:,">
-    <script type="application/ld+json">
-__JSON__
-    </script>
-    <title>__NOME__</title>
-    <style>
-        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
-        video { width: 100%; height: 100%; outline: none; }
-    </style>
-</head>
-<body>
-    <video src="__URL__" poster="__THUMB__" controls autoplay playsinline></video>
-</body>
-</html>"""
+          # TEMPLATES HTML USANDO TEXTWRAP (Evita erros de YAML)
+          template_video = textwrap.dedent("""
+              <!DOCTYPE html>
+              <html lang="pt-BR">
+              <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <link rel="icon" href="data:,">
+                  <script type="application/ld+json">
+              __JSON__
+                  </script>
+                  <title>__NOME__</title>
+                  <style>
+                      body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
+                      video { width: 100%; height: 100%; outline: none; }
+                  </style>
+              </head>
+              <body>
+                  <video src="__URL__" poster="__THUMB__" controls autoplay playsinline></video>
+              </body>
+              </html>
+          """).strip()
 
-          template_iframe = """<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="data:,">
-    <script type="application/ld+json">
-__JSON__
-    </script>
-    <title>__NOME__</title>
-    <style>
-        body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
-        iframe { width: 100%; height: 100%; border: none; outline: none; }
-    </style>
-</head>
-<body>
-    <iframe src="__URL__" allowfullscreen sandbox="allow-same-origin allow-scripts allow-popups"></iframe>
-</body>
-</html>"""
+          template_iframe = textwrap.dedent("""
+              <!DOCTYPE html>
+              <html lang="pt-BR">
+              <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <link rel="icon" href="data:,">
+                  <script type="application/ld+json">
+              __JSON__
+                  </script>
+                  <title>__NOME__</title>
+                  <style>
+                      body, html { margin: 0; padding: 0; background-color: #000; height: 100%; width: 100%; overflow: hidden; }
+                      iframe { width: 100%; height: 100%; border: none; outline: none; }
+                  </style>
+              </head>
+              <body>
+                  <iframe src="__URL__" allowfullscreen sandbox="allow-same-origin allow-scripts allow-popups"></iframe>
+              </body>
+              </html>
+          """).strip()
 
           for arq in arquivos:
               if any(x in arq.name for x in ['pendentes', 'fila', 'feitas', 'descartados', 'cache', 'renomeados', 'lista']): 
@@ -254,7 +259,7 @@ __JSON__
             exit 0
           fi
           
-          git commit -m "sync: padronizacao inteligente (video para mp4, iframe para tankie)"
+          git commit -m "sync: padronizacao inteligente e correcao de indentacao yaml"
           
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then
