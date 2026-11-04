@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍿 Clau Flix - Filmes & Séries</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%); color: #fff; min-height: 100vh; }
+    
+    /* HEADER */
+    header { background: rgba(15, 15, 30, 0.95); backdrop-filter: blur(10px); padding: 18px 40px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); }
+    .logo { font-size: 1.8rem; font-weight: 800; background: linear-gradient(45deg, #ff2e63, #ff8c42); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; letter-spacing: 1px; }
+    .logo span { -webkit-text-fill-color: #fff; }
+    
+    /* BARRA DE PESQUISA */
+    .search-container { flex: 1; max-width: 500px; margin: 0 30px; position: relative; }
+    .search-container input { width: 100%; padding: 12px 45px 12px 20px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 0.95rem; outline: none; transition: all 0.3s ease; }
+    .search-container input::placeholder { color: rgba(255, 255, 255, 0.5); }
+    .search-container input:focus { border-color: #ff2e63; background: rgba(255, 255, 255, 0.12); box-shadow: 0 0 20px rgba(255, 46, 99, 0.3); }
+    .search-icon { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: rgba(255, 255, 255, 0.6); pointer-events: none; font-size: 1.1rem; }
+
+    /* NAV */
+    nav ul { display: flex; gap: 25px; list-style: none; }
+    nav ul li a { color: rgba(255, 255, 255, 0.75); text-decoration: none; font-weight: 500; transition: color 0.3s; cursor: pointer; padding-bottom: 5px; border-bottom: 2px solid transparent; }
+    nav ul li a:hover, nav ul li a.active { color: #ff2e63; border-bottom: 2px solid #ff2e63; }
+
+    /* HERO */
+    .hero { height: 450px; background: linear-gradient(to right, rgba(15, 15, 30, 0.95), rgba(15, 15, 30, 0.4)), url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1600') center/cover; display: flex; align-items: center; padding: 0 60px; position: relative; }
+    .hero-content { max-width: 600px; }
+    .hero-content .badge { display: inline-block; background: #ff2e63; padding: 5px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 15px; text-transform: uppercase; }
+    .hero-content h1 { font-size: 3rem; margin-bottom: 15px; line-height: 1.1; }
+    .hero-content p { color: rgba(255, 255, 255, 0.75); font-size: 1rem; margin-bottom: 25px; line-height: 1.5; }
+    .btn { padding: 12px 30px; border: none; border-radius: 30px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; margin-right: 12px; }
+    .btn-primary { background: linear-gradient(45deg, #ff2e63, #ff8c42); color: #fff; box-shadow: 0 4px 15px rgba(255, 46, 99, 0.4); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 46, 99, 0.6); }
+
+    /* SECTIONS E GRID */
+    .section { padding: 50px 60px; }
+    .section h2 { font-size: 1.8rem; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; }
+    .section h2::before { content: ''; width: 5px; height: 28px; background: linear-gradient(45deg, #ff2e63, #ff8c42); border-radius: 3px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; }
+
+    /* CARDS */
+    .card { background: #1a1a2e; border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.05); position: relative; text-decoration: none; color: #fff; display: block; content-visibility: auto; contain-intrinsic-size: 200px 350px; }
+    .card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(255, 46, 99, 0.25); border-color: rgba(255, 46, 99, 0.5); }
+    .card img { width: 100%; height: 300px; object-fit: cover; display: block; }
+    
+    .card-header-fallback { height: 300px; background: linear-gradient(135deg, #2b2b44 0%, #1a1a2e 100%); align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 10px; }
+    .card-info { padding: 15px; }
+    .card-info h3 { font-size: 1rem; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .card-info .meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: rgba(255, 255, 255, 0.6); }
+    .rating { color: #ff2e63; font-weight: 600; }
+
+    /* PAGINAÇÃO */
+    .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 40px; flex-wrap: wrap; }
+    .page-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+    .page-btn:hover { background: rgba(255, 46, 99, 0.2); border-color: #ff2e63; }
+    .page-btn.active { background: linear-gradient(45deg, #ff2e63, #ff8c42); border-color: transparent; color: #fff; cursor: default; box-shadow: 0 4px 15px rgba(255, 46, 99, 0.4); }
+    .page-btn:disabled { opacity: 0.5; cursor: not-allowed; background: transparent; border-color: rgba(255, 255, 255, 0.1); }
+    .page-dots { color: rgba(255, 255, 255, 0.5); padding: 0 5px; }
+
+    /* UTILS */
+    .no-results { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: rgba(255, 255, 255, 0.6); }
+    .no-results h3 { font-size: 1.5rem; margin-bottom: 10px; color: #fff; }
+    .aviso-mais { grid-column: 1 / -1; text-align: center; padding: 15px; color: #ff8c42; font-weight: 600; background: rgba(255, 140, 66, 0.1); border-radius: 8px; margin-top: 10px; font-size: 1rem; border: 1px solid rgba(255, 140, 66, 0.2); }
+    footer { background: rgba(0, 0, 0, 0.4); padding: 30px 60px; text-align: center; color: rgba(255, 255, 255, 0.5); border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 40px; }
+
+    @media (max-width: 900px) {
+      header { flex-wrap: wrap; padding: 15px 20px; gap: 15px; }
+      .search-container { order: 3; flex-basis: 100%; margin: 0; max-width: 100%; }
+      nav ul { gap: 15px; }
+      .hero { padding: 0 25px; height: 380px; }
+      .hero-content h1 { font-size: 2rem; }
+      .section { padding: 35px 20px; }
+      .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+      .card img, .card-header-fallback { height: 240px; }
+      .page-btn { padding: 8px 12px; font-size: 0.9rem; }
+    }
+    @media (max-width: 500px) {
+      nav ul { display: none; }
+      .hero-content h1 { font-size: 1.6rem; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo" onclick="mudarView('home')">Clau <span>Flix</span></div>
+    
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Pesquisar séries ou filmes...">
+      <span class="search-icon">🔍</span>
+    </div>
+    
+    <nav>
+      <ul>
+        <li><a href="#" id="nav-home" class="active" onclick="mudarView('home'); return false;">Início</a></li>
+        <li><a href="#" id="nav-filmes" onclick="mudarView('filmes'); return false;">Filmes</a></li>
+        <li><a href="#" id="nav-series" onclick="mudarView('series'); return false;">Séries</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <span class="badge">Em Destaque</span>
+      <h1>As Melhores Histórias, Em Um Só Lugar</h1>
+      <p>Descubra filmes e séries incríveis, dos lançamentos mais aguardados aos clássicos que você ama. Sua próxima maratona começa aqui.</p>
+      <button class="btn btn-primary" onclick="document.getElementById('searchInput').focus()">▶ Pesquisar Agora</button>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 id="tituloSecao">Destaques</h2>
+    
+    <div class="grid" id="catalogGrid">
+      <div class="no-results"><p>Carregando catálogo...</p></div>
+    </div>
+
+    <div class="pagination" id="paginationContainer"></div>
+  </section>
+
+  <footer>
+    <p>© 2025 Clau Flix — Todos os direitos reservados. Feito com 🎬 e ❤️</p>
+  </footer>
+
+  <script>
+    let catalogo = [];
+    let destaquesIniciais = []; 
+    let listaFilmes = [];
+    let listaSeries = [];
+    
+    let viewAtual = 'home'; 
+    let itensFiltradosAtuais = []; 
+    let paginaAtual = 1;
+    const ITENS_POR_PAGINA = 50; 
+
+    const gridContainer = document.getElementById('catalogGrid');
+    const paginationContainer = document.getElementById('paginationContainer');
+    const searchInput = document.getElementById('searchInput');
+    const tituloSecao = document.getElementById('tituloSecao');
+
+    const STORAGE_KEY_LINKS = 'clauFlix_destaques_links';
+    const STORAGE_KEY_TIMESTAMP = 'clauFlix_destaques_timestamp';
+    const TRINTA_MINUTOS_MS = 30 * 60 * 1000;
+
+    function isSerie(item) {
+      return /_t\d+e\d+/i.test(item.link) || /T\d+E\d+/i.test(item.titulo);
+    }
+
+    function embaralhar(array) {
+      const copia = [...array];
+      for (let i = copia.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copia[i], copia[j]] = [copia[j], copia[i]];
+      }
+      return copia;
+    }
+
+    function ordenarLista(lista) {
+      return [...lista].sort((a, b) => a.titulo.localeCompare(b.titulo, 'pt-BR', { numeric: true, sensitivity: 'base' }));
+    }
+
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => { clearTimeout(timeout); func(...args); };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    function gerenciarDestaques(forcarNovos = false) {
+      const agora = Date.now();
+      const linksSalvos = localStorage.getItem(STORAGE_KEY_LINKS);
+      const timestampSalvo = localStorage.getItem(STORAGE_KEY_TIMESTAMP);
+
+      if (!forcarNovos && linksSalvos && timestampSalvo && (agora - parseInt(timestampSalvo)) < TRINTA_MINUTOS_MS) {
+        const linksArray = JSON.parse(linksSalvos);
+        destaquesIniciais = catalogo.filter(item => linksArray.includes(item.link));
+        return; 
+      }
+
+      destaquesIniciais = embaralhar(catalogo).slice(0, 20);
+      localStorage.setItem(STORAGE_KEY_LINKS, JSON.stringify(destaquesIniciais.map(i => i.link)));
+      localStorage.setItem(STORAGE_KEY_TIMESTAMP, agora.toString());
+    }
+
+    async function carregarCatalogo() {
+      try {
+        const resposta = await fetch('catalogo.json');
+        catalogo = await resposta.json();
+        
+        listaFilmes = ordenarLista(catalogo.filter(item => !isSerie(item)));
+        listaSeries = ordenarLista(catalogo.filter(item => isSerie(item)));
+        
+        gerenciarDestaques();
+        mudarView('home');
+
+        setInterval(() => {
+          gerenciarDestaques(true); 
+          if (viewAtual === 'home' && searchInput.value.trim() === '') {
+            itensFiltradosAtuais = destaquesIniciais;
+            paginaAtual = 1;
+            renderizar();
+          }
+        }, TRINTA_MINUTOS_MS);
+
+      } catch (erro) {
+        gridContainer.innerHTML = `<div class="no-results"><h3>Erro ao carregar 😕</h3></div>`;
+      }
+    }
+
+    window.mudarView = function(novaView) {
+      viewAtual = novaView;
+      searchInput.value = ''; 
+      paginaAtual = 1;
+
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      document.getElementById(`nav-${novaView}`).classList.add('active');
+
+      if (novaView === 'home') { tituloSecao.innerText = "Destaques"; itensFiltradosAtuais = destaquesIniciais; }
+      else if (novaView === 'filmes') { tituloSecao.innerText = "Filmes"; itensFiltradosAtuais = listaFilmes; }
+      else if (novaView === 'series') { tituloSecao.innerText = "Séries"; itensFiltradosAtuais = listaSeries; }
+
+      renderizar();
+    }
+
+    function renderizar() {
+      const inicio = (paginaAtual - 1) * ITENS_POR_PAGINA;
+      const fim = inicio + ITENS_POR_PAGINA;
+      const itensDaPagina = itensFiltradosAtuais.slice(inicio, fim);
+
+      if (itensFiltradosAtuais.length === 0) {
+        gridContainer.innerHTML = `<div class="no-results"><h3>Nenhum resultado encontrado 😕</h3></div>`;
+        paginationContainer.innerHTML = ''; 
+        return;
+      }
+
+      // O link agora redireciona diretamente para o arquivo HTML original
+      gridContainer.innerHTML = itensDaPagina.map(item => `
+        <a href="${item.link}" class="card">
+          ${item.thumbnailUrl ? 
+            `<img src="${item.thumbnailUrl}" alt="${item.titulo}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+             <div class="card-header-fallback" style="display:none;"><span style="font-size:2rem; font-weight:bold; color:#ff2e63;">T${item.temporada} E${item.episodio}</span></div>` 
+            : 
+            `<div class="card-header-fallback" style="display:flex;"><span style="font-size:2rem; font-weight:bold; color:#ff2e63;">T${item.temporada} E${item.episodio}</span></div>`
+          }
+          <div class="card-info">
+            <h3>${item.titulo}</h3>
+            <div class="meta"><span>${item.serie}</span><span class="rating">▶ Play</span></div>
+          </div>
+        </a>
+      `).join('');
+
+      if (itensFiltradosAtuais.length > ITENS_POR_PAGINA) {
+        const itemFinal = Math.min(fim, itensFiltradosAtuais.length);
+        gridContainer.innerHTML += `<div class="aviso-mais">Mostrando <strong>${itemFinal}</strong> de <strong>${itensFiltradosAtuais.length}</strong> resultados.</div>`;
+      }
+
+      renderizarPaginacao();
+    }
+
+    function renderizarPaginacao() {
+      const totalPaginas = Math.ceil(itensFiltradosAtuais.length / ITENS_POR_PAGINA);
+      if (totalPaginas <= 1) { paginationContainer.innerHTML = ''; return; }
+
+      let html = '';
+      if (paginaAtual > 1) html += `<button class="page-btn" onclick="mudarPagina(${paginaAtual - 1})">« Anterior</button>`;
+
+      let startPage = Math.max(1, paginaAtual - 2);
+      let endPage = Math.min(totalPaginas, paginaAtual + 2);
+
+      if (startPage > 1) {
+        html += `<button class="page-btn" onclick="mudarPagina(1)">1</button>`;
+        if (startPage > 2) html += `<span class="page-dots">...</span>`;
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        html += `<button class="page-btn ${i === paginaAtual ? 'active' : ''}" onclick="mudarPagina(${i})">${i}</button>`;
+      }
+
+      if (endPage < totalPaginas) {
+        if (endPage < totalPaginas - 1) html += `<span class="page-dots">...</span>`;
+        html += `<button class="page-btn" onclick="mudarPagina(${totalPaginas})">${totalPaginas}</button>`;
+      }
+
+      if (paginaAtual < totalPaginas) html += `<button class="page-btn" onclick="mudarPagina(${paginaAtual + 1})">Próxima »</button>`;
+      paginationContainer.innerHTML = html;
+    }
+
+    window.mudarPagina = function(novaPagina) {
+      paginaAtual = novaPagina;
+      renderizar();
+      document.querySelector('.section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function buscar() {
+      const termo = searchInput.value.trim().toLowerCase();
+      if (termo.length === 0) { mudarView(viewAtual); return; }
+
+      tituloSecao.innerText = `Resultados para: "${termo}"`;
+      itensFiltradosAtuais = ordenarLista(catalogo.filter(item => 
+        item.titulo.toLowerCase().includes(termo) || item.serie.toLowerCase().includes(termo)
+      ));
+      paginaAtual = 1; 
+      renderizar();
+    }
+
+    searchInput.addEventListener('input', debounce(buscar, 300));
+    carregarCatalogo();
+  </script>
+</body>
+</html>
