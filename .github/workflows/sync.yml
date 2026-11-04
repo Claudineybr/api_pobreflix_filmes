@@ -104,56 +104,28 @@ jobs:
               elif not url.startswith('http'): url = 'http://' + url
               return url.split()[0] if url.split() else ""
 
-          # --- TEMPLATE EXATO DO CARD VISUAL ---
+          # --- TEMPLATE EXATO DO NOVO CARD VISUAL ---
           template_base = textwrap.dedent("""
-              <!-- 1. METADADOS -->
               <script type="application/ld+json">
               __JSON__
               </script>
 
-              <h1 class="post-title" style="margin-bottom: 20px;">__NOME__</h1>
+              <h1>__NOME__</h1>
 
-              <!-- 2. O CARD VISUAL -->
-              <div class="meu-card-player" style="background: linear-gradient(145deg,#0b0b12,#161625); border-radius:20px; overflow:hidden; box-shadow:0 25px 60px rgba(0,0,0,.8); margin:25px 0; border:1px solid rgba(255,255,255,.06);">
+              <div style="background: #0b0b12; border-radius:20px; overflow:hidden; box-shadow:0 25px 60px rgba(0,0,0,.8); margin:25px 0; border:1px solid rgba(255,255,255,.06);">
                 
-                <div class="capa-filme" id="capa-__ID__" style="cursor: pointer; position: relative;">
+                <a href="__URL__" target="_blank" style="display: block; position: relative; text-decoration: none;">
+                  
                   <img src="__CAPA__" style="width:100%; display:block;">
-                  
+
+                  <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.7), transparent);"></div>
+
                   <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:70px; height:70px; background:linear-gradient(135deg,#7a00ff,#c000ff); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 0 20px rgba(120,0,255,.6); color:white; font-size:26px; border:2px solid rgba(255,255,255,.2);">▶</div>
-                  
+
                   <div style="position:absolute; top:12px; right:12px; background:#ff003c; padding:6px 12px; border-radius:20px; font-size:11px; color:#fff; font-weight:bold;">HD</div>
-                </div>
+                </a>
 
-                <!-- 3. O PLAYER REAL -->
-                <div id="container-video-__ID__" style="display: none;">
-              __PLAYER__
-                </div>
-
-                <!-- CONTEÚDO DO CARD -->
-                <div class="conteudo-card" style="padding: 18px;">
-                  <div style="color: #ffd54f; font-weight: bold; font-size: 18px; margin-bottom: 10px;">⭐ NOTA __NOTA__ <span style="color: #aaa; font-size: 12px;">/10</span></div>
-                  <p style="font-size: 14px; color: #cfcfcf; line-height: 1.6; margin-bottom: 14px;">__SINOPSE__</p>
-                </div>
               </div>
-
-              <!-- 4. SCRIPT DE TROCA -->
-              <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                  const capa = document.getElementById('capa-__ID__');
-                  const containerVideo = document.getElementById('container-video-__ID__');
-              __SCRIPT_PLAYER__
-
-                  capa.addEventListener('click', function() {
-                    capa.style.display = 'none';
-                    containerVideo.style.display = 'block';
-                    if (typeof video !== 'undefined' && video !== null) {
-                        video.play().catch(function(error) {
-                          console.log("Autoplay bloqueado.");
-                        });
-                    }
-                  });
-                });
-              </script>
           """).strip()
 
           for arq in arquivos:
@@ -188,16 +160,9 @@ jobs:
                   thumb_match = re.search(r'"thumbnailUrl"\s*:\s*\[\s*"([^"]*)"', content)
                   thumb_atual = thumb_match.group(1) if thumb_match else "https://via.placeholder.com/500x750?text=Sem+Capa"
 
-                  sinopse = "Sinopse não disponível."
-                  texto_corpo = soup_old.get_text(separator=' ', strip=True)
-                  match_sinopse = re.search(r'(?:Sinopse|SINOPSE)\s*(.*?)(?:Nota|NOTA|$)', texto_corpo, re.DOTALL | re.IGNORECASE)
-                  if match_sinopse and len(match_sinopse.group(1)) > 20:
-                      sinopse = match_sinopse.group(1).strip()[:300] + "..."
-                  
-                  nota = "8.5"
-                  match_nota = re.search(r'(?:Nota|NOTA)\s*(\d+\.?\d*)', texto_corpo, re.IGNORECASE)
-                  if match_nota:
-                      nota = match_nota.group(1)
+                  # Tenta extrair a descrição antiga para manter no JSON
+                  desc_match = re.search(r'"description"\s*:\s*"([^"]*)"', content)
+                  descricao_atual = desc_match.group(1) if desc_match else "Assista ao filme"
 
                   titulo_limpo = limpar_titulo(nome_atual)
                   
@@ -217,43 +182,27 @@ jobs:
                   
                   if ep_tag:
                       novo_nome_arq = f"{slug}_{ep_tag.lower()}.json"
-                      url_id = f"{slug}_{ep_tag.lower()}.html"
                   else:
                       novo_nome_arq = f"{slug}_{ano}.json" if ano else f"{slug}.json"
-                      url_id = f"{slug}_{ano}.html" if ano else f"{slug}.html"
 
+                  # Monta o JSON exatamente no novo padrão solicitado
                   novo_json = {
                       "@context": "https://schema.org",
                       "@type": "VideoObject",
-                      "@id": f"https://api-pobreflix-filmes.pages.dev/{url_id}",
-                      "url": f"https://api-pobreflix-filmes.pages.dev/{url_id}",
+                      "supportPlatform": [
+                          "https://schema.org/IOSPlatform",
+                          "https://schema.org/AndroidPlatform"
+                      ],
                       "name": novo_nome_json,
-                      "description": f"Assista {novo_nome_json}",
+                      "description": descricao_atual,
                       "thumbnailUrl": [thumb_atual],
-                      "uploadDate": "2020-01-01T00:00:00+00:00",
-                      "inLanguage": "pt",
-                      "contentUrl": nova_url,
-                      "embedUrl": nova_url
+                      "contentUrl": nova_url
                   }
 
                   json_str = json.dumps(novo_json, ensure_ascii=False, indent=2)
 
-                  is_video_file = nova_url.lower().endswith('.mp4') or nova_url.lower().endswith('.m3u8') or '.mp4?' in nova_url.lower()
-                  
-                  if is_video_file:
-                      player_html = f"""<video id="player-video-{slug}" controls playsinline poster="{thumb_atual}" style="width: 100%; display: block; background: #000;">
-                    <source src="{nova_url}" type="video/mp4">
-                    Seu navegador não suporta vídeo HTML5.
-                  </video>"""
-                      script_html = f"const video = document.getElementById('player-video-{slug}');"
-                  else:
-                      player_html = f"""<div style="position: relative; padding-bottom: 56.25%; height: 0;">
-                      <iframe src="{nova_url}" allowfullscreen sandbox="allow-same-origin allow-scripts allow-popups" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
-                  </div>"""
-                      script_html = "const video = null;"
-
-                  novo_html = template_base.replace("__JSON__", json_str).replace("__NOME__", novo_nome_json).replace("__CAPA__", thumb_atual).replace("__ID__", slug).replace("__SINOPSE__", sinopse).replace("__NOTA__", nota)
-                  novo_html = novo_html.replace("__PLAYER__", player_html).replace("__SCRIPT_PLAYER__", script_html)
+                  # Substitui as variáveis no template
+                  novo_html = template_base.replace("__JSON__", json_str).replace("__NOME__", novo_nome_json).replace("__URL__", nova_url).replace("__CAPA__", thumb_atual)
                   novo_html = novo_html.replace("https://redetoons.cards", "https://redetoons.my")
 
                   nome_arq_final = novo_nome_arq.replace(".json", ".html")
@@ -273,10 +222,8 @@ jobs:
 
           sed -i "s|ORIGEM_PATH|$T/origem|g; s|NOVOS_PATH|$T/novos|g; s|SAIDA_PATH|$T/saida|g" "$T/filtrar.py"
           
-          # CORREÇÃO AQUI: Removido o "-I" do python3
           python3 "$T/filtrar.py"
           
-          # CORREÇÃO AQUI: O `! -name "index.html"` protege o seu index de ser deletado
           find . -maxdepth 1 -name "*.json" -delete
           find . -maxdepth 1 -name "*.html" ! -name "index.html" -delete
           
@@ -298,7 +245,7 @@ jobs:
             exit 0
           fi
           
-          git commit -m "sync: aplicar card visual, player oculto e protecao do index.html"
+          git commit -m "sync: novo padrao de json-ld (supportPlatform) e card visual simplificado"
           
           for i in $(seq 1 5); do
             if git push origin HEAD:main; then
