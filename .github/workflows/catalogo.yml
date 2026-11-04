@@ -1,0 +1,109 @@
+name: Gerar Catalogo de Filmes e Series
+
+"on":
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-catalog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o codigo do repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar o Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Rodar script Python e Gerar JSON
+        run: |
+          python << 'EOF'
+          import os, re, json
+
+          arquivos = []
+          for root, dirs, files in os.walk('.'):
+              if '.git' in root or '.github' in root: 
+                  continue
+              
+              for file in files:
+                  if file.endswith('.html') and file != 'index.html':
+                      caminho_completo = os.path.join(root, file)
+                      caminho_relativo = caminho_completo.replace('.\\', '').replace('./', '').replace('\\', '/')
+                      arquivos.append((caminho_relativo, file))
+
+          episodios = []
+          padrao_nome = re.compile(r'(.+)_t(\d+)e(\d+)\.html', re.IGNORECASE)
+          
+          # Regex para a capa (thumbnail)
+          padrao_img = re.compile(r'"thumbnailUrl"\s*:\s*\[\s*["\']([^"\']+)["\']', re.IGNORECASE)
+          # Regex para o vídeo (contentUrl)
+          padrao_video = re.compile(r'"contentUrl"\s*:\s*["\']([^"\']+)["\']', re.IGNORECASE)
+
+          for caminho, arquivo in sorted(arquivos):
+              img_url = ""
+              video_url = ""
+              try:
+                  with open(caminho, 'r', encoding='utf-8', errors='ignore') as f:
+                      conteudo = f.read()
+                      
+                      match_img = padrao_img.search(conteudo)
+                      if not match_img:
+                          match_img = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', conteudo, re.IGNORECASE)
+                      if match_img:
+                          img_url = match_img.group(1)
+
+                      match_video = padrao_video.search(conteudo)
+                      if match_video:
+                          video_url = match_video.group(1)
+                      else:
+                          # Fallback para a div com data-src
+                          match_video = re.search(r'data-src=["\']([^"\']+)["\']', conteudo, re.IGNORECASE)
+                          if match_video:
+                              video_url = match_video.group(1)
+
+              except Exception as e:
+                  print(f"Erro ao ler {caminho}: {e}")
+
+              match = padrao_nome.match(arquivo)
+              if match:
+                  nome_serie = match.group(1).replace('_', ' ').replace('-', ' ').title()
+                  temporada = int(match.group(2))
+                  episodio = int(match.group(3))
+                  
+                  episodios.append({
+                      "titulo": f"{nome_serie} - T{temporada}E{episodio:02d}",
+                      "serie": nome_serie,
+                      "temporada": temporada,
+                      "episodio": episodio,
+                      "link": caminho,
+                      "thumbnailUrl": img_url,
+                      "videoUrl": video_url
+                  })
+              else:
+                  nome = arquivo.replace('.html', '').replace('_', ' ').replace('-', ' ').title()
+                  episodios.append({
+                      "titulo": nome,
+                      "serie": nome,
+                      "temporada": 1,
+                      "episodio": 1,
+                      "link": caminho,
+                      "thumbnailUrl": img_url,
+                      "videoUrl": video_url
+                  })
+                  
+              print(f"Arquivo: {arquivo} | Video: {video_url if video_url else 'NÃO ENCONTRADO'}")
+
+          with open('catalogo.json', 'w', encoding='utf-8') as f:
+              json.dump(episodios, f, indent=2, ensure_ascii=False)
+          EOF
+
+      - name: Configurar Git, commitar e enviar
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add catalogo.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto: Atualizando catalogo.json com links de vídeo" && git push)
