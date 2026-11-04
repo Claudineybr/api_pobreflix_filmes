@@ -22,7 +22,6 @@ jobs:
 
       - name: Instalar dependencias Python
         run: |
-          python3 --version
           python3 -m pip install --upgrade pip
           python3 -m pip install beautifulsoup4
 
@@ -273,7 +272,9 @@ jobs:
           PYEOF
 
           sed -i "s|ORIGEM_PATH|$T/origem|g; s|NOVOS_PATH|$T/novos|g; s|SAIDA_PATH|$T/saida|g" "$T/filtrar.py"
-          python3 -I "$T/filtrar.py"
+          
+          # CORREÇÃO AQUI: Removido o "-I" do python3
+          python3 "$T/filtrar.py"
           
           # CORREÇÃO AQUI: O `! -name "index.html"` protege o seu index de ser deletado
           find . -maxdepth 1 -name "*.json" -delete
