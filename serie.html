@@ -6,9 +6,7 @@
   <title>Episódios - Clau Flix</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    
-    /* ================= AQUI ESTÁ A SUA NOVA IMAGEM DE FUNDO ================= */
-    body { background: linear-gradient(rgba(15, 15, 30, 0.85), rgba(15, 15, 30, 0.95)), url('https://i.imgur.com/qFFmSiQ.jpg') center/cover no-repeat fixed; color: #fff; min-height: 100vh; }
+    body { background: linear-gradient(rgba(15, 15, 30, 0.85), rgba(15, 15, 30, 0.95)), url('https://i.imgur.com/tS1x5H4.png') center/cover no-repeat fixed; color: #fff; min-height: 100vh; }
     
     header { background: rgba(15, 15, 30, 0.95); backdrop-filter: blur(10px); padding: 18px 40px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
     .logo { font-size: 1.8rem; font-weight: 800; background: linear-gradient(45deg, #ff2e63, #ff8c42); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; letter-spacing: 1px; text-decoration: none; }
@@ -41,6 +39,7 @@
     .ep-item:hover .ep-play { background: #ff2e63; }
 
     .loading { text-align: center; font-size: 1.2rem; color: #aaa; margin-top: 50px; }
+    .erro-msg { text-align: center; font-size: 1.2rem; color: #ff2e63; margin-top: 50px; background: rgba(255,46,99,0.1); padding: 20px; border-radius: 10px; border: 1px solid #ff2e63; }
     
     .modal-player { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 10, 0.98); z-index: 1000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(10px); }
     .modal-content { width: 100%; max-width: 1100px; background: #000; border-radius: 16px; overflow: hidden; position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.9); display: flex; flex-direction: column; }
@@ -114,7 +113,7 @@
 
     if (!nomeSerie) {
       document.getElementById('tituloSerie').innerText = "Série não encontrada";
-      document.getElementById('conteudoEpisodios').innerHTML = '<div class="loading">Volte e escolha uma série.</div>';
+      document.getElementById('conteudoEpisodios').innerHTML = '<div class="erro-msg">O nome da série não foi passado na URL. Volte e clique novamente.</div>';
     } else {
       document.getElementById('tituloSerie').innerText = nomeSerie;
       carregarEpisodios();
@@ -123,12 +122,17 @@
     async function carregarEpisodios() {
       try {
         const resposta = await fetch('catalogo.json');
+        if (!resposta.ok) throw new Error("Arquivo catalogo.json não encontrado");
         const catalogo = await resposta.json();
 
-        let epsDaSerie = catalogo.filter(item => item.serie.trim().toLowerCase() === nomeSerie.trim().toLowerCase());
+        // Busca flexível: ignora maiúsculas/minúsculas e espaços extras
+        let epsDaSerie = catalogo.filter(item => {
+          if (!item.serie) return false;
+          return item.serie.trim().toLowerCase() === nomeSerie.trim().toLowerCase();
+        });
 
         if (epsDaSerie.length === 0) {
-          document.getElementById('conteudoEpisodios').innerHTML = '<div class="loading">Nenhum episódio encontrado.</div>';
+          document.getElementById('conteudoEpisodios').innerHTML = `<div class="erro-msg">Nenhum episódio encontrado para "${nomeSerie}".</div>`;
           return;
         }
 
@@ -152,6 +156,7 @@
           htmlFinal += `<div class="temporada-bloco"><h2 class="temporada-titulo">${numTemporada}ª Temporada</h2><div class="lista-eps">`;
 
           temporadas[numTemporada].forEach(ep => {
+            // Limpa o título para não repetir o nome da série
             let tituloLimpo = ep.titulo.replace(nomeSerie, '').replace(/-\s*T\d+E\d+/i, '').replace(/T\d+E\d+/, '').trim();
             if(tituloLimpo.startsWith('-')) tituloLimpo = tituloLimpo.substring(1).trim();
             if(tituloLimpo === '') tituloLimpo = `Episódio ${ep.episodio}`;
@@ -171,7 +176,8 @@
         document.getElementById('conteudoEpisodios').innerHTML = htmlFinal;
 
       } catch (erro) {
-        document.getElementById('conteudoEpisodios').innerHTML = `<div class="loading">Erro ao carregar episódios.</div>`;
+        console.error(erro);
+        document.getElementById('conteudoEpisodios').innerHTML = `<div class="erro-msg">Erro ao carregar episódios: ${erro.message}</div>`;
       }
     }
 
