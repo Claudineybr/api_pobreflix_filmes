@@ -48,19 +48,19 @@ jobs:
                   with open(caminho, 'r', encoding='utf-8', errors='ignore') as f:
                       conteudo = f.read()
                       
+                      # 1. Capa (thumbnail)
                       match_img = re.search(r'"thumbnailUrl"\s*:\s*\[\s*["\']([^"\']+)["\']', conteudo, re.IGNORECASE)
                       if not match_img:
                           match_img = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', conteudo, re.IGNORECASE)
                       if match_img:
                           img_url = match_img.group(1)
 
+                      # 2. Vídeo
                       match_video = re.search(r'"contentUrl"\s*:\s*["\']([^"\']+)["\']', conteudo, re.IGNORECASE)
                       if not match_video:
                           match_video = re.search(r'data-src=["\']([^"\']+)["\']', conteudo, re.IGNORECASE)
                       if not match_video:
                           match_video = re.search(r'<source[^>]+src=["\']([^"\']+)["\']', conteudo, re.IGNORECASE)
-                      if not match_video:
-                          match_video = re.search(r'<iframe[^>]+src=["\']([^"\']+)["\']', conteudo, re.IGNORECASE)
                       if not match_video:
                           match_video = re.search(r'(https?://[^\s"\'<>]+\.mp4)', conteudo, re.IGNORECASE)
 
@@ -68,38 +68,24 @@ jobs:
                           video_url = match_video.group(1)
 
               except Exception as e:
-                  print(f"Erro ao ler {caminho}: {e}")
+                  pass
 
               match = padrao_nome.match(arquivo)
               if match:
-                  # A MÁGICA ESTÁ AQUI: Pega apenas as 3 primeiras palavras para o nome da série
-                  nome_completo = match.group(1).replace('_', ' ').replace('-', ' ').title()
-                  nome_serie = ' '.join(nome_completo.split()[:3]) 
-                  
+                  nome_serie = match.group(1).replace('_', ' ').replace('-', ' ').title()
                   temporada = int(match.group(2))
                   episodio = int(match.group(3))
                   episodios.append({
                       "titulo": f"{nome_serie} - T{temporada}E{episodio:02d}",
-                      "serie": nome_serie, 
-                      "temporada": temporada, 
-                      "episodio": episodio,
-                      "link": caminho, 
-                      "thumbnailUrl": img_url, 
-                      "videoUrl": video_url
+                      "serie": nome_serie, "temporada": temporada, "episodio": episodio,
+                      "link": caminho, "thumbnailUrl": img_url, "videoUrl": video_url
                   })
               else:
                   nome = arquivo.replace('.html', '').replace('_', ' ').replace('-', ' ').title()
                   episodios.append({
-                      "titulo": nome, 
-                      "serie": nome, 
-                      "temporada": 1, 
-                      "episodio": 1,
-                      "link": caminho, 
-                      "thumbnailUrl": img_url, 
-                      "videoUrl": video_url
+                      "titulo": nome, "serie": nome, "temporada": 1, "episodio": 1,
+                      "link": caminho, "thumbnailUrl": img_url, "videoUrl": video_url
                   })
-                  
-              print(f"Arquivo: {arquivo} | Serie: {nome_serie if match else nome}")
 
           with open('catalogo.json', 'w', encoding='utf-8') as f:
               json.dump(episodios, f, indent=2, ensure_ascii=False)
@@ -110,4 +96,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add catalogo.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto: Atualizando catalogo e nomes de series" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto: Atualizando catalogo" && git push)
