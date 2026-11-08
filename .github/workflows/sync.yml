@@ -225,7 +225,7 @@ jobs:
           python3 "$T/filtrar.py"
           
           find . -maxdepth 1 -name "*.json" -delete
-          find . -maxdepth 1 -name "*.html" ! -name "index.html" -delete
+          find . -maxdepth 1 -name "*.html" ! -name "index.html" ! -name "serie.html" -delete
           
           cp -f "$T"/saida/*.html .
           
