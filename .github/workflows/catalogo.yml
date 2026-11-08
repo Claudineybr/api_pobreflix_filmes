@@ -26,9 +26,9 @@ jobs:
 
           arquivos = []
           for root, dirs, files in os.walk('.'):
-              if '.git' in root or '.github' in root: 
+              if '.git' in root or '.github' in root:
                   continue
-              
+
               for file in files:
                   if file.endswith('.html') and file != 'index.html':
                       caminho_completo = os.path.join(root, file)
@@ -37,19 +37,19 @@ jobs:
 
           episodios = []
           padrao_nome = re.compile(r'(.+)_t(\d+)e(\d+)\.html', re.IGNORECASE)
-          
+
           # Regex para a capa (thumbnail)
           padrao_img = re.compile(r'"thumbnailUrl"\s*:\s*\[\s*["\']([^"\']+)["\']', re.IGNORECASE)
           # Regex para o vídeo (contentUrl)
           padrao_video = re.compile(r'"contentUrl"\s*:\s*["\']([^"\']+)["\']', re.IGNORECASE)
 
-          for caminho, arquivo in sorted(arquivos):
+          for caminho, arquivo in arquivos:
               img_url = ""
               video_url = ""
               try:
                   with open(caminho, 'r', encoding='utf-8', errors='ignore') as f:
                       conteudo = f.read()
-                      
+
                       match_img = padrao_img.search(conteudo)
                       if not match_img:
                           match_img = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', conteudo, re.IGNORECASE)
@@ -73,7 +73,7 @@ jobs:
                   nome_serie = match.group(1).replace('_', ' ').replace('-', ' ').title()
                   temporada = int(match.group(2))
                   episodio = int(match.group(3))
-                  
+
                   episodios.append({
                       "titulo": f"{nome_serie} - T{temporada}E{episodio:02d}",
                       "serie": nome_serie,
@@ -94,8 +94,15 @@ jobs:
                       "thumbnailUrl": img_url,
                       "videoUrl": video_url
                   })
-                  
+
               print(f"Arquivo: {arquivo} | Video: {video_url if video_url else 'NÃO ENCONTRADO'}")
+
+          # ORDENAÇÃO: alfabética pelo nome da série, depois numérica por temporada e episódio
+          episodios.sort(key=lambda x: (
+              x["serie"].lower(),   # alfabética (ignora maiúsculas/minúsculas)
+              int(x["temporada"]),  # numérica
+              int(x["episodio"])    # numérica
+          ))
 
           with open('catalogo.json', 'w', encoding='utf-8') as f:
               json.dump(episodios, f, indent=2, ensure_ascii=False)
