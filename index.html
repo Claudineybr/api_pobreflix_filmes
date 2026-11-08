@@ -156,24 +156,27 @@
     const modalTitulo = document.getElementById('modalTitulo');
     const linkOriginal = document.getElementById('linkOriginal');
 
-    const STORAGE_KEY_LINKS = 'clauFlix_destaques_links_v4';
-    const STORAGE_KEY_TIMESTAMP = 'clauFlix_destaques_timestamp_v4';
+    const STORAGE_KEY_LINKS = 'clauFlix_destaques_links_v5';
+    const STORAGE_KEY_TIMESTAMP = 'clauFlix_destaques_timestamp_v5';
     const TRINTA_MINUTOS_MS = 30 * 60 * 1000;
 
     function isMobile() {
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
     }
 
+    // CORREÇÃO: Apenas identifica como série se o link ou título tiverem padrões de episódios.
     function isSerie(item) {
       const regexLink = /(_t\d+e\d+|_(\d+)x(\d+)|-e\d+)/i;
       const regexTitulo = /(T\d+E\d+|\d+x\d+|\sE\d+$|\sEpisódio\s\d+)/i;
-      return regexLink.test(item.link) || regexTitulo.test(item.titulo) || (item.serie && item.serie.trim() !== '');
+      return regexLink.test(item.link) || regexTitulo.test(item.titulo);
     }
 
     function agruparSeries(listaOriginal) {
       const agrupado = {};
       listaOriginal.forEach(item => {
-        const nomeLimpo = item.serie;
+        // Usa o nome da série se existir e não for vazio, senão usa o título limpo
+        const nomeLimpo = (item.serie && item.serie.trim() !== '') ? item.serie.trim() : item.titulo.replace(/(T\d+E\d+|\d+x\d+|\sE\d+$|\sEpisódio\s\d+).*/i, '').trim();
+        
         if (!agrupado[nomeLimpo]) {
           agrupado[nomeLimpo] = {
             titulo: nomeLimpo,
@@ -342,7 +345,7 @@
       tituloSecao.innerText = `Resultados para: "${termo}"`;
       
       const filmesFiltrados = catalogo.filter(item => !isSerie(item) && item.titulo.toLowerCase().includes(termo));
-      const seriesFiltradas = agruparSeries(catalogo.filter(item => isSerie(item) && item.serie.toLowerCase().includes(termo)));
+      const seriesFiltradas = agruparSeries(catalogo.filter(item => isSerie(item) && item.serie && item.serie.toLowerCase().includes(termo)));
       
       itensFiltradosAtuais = ordenarLista([...filmesFiltrados, ...seriesFiltradas]);
       paginaAtual = 1; 
