@@ -125,9 +125,7 @@
         if (!resposta.ok) throw new Error("Arquivo catalogo.json não encontrado");
         const catalogo = await resposta.json();
 
-        // Busca flexível: ignora maiúsculas/minúsculas e espaços extras
         let epsDaSerie = catalogo.filter(item => {
-          if (!item.serie) return false;
           return item.serie.trim().toLowerCase() === nomeSerie.trim().toLowerCase();
         });
 
@@ -156,7 +154,6 @@
           htmlFinal += `<div class="temporada-bloco"><h2 class="temporada-titulo">${numTemporada}ª Temporada</h2><div class="lista-eps">`;
 
           temporadas[numTemporada].forEach(ep => {
-            // Limpa o título para não repetir o nome da série
             let tituloLimpo = ep.titulo.replace(nomeSerie, '').replace(/-\s*T\d+E\d+/i, '').replace(/T\d+E\d+/, '').trim();
             if(tituloLimpo.startsWith('-')) tituloLimpo = tituloLimpo.substring(1).trim();
             if(tituloLimpo === '') tituloLimpo = `Episódio ${ep.episodio}`;
