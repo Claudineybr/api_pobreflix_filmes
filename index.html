@@ -156,28 +156,33 @@
     const modalTitulo = document.getElementById('modalTitulo');
     const linkOriginal = document.getElementById('linkOriginal');
 
-    // MUDAMOS A CHAVE PARA 'v2' PARA LIMPAR O CACHE ANTIGO DE 6 FILMES
-    const STORAGE_KEY_LINKS = 'clauFlix_destaques_links_v2';
-    const STORAGE_KEY_TIMESTAMP = 'clauFlix_destaques_timestamp_v2';
+    const STORAGE_KEY_LINKS = 'clauFlix_destaques_links_v3';
+    const STORAGE_KEY_TIMESTAMP = 'clauFlix_destaques_timestamp_v3';
     const TRINTA_MINUTOS_MS = 30 * 60 * 1000;
 
     function isMobile() {
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
     }
 
-    // MELHORIA: Agora aceita T1E01, 1x01, E03 no final do título
-    function isSerie(item) {
-      const regexLink = /(_t\d+e\d+|_(\d+)x(\d+))/i;
-      const regexTitulo = /(T\d+E\d+|\d+x\d+|\sE\d+$)/i;
-      return regexLink.test(item.link) || regexTitulo.test(item.titulo);
+    // A MÁGICA ACONTECE AQUI: Limpa o nome da série (remove T1E01, 1x01, etc)
+    function obterNomeSerie(item) {
+      let nome = item.serie || item.titulo;
+      nome = nome.replace(/\s*-\s*(T\d+E\d+|\d+x\d+|E\d+).*/i, '')
+                 .replace(/\s*(T\d+E\d+|\d+x\d+|E\d+).*/i, '')
+                 .trim();
+      return nome;
     }
 
-    // MELHORIA: Limpa o nome da série caso ela não tenha a propriedade "serie" correta no JSON
+    function isSerie(item) {
+      const regexLink = /(_t\d+e\d+|_(\d+)x(\d+)|-e\d+)/i;
+      const regexTitulo = /(T\d+E\d+|\d+x\d+|\sE\d+$|\sEpisódio\s\d+)/i;
+      return regexLink.test(item.link) || regexTitulo.test(item.titulo) || (item.serie && item.serie.trim() !== '');
+    }
+
     function agruparSeries(listaOriginal) {
       const agrupado = {};
       listaOriginal.forEach(item => {
-        let nomeLimpo = item.serie || item.titulo.replace(/\s*-\s*(T\d+E\d+|\d+x\d+|\sE\d+$).*/i, '').trim();
-        
+        const nomeLimpo = obterNomeSerie(item);
         if (!agrupado[nomeLimpo]) {
           agrupado[nomeLimpo] = {
             titulo: nomeLimpo,
@@ -345,8 +350,11 @@
 
       tituloSecao.innerText = `Resultados para: "${termo}"`;
       
+      // A busca agora usa a função obterNomeSerie para não falhar no agrupamento
       const filmesFiltrados = catalogo.filter(item => !isSerie(item) && item.titulo.toLowerCase().includes(termo));
-      const seriesFiltradas = agruparSeries(catalogo.filter(item => isSerie(item) && item.serie.toLowerCase().includes(termo)));
+      
+      const episodiosSeriesFiltrados = catalogo.filter(item => isSerie(item) && obterNomeSerie(item).toLowerCase().includes(termo));
+      const seriesFiltradas = agruparSeries(episodiosSeriesFiltrados);
       
       itensFiltradosAtuais = ordenarLista([...filmesFiltrados, ...seriesFiltradas]);
       paginaAtual = 1; 
