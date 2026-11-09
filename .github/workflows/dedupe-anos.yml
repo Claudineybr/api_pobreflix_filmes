@@ -78,27 +78,21 @@ jobs:
               )
 
 
-          def limpeza_final(s: str) -> str:
+          def limpeza_final(s):
               if not isinstance(s, str):
                   return s
-              # 1) parenteses/colchetes/chaves vazios (iterativo p/ casos encadeados)
               prev = None
               while prev != s:
                   prev = s
                   s = re.sub(r'\(\s*\)', '', s)
                   s = re.sub(r'\[\s*\]', '', s)
                   s = re.sub(r'\{\s*\}', '', s)
-              # 2) "Titulo (2023)" -> "Titulo 2023"
               s = PAREN_YEAR.sub(r'\1', s)
-              # 3) "- 2023" -> " 2023" (tira dash antes do ano)
               s = DASH_YEAR.sub(r' \1', s)
-              # 4) colapsa separadores repetidos
               s = re.sub(r'(?:\s*[-\u2013\u2014]\s*){2,}', ' - ', s)
               s = re.sub(r'(?:\s*_\s*){2,}', '_', s)
-              # 5) tira separadores pendurados nas bordas
               s = re.sub(r'^[\s\-\u2013\u2014_|/,]+', '', s)
               s = re.sub(r'[\s\-\u2013\u2014_|/,]+$', '', s)
-              # 6) espaços
               s = re.sub(r'[ \t]+', ' ', s)
               s = re.sub(r'\s+([,.;:!?])', r'\1', s)
               return s.strip(" _-.")
@@ -147,12 +141,10 @@ jobs:
                       if novo == stem:
                           break
                       stem = novo
-              # limpeza no slug
               stem = re.sub(r'\(\s*\)|\[\s*\]|\{\s*\}', '', stem)
               stem = re.sub(r'[-\s]{2,}', '-', stem)
               stem = re.sub(r'_{2,}', '_', stem)
               stem = re.sub(r'^[-_.]+|[-_.]+$', '', stem)
-
               partes = [x for x in re.split(r'[_-]', stem) if x]
               out, vistos, ult = [], set(), None
               for parte in partes:
@@ -168,53 +160,105 @@ jobs:
                   else:
                       ult = None
                   out.append(parte)
-
               novo = "_".join(out) or "arquivo"
               return novo + p.suffix
+
+
+          def process_ldjson(text, modo, rt):
+              """Parseia o JSON-LD e limpa só os VALORES string.
+              Mantém emoji (🍿Clau), chaves, tipos, URLs, etc. intactos."""
+              try:
+                  data = json.loads(text)
+              except json.JSONDecodeError as e:
+                  print(f"[ldjson parse] {e} - tratando como texto")
+                  return limpa_texto(text, modo, rt)
+
+              def walk(obj):
+                  if isinstance(obj, str):
+                      return limpa_texto(obj, modo, rt)
+                  if isinstance(obj, dict):
+                      return {k: walk(v) for k, v in obj.items()}
+                  if isinstance(obj, list):
+                      return [walk(v) for v in obj]
+                  return obj
+
+              return json.dumps(walk(data), ensure_ascii=False, indent=2)
 
 
           class LimpaHTML(HTMLParser):
               def __init__(self, modo, rt):
                   super().__init__(convert_charrefs=False)
                   self.modo, self.rt = modo, rt
-                  self.out, self.skip = [], 0
-              def _limpa(self, d):
-                  return limpa_texto(d, self.modo, self.rt) if d.strip() else d
+                  self.out = []
+                  self.skip = 0
+                  self.in_ldjson = False
+                  self.ldjson_buf = []
+
+              def _limpa(self, data):
+                  return limpa_texto(data, self.modo, self.rt) if data.strip() else data
+
               def handle_starttag(self, tag, attrs):
-                  if tag.lower() in ("script", "style"):
+                  tag_l = tag.lower()
+                  if tag_l == "script":
+                      attrs_d = dict(attrs)
+                      stype = (attrs_d.get("type") or "").lower()
+                      if "ld+json" in stype:
+                          self.in_ldjson = True
+                          self.ldjson_buf = []
+                      else:
+                          self.skip += 1
+                  elif tag_l == "style":
                       self.skip += 1
                   self.out.append(self.get_starttag_text())
+
               def handle_startendtag(self, tag, attrs):
                   self.out.append(self.get_starttag_text())
+
               def handle_endtag(self, tag):
-                  if tag.lower() in ("script", "style") and self.skip > 0:
+                  tag_l = tag.lower()
+                  if tag_l == "script" and self.in_ldjson:
+                      content = "".join(self.ldjson_buf)
+                      self.out.append(process_ldjson(content, self.modo, self.rt))
+                      self.in_ldjson = False
+                      self.ldjson_buf = []
+                  elif tag_l in ("script", "style") and self.skip > 0:
                       self.skip -= 1
                   self.out.append(f"</{tag}>")
+
               def handle_data(self, data):
-                  self.out.append(data if self.skip else self._limpa(data))
+                  if self.in_ldjson:
+                      self.ldjson_buf.append(data)
+                  elif self.skip:
+                      self.out.append(data)
+                  else:
+                      self.out.append(self._limpa(data))
+
               def handle_entityref(self, name): self.out.append(f"&{name};")
               def handle_charref(self, name):   self.out.append(f"&#{name};")
               def handle_comment(self, data):   self.out.append(f"<!--{self._limpa(data)}-->")
               def handle_decl(self, decl):      self.out.append(f"<!{decl}>")
               def handle_pi(self, data):        self.out.append(f"<?{data}>")
               def unknown_decl(self, data):     self.out.append(f"<![{data}]>")
-              def resultado(self):              return "".join(self.out)
+
+              def resultado(self):
+                  return "".join(self.out)
 
 
           def limpa_html(texto, modo, rt):
               p = LimpaHTML(modo, rt)
-              p.feed(texto); p.close()
+              p.feed(texto)
+              p.close()
               return p.resultado()
 
 
           def main():
               cfg = yaml.safe_load(Path(sys.argv[1]).read_text(encoding="utf-8"))
               entrada = Path(cfg["entrada"])
-              saida   = Path(cfg["saida"])
-              modo    = cfg.get("modo", "global")
-              dry     = bool(cfg.get("dry_run", True))
-              campos  = cfg.get("campos", ["titulo", "serie"])
-              rt      = monta_regex_tokens(cfg.get("remover_tokens") or [])
+              saida = Path(cfg["saida"])
+              modo = cfg.get("modo", "global")
+              dry = bool(cfg.get("dry_run", True))
+              campos = cfg.get("campos", ["titulo", "serie"])
+              rt = monta_regex_tokens(cfg.get("remover_tokens") or [])
 
               items = json.loads(entrada.read_text(encoding="utf-8"))
               processos, json_mod, vazios = [], 0, 0
@@ -243,13 +287,13 @@ jobs:
                   processos.append((old_link, new_link))
 
               if vazios:
-                  print(f"[aviso] {vazios} titulos ficaram vazios e viraram '(sem titulo)'.")
+                  print(f"[aviso] {vazios} titulos ficaram vazios.")
 
               if dry:
                   print(f"[dry_run] JSON: {json_mod} entradas seriam alteradas.")
               else:
                   saida.write_text(json.dumps(items, ensure_ascii=False, indent=2), encoding="utf-8")
-                  print(f"JSON gravado em {saida} ({json_mod} entradas alteradas).")
+                  print(f"JSON gravado ({json_mod} entradas alteradas).")
 
               if cfg.get("processar_html"):
                   html_dir = Path(cfg["html_dir"])
@@ -299,5 +343,5 @@ jobs:
             echo "Sem mudancas."
             exit 0
           fi
-          git commit -m "chore: dedupe anos + remove marc_sx7"
+          git commit -m "chore: dedupe anos + remove marc_sx7 (inclui JSON-LD)"
           git push
