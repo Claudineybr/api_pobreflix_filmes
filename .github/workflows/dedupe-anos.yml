@@ -1,0 +1,331 @@
+name: Dedupe Anos + Remove marc_sx7
+
+on:
+  workflow_dispatch:
+    inputs:
+      renomear_html:
+        description: "Renomear arquivos HTML tambem (e o link no catalogo.json)"
+        type: boolean
+        default: true
+      dry_run:
+        description: "Apenas simular (nao grava nada)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  dedupe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar PyYAML
+        run: pip install pyyaml
+
+      - name: Aplicar limpeza
+        env:
+          INPUT_RENOMEAR: ${{ inputs.renomear_html }}
+          INPUT_DRY: ${{ inputs.dry_run }}
+        run: |
+          mkdir -p /tmp/d
+
+          cat > /tmp/d/dedupe_anos.yml << YAML_CFG
+          entrada: catalogo.json
+          saida: catalogo.json
+          html_dir: .
+          processar_html: true
+          renomear_html: ${INPUT_RENOMEAR}
+          dry_run: ${INPUT_DRY}
+
+          # modo: global  -> remove TODAS as repeticoes do mesmo ano
+          # modo: adjacente -> so colapsa anos repetidos em sequencia
+          modo: global
+
+          # remove "marc_sx7" (case-insensitive) dos textos e slugs
+          remover_tokens:
+            - marc_sx7
+            - marcsx7
+
+          campos:
+            - titulo
+            - serie
+          YAML_CFG
+
+          cat > /tmp/d/dedupe_anos.py << 'PYEOF'
+          #!/usr/bin/env python3
+          import json
+          import re
+          import sys
+          from pathlib import Path
+          import yaml
+          from html.parser import HTMLParser
+
+          YEAR_RE = re.compile(r'(?<!\d)((?:19|20)\d{2})(?!\d)')
+          ADJ_RE  = re.compile(r'(?<!\d)((?:19|20)\d{2})(?:\s+\1(?!\d))+')
+
+
+          def monta_regex_tokens(tokens):
+              """
+              Casa tokens case-insensitive, com separadores opcionais antes/depois.
+              Ex.: marc_sx7, marc-sx7, MarcSx7, _marc_sx7_, (marc_sx7), etc.
+              """
+              if not tokens:
+                  return None
+              alts = []
+              for t in tokens:
+                  # escapa e permite _ / - / espaço entre letras
+                  partes = [re.escape(p) for p in re.split(r'[_\-\s]+', t) if p]
+                  alts.append(r'[_\-\s]*'.join(partes))
+              alt = "|".join(alts)
+              # captura separadores em volta para limpar o buraco deixado
+              return re.compile(
+                  r'(?i)(?:[_\-\s\(\[\.]*)(?:' + alt + r')(?:[_\-\s\)\]\.]*)'
+              )
+
+
+          def normaliza_espacos(s: str) -> str:
+              s = re.sub(r'[ \t]+', ' ', s)
+              s = re.sub(r'\s+([,.;:!?])', r'\1', s)
+              return s.strip(" _-.")
+
+
+          def remove_tokens_texto(texto, regex_tokens):
+              if regex_tokens is None or not isinstance(texto, str):
+                  return texto
+              # roda 2x para pegar encadeamentos tipo "marc_sx7 marc_sx7"
+              for _ in range(3):
+                  novo = regex_tokens.sub(" ", texto)
+                  if novo == texto:
+                      break
+                  texto = novo
+              return normaliza_espacos(texto)
+
+
+          def dedupe_texto(texto: str, modo: str = "global") -> str:
+              if not isinstance(texto, str):
+                  return texto
+              if modo == "adjacente":
+                  texto = ADJ_RE.sub(r'\1', texto)
+              else:
+                  vistos = set()
+                  def repl(m):
+                      ano = m.group(1)
+                      if ano in vistos:
+                          return ""
+                      vistos.add(ano)
+                      return ano
+                  texto = YEAR_RE.sub(repl, texto)
+              return normaliza_espacos(texto)
+
+
+          def limpa_slug(nome: str, modo: str, regex_tokens) -> str:
+              p = Path(nome)
+
+              # 1) remove tokens (ex.: marc_sx7) do stem
+              stem = p.stem
+              if regex_tokens is not None:
+                  for _ in range(3):
+                      novo = regex_tokens.sub("_", stem)
+                      novo = re.sub(r'_{2,}', '_', novo).strip('_')
+                      if novo == stem:
+                          break
+                      stem = novo
+
+              # 2) dedupe anos em segmentos
+              partes = [x for x in stem.split("_") if x]
+              out, vistos, ultimo_ano = [], set(), None
+              for parte in partes:
+                  eh_ano = YEAR_RE.fullmatch(parte) is not None
+                  if eh_ano:
+                      if modo == "adjacente":
+                          if parte == ultimo_ano:
+                              continue
+                          ultimo_ano = parte
+                      else:
+                          if parte in vistos:
+                              continue
+                          vistos.add(parte)
+                  else:
+                      ultimo_ano = None
+                  out.append(parte)
+
+              novo_stem = "_".join(out) or "arquivo"
+              return novo_stem + p.suffix
+
+
+          class LimpaHTML(HTMLParser):
+              def __init__(self, modo, regex_tokens):
+                  super().__init__(convert_charrefs=False)
+                  self.modo = modo
+                  self.rt = regex_tokens
+                  self.out = []
+                  self.skip = 0
+
+              def _limpa(self, data):
+                  return dedupe_texto(remove_tokens_texto(data, self.rt), self.modo)
+
+              def handle_starttag(self, tag, attrs):
+                  if tag.lower() in ("script", "style"):
+                      self.skip += 1
+                  self.out.append(self.get_starttag_text())
+
+              def handle_startendtag(self, tag, attrs):
+                  self.out.append(self.get_starttag_text())
+
+              def handle_endtag(self, tag):
+                  if tag.lower() in ("script", "style") and self.skip > 0:
+                      self.skip -= 1
+                  self.out.append(f"</{tag}>")
+
+              def handle_data(self, data):
+                  self.out.append(data if self.skip else self._limpa(data))
+
+              def handle_entityref(self, name):
+                  self.out.append(f"&{name};")
+
+              def handle_charref(self, name):
+                  self.out.append(f"&#{name};")
+
+              def handle_comment(self, data):
+                  # comentarios tambem podem conter marc_sx7
+                  self.out.append(f"<!--{self._limpa(data)}-->")
+
+              def handle_decl(self, decl):
+                  self.out.append(f"<!{decl}>")
+
+              def handle_pi(self, data):
+                  self.out.append(f"<?{data}>")
+
+              def unknown_decl(self, data):
+                  self.out.append(f"<![{data}]>")
+
+              def resultado(self):
+                  return "".join(self.out)
+
+
+          def limpa_html(texto, modo, regex_tokens):
+              parser = LimpaHTML(modo, regex_tokens)
+              parser.feed(texto)
+              parser.close()
+              return parser.resultado()
+
+
+          def main():
+              cfg_path = Path(sys.argv[1] if len(sys.argv) > 1 else "dedupe_anos.yml")
+              cfg = yaml.safe_load(cfg_path.read_text(encoding="utf-8"))
+
+              entrada  = Path(cfg["entrada"])
+              saida    = Path(cfg["saida"])
+              modo     = cfg.get("modo", "global")
+              dry      = bool(cfg.get("dry_run", True))
+              campos   = cfg.get("campos", ["titulo", "serie"])
+              tokens   = cfg.get("remover_tokens") or []
+              rtokens  = monta_regex_tokens(tokens)
+
+              items = json.loads(entrada.read_text(encoding="utf-8"))
+              processos = []
+              json_mod  = 0
+
+              for item in items:
+                  old_link = item.get("link")
+                  mudou = False
+
+                  for campo in campos:
+                      valor = item.get(campo)
+                      if isinstance(valor, str):
+                          novo = remove_tokens_texto(valor, rtokens)
+                          novo = dedupe_texto(novo, modo)
+                          if novo != valor:
+                              item[campo] = novo
+                              mudou = True
+
+                  new_link = old_link
+                  if cfg.get("renomear_html") and old_link:
+                      new_link = limpa_slug(old_link, modo, rtokens)
+                      if new_link != old_link:
+                          item["link"] = new_link
+                          mudou = True
+
+                  if mudou:
+                      json_mod += 1
+                  processos.append((old_link, new_link))
+
+              if dry:
+                  print(f"[dry_run] JSON: {json_mod} entradas seriam alteradas (nao gravado).")
+              else:
+                  saida.write_text(
+                      json.dumps(items, ensure_ascii=False, indent=2),
+                      encoding="utf-8",
+                  )
+                  print(f"JSON gravado em {saida} ({json_mod} entradas alteradas).")
+
+              if cfg.get("processar_html"):
+                  html_dir = Path(cfg["html_dir"])
+                  vistos = set()
+                  ok = miss = err = 0
+                  for old_link, new_link in processos:
+                      if not old_link or old_link in vistos:
+                          continue
+                      vistos.add(old_link)
+
+                      src = html_dir / old_link
+                      if not src.exists():
+                          miss += 1
+                          print(f"[HTML ausente] {src}")
+                          continue
+
+                      try:
+                          texto = src.read_text(encoding="utf-8", errors="ignore")
+                          limpo = limpa_html(texto, modo, rtokens)
+                          dst = html_dir / new_link
+
+                          if dry:
+                              print(f"[dry_run] {src} -> {dst}")
+                          else:
+                              dst.parent.mkdir(parents=True, exist_ok=True)
+                              if dst != src and dst.exists():
+                                  print(f"[colisao] {dst} ja existe, sobrescrevendo")
+                              dst.write_text(limpo, encoding="utf-8")
+                              if dst != src and src.exists():
+                                  src.unlink()
+                          ok += 1
+                      except Exception as e:
+                          err += 1
+                          print(f"[erro] {src}: {e}")
+
+                  if dry:
+                      print(f"[dry_run] HTML: {ok} ok, {miss} ausentes, {err} erros (nada gravado).")
+                  else:
+                      print(f"HTML processado: {ok} ok, {miss} ausentes, {err} erros.")
+
+
+          if __name__ == "__main__":
+              main()
+          PYEOF
+
+          python3 /tmp/d/dedupe_anos.py /tmp/d/dedupe_anos.yml
+
+      - name: Commit e push
+        if: ${{ inputs.dry_run == false }}
+        run: |
+          git config user.name  "marc_sx7"
+          git config user.email "marc_sx7@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Sem mudancas para commitar."
+            exit 0
+          fi
+          git commit -m "chore: dedupe anos + remove marc_sx7 do catalogo e HTMLs"
+          git push
