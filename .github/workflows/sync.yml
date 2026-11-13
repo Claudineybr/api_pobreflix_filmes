@@ -47,8 +47,10 @@ jobs:
           SUFIXO = "🍿Clau"
           dir_saida.mkdir(parents=True, exist_ok=True)
 
-          IGNORAR_NOMES = ("pendentes", "fila", "feitas", "feitos", "descartados", "consertados", "cache", "renomeados",
-                           "lista", "erros", "totais", "package", "urls_invalidas")
+          # arquivos de controle (NÃO são filmes/séries). Compara o nome inteiro: "Lista de Schindler" ou "Perfeitos Desconhecidos" não contam.
+          IGNORAR_RX = re.compile(
+              r"^(?:(?:filmes|series)_(?:fila|feitos|feitas|pendentes|descartados|descartadas|consertados|consertadas|erros|totais)\w*"
+              r"|urls_invalidas|renomeados|cache|package|lista|index|relatorio_\w+)$", re.I)
           PROTEGIDOS = {"index.html", "serie.html"}
 
           TEMPLATE = """<!DOCTYPE html>
@@ -106,28 +108,36 @@ jobs:
 
           RX_ANO_COLCH = re.compile(r"\s*\[\s*((?:19|20)\d{2})\s*\]\s*(?:[‧·•].*)?$")
           RX_ANO_PAR = re.compile(r"\s*\(\s*((?:19|20)\d{2})\s*\)\s*$")
-          RX_ANO_FIM = re.compile(r"\s+((?:19|20)\d{2})\s*$")
-          RX_TRAIL = re.compile(r"(?:\s+(?:dublado|legendado|online|completo|hdcam|hdts|webrip|cam))+$", re.I)
+          RX_ANO_FIM = re.compile(r"[\s\-–—]+((?:19|20)\d{2})\s*$")
+          RX_ANO_FECHA = re.compile(r"[\s\-–—]*((?:19|20)\d{2})\s*\)\s*$")   # "2025)" sem abrir
+          SEP = " -–—|:\u2027\u00b7\u2022"
+          _TAGS = r"dublado|legendado|online|completo|hdcam|hdts|webrip|web-dl|cam|leg|dub|hd|4k|1080p|720p"
+          RX_TRAIL = re.compile(rf"(?:\s+(?:{_TAGS})|\s*[(\[]\s*(?:{_TAGS})[\w\s.\-]*[)\]])+$", re.I)
+          RX_ANO_ABERTO = re.compile(r"\s*\(\s*((?:19|20)\d{2})\s*$")   # "(2010" sem fechar
           RX_SERIE = re.compile(
               r"^(?P<serie>.+?)\s*[-–—]?\s*\bT(?P<t>\d{1,2})\s*E(?:P)?(?P<e>\d{1,3})\b(?:\s*[-–—:]\s*(?P<tit>.+))?$", re.I)
           RX_ARQ_SERIE = re.compile(r"_t(\d{1,2})e(?:p)?(\d{1,3})(?:_\d+)?$", re.I)
 
 
           def titulo_e_ano(bruto):
+              """Tira TODOS os anos do fim do título (ex.: 'Nome (2006) - (2006)', 'Nome 2021', 'Nome [2023] ‧ Gênero')
+              e devolve (titulo, ano) com um único ano."""
               t = normalizar(bruto)
               ano = ""
-              for rx in (RX_ANO_COLCH, RX_ANO_PAR):
-                  m = rx.search(t)
-                  if m:
-                      ano = m.group(1)
+              for _ in range(5):
+                  t = RX_TRAIL.sub("", t.strip(SEP)).strip(SEP)   # 'legendado', 'hdcam'... antes do ano
+                  for rx in (RX_ANO_COLCH, RX_ANO_PAR, RX_ANO_ABERTO, RX_ANO_FECHA, RX_ANO_FIM):
+                      m = rx.search(t)
+                      if not m:
+                          continue
+                      if rx is RX_ANO_FIM and ((ano and m.group(1) != ano) or len(t[:m.start()].strip(SEP)) < 2):
+                          continue   # "2012" sozinho é o título; e "Blade Runner 2049 (2017)" mantém o 2049
+                      ano = ano or m.group(1)   # vale o ano mais perto do fim
                       t = t[:m.start()]
                       break
-              else:
-                  m = RX_ANO_FIM.search(t)
-                  if m and len(t[:m.start()].strip()) >= 2:   # "2012" sozinho é o título, não um ano
-                      ano = m.group(1)
-                      t = t[:m.start()]
-              t = RX_TRAIL.sub("", t.strip(" -–—|:"))
+                  else:
+                      break
+              t = RX_TRAIL.sub("", t.strip(SEP)).strip(SEP)
               t = re.sub(r"[\s.:;,\-–—]+$", "", t).strip()
               return (t or "Desconhecido"), ano
 
@@ -144,7 +154,7 @@ jobs:
                   return None
               l = link.strip().strip("\"'")
               l = re.sub(r"<[^>]+>", "", l).strip()
-              l = re.sub(r"^https?:(?=https?://)", "", l, flags=re.I)
+              l = re.sub(r"^https?:(?://)?(?=h?ttps?://)", "", l, flags=re.I)   # "https:https://", "http://ttp://"
               l = re.sub(r"^h?ttp(s?)://", lambda m: "http" + m.group(1) + "://", l, flags=re.I)
               if l.startswith("//"):
                   l = "https:" + l
@@ -171,7 +181,7 @@ jobs:
           # ---------------------------------------------------------------- coleta
           def pular(arq):
               n = arq.name.lower()
-              return n in PROTEGIDOS or any(x in n for x in IGNORAR_NOMES)
+              return n in PROTEGIDOS or bool(IGNORAR_RX.match(re.sub(r"\.(json|html|txt)$", "", n)))
 
 
           arquivos = []
