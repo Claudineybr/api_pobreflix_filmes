@@ -112,7 +112,7 @@ jobs:
           RX_ANO_FECHA = re.compile(r"[\s\-–—]*((?:19|20)\d{2})\s*\)\s*$")   # "2025)" sem abrir
           SEP = " -–—|:\u2027\u00b7\u2022"
           _TAGS = r"dublado|legendado|online|completo|hdcam|hdts|webrip|web-dl|cam|leg|dub|hd|4k|1080p|720p"
-          RX_TRAIL = re.compile(rf"(?:\s+(?:{_TAGS})|\s*[(\[]\s*(?:{_TAGS})[\w\s.\-]*[)\]])+$", re.I)
+          RX_TRAIL = re.compile(rf"(?:\s+(?:{_TAGS})|\s*[(\[]\s*(?:{_TAGS})[\w\s.\-]*[)\]]?)+$", re.I)
           RX_ANO_ABERTO = re.compile(r"\s*\(\s*((?:19|20)\d{2})\s*$")   # "(2010" sem fechar
           RX_SERIE = re.compile(
               r"^(?P<serie>.+?)\s*[-–—]?\s*\bT(?P<t>\d{1,2})\s*E(?:P)?(?P<e>\d{1,3})\b(?:\s*[-–—:]\s*(?P<tit>.+))?$", re.I)
@@ -154,6 +154,9 @@ jobs:
                   return None
               l = link.strip().strip("\"'")
               l = re.sub(r"<[^>]+>", "", l).strip()
+              m_in = re.search(r"https?://[^\s\"']+", l, re.I)
+              if m_in and not re.match(r"https?:", l, re.I):
+                  l = m_in.group(0)   # "11 http://..." / "S6T6 http://..." -> só o link
               l = re.sub(r"^https?:(?://)?(?=h?ttps?://)", "", l, flags=re.I)   # "https:https://", "http://ttp://"
               l = re.sub(r"^h?ttp(s?)://", lambda m: "http" + m.group(1) + "://", l, flags=re.I)
               if l.startswith("//"):
@@ -192,7 +195,7 @@ jobs:
           arquivos.sort(key=lambda a: (1 if dir_novos in a.parents else 0, len(a.name)), reverse=True)
 
           links_vistos, nomes_usados = set(), {}
-          feitos = duplicados = copiados_originais = 0
+          feitos = duplicados = copiados_originais = ignorados_json = 0
           invalidos = []
 
           for arq in arquivos:
@@ -202,7 +205,13 @@ jobs:
                   texto = arq.read_text(encoding="utf-8-sig")
                   m_url = re.search(r'"(?:contentUrl|embedUrl)"\s*:\s*"([^"]*)"', texto)
                   url_bruta = m_url.group(1) if m_url else ""
+                  if not m_url and arq.suffix.lower() == ".json":
+                      ignorados_json += 1      # lista/dados da origem (ex.: filmes.json), não é um filme: não vira .html
+                      continue
                   url = reparar_link(url_bruta)
+                  if not url and arq.suffix.lower() == ".json":
+                      invalidos.append(f"{arq.name}  ->  {url_bruta[:100]}  (JSON sem link aproveitável: não publicado)")
+                      continue
                   if not url:
                       # link sem conserto: NÃO inventa link falso; mantém o arquivo original como está e lista no relatório
                       invalidos.append(f"{arq.name}  ->  {url_bruta[:100]}")
@@ -243,6 +252,7 @@ jobs:
                           serie, tit = m_n["serie"].strip(" -–—|:"), (m_n["tit"] or "").strip(" -–—|:")
                       else:
                           serie, tit = base_nome, ""
+                      tit = re.sub(r"^(?:ep(?:is[oó]dio)?\.?\s*\d+\s*[-–—:.]*\s*)", "", tit, flags=re.I).strip(" -–—|:")
                       serie = titulo_e_ano(serie)[0]
                       nome = f"{serie} - T{t}E{e}" + (f" – {tit}" if tit else "") + f" - {SUFIXO}"
                       stem = f"{slug(serie)}_t{t:02d}ep{e:02d}"
@@ -270,7 +280,7 @@ jobs:
           total_saida = feitos + copiados_originais
           atuais = [f for f in raiz.glob("*.html") if f.name not in PROTEGIDOS]
           print(f"Padronizados: {feitos} | originais mantidos (link sem conserto/erro): {copiados_originais} | "
-                f"duplicados descartados (mesmo vídeo): {duplicados} | links inválidos: {len(invalidos)}")
+                f"duplicados descartados (mesmo vídeo): {duplicados} | JSON sem vídeo ignorados: {ignorados_json} | links inválidos: {len(invalidos)}")
 
           # ---------------------------------------------------------------- trava de segurança
           if total_saida == 0 or (len(atuais) > 50 and total_saida < len(atuais) * 0.5):
