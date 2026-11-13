@@ -36,11 +36,15 @@ jobs:
                       arquivos.append((caminho_relativo, file))
 
           episodios = []
-          padrao_nome = re.compile(r'(.+)_t(\d+)e(\d+)\.html', re.IGNORECASE)
 
-          # Regex para a capa (thumbnail)
-          padrao_img = re.compile(r'"thumbnailUrl"\s*:\s*\[\s*["\']([^"\']+)["\']', re.IGNORECASE)
-          # Regex para o vídeo (contentUrl)
+          # CORRIGIDO: aceita "ep" (formato atual) e "e" (formato antigo)
+          #   ex.: 9_1_1_t01ep01.html  -> serie=9_1_1, temp=01, ep=01
+          #       9_1_1_t01e01.html    -> serie=9_1_1, temp=01, ep=01
+          padrao_nome = re.compile(r'(.+)_t(\d+)ep?(\d+)\.html', re.IGNORECASE)
+
+          # CORRIGIDO: aceita thumbnailUrl como string OU array
+          padrao_img = re.compile(r'"thumbnailUrl"\s*:\s*\[?\s*["\']([^"\']+)["\']', re.IGNORECASE)
+          # Video (contentUrl no JSON-LD do HTML)
           padrao_video = re.compile(r'"contentUrl"\s*:\s*["\']([^"\']+)["\']', re.IGNORECASE)
 
           for caminho, arquivo in arquivos:
@@ -99,9 +103,9 @@ jobs:
 
           # ORDENAÇÃO: alfabética pelo nome da série, depois numérica por temporada e episódio
           episodios.sort(key=lambda x: (
-              x["serie"].lower(),   # alfabética (ignora maiúsculas/minúsculas)
-              int(x["temporada"]),  # numérica
-              int(x["episodio"])    # numérica
+              x["serie"].lower(),
+              int(x["temporada"]),
+              int(x["episodio"])
           ))
 
           with open('catalogo.json', 'w', encoding='utf-8') as f:
