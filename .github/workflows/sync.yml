@@ -349,6 +349,47 @@ jobs:
               print(f"{nome}: {mudou} chaves migradas")
           PYEOF
 
+      - name: Aplicar capas do TMDB nos HTML
+        run: |
+          python3 -I - << 'PYEOF'
+          # Troca a capa do blog pela do TMDB (capas.json) direto nos HTML recém-gerados.
+          # Roda DEPOIS de gerar os arquivos, por isso a troca não se perde a cada sincronização.
+          # Quem não está no capas.json (ou não foi achado no TMDB) mantém a capa que já tem.
+          import html as htmllib, json, os, re
+          from pathlib import Path
+
+          PROTEGIDOS = {"index.html", "serie.html"}
+          try:
+              capas = json.load(open("capas.json", encoding="utf-8"))
+          except (OSError, ValueError):
+              capas = {}
+          RX_SERIE = re.compile(r"^(.+?)_t(\d+)e(?:p)?(\d+)(?:_\d+)?$", re.I)
+          RX_THUMB = re.compile(r'"thumbnailUrl"\s*:\s*\[\s*"([^"]*)"')
+          trocados = 0
+          for f in sorted(Path(".").glob("*.html")):
+              if f.name in PROTEGIDOS:
+                  continue
+              slug = f.stem
+              m = RX_SERIE.match(slug)
+              if m:
+                  e = capas.get("serie:" + m[1].lower()) or {}
+                  nova = (e.get("temporadas") or {}).get(str(int(m[2]))) or e.get("poster")
+              else:
+                  nova = (capas.get(slug) or {}).get("poster")
+              if not nova:
+                  continue
+              texto = f.read_text(encoding="utf-8")
+              mt = RX_THUMB.search(texto)
+              if not mt or mt[1] == nova:
+                  continue
+              velha = mt[1]
+              novo_texto = texto.replace(velha, nova).replace(htmllib.escape(velha, quote=True), htmllib.escape(nova, quote=True))
+              if novo_texto != texto:
+                  f.write_text(novo_texto, encoding="utf-8")
+                  trocados += 1
+          print(f"Capas do TMDB aplicadas em {trocados} arquivos.")
+          PYEOF
+
       - name: Salvar alterações
         run: |
           git config user.name "Claudineybr"
