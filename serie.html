@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#070d0b">
+  <link rel="icon" type="image/svg+xml" href="/icones/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icones/favicon-32.png">
+  <link rel="apple-touch-icon" href="/icones/apple-touch-icon.png">
   <title>🎄 Episódios - Clau Flix</title>
   <style>
     /* =====================================================================
@@ -231,9 +234,20 @@
     const LS_FAVORITOS = 'clauFlix_favoritos_v1';
 
     // Placeholder local (o antigo via.placeholder.com saiu do ar)
-    const SEM_CAPA = 'data:image/svg+xml;utf8,' + encodeURIComponent(
-      '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600"><rect width="100%" height="100%" fill="#14302a"/><text x="50%" y="50%" fill="#ff7d88" font-family="Arial" font-size="34" font-weight="bold" text-anchor="middle" dominant-baseline="middle">SÉRIE</text></svg>'
-    );
+    function semCapa(titulo) {
+      const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+      const linhas = [];
+      let atual = '';
+      String(titulo || '').split(/\s+/).forEach((p) => {
+        if ((atual + ' ' + p).trim().length > 16 && atual) { linhas.push(atual); atual = p; } else { atual = (atual + ' ' + p).trim(); }
+      });
+      if (atual) linhas.push(atual);
+      const txt = linhas.slice(0, 3).map((l, n) => `<text x="50%" y="${372 + n * 34}" fill="#fff" font-family="Arial" font-size="27" font-weight="bold" text-anchor="middle">${esc(l)}</text>`).join('');
+      const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600"><defs><radialGradient id="g" cx=".5" cy=".35" r=".8"><stop offset="0" stop-color="#1f4a40"/><stop offset="1" stop-color="#0d1a16"/></radialGradient></defs>'
+        + '<rect width="100%" height="100%" fill="url(#g)"/><circle cx="200" cy="230" r="52" fill="#e5384a"/><path d="M184 202 L184 258 L232 230 Z" fill="#fff" stroke="#fff" stroke-width="6" stroke-linejoin="round"/>'
+        + txt + '<rect x="170" y="' + (372 + Math.min(linhas.length, 3) * 34) + '" width="60" height="5" rx="2.5" fill="#ffc83d"/></svg>';
+      return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    }
 
     // ===================================================================
     // 2. UTILITÁRIOS
@@ -459,7 +473,7 @@
       heroEl.innerHTML = `
         <div class="serie-bg"></div>
         <div class="serie-inner">
-          <img class="serie-poster" id="capaSerie" src="${esc(capa || SEM_CAPA)}" alt="Capa de ${esc(nome)}" decoding="async">
+          <img class="serie-poster" id="capaSerie" src="${esc(capa || semCapa(nome))}" alt="Capa de ${esc(nome)}" decoding="async">
           <div class="serie-texto">
             <span class="eyebrow">🎄 Série</span>
             <h1 id="tituloSerie">${esc(nome)}</h1>
@@ -664,7 +678,7 @@
 
     // Capa quebrada -> placeholder local
     heroEl.addEventListener('error', (e) => {
-      if (e.target.id === 'capaSerie' && e.target.src !== SEM_CAPA) e.target.src = SEM_CAPA;
+      if (e.target.id === 'capaSerie' && !e.target.src.startsWith('data:')) e.target.src = semCapa((e.target.alt || '').replace(/^Capa de /, ''));
     }, true);
 
     window.addEventListener('scroll', () => $('topo').classList.toggle('rolou', window.scrollY > 20), { passive: true });
