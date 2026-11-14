@@ -51,7 +51,8 @@ jobs:
           IGNORAR_RX = re.compile(
               r"^(?:(?:filmes|series)_(?:fila|feitos|feitas|pendentes|descartados|descartadas|consertados|consertadas|erros|totais)\w*"
               r"|urls_invalidas|renomeados|cache|package|lista|index|relatorio_\w+)$", re.I)
-          PROTEGIDOS = {"index.html", "serie.html"}
+          # NUNCA apagar: páginas do site + índices gerados pelos outros workflows (custaram IA/API para fazer)
+          PROTEGIDOS = {"index.html", "serie.html", "catalogo.json", "classificacao.json", "titulos.json", "capas.json"}
 
           TEMPLATE = """<!DOCTYPE html>
           <html lang="pt-BR">
@@ -304,6 +305,47 @@ jobs:
           PYEOF
 
           python3 -I "$T/filtrar.py" "$T/origem" "$T/novos" "$T/saida" "$PWD"
+
+      - name: Migrar chaves dos índices para os nomes novos
+        run: |
+          python3 -I - << 'PYEOF'
+          # Os nomes dos arquivos mudaram (filme x_2010_2010.html -> x_2010.html; série x_t1e1.html -> x_t01ep01.html).
+          # Sem isso classificacao/titulos/capas "esqueceriam" tudo e a IA reclassificaria o catálogo inteiro.
+          import json, os, re
+
+          def arq(k):
+              m = re.fullmatch(r"(.+)_t(\d+)e(?:p)?(\d+)\.html", k, re.I)
+              if m:
+                  return f"{m[1]}_t{int(m[2]):02d}ep{int(m[3]):02d}.html"
+              m = re.fullmatch(r"(.+)_((?:19|20)\d{2})_\2\.html", k)
+              return f"{m[1]}_{m[2]}.html" if m else k
+
+          def slug(k):
+              if k.startswith("serie:"):
+                  return k
+              m = re.fullmatch(r"(.+)_((?:19|20)\d{2})_\2", k)
+              return f"{m[1]}_{m[2]}" if m else k
+
+          for nome, f in (("classificacao.json", arq), ("titulos.json", slug), ("capas.json", slug)):
+              if not os.path.exists(nome):
+                  continue
+              try:
+                  d = json.load(open(nome, encoding="utf-8"))
+              except ValueError:
+                  print(f"[AVISO] {nome} ilegível; não mexi.")
+                  continue
+              novo = {k: v for k, v in d.items() if f(k) == k}
+              mudou = 0
+              for k, v in d.items():
+                  if f(k) != k and f(k) not in novo:
+                      novo[f(k)] = v
+                      mudou += 1
+              if mudou:
+                  with open(nome + ".tmp", "w", encoding="utf-8") as fo:
+                      json.dump(novo, fo, ensure_ascii=False, indent=2)
+                  os.replace(nome + ".tmp", nome)
+              print(f"{nome}: {mudou} chaves migradas")
+          PYEOF
 
       - name: Salvar alterações
         run: |
