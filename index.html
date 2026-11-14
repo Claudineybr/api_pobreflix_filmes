@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#070d0b">
+  <link rel="icon" type="image/svg+xml" href="/icones/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icones/favicon-32.png">
+  <link rel="apple-touch-icon" href="/icones/apple-touch-icon.png">
   <title>🎄 Clau Flix - Especial de Natal</title>
   <style>
     /* =====================================================================
@@ -118,9 +121,15 @@
     .card-media::before { content: ''; position: absolute; inset: auto 0 0 0; height: 45%; background: linear-gradient(to top, rgba(7, 13, 11, 0.85), transparent); z-index: 1; pointer-events: none; }
     .card-media::after { content: '▶'; position: absolute; top: 50%; left: 50%; z-index: 2; width: 62px; height: 62px; margin: -31px 0 0 -31px; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding-left: 4px; font-size: 1.5rem; color: #fff; background: rgba(229, 56, 74, 0.92); box-shadow: 0 0 30px rgba(229, 56, 74, 0.7); opacity: 0; transform: scale(0.6); transition: opacity 0.35s var(--ease), transform 0.35s var(--ease); pointer-events: none; }
     .card:hover .card-media::after, .card:focus-within .card-media::after { opacity: 1; transform: scale(1); }
-    .card-fallback { position: absolute; inset: 0; align-items: center; justify-content: center; text-align: center; padding: 10px; }
+    /* Placeholder da capa: play + título (aparece se não há capa ou ela falha ao carregar) */
+    .card-fallback { position: absolute; z-index: 1; inset: 0; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center; padding: 16px 12px 22px;
+      background: radial-gradient(circle at 50% 35%, #1f4a40, #0d1a16 75%); }
     .card-fallback:not([hidden]) { display: flex; }
-    .card-fallback span { font-size: 1.8rem; font-weight: 900; color: #ff7d88; letter-spacing: 2px; }
+    .card-fallback::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.55) 1px, transparent 1.5px), radial-gradient(rgba(255,255,255,.35) 1px, transparent 1.5px); background-size: 46px 46px, 31px 31px; background-position: 6px 10px, 20px 24px; opacity: .45; }
+    .card-media:has(.card-fallback:not([hidden]))::after { display: none; }
+    .fb-play { position: relative; width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding-left: 4px; font-style: normal; font-size: 1.5rem; color: #fff; background: #e5384a; box-shadow: 0 0 26px rgba(229, 56, 74, 0.55); }
+    .fb-titulo { position: relative; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-size: 0.95rem; font-weight: 800; line-height: 1.25; color: #fff; }
+    .card-fallback::after { content: ''; width: 44px; height: 4px; border-radius: 2px; background: var(--ouro, #ffc83d); }
     .tag { position: absolute; left: 10px; top: 10px; z-index: 3; padding: 4px 10px; border-radius: 999px; font-size: 0.68rem; font-weight: 800; letter-spacing: 1px; color: #1a1200; background: var(--ouro); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
     .tag.serie { color: #fff; background: var(--verde); }
 
@@ -725,7 +734,7 @@
              aria-label="${item.isAgrupado ? 'Ver episódios de' : 'Assistir'} ${titulo}">
             <div class="card-media">
               ${capa}
-              <div class="card-fallback"${temCapa(item) ? ' hidden' : ''}><span>${rotulo}</span></div>
+              <div class="card-fallback"${temCapa(item) ? ' hidden' : ''}><i class="fb-play" aria-hidden="true">▶</i><strong class="fb-titulo">${titulo}</strong></div>
               <span class="tag${item.isAgrupado ? ' serie' : ''}">${rotulo}</span>
             </div>
             <div class="card-info">
@@ -995,12 +1004,16 @@
       }
     });
 
-    // Imagem quebrada -> mostra o rótulo (FILME/SÉRIE) no lugar
+    // Imagem quebrada -> mostra o placeholder (play + título) no lugar
     grid.addEventListener('error', (e) => {
       if (e.target.tagName !== 'IMG') return;
       e.target.hidden = true;
       const fallback = e.target.nextElementSibling;
       if (fallback) fallback.hidden = false;
+    }, true);
+
+    hero.addEventListener('error', (e) => {
+      if (e.target.classList && e.target.classList.contains('hero-poster')) e.target.style.display = 'none';
     }, true);
 
     paginacao.addEventListener('click', (e) => {
