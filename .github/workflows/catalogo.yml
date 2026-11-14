@@ -1,15 +1,20 @@
 name: Gerar Catalogo de Filmes e Series
 
+# Botão "Run workflow": varre os .html, gera catalogo.json e commita só se mudou.
 "on":
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: catalogo
+  cancel-in-progress: false
+
 jobs:
   build-catalog:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 30
     steps:
       - name: Baixar o codigo do repositorio
         uses: actions/checkout@v4
@@ -17,104 +22,132 @@ jobs:
       - name: Configurar o Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.12'
 
-      - name: Rodar script Python e Gerar JSON
+      - name: Gerar catalogo.json
         run: |
-          python << 'EOF'
-          import os, re, json
+          python -u - <<'PYEOF'
+          import html as htmllib, json, os, re, unicodedata
 
-          arquivos = []
-          for root, dirs, files in os.walk('.'):
-              if '.git' in root or '.github' in root:
-                  continue
+          IGNORAR = {"index.html", "serie.html", "404.html"}
+          RX_EP = re.compile(r"^(.+?)_(?:t(\d+)e(\d+)|(\d+)x(\d+))$", re.I)
+          RX_THUMB = re.compile(r'"thumbnailUrl"\s*:\s*\[\s*["\']([^"\']+)["\']', re.I)
+          RX_VIDEO = re.compile(r'"contentUrl"\s*:\s*["\']([^"\']+)["\']', re.I)
+          RX_IMG = re.compile(r'<img[^>]+src=["\']([^"\']+)["\']', re.I)
+          RX_DATASRC = re.compile(r'data-src=["\']([^"\']+)["\']', re.I)
+          RX_TITULO = re.compile(r"<h1[^>]*>(.*?)</h1>|<title[^>]*>(.*?)</title>", re.I | re.S)
+          SUFIXOS = re.compile(r"\s*[-|–—]\s*(assistir|assista|online|dublado|legendado|clau\s*flix|hd|completo)[^|]*$", re.I)
 
-              for file in files:
-                  if file.endswith('.html') and file != 'index.html':
-                      caminho_completo = os.path.join(root, file)
-                      caminho_relativo = caminho_completo.replace('.\\', '').replace('./', '').replace('\\', '/')
-                      arquivos.append((caminho_relativo, file))
 
-          episodios = []
+          def norm(s):
+              s = unicodedata.normalize("NFD", s).encode("ascii", "ignore").decode().lower()
+              return re.sub(r"[^a-z0-9]+", " ", s).strip()
 
-          # CORRIGIDO: aceita "ep" (formato atual) e "e" (formato antigo)
-          #   ex.: 9_1_1_t01ep01.html  -> serie=9_1_1, temp=01, ep=01
-          #       9_1_1_t01e01.html    -> serie=9_1_1, temp=01, ep=01
-          padrao_nome = re.compile(r'(.+)_t(\d+)ep?(\d+)\.html', re.IGNORECASE)
 
-          # CORRIGIDO: aceita thumbnailUrl como string OU array
-          padrao_img = re.compile(r'"thumbnailUrl"\s*:\s*\[?\s*["\']([^"\']+)["\']', re.IGNORECASE)
-          # Video (contentUrl no JSON-LD do HTML)
-          padrao_video = re.compile(r'"contentUrl"\s*:\s*["\']([^"\']+)["\']', re.IGNORECASE)
+          def do_arquivo(slug):
+              """Título legível a partir do nome do arquivo: ano duplicado vira (ANO)."""
+              slug = re.sub(r"_(\d{4})_\1$", r"_\1", slug)
+              m = re.search(r"^(.*?)_(\d{4})$", slug)
+              base, ano = (m.group(1), m.group(2)) if m else (slug, "")
+              nome = " ".join(w.capitalize() for w in re.split(r"[_\-\s]+", base) if w)
+              return f"{nome} ({ano})" if ano else nome
 
-          for caminho, arquivo in arquivos:
-              img_url = ""
-              video_url = ""
+
+          def do_html(conteudo, slug_norm):
+              """Título do HTML (com acentos), só se bater com o nome do arquivo; senão None."""
+              m = RX_TITULO.search(conteudo)
+              if not m:
+                  return None
+              t = htmllib.unescape(re.sub(r"<[^>]+>", "", m.group(1) or m.group(2) or "")).strip()
+              t = re.sub(r"\s*[-|–—]?\s*[^\w\s]*\s*clau(\s*flix)?\s*$", "", t, flags=re.I)   # "- 🍿Clau"
+              t = SUFIXOS.sub("", t)
+              t = re.sub(r"(\(\d{4}\))(\s*[-|–—]\s*\1)+", r"\1", t)                         # "(2010) - (2010)"
+              t = re.sub(r"[\s\-|–—]+$", "", t)
+              t = re.sub(r"\s*[-|–]?\s*(T\d+E\d+|\d+x\d+)\s*$", "", t, flags=re.I).strip()
+              t = re.sub(r"\s*\(?\b(\d{4})\b\)?\s+\(?\1\)?$", r" (\1)", t).strip()
+              sem_ano = re.sub(r"\(\d{4}\)|\b\d{4}\b", "", t)
+              if t and norm(sem_ano) and slug_norm.startswith(norm(sem_ano)):
+                  return t
+              return None
+
+
+          def extrair(conteudo):
+              m = RX_THUMB.search(conteudo) or RX_IMG.search(conteudo)
+              v = RX_VIDEO.search(conteudo) or RX_DATASRC.search(conteudo)
+              return (m.group(1) if m else ""), (v.group(1) if v else "")
+
+
+          def listar():
+              for raiz, dirs, files in os.walk("."):
+                  dirs[:] = [d for d in dirs if not d.startswith(".") and d != "node_modules"]
+                  for f in files:
+                      if f.endswith(".html") and f not in IGNORAR:
+                          yield os.path.relpath(os.path.join(raiz, f), ".").replace("\\", "/"), f
+
+
+          def main():
               try:
-                  with open(caminho, 'r', encoding='utf-8', errors='ignore') as f:
-                      conteudo = f.read()
+                  tit = json.load(open("titulos.json", encoding="utf-8"))
+              except (OSError, ValueError):
+                  tit = {}
+              corrigido = lambda k: (tit.get(k) or {}).get("titulo")
+              try:
+                  capas = json.load(open("capas.json", encoding="utf-8"))
+              except (OSError, ValueError):
+                  capas = {}
 
-                      match_img = padrao_img.search(conteudo)
-                      if not match_img:
-                          match_img = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', conteudo, re.IGNORECASE)
-                      if match_img:
-                          img_url = match_img.group(1)
+              def capa(k, temporada=None):
+                  e = capas.get(k) or {}
+                  return (e.get("temporadas") or {}).get(str(temporada)) or e.get("poster")
 
-                      match_video = padrao_video.search(conteudo)
-                      if match_video:
-                          video_url = match_video.group(1)
-                      else:
-                          # Fallback para a div com data-src
-                          match_video = re.search(r'data-src=["\']([^"\']+)["\']', conteudo, re.IGNORECASE)
-                          if match_video:
-                              video_url = match_video.group(1)
+              itens, sem_video = [], 0
+              for caminho, arquivo in listar():
+                  slug = arquivo[:-5]
+                  try:
+                      conteudo = open(caminho, encoding="utf-8", errors="ignore").read()
+                  except OSError as e:
+                      print(f"Erro ao ler {caminho}: {e}")
+                      conteudo = ""
+                  thumb, video = extrair(conteudo)
+                  sem_video += not video
+                  m = RX_EP.match(slug)
+                  if m:
+                      t = int(m.group(2) or m.group(4)); e = int(m.group(3) or m.group(5))
+                      serie = corrigido("serie:" + m.group(1).lower()) or do_html(conteudo, norm(m.group(1))) or do_arquivo(m.group(1))
+                      titulo = f"{serie} - T{t}E{e:02d}"
+                      thumb = capa("serie:" + m.group(1).lower(), t) or thumb
+                  else:
+                      t = e = 1
+                      thumb = capa(slug) or thumb
+                      serie = titulo = corrigido(slug) or do_html(conteudo, norm(re.sub(r"_(\d{4})_\1$", r"_\1", slug))) or do_arquivo(slug)
+                  itens.append({"titulo": titulo, "serie": serie, "temporada": t, "episodio": e,
+                                "link": caminho, "thumbnailUrl": thumb, "videoUrl": video})
+              itens.sort(key=lambda x: (x["serie"].lower(), x["temporada"], x["episodio"], x["link"]))
+              tmp = "catalogo.json.tmp"
+              with open(tmp, "w", encoding="utf-8") as f:
+                  json.dump(itens, f, indent=2, ensure_ascii=False)
+              os.replace(tmp, "catalogo.json")
+              print(f"catalogo.json: {len(itens)} itens, {sem_video} sem vídeo")
 
-              except Exception as e:
-                  print(f"Erro ao ler {caminho}: {e}")
 
-              match = padrao_nome.match(arquivo)
-              if match:
-                  nome_serie = match.group(1).replace('_', ' ').replace('-', ' ').title()
-                  temporada = int(match.group(2))
-                  episodio = int(match.group(3))
+          main()
+          PYEOF
 
-                  episodios.append({
-                      "titulo": f"{nome_serie} - T{temporada}E{episodio:02d}",
-                      "serie": nome_serie,
-                      "temporada": temporada,
-                      "episodio": episodio,
-                      "link": caminho,
-                      "thumbnailUrl": img_url,
-                      "videoUrl": video_url
-                  })
-              else:
-                  nome = arquivo.replace('.html', '').replace('_', ' ').replace('-', ' ').title()
-                  episodios.append({
-                      "titulo": nome,
-                      "serie": nome,
-                      "temporada": 1,
-                      "episodio": 1,
-                      "link": caminho,
-                      "thumbnailUrl": img_url,
-                      "videoUrl": video_url
-                  })
-
-              print(f"Arquivo: {arquivo} | Video: {video_url if video_url else 'NÃO ENCONTRADO'}")
-
-          # ORDENAÇÃO: alfabética pelo nome da série, depois numérica por temporada e episódio
-          episodios.sort(key=lambda x: (
-              x["serie"].lower(),
-              int(x["temporada"]),
-              int(x["episodio"])
-          ))
-
-          with open('catalogo.json', 'w', encoding='utf-8') as f:
-              json.dump(episodios, f, indent=2, ensure_ascii=False)
-          EOF
-
-      - name: Configurar Git, commitar e enviar
+      - name: Commitar catalogo.json
         run: |
-          git config user.name "github-actions[bot]"
+          git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add catalogo.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto: Atualizando catalogo.json com links de vídeo" && git push)
+          if git diff --cached --quiet; then
+            echo "Sem mudanças — nada a commitar."
+            exit 0
+          fi
+          git commit -m "chore: atualiza catalogo.json [skip ci]"
+          for i in 1 2 3; do
+            if git pull origin "$GITHUB_REF_NAME" -X ours --no-rebase && git push; then
+              exit 0
+            fi
+            echo "Push falhou (tentativa $i). Tentando de novo..."
+            sleep 5
+          done
+          exit 1
