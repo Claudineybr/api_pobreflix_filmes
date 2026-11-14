@@ -116,13 +116,14 @@ jobs:
                       if f.endswith(".html") and f not in IGNORAR:
                           yield os.path.relpath(os.path.join(raiz, f), ".").replace("\\", "/"), f
 
-          import sys, threading, time, urllib.error, urllib.parse, urllib.request
+          import difflib, sys, threading, time, unicodedata, urllib.error, urllib.parse, urllib.request
           from concurrent.futures import ThreadPoolExecutor, as_completed
 
           MODO = os.environ.get("MODO") or "pendentes"
           FILTRO = (os.environ.get("FILTRO") or "").lower().strip()
           TAMANHO = os.environ.get("TAMANHO") or "w500"
           CHAVE = (os.environ.get("TMDB_API_KEY") or "").strip()
+          CRITERIO = 2   # sobe quando o critério de busca melhora (reenfileira os "não achados")
           SAIDA, MAX_TENTATIVAS, MAX_WORKERS, TEMPO_LIMITE, LIMITE_PODA = "capas.json", 2, 8, 300 * 60, 0.20
           IMG = "https://image.tmdb.org/t/p/" + TAMANHO
           trava = threading.Lock()
@@ -164,26 +165,75 @@ jobs:
               raise ConnectionError(f"TMDB sem resposta em {caminho}")
 
 
+          ROMANOS = {"ii": "2", "iii": "3", "iv": "4", "v": "5", "vi": "6", "vii": "7", "viii": "8", "ix": "9", "x": "10"}
+          EXTRAS_OK = {"parte", "part", "vol", "volume", "capitulo", "chapter", "o", "a", "filme", "the", "movie"}
+
+
+          def nm(t):
+              """Normaliza p/ comparar: sem acento (5ª->5a), '&'->'e', romanos->números, sem pontuação."""
+              t = unicodedata.normalize("NFKD", str(t or "")).encode("ascii", "ignore").decode().lower().replace("&", " e ")
+              return " ".join(ROMANOS.get(w, w) for w in re.sub(r"[^a-z0-9]+", " ", t).split())
+
+
+          def variantes(nome):
+              """Formas alternativas do nome: sem '(Origem)', bilíngue 'A - B', subtítulo 'A: B', números soltos no fim."""
+              v = [nome]
+              sem_par = re.sub(r"\s*\((?!\d{4}\))[^)]*\)", "", nome).strip()
+              v += [sem_par] + re.findall(r"\((?!\d{4}\))([^)]+)\)", nome)
+              partes = [x.strip() for x in re.split(r"\s+[-–—]\s+|:\s+", sem_par) if len(x.strip()) >= 3]
+              limpo = re.sub(r"\b(?:19|20)\d{2}\b(?=.*\b(?:19|20)\d{2}\b)", "", sem_par)          # ano repetido no meio
+              limpo = re.sub(r"\s+\d{1,2}$", "", re.sub(r"\s+", " ", limpo).strip())                   # "Orion e o Escuro 10"
+              v.append(limpo)
+              visto, res = set(), []
+              for x, forte in [(x, True) for x in v] + [(x, False) for x in partes]:
+                  x = re.sub(r"\s+", " ", x).strip(" -–—:")
+                  if len(x) >= 3 and nm(x) not in visto:
+                      visto.add(nm(x)); res.append((x, forte))
+              return res[:6]       # forte=False: pedaço do nome (só vale se houver ano para confirmar)
+
+
+          def aceitar(q, ano, r, filme, primeiro):
+              """Decide se o resultado r do TMDB é o mesmo título de q. Regra de ouro: sem capa > capa errada."""
+              nq = nm(q)
+              cands = [nm(r.get("title" if filme else "name", "")), nm(r.get("original_title" if filme else "original_name", ""))]
+              brutos = [r.get("title" if filme else "name", ""), r.get("original_title" if filme else "original_name", "")]
+              y = int(((r.get("release_date" if filme else "first_air_date")) or "0")[:4] or 0)
+              ano_ok = (not ano) or (y and abs(y - ano) <= 1)
+              if nq in cands:                                                   # A) nome idêntico
+                  return ano_ok
+              for c, b in zip(cands, brutos):
+                  if not c:
+                      continue
+                  rt = difflib.SequenceMatcher(None, nq, c).ratio()
+                  if rt >= (0.88 if ano else 0.92) and ano_ok:                  # B) quase idêntico (typo, pontuação)
+                      return True
+                  wq, wc = nq.split(), c.split()
+                  if ano and ano_ok and wc and wq[:len(wc)] == wc and all(w.isdigit() or w in EXTRAS_OK for w in wq[len(wc):]):
+                      return True                                               # C) "Pânico 5" = "Pânico" (mesmo ano)
+                  antes = nm(re.split(r":\s|\s[-–—]\s", b, maxsplit=1)[0]) if re.search(r":\s|\s[-–—]\s", b or "") else ""
+                  if antes and antes == nq and (ano_ok if ano else primeiro):
+                      return True                                               # D) título + subtítulo do TMDB
+                  if not ano and not filme and primeiro and len(wq) >= 2 and wc[:len(wq)] == wq:
+                      return True                                               # E) série sem ano: começa igual e é o 1º resultado
+              return False
+
+
           def achar(tipo, titulo):
-              """Procura no TMDB. Só aceita se o NOME bater (e o ano, com folga de 1) — melhor sem capa do que capa errada."""
               m = re.search(r"\((\d{4})\)\s*$", titulo)
               ano = int(m.group(1)) if m else None
               nome = re.sub(r"\s*\(\d{4}\)\s*$", "", titulo).strip()
               filme = tipo == "movie"
-              for filtro_ano in ([ano, None] if ano else [None]):
-                  params = {"query": nome}
-                  if filtro_ano:
-                      params["year" if filme else "first_air_date_year"] = filtro_ano
-                  for r in tmdb(f"search/{tipo}", **params).get("results", []):
-                      if not r.get("poster_path"):
-                          continue
-                      nomes = {norm(r.get("title" if filme else "name", "")), norm(r.get("original_title" if filme else "original_name", ""))}
-                      if norm(nome) not in nomes:
-                          continue
-                      y = int(((r.get("release_date" if filme else "first_air_date")) or "0")[:4] or 0)
-                      if ano and filtro_ano is None and abs(y - ano) > 1:
-                          continue
-                      return r
+              for q, forte in variantes(nome):
+                  if not forte and not ano:
+                      continue
+                  for filtro_ano in ([ano, None] if ano else [None]):
+                      params = {"query": q}
+                      if filtro_ano:
+                          params["year" if filme else "first_air_date_year"] = filtro_ano
+                      resultados = [r for r in tmdb(f"search/{tipo}", **params).get("results", []) if r.get("poster_path")]
+                      for n, r in enumerate(resultados):
+                          if aceitar(q, ano, r, filme, n == 0):
+                              return r
               return None
 
 
@@ -239,6 +289,8 @@ jobs:
               e = cache.get(k)
               if MODO == "tudo" or e is None or e.get("nome") != u["nome"]:
                   return True
+              if e.get("fonte") == "nao_achou" and e.get("v") != CRITERIO:
+                  return True                                    # critério melhorou: tenta de novo uma vez
               return e.get("fonte") == "nao_achou" and e.get("tentativas", 0) < MAX_TENTATIVAS
 
 
@@ -289,13 +341,16 @@ jobs:
                   elif antigo.get("fonte") == "tmdb":
                       pass                                           # já tinha capa boa: mantém
                   else:
-                      cache[k] = {"fonte": "nao_achou", "nome": u["nome"],
+                      cache[k] = {"fonte": "nao_achou", "nome": u["nome"], "v": CRITERIO,
                                   "tentativas": (antigo.get("tentativas", 0) + 1) if antigo.get("nome") == u["nome"] else 1}
                       nao += 1
                   if i % 200 == 0:
                       salvar(cache); log(f"📊 {i}/{len(fila)}")
           salvar(cache)
           log("=" * 50)
+          for k, e in sorted(cache.items()):
+              if e.get("fonte") == "nao_achou" and e.get("v") == CRITERIO:
+                  log(f"   sem capa: {e.get('nome')}")
           log(f"🎉 {achou} com capa do TMDB, {nao} não encontrados (ficam com a capa atual), {falhou} falhas de rede (continuam na fila).")
           sys.exit(1 if (falhou and not achou and not nao) else 0)
           PYEOF
