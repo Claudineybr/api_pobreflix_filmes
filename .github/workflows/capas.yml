@@ -2,7 +2,7 @@ name: Trocar capas pelo TMDB
 
 # Procura cada filme/série no TMDB pelo nome (usa o titulos.json se existir) e grava capas.json.
 # Filme = 1 capa. Série = 1 capa por TEMPORADA (episódios da mesma temporada dividem a capa).
-# Quem não for achado fica com a capa atual. Precisa do secret TMDB_API_KEY (chave grátis do TMDB).
+# Quem não for achado fica com a capa atual. No fim, dispara o catalogo.yml. Precisa do secret TMDB_API_KEY (chave grátis do TMDB).
 #   pendentes  só o que falta / mudou de nome (padrão)
 #   tudo       refaz tudo
 #   refazer    refaz só o que contém o texto do campo "filtro"
@@ -33,6 +33,7 @@ name: Trocar capas pelo TMDB
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: capas
@@ -355,12 +356,54 @@ jobs:
           sys.exit(1 if (falhou and not achou and not nao) else 0)
           PYEOF
 
-      - name: Commitar capas.json
+      - name: Aplicar capas nos HTML (páginas novas já saem com a capa certa)
+        if: always()
+        run: |
+          python3 -I - << 'PYEOF'
+          # Troca a capa do blog pela do TMDB (capas.json) direto nos HTML recém-gerados.
+          # Roda DEPOIS de gerar os arquivos, por isso a troca não se perde a cada sincronização.
+          # Quem não está no capas.json (ou não foi achado no TMDB) mantém a capa que já tem.
+          import html as htmllib, json, os, re
+          from pathlib import Path
+
+          PROTEGIDOS = {"index.html", "serie.html"}
+          try:
+              capas = json.load(open("capas.json", encoding="utf-8"))
+          except (OSError, ValueError):
+              capas = {}
+          RX_SERIE = re.compile(r"^(.+?)_t(\d+)e(?:p)?(\d+)(?:_\d+)?$", re.I)
+          RX_THUMB = re.compile(r'"thumbnailUrl"\s*:\s*\[\s*"([^"]*)"')
+          trocados = 0
+          for f in sorted(Path(".").glob("*.html")):
+              if f.name in PROTEGIDOS:
+                  continue
+              slug = f.stem
+              m = RX_SERIE.match(slug)
+              if m:
+                  e = capas.get("serie:" + m[1].lower()) or {}
+                  nova = (e.get("temporadas") or {}).get(str(int(m[2]))) or e.get("poster")
+              else:
+                  nova = (capas.get(slug) or {}).get("poster")
+              if not nova:
+                  continue
+              texto = f.read_text(encoding="utf-8")
+              mt = RX_THUMB.search(texto)
+              if not mt or mt[1] == nova:
+                  continue
+              velha = mt[1]
+              novo_texto = texto.replace(velha, nova).replace(htmllib.escape(velha, quote=True), htmllib.escape(nova, quote=True))
+              if novo_texto != texto:
+                  f.write_text(novo_texto, encoding="utf-8")
+                  trocados += 1
+          print(f"Capas do TMDB aplicadas em {trocados} arquivos.")
+          PYEOF
+
+      - name: Commitar capas.json e HTML
         if: always()
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add capas.json
+          git add capas.json '*.html'
           if git diff --cached --quiet; then
             echo "Sem mudanças — nada a commitar."
             exit 0
@@ -372,5 +415,21 @@ jobs:
             fi
             echo "Push falhou (tentativa $i). Tentando de novo..."
             sleep 5
+          done
+          exit 1
+
+      - name: Disparar o catalogo
+        if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "🔁 Disparando workflow catalogo.yml..."
+          for i in 1 2 3; do
+            if gh workflow run "catalogo.yml" --ref "$GITHUB_REF_NAME"; then
+              echo "✅ catalogo.yml disparado!"
+              exit 0
+            fi
+            echo "⚠️ Erro ao disparar (tentativa $i/3). Tentando de novo em 10s..."
+            sleep 10
           done
           exit 1
