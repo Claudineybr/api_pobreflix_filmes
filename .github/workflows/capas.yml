@@ -1,0 +1,321 @@
+name: Trocar capas pelo TMDB
+
+# Procura cada filme/série no TMDB pelo nome (usa o titulos.json se existir) e grava capas.json.
+# Filme = 1 capa. Série = 1 capa por TEMPORADA (episódios da mesma temporada dividem a capa).
+# Quem não for achado fica com a capa atual. Precisa do secret TMDB_API_KEY (chave grátis do TMDB).
+#   pendentes  só o que falta / mudou de nome (padrão)
+#   tudo       refaz tudo
+#   refazer    refaz só o que contém o texto do campo "filtro"
+"on":
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "O que fazer"
+        type: choice
+        default: pendentes
+        options:
+          - pendentes
+          - tudo
+          - refazer
+      filtro:
+        description: "Só títulos/arquivos que contenham este texto (obrigatório no modo refazer)"
+        type: string
+        required: false
+        default: ""
+      tamanho:
+        description: "Tamanho da capa (w342 leve, w500 padrão, w780 mais nítida)"
+        type: choice
+        default: w500
+        options:
+          - w342
+          - w500
+          - w780
+
+permissions:
+  contents: write
+
+concurrency:
+  group: capas
+  cancel-in-progress: false
+
+jobs:
+  capas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Buscar capas no TMDB
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          MODO: ${{ inputs.modo || 'pendentes' }}
+          FILTRO: ${{ inputs.filtro || '' }}
+          TAMANHO: ${{ inputs.tamanho || 'w500' }}
+          PYTHONUNBUFFERED: "1"
+        run: |
+          python -u - <<'PYEOF'
+          import html as htmllib, json, os, re, unicodedata
+
+          IGNORAR = {"index.html", "serie.html", "404.html"}
+          RX_EP = re.compile(r"^(.+?)_(?:t(\d+)e(?:p)?(\d+)|(\d+)x(\d+))(?:_\d+)?$", re.I)
+          RX_THUMB = re.compile(r'"thumbnailUrl"\s*:\s*\[\s*["\']([^"\']+)["\']', re.I)
+          RX_VIDEO = re.compile(r'"contentUrl"\s*:\s*["\']([^"\']+)["\']', re.I)
+          RX_IMG = re.compile(r'<img[^>]+src=["\']([^"\']+)["\']', re.I)
+          RX_DATASRC = re.compile(r'data-src=["\']([^"\']+)["\']', re.I)
+          RX_TITULO = re.compile(r"<h1[^>]*>(.*?)</h1>|<title[^>]*>(.*?)</title>", re.I | re.S)
+          SUFIXOS = re.compile(r"\s*[-|–—]\s*(assistir|assista|online|dublado|legendado|clau\s*flix|hd|completo)[^|]*$", re.I)
+
+
+          def norm(s):
+              s = unicodedata.normalize("NFD", s).encode("ascii", "ignore").decode().lower()
+              return re.sub(r"[^a-z0-9]+", " ", s).strip()
+
+
+          def do_arquivo(slug):
+              """Título legível a partir do nome do arquivo: ano duplicado vira (ANO)."""
+              slug = re.sub(r"_(\d{4})_\1$", r"_\1", slug)
+              slug = re.sub(r"^(.*_(?:19|20)\d{2})_\d{1,2}$", r"\1", slug)   # "nome_2010_2" (nome repetido)
+              m = re.search(r"^(.*?)_(\d{4})$", slug)
+              base, ano = (m.group(1), m.group(2)) if m else (slug, "")
+              nome = " ".join(w.capitalize() for w in re.split(r"[_\-\s]+", base) if w)
+              return f"{nome} ({ano})" if ano else nome
+
+
+          def do_html(conteudo, slug_norm):
+              """Título do HTML (com acentos), só se bater com o nome do arquivo; senão None."""
+              m = RX_TITULO.search(conteudo)
+              if not m:
+                  return None
+              t = htmllib.unescape(re.sub(r"<[^>]+>", "", m.group(1) or m.group(2) or "")).strip()
+              t = re.sub(r"\s*[-|–—]?\s*[^\w\s]*\s*clau(\s*flix)?\s*$", "", t, flags=re.I)   # "- 🍿Clau"
+              t = SUFIXOS.sub("", t)
+              t = re.sub(r"(\(\d{4}\))(\s*[-|–—]\s*\1)+", r"\1", t)                         # "(2010) - (2010)"
+              t = re.sub(r"[\s\-|–—]+$", "", t)
+              t = re.sub(r"\s*[-|–—]?\s*(?:T\d+\s*E(?:P)?\d+|\d+x\d+)\b.*$", "", t, flags=re.I).strip()   # "Série - T1E1 – Título"
+              t = re.sub(r"\s*\(?\b(\d{4})\b\)?\s+\(?\1\)?$", r" (\1)", t).strip()
+              sem_ano = re.sub(r"\(\d{4}\)|\b\d{4}\b", "", t)
+              if t and norm(sem_ano) and slug_norm.startswith(norm(sem_ano)):
+                  return t
+              return None
+
+
+          def extrair(conteudo):
+              m = RX_THUMB.search(conteudo) or RX_IMG.search(conteudo)
+              v = RX_VIDEO.search(conteudo) or RX_DATASRC.search(conteudo)
+              return (m.group(1) if m else ""), (v.group(1) if v else "")
+
+
+          def listar():
+              for raiz, dirs, files in os.walk("."):
+                  dirs[:] = [d for d in dirs if not d.startswith(".") and d != "node_modules"]
+                  for f in files:
+                      if f.endswith(".html") and f not in IGNORAR:
+                          yield os.path.relpath(os.path.join(raiz, f), ".").replace("\\", "/"), f
+
+          import sys, threading, time, urllib.error, urllib.parse, urllib.request
+          from concurrent.futures import ThreadPoolExecutor, as_completed
+
+          MODO = os.environ.get("MODO") or "pendentes"
+          FILTRO = (os.environ.get("FILTRO") or "").lower().strip()
+          TAMANHO = os.environ.get("TAMANHO") or "w500"
+          CHAVE = (os.environ.get("TMDB_API_KEY") or "").strip()
+          SAIDA, MAX_TENTATIVAS, MAX_WORKERS, TEMPO_LIMITE, LIMITE_PODA = "capas.json", 2, 8, 300 * 60, 0.20
+          IMG = "https://image.tmdb.org/t/p/" + TAMANHO
+          trava = threading.Lock()
+
+
+          class ChaveInvalida(Exception):
+              pass
+
+
+          def log(msg):
+              with trava:
+                  print(msg, flush=True)
+
+
+          def tmdb(caminho, **params):
+              """GET na API do TMDB. Devolve o JSON; levanta erro se a rede falhar (o item fica na fila)."""
+              params.setdefault("language", "pt-BR")
+              cab = {"accept": "application/json"}
+              if CHAVE.startswith("eyJ"):
+                  cab["Authorization"] = "Bearer " + CHAVE      # token v4
+              else:
+                  params["api_key"] = CHAVE                     # chave v3
+              url = f"https://api.themoviedb.org/3/{caminho}?" + urllib.parse.urlencode(params)
+              for tent in range(5):
+                  try:
+                      with urllib.request.urlopen(urllib.request.Request(url, headers=cab), timeout=20) as r:
+                          return json.load(r)
+                  except urllib.error.HTTPError as e:
+                      if e.code in (401, 403):
+                          raise ChaveInvalida(f"TMDB respondeu {e.code}")
+                      if e.code == 404:
+                          return {}
+                      if e.code == 429:
+                          time.sleep(int(e.headers.get("Retry-After") or 2) + 1)
+                      else:
+                          time.sleep(2 * (tent + 1))
+                  except (urllib.error.URLError, TimeoutError, ValueError, OSError):
+                      time.sleep(2 * (tent + 1))
+              raise ConnectionError(f"TMDB sem resposta em {caminho}")
+
+
+          def achar(tipo, titulo):
+              """Procura no TMDB. Só aceita se o NOME bater (e o ano, com folga de 1) — melhor sem capa do que capa errada."""
+              m = re.search(r"\((\d{4})\)\s*$", titulo)
+              ano = int(m.group(1)) if m else None
+              nome = re.sub(r"\s*\(\d{4}\)\s*$", "", titulo).strip()
+              filme = tipo == "movie"
+              for filtro_ano in ([ano, None] if ano else [None]):
+                  params = {"query": nome}
+                  if filtro_ano:
+                      params["year" if filme else "first_air_date_year"] = filtro_ano
+                  for r in tmdb(f"search/{tipo}", **params).get("results", []):
+                      if not r.get("poster_path"):
+                          continue
+                      nomes = {norm(r.get("title" if filme else "name", "")), norm(r.get("original_title" if filme else "original_name", ""))}
+                      if norm(nome) not in nomes:
+                          continue
+                      y = int(((r.get("release_date" if filme else "first_air_date")) or "0")[:4] or 0)
+                      if ano and filtro_ano is None and abs(y - ano) > 1:
+                          continue
+                      return r
+              return None
+
+
+          def resolver(chave, u):
+              """-> entrada nova (achou) ou None (não existe no TMDB). Erro de rede levanta exceção."""
+              serie = chave.startswith("serie:")
+              r = achar("tv" if serie else "movie", u["nome"]) or (achar("tv" if serie else "movie", u["alt"]) if u["alt"] != u["nome"] else None)
+              if not r:
+                  return None
+              e = {"fonte": "tmdb", "tmdb_id": r["id"], "poster": IMG + r["poster_path"], "nome": u["nome"]}
+              if serie:
+                  temps = {}
+                  for s in tmdb(f"tv/{r['id']}").get("seasons", []):
+                      if s.get("poster_path") and (s.get("season_number") or 0) > 0:
+                          temps[str(s["season_number"])] = IMG + s["poster_path"]
+                  e["temporadas"] = temps
+              return e
+
+
+          def unidades():
+              """Uma por filme e UMA por série; nome = título corrigido (titulos.json) se existir."""
+              try:
+                  tit = json.load(open("titulos.json", encoding="utf-8"))
+              except (OSError, ValueError):
+                  tit = {}
+              res = {}
+              for caminho, arquivo in sorted(listar()):
+                  slug = arquivo[:-5]
+                  m = RX_EP.match(slug)
+                  chave = ("serie:" + m.group(1).lower()) if m else slug
+                  if chave in res:
+                      continue
+                  try:
+                      conteudo = open(caminho, encoding="utf-8", errors="ignore").read()
+                  except OSError:
+                      conteudo = ""
+                  if m:
+                      alt = do_html(conteudo, norm(m.group(1))) or do_arquivo(m.group(1))
+                  else:
+                      alt = do_html(conteudo, norm(re.sub(r"_(\d{4})_\1$", r"_\1", slug))) or do_arquivo(slug)
+                  res[chave] = {"nome": (tit.get(chave) or {}).get("titulo") or alt, "alt": alt}
+              return res
+
+
+          def salvar(cache):
+              tmp = SAIDA + ".tmp"
+              with open(tmp, "w", encoding="utf-8") as f:
+                  json.dump(cache, f, ensure_ascii=False, indent=2, sort_keys=True)
+              os.replace(tmp, SAIDA)
+
+
+          def pendente(k, u, cache):
+              e = cache.get(k)
+              if MODO == "tudo" or e is None or e.get("nome") != u["nome"]:
+                  return True
+              return e.get("fonte") == "nao_achou" and e.get("tentativas", 0) < MAX_TENTATIVAS
+
+
+          if os.path.exists(SAIDA):
+              try:
+                  cache = json.load(open(SAIDA, encoding="utf-8"))
+              except ValueError:
+                  print(f"❌ {SAIDA} ilegível; abortando sem alterar."); sys.exit(1)
+          else:
+              cache = {}
+
+          todas = unidades()
+          sobra = [k for k in cache if k not in todas]
+          if sobra and len(sobra) <= len(cache) * LIMITE_PODA:
+              for k in sobra:
+                  del cache[k]
+          fila = [(k, u) for k, u in todas.items() if (not FILTRO or FILTRO in k) and (MODO == "refazer" or pendente(k, u, cache))]
+          if MODO == "refazer" and not FILTRO:
+              print("❌ O modo 'refazer' exige o campo filtro."); sys.exit(1)
+          log("=" * 50)
+          log(f"🖼️  Modo {MODO} | {len(todas)} títulos únicos | {len(cache)} no cache | fila: {len(fila)} | tamanho {TAMANHO}")
+          log("=" * 50)
+          if not fila:
+              salvar(cache) if sobra else None
+              log("Nada a fazer."); sys.exit(0)
+          if not CHAVE:
+              print("❌ Secret TMDB_API_KEY não encontrado (crie uma chave grátis em themoviedb.org > Configurações > API)."); sys.exit(1)
+
+          achou = nao = falhou = 0
+          inicio = time.time()
+          with ThreadPoolExecutor(max_workers=MAX_WORKERS) as ex:
+              futs = {ex.submit(resolver, k, u): (k, u) for k, u in fila}
+              for i, fut in enumerate(as_completed(futs), 1):
+                  k, u = futs[fut]
+                  if time.time() - inicio > TEMPO_LIMITE:
+                      log("⏰ Tempo limite; o resto fica para a próxima rodada.")
+                      for f in futs: f.cancel()
+                      break
+                  try:
+                      e = fut.result()
+                  except ChaveInvalida as err:
+                      print(f"❌ {err}: confira o secret TMDB_API_KEY."); salvar(cache); sys.exit(1)
+                  except Exception as err:
+                      falhou += 1; log(f"[!] {k}: {str(err)[:80]} (continua na fila)"); continue
+                  antigo = cache.get(k) or {}
+                  if e:
+                      cache[k] = e; achou += 1
+                  elif antigo.get("fonte") == "tmdb":
+                      pass                                           # já tinha capa boa: mantém
+                  else:
+                      cache[k] = {"fonte": "nao_achou", "nome": u["nome"],
+                                  "tentativas": (antigo.get("tentativas", 0) + 1) if antigo.get("nome") == u["nome"] else 1}
+                      nao += 1
+                  if i % 200 == 0:
+                      salvar(cache); log(f"📊 {i}/{len(fila)}")
+          salvar(cache)
+          log("=" * 50)
+          log(f"🎉 {achou} com capa do TMDB, {nao} não encontrados (ficam com a capa atual), {falhou} falhas de rede (continuam na fila).")
+          sys.exit(1 if (falhou and not achou and not nao) else 0)
+          PYEOF
+
+      - name: Commitar capas.json
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add capas.json
+          if git diff --cached --quiet; then
+            echo "Sem mudanças — nada a commitar."
+            exit 0
+          fi
+          git commit -m "chore: atualiza capas do TMDB [skip ci]"
+          for i in 1 2 3; do
+            if git pull origin "$GITHUB_REF_NAME" -X ours --no-rebase && git push; then
+              exit 0
+            fi
+            echo "Push falhou (tentativa $i). Tentando de novo..."
+            sleep 5
+          done
+          exit 1
