@@ -1,0 +1,370 @@
+name: Corrigir titulos com IA
+
+# Fila: cada execução corrige um pedaço dos títulos (acentos/maiúsculas) e, se sobrar, se reagenda sozinha.
+# Resultado em titulos.json (o gerador do catálogo usa esse arquivo).
+#   pendentes  só o que falta (padrão; é o que a fila usa)
+#   tudo       refaz TODOS os títulos (a fila continua sozinha até acabar; nada é apagado,
+#              a entrada só é trocada quando a IA responde)
+#   refazer    refaz os títulos que contêm o texto do campo "filtro"
+"on":
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "O que fazer"
+        type: choice
+        default: pendentes
+        options:
+          - pendentes
+          - tudo
+          - refazer
+      filtro:
+        description: "Só títulos/arquivos que contenham este texto (obrigatório no modo refazer)"
+        type: string
+        required: false
+        default: ""
+      rodada:
+        description: "NÃO PREENCHER (usado pela fila para continuar o modo tudo)"
+        type: string
+        required: false
+        default: ""
+      limite:
+        description: "Máximo de títulos por execução (0 = o que der em ~5h)"
+        type: string
+        required: false
+        default: "0"
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: titulos
+  cancel-in-progress: false
+
+jobs:
+  titulos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar deps
+        run: pip install openai
+
+      - name: Corrigir titulos
+        id: fila
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          MODO: ${{ inputs.modo || 'pendentes' }}
+          FILTRO: ${{ inputs.filtro || '' }}
+          LIMITE: ${{ inputs.limite || '0' }}
+          RODADA: ${{ inputs.rodada || github.run_id }}
+          PYTHONUNBUFFERED: "1"
+        run: |
+          python -u - <<'PYEOF'
+          import html as htmllib, json, os, re, unicodedata
+
+          IGNORAR = {"index.html", "serie.html", "404.html"}
+          RX_EP = re.compile(r"^(.+?)_(?:t(\d+)e(?:p)?(\d+)|(\d+)x(\d+))(?:_\d+)?$", re.I)
+          RX_THUMB = re.compile(r'"thumbnailUrl"\s*:\s*\[\s*["\']([^"\']+)["\']', re.I)
+          RX_VIDEO = re.compile(r'"contentUrl"\s*:\s*["\']([^"\']+)["\']', re.I)
+          RX_IMG = re.compile(r'<img[^>]+src=["\']([^"\']+)["\']', re.I)
+          RX_DATASRC = re.compile(r'data-src=["\']([^"\']+)["\']', re.I)
+          RX_TITULO = re.compile(r"<h1[^>]*>(.*?)</h1>|<title[^>]*>(.*?)</title>", re.I | re.S)
+          SUFIXOS = re.compile(r"\s*[-|–—]\s*(assistir|assista|online|dublado|legendado|clau\s*flix|hd|completo)[^|]*$", re.I)
+
+
+          def norm(s):
+              s = unicodedata.normalize("NFD", s).encode("ascii", "ignore").decode().lower()
+              return re.sub(r"[^a-z0-9]+", " ", s).strip()
+
+
+          def do_arquivo(slug):
+              """Título legível a partir do nome do arquivo: ano duplicado vira (ANO)."""
+              slug = re.sub(r"_(\d{4})_\1$", r"_\1", slug)
+              slug = re.sub(r"^(.*_(?:19|20)\d{2})_\d{1,2}$", r"\1", slug)   # "nome_2010_2" (nome repetido)
+              m = re.search(r"^(.*?)_(\d{4})$", slug)
+              base, ano = (m.group(1), m.group(2)) if m else (slug, "")
+              nome = " ".join(w.capitalize() for w in re.split(r"[_\-\s]+", base) if w)
+              return f"{nome} ({ano})" if ano else nome
+
+
+          def do_html(conteudo, slug_norm):
+              """Título do HTML (com acentos), só se bater com o nome do arquivo; senão None."""
+              m = RX_TITULO.search(conteudo)
+              if not m:
+                  return None
+              t = htmllib.unescape(re.sub(r"<[^>]+>", "", m.group(1) or m.group(2) or "")).strip()
+              t = re.sub(r"\s*[-|–—]?\s*[^\w\s]*\s*clau(\s*flix)?\s*$", "", t, flags=re.I)   # "- 🍿Clau"
+              t = SUFIXOS.sub("", t)
+              t = re.sub(r"(\(\d{4}\))(\s*[-|–—]\s*\1)+", r"\1", t)                         # "(2010) - (2010)"
+              t = re.sub(r"[\s\-|–—]+$", "", t)
+              t = re.sub(r"\s*[-|–—]?\s*(?:T\d+\s*E(?:P)?\d+|\d+x\d+)\b.*$", "", t, flags=re.I).strip()   # "Série - T1E1 – Título"
+              t = re.sub(r"\s*\(?\b(\d{4})\b\)?\s+\(?\1\)?$", r" (\1)", t).strip()
+              sem_ano = re.sub(r"\(\d{4}\)|\b\d{4}\b", "", t)
+              if t and norm(sem_ano) and slug_norm.startswith(norm(sem_ano)):
+                  return t
+              return None
+
+
+          def extrair(conteudo):
+              m = RX_THUMB.search(conteudo) or RX_IMG.search(conteudo)
+              v = RX_VIDEO.search(conteudo) or RX_DATASRC.search(conteudo)
+              return (m.group(1) if m else ""), (v.group(1) if v else "")
+
+
+          def listar():
+              for raiz, dirs, files in os.walk("."):
+                  dirs[:] = [d for d in dirs if not d.startswith(".") and d != "node_modules"]
+                  for f in files:
+                      if f.endswith(".html") and f not in IGNORAR:
+                          yield os.path.relpath(os.path.join(raiz, f), ".").replace("\\", "/"), f
+
+          import sys, threading, time
+          from concurrent.futures import ThreadPoolExecutor, as_completed
+          from openai import OpenAI
+
+          MODO = os.environ.get("MODO") or "pendentes"
+          FILTRO = (os.environ.get("FILTRO") or "").lower().strip()
+          LIMITE = int(os.environ.get("LIMITE") or 0)
+          RODADA = os.environ.get("RODADA") or "r0"   # identifica uma passada do modo "tudo" (a fila continua nela)
+          PAUSA = int(os.environ.get("PAUSA") or 30)
+          MODELOS = [
+              # Só os que responderam sem travar no log real (os outros davam timeout ou 404).
+              "nvidia/nemotron-3-ultra-550b-a55b",        # ordem = confiabilidade (é também a ordem de reserva)
+              "minimaxai/minimax-m3.1-flash",
+              "nvidia/nemotron-3.5-super-vl-120b-a12b",
+              "nvidia/nemotron-3.5-lightning-30b-a3b",
+              "openai/gpt-oss-20b",
+          ]
+          # Pelo log real: o ultra quase não falha; gpt-oss dá timeout (lento), minimax dá 503/429. Quem começa o lote:
+          ROTACAO = [MODELOS[0], MODELOS[0], MODELOS[1], MODELOS[0], MODELOS[4], MODELOS[2]]
+          LOTE, MAX_WORKERS, MAX_TENTATIVAS, TEMPO_LIMITE, LIMITE_PODA = 25, 10, 2, 320 * 60, 0.20
+          SAIDA = "titulos.json"
+          SCHEMA = {"type": "object", "required": ["itens"], "properties": {"itens": {"type": "array", "items": {
+              "type": "object", "required": ["id", "titulo"],
+              "properties": {"id": {"type": "string"}, "titulo": {"type": "string"}}}}}}
+          trava = threading.Lock()
+
+
+          def log(msg):
+              with trava:
+                  print(msg, flush=True)
+
+
+          def saida_gh(**kv):
+              caminho = os.environ.get("GITHUB_OUTPUT")
+              if caminho:
+                  with open(caminho, "a", encoding="utf-8") as f:
+                      for k, v in kv.items():
+                          f.write(f"{k}={v}\n")
+
+
+          def salvar(cache):
+              tmp = SAIDA + ".tmp"
+              with open(tmp, "w", encoding="utf-8") as f:
+                  json.dump(cache, f, ensure_ascii=False, indent=2, sort_keys=True)
+              os.replace(tmp, SAIDA)
+
+
+          def sem_ano(t):
+              return norm(re.sub(r"\(?\b(19|20)\d{2}\b\)?", "", t))
+
+
+          def validar(orig, novo):
+              """Só aceita se for o MESMO título (acentos/maiúsculas/pontuação). Palavra trocada = rejeita."""
+              novo = re.sub(r"\s+", " ", (novo or "")).strip().strip("\"'")
+              if not novo or sem_ano(novo) != sem_ano(orig):
+                  return None
+              ano = re.search(r"\((\d{4})\)\s*$", orig)
+              if ano:
+                  novo = re.sub(r"\s*\(?\b\d{4}\b\)?\s*$", "", novo).strip() + f" ({ano.group(1)})"
+              return novo
+
+
+          def unidades():
+              """Uma unidade por filme e UMA por série (o nome da série vale para todos os episódios)."""
+              vistos = {}
+              for caminho, arquivo in sorted(listar()):
+                  slug = arquivo[:-5]
+                  m = RX_EP.match(slug)
+                  chave = ("serie:" + m.group(1).lower()) if m else slug
+                  if chave in vistos:
+                      continue
+                  try:
+                      conteudo = open(caminho, encoding="utf-8", errors="ignore").read()
+                  except OSError:
+                      conteudo = ""
+                  if m:
+                      orig = do_html(conteudo, norm(m.group(1))) or do_arquivo(m.group(1))
+                  else:
+                      orig = do_html(conteudo, norm(re.sub(r"_(\d{4})_\1$", r"_\1", slug))) or do_arquivo(slug)
+                  vistos[chave] = orig
+              return vistos
+
+
+          def pedir(lote, num, ini):
+              entrada = [{"id": str(i), "titulo": o} for i, (_, o) in enumerate(lote)]
+              prompt = (
+                  "Corrija a grafia de cada título de filme/série em português do Brasil: acentos, cedilha, til, "
+                  "maiúsculas/minúsculas e pontuação (ex.: 'Diario de um Banana' -> 'Diário de um Banana').\n"
+                  "NÃO traduza, NÃO troque, adicione ou remova palavras, NÃO invente subtítulo. "
+                  "Títulos em inglês ou de outra língua ficam no idioma original. Mantenha o ano entre parênteses. "
+                  "Se já estiver certo, devolva igual. Responda APENAS o JSON.\n\n"
+                  + json.dumps({"itens": entrada}, ensure_ascii=False))
+              inicio = ROTACAO[ini % len(ROTACAO)]
+              ordem = [inicio] + [m for m in MODELOS if m != inicio]
+              for rodada in range(2):
+                  for modelo in ordem:
+                      try:
+                          r = client.chat.completions.create(
+                              model=modelo, messages=[{"role": "user", "content": prompt}], temperature=0,
+                              max_tokens=8192,
+                              response_format={"type": "json_schema", "json_schema": {"name": "T", "schema": SCHEMA}})
+                          c = r.choices[0].message.content
+                          if not c:
+                              raise ValueError("JSON vazio")
+                          por = {str(x.get("id")): x.get("titulo") for x in json.loads(c).get("itens", [])}
+                          res = {i: por[str(i)] for i in range(len(lote))
+                                 if isinstance(por.get(str(i)), str) and por[str(i)].strip()}
+                          if res:
+                              log(f"[✓] Lote {num} com {modelo} ({len(res)}/{len(lote)})")
+                              return res
+                          log(f"[!] {modelo} não respondeu nenhum item. Pulando...")
+                      except Exception as e:
+                          log(f"[!] {modelo}: {str(e)[:90]}. Pulando...")
+                  if rodada == 0:
+                      time.sleep(PAUSA)
+              log(f"[x] Lote {num} sem resposta; os itens continuam na fila.")
+              return {}
+
+
+          def pendente(chave, orig, cache):
+              e = cache.get(chave)
+              if MODO == "tudo":
+                  return e is None or e.get("rodada") != RODADA
+              if e is None or e.get("original") != orig:
+                  return True
+              return e.get("fonte") == "mantido" and e.get("tentativas", 0) < MAX_TENTATIVAS
+
+
+          def aplicar(cache, chave, orig, novo):
+              certo = validar(orig, novo)
+              antigo = cache.get(chave) or {}
+              if certo:
+                  cache[chave] = {"titulo": certo, "original": orig, "fonte": "ia"}
+              elif antigo.get("fonte") == "ia" and antigo.get("original") == orig:
+                  pass                                    # já tinha título bom: nunca troca por pior
+              else:
+                  cache[chave] = {"titulo": orig, "original": orig, "fonte": "mantido",
+                                  "tentativas": antigo.get("tentativas", 0) + 1 if antigo.get("original") == orig else 1}
+              if MODO == "tudo":
+                  cache[chave]["rodada"] = RODADA
+
+
+          if os.path.exists(SAIDA):
+              try:
+                  cache = json.load(open(SAIDA, encoding="utf-8"))
+              except ValueError:
+                  print(f"❌ {SAIDA} ilegível; abortando sem alterar.")
+                  sys.exit(1)
+          else:
+              cache = {}
+
+          todas = unidades()
+          sobra = [k for k in cache if k not in todas]
+          if sobra and len(sobra) <= len(cache) * LIMITE_PODA:
+              for k in sobra:
+                  del cache[k]
+              salvar(cache)
+              log(f"🧹 {len(sobra)} entradas de arquivos apagados removidas.")
+
+          filtradas = [(k, o) for k, o in todas.items() if not FILTRO or FILTRO in k]
+          if MODO == "refazer":
+              if not FILTRO:
+                  print("❌ O modo 'refazer' exige o campo filtro."); sys.exit(1)
+              fila = filtradas
+          else:
+              fila = [(k, o) for k, o in filtradas if pendente(k, o, cache)]
+          total_fila = len(fila)
+          if LIMITE:
+              fila = fila[:LIMITE]
+          log("=" * 50)
+          log(f"🔎 Modo {MODO} | {len(todas)} títulos únicos | {len(cache)} já feitos | fila: {total_fila} | nesta rodada: {len(fila)}")
+          log("=" * 50)
+          if not fila:
+              saida_gh(continuar="false", restantes=0)
+              log("Fila vazia. Nada a fazer.")
+              sys.exit(0)
+          if not os.environ.get("NVIDIA_API_KEY"):
+              print("❌ Secret NVIDIA_API_KEY não encontrado."); sys.exit(1)
+          client = OpenAI(api_key=os.environ["NVIDIA_API_KEY"], base_url="https://integrate.api.nvidia.com/v1",
+                          timeout=90, max_retries=0)
+
+          lotes = [fila[i:i + LOTE] for i in range(0, len(fila), LOTE)]
+          inicio, feitos, mudaram = time.time(), 0, 0
+          with ThreadPoolExecutor(max_workers=MAX_WORKERS) as ex:
+              futs = {ex.submit(pedir, b, n + 1, n % len(MODELOS)): b for n, b in enumerate(lotes)}
+              for fut in as_completed(futs):
+                  if time.time() - inicio > TEMPO_LIMITE:
+                      log("⏰ Tempo limite atingido; o resto fica na fila.")
+                      for f in futs:
+                          f.cancel()
+                      break
+                  lote, res = futs[fut], fut.result()
+                  for i, novo in res.items():
+                      k, o = lote[i]
+                      aplicar(cache, k, o, novo)
+                      feitos += 1
+                      mudaram += cache[k]["titulo"] != o
+                  if res:
+                      salvar(cache)
+                  log(f"📊 {feitos}/{len(fila)} títulos respondidos.")
+          salvar(cache)
+          restantes = total_fila - feitos if MODO != "refazer" else 0
+          log("=" * 50)
+          log(f"🎉 {feitos} respondidos ({mudaram} corrigidos), {restantes} ainda na fila.")
+          saida_gh(continuar="true" if (restantes > 0 and feitos > 0 and MODO != "refazer") else "false",
+                   restantes=restantes)
+          if MODO == "tudo" and restantes == 0:
+              for e in cache.values():
+                  e.pop("rodada", None)       # passada concluída: tira a marca para não poluir o arquivo
+              salvar(cache)
+          sys.exit(0 if feitos else 1)
+          PYEOF
+
+      - name: Commitar titulos.json
+        id: commit
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add titulos.json
+          if git diff --cached --quiet; then
+            echo "Sem mudanças — nada a commitar."
+            exit 0
+          fi
+          git commit -m "chore: corrige titulos com IA [skip ci]"
+          for i in 1 2 3; do
+            if git pull origin "$GITHUB_REF_NAME" -X ours --no-rebase && git push; then
+              exit 0
+            fi
+            echo "Push falhou (tentativa $i). Tentando de novo..."
+            sleep 5
+          done
+          exit 1
+
+      - name: Continuar a fila
+        if: steps.fila.outputs.continuar == 'true' && steps.commit.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LIMITE: ${{ inputs.limite || '0' }}
+          MODO: ${{ inputs.modo || 'pendentes' }}
+          RODADA: ${{ inputs.rodada || github.run_id }}
+        run: |
+          echo "Ainda faltam ${{ steps.fila.outputs.restantes }} títulos. Agendando a próxima rodada..."
+          gh workflow run "${{ github.workflow }}" --ref "$GITHUB_REF_NAME" -f modo="$MODO" -f rodada="$RODADA" -f limite="$LIMITE"
