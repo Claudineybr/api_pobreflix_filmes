@@ -1,8 +1,9 @@
 {
   "007_casino_royale_2006": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "007: Casino Royale (2006)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/lfOk6E07jTLZsxj0SoSoAmTqhk1.jpg",
+    "tmdb_id": 36557
   },
   "007_quantum_of_solace_2008": {
     "fonte": "tmdb",
@@ -23,14 +24,16 @@
     "tmdb_id": 370172
   },
   "007_skyfall_2012": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "007: Skyfall (2012)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/z0Vd21WWJUtGN48FJAI8rmd0RPN.jpg",
+    "tmdb_id": 37724
   },
   "007_spectre_2015": {
     "fonte": "nao_achou",
     "nome": "007 Spectre (2015)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "100_dias_de_resistencia_2019": {
     "fonte": "tmdb",
@@ -57,9 +60,10 @@
     "tmdb_id": 11674
   },
   "101_dalmatas_a_guerra_dos_dalmatas_1961": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "101 Dálmatas: A Guerra dos Dálmatas (1961)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/yvNjHSpg6uhwmrMXdJczMRsBKQn.jpg",
+    "tmdb_id": 12230
   },
   "10_000_a_c_2008": {
     "fonte": "tmdb",
@@ -196,7 +200,8 @@
   "13_distrito_ultimato_2009": {
     "fonte": "nao_achou",
     "nome": "13° Distrito - Ultimato (2009)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "13_exorcismos_2022": {
     "fonte": "tmdb",
@@ -237,7 +242,8 @@
   "13o_distrito_2014": {
     "fonte": "nao_achou",
     "nome": "13o Distrito (2014)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "1408": {
     "fonte": "tmdb",
@@ -314,12 +320,14 @@
   "1911_a_revolucao_1911": {
     "fonte": "nao_achou",
     "nome": "1911 A Revolução (1911)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "1922_2017_1922": {
     "fonte": "nao_achou",
     "nome": "1922 2017 (1922)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "1984": {
     "fonte": "tmdb",
@@ -354,12 +362,14 @@
   "2036_origem_desconhecida_2036": {
     "fonte": "nao_achou",
     "nome": "2036 Origem Desconhecida (2036)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "2067_2067": {
     "fonte": "nao_achou",
     "nome": "2067 (2067)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "211_o_grande_assalto_2018": {
     "fonte": "tmdb",
@@ -416,9 +426,10 @@
     "tmdb_id": 42941
   },
   "30_dias_de_noite_dias_sombrios_2010": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "30 Dias de Noite: Dias Sombrios (2010)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/b3B9y2KRlBCveMKuQERbajuJzRK.jpg",
+    "tmdb_id": 42941
   },
   "365_dias": {
     "fonte": "tmdb",
@@ -481,9 +492,10 @@
     "tmdb_id": 1365787
   },
   "405_possessao_2020": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "405: Possessão (2020)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/gDpcgjBQ20XbcblM18onUhgi29Q.jpg",
+    "tmdb_id": 799722
   },
   "40_acres_2025": {
     "fonte": "tmdb",
@@ -632,7 +644,8 @@
   "88_assassina_silenciosa_2015": {
     "fonte": "nao_achou",
     "nome": "88 - Assassina Silenciosa (2015)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "88_minutos_2007": {
     "fonte": "tmdb",
@@ -673,7 +686,8 @@
   "9o_pelotao_2005": {
     "fonte": "nao_achou",
     "nome": "9o Pelotao (2005)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_100_passos_de_um_sonho_2014": {
     "fonte": "tmdb",
@@ -682,14 +696,16 @@
     "tmdb_id": 228194
   },
   "a_5a_onda": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "A 5a Onda",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/oIWVwUKWcSiaBahE8NbiFfHVmiY.jpg",
+    "tmdb_id": 299687
   },
   "a_5a_onda_2016_1_2016": {
     "fonte": "nao_achou",
     "nome": "A 5a Onda 2016 1 (2016)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_abelha_maya_o_filme_2014": {
     "fonte": "tmdb",
@@ -758,9 +774,10 @@
     "tmdb_id": 622085
   },
   "a_arte_do_demonio_2004": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "A Arte do Demônio (2004)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/c6bUJKikxsf3fE6jtbMnRNQyzV7.jpg",
+    "tmdb_id": 40127
   },
   "a_arvore_da_vida_2011": {
     "fonte": "tmdb",
@@ -925,9 +942,10 @@
     "tmdb_id": 10020
   },
   "a_bela_e_a_fera_19": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "A Bela e a Fera 19",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/is4c02QuP70BCVLp27SSlDeByoe.jpg",
+    "tmdb_id": 10020
   },
   "a_bela_e_a_fera_1991": {
     "fonte": "tmdb",
@@ -960,9 +978,10 @@
     "tmdb_id": 1481343
   },
   "a_branca_de_neve_e_o_cacador_2012": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "A Branca de Neve e o Cacador (2012)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/7yGz2m1HI4LnoROeTIXMZOi9b9U.jpg",
+    "tmdb_id": 58595
   },
   "a_bruxa": {
     "fonte": "tmdb",
@@ -979,12 +998,14 @@
   "a_bruxa_do_amor_2016": {
     "fonte": "nao_achou",
     "nome": "A Bruxa do Amor (2016)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_bruxa_dos_mortos_bagheead_2024": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "A Bruxa dos Mortos: Bagheead (2024)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/hV1duOiPt8o4JxUltlSbYXMJehf.jpg",
+    "tmdb_id": 845783
   },
   "a_bussola_de_ouro_2007": {
     "fonte": "tmdb",
@@ -1049,7 +1070,8 @@
   "a_cancao_do_oceano_2014": {
     "fonte": "nao_achou",
     "nome": "A Canção do Oceano (2014)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_cartada_final_2001": {
     "fonte": "tmdb",
@@ -1060,7 +1082,8 @@
   "a_casa_assombrada_2010": {
     "fonte": "nao_achou",
     "nome": "A Casa Assombrada (2010)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_casa_caiu_2003": {
     "fonte": "tmdb",
@@ -1105,9 +1128,10 @@
     "tmdb_id": 467632
   },
   "a_casa_do_medo_incidente_em_ghostland_2018": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "A Casa do Medo - Incidente em Ghostland (2018)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/fV5kUiiazJ90KmPYcXyc6tyknku.jpg",
+    "tmdb_id": 467632
   },
   "a_casa_do_terror": {
     "fonte": "tmdb",
@@ -1280,22 +1304,26 @@
   "a_crepusculo_amanhecer_parte_1_2011_1_1_2011": {
     "fonte": "nao_achou",
     "nome": "A Crepusculo Amanhecer Parte 1 2011 1 1 (2011)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_crepusculo_amanhecer_parte_2_2012_1_2012": {
     "fonte": "nao_achou",
     "nome": "A Crepúsculo Amanhecer Parte 2 2012 1 (2012)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_crepusculo_eclipse_1": {
     "fonte": "nao_achou",
     "nome": "A Crepúsculo: Eclipse 1",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_crepusculo_lua_nova_1": {
     "fonte": "nao_achou",
     "nome": "A Crepúsculo: Lua Nova 1",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_criada": {
     "fonte": "tmdb",
@@ -1424,9 +1452,10 @@
     "tmdb_id": 8355
   },
   "a_era_do_gelo_5_o_big_bang_2015": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "A Era do Gelo 5: O Big Bang (2015)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/e7R8ULZLdiKO2uYtXqifwf2pJfy.jpg",
+    "tmdb_id": 278154
   },
   "a_era_do_gelo_as_aventuras_de_buck_2022": {
     "fonte": "tmdb",
@@ -1435,9 +1464,10 @@
     "tmdb_id": 774825
   },
   "a_era_do_gelo_um_natal_de_mamute_2011": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "A Era do Gelo: Um Natal de Mamute (2011)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/tNJDdFZozVL4JWc7pYbAsnbeF4K.jpg",
+    "tmdb_id": 79218
   },
   "a_escola_do_bem_e_do_mal": {
     "fonte": "tmdb",
@@ -1562,7 +1592,8 @@
   "a_familia_buscape_1962": {
     "fonte": "nao_achou",
     "nome": "A Família Buscapé (1962)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_familia_do_futuro": {
     "fonte": "tmdb",
@@ -1585,7 +1616,8 @@
   "a_familia_mitchell_e_a_revolta_das_maquinas": {
     "fonte": "nao_achou",
     "nome": "A Família Mitchell e a Revolta das Máquinas",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_fantastica_fabrica_de_chocolate": {
     "fonte": "tmdb",
@@ -1630,9 +1662,10 @@
     "tmdb_id": 1382832
   },
   "a_festa_da_salsicha_2017": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "A Festa da Salsicha (2017)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/3dIspFMRTWAr30KnKIS219bRqsw.jpg",
+    "tmdb_id": 223702
   },
   "a_fianca_2024": {
     "fonte": "tmdb",
@@ -1757,7 +1790,8 @@
   "a_furia_de_beckly_2023": {
     "fonte": "nao_achou",
     "nome": "A Fúria de Beckly (2023)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_furia_de_becky_2023": {
     "fonte": "tmdb",
@@ -1918,7 +1952,8 @@
   "a_hora_do_descarrego_2019": {
     "fonte": "nao_achou",
     "nome": "A Hora do Descarrego (2019)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_hora_do_espanto": {
     "fonte": "tmdb",
@@ -2343,7 +2378,8 @@
   "a_maldicao_de_baghead_2023": {
     "fonte": "nao_achou",
     "nome": "A Maldição de Baghead (2023)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_maldicao_de_bridge_hollow_2022": {
     "fonte": "tmdb",
@@ -2396,7 +2432,8 @@
   "a_maldicao_do_manequim_2023": {
     "fonte": "nao_achou",
     "nome": "A Maldição do Manequim (2023)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_maldicao_do_tubarao_2026": {
     "fonte": "tmdb",
@@ -2585,9 +2622,10 @@
     "tmdb_id": 1212763
   },
   "a_morte_do_demonio_em_chamas_cinema_2026": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "A Morte do Demônio: Em Chamas ( cinema ) (2026)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/fteLdvfRnltfLjAEnsl5E3vImnW.jpg",
+    "tmdb_id": 1212763
   },
   "a_morte_pede_carona_1986": {
     "fonte": "tmdb",
@@ -2692,9 +2730,10 @@
     "tmdb_id": 282035
   },
   "a_mumia_o_tumulo_do_imperador_dragao_2008": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "A Múmia: O Túmulo do Imperador Dragão (2008)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/6UALrWIfzRKulEZOOF3RO5oMAwQ.jpg",
+    "tmdb_id": 1735
   },
   "a_nevoa_2005": {
     "fonte": "tmdb",
@@ -2717,7 +2756,8 @@
   "a_noite_dos_mortos_vivos_1981": {
     "fonte": "nao_achou",
     "nome": "A Noite dos Mortos-Vivos (1981)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_noite_e_delas_2017": {
     "fonte": "tmdb",
@@ -2798,9 +2838,10 @@
     "tmdb_id": 606117
   },
   "a_nova_onda_de_kronk_2005": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "A Nova Onda de Kronk (2005)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/7g5Y8bLhThN91pqhJs7KVylwIXi.jpg",
+    "tmdb_id": 13417
   },
   "a_nova_onda_do_imperador": {
     "fonte": "tmdb",
@@ -2955,7 +2996,8 @@
   "a_pele_habito_2011": {
     "fonte": "nao_achou",
     "nome": "A Pele Habito (2011)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_pequena_sereia": {
     "fonte": "tmdb",
@@ -3176,7 +3218,8 @@
   "a_rebeliao_de_1907": {
     "fonte": "nao_achou",
     "nome": "A Rebelião de (1907)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_ressaca": {
     "fonte": "tmdb",
@@ -3263,9 +3306,10 @@
     "tmdb_id": 9705
   },
   "a_serbian_film_terror_sem_limites_2010": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "A Serbian Film - Terror sem Limites (2010)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/r7MR0GmKe4pE0OX43LXMztNz8Z8.jpg",
+    "tmdb_id": 73861
   },
   "a_sereia_lago_dos_mortos_2019": {
     "fonte": "tmdb",
@@ -3390,7 +3434,8 @@
   "a_trilha_da_morte_2017": {
     "fonte": "nao_achou",
     "nome": "A Trilha da Morte (2017)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "a_ultima_bala": {
     "fonte": "tmdb",
@@ -3665,7 +3710,8 @@
   "abismo_do_medo_2005_1_2005": {
     "fonte": "nao_achou",
     "nome": "Abismo do Medo 2005 1 (2005)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "abismo_do_medo_2009": {
     "fonte": "tmdb",
@@ -3700,7 +3746,8 @@
   "abrir_player": {
     "fonte": "nao_achou",
     "nome": "Abrir Player",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "academia_sobrenatural_nascimento_da_marca_do_dragao_2026": {
     "fonte": "tmdb",
@@ -3709,14 +3756,16 @@
     "tmdb_id": 1811134
   },
   "ace_ventura_detective_animal_1994": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Ace Ventura - Detective Animal (1994)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/xcxU6P1Yts1cugEKZg67IBtoh5J.jpg",
+    "tmdb_id": 3049
   },
   "ace_ventura_em_africa_1995": {
     "fonte": "nao_achou",
     "nome": "Ace Ventura em África (1995)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "acompanhante_de_luxo_2023": {
     "fonte": "tmdb",
@@ -3781,7 +3830,8 @@
   "adeus_professor_2019": {
     "fonte": "nao_achou",
     "nome": "Adeus, Professor (2019)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "adoradores_do_diabo_2005": {
     "fonte": "tmdb",
@@ -4126,9 +4176,10 @@
     "tmdb_id": 1064028
   },
   "alien_3_a_desforra_1992": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Alien 3 - A Desforra (1992)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/e0m3kAcurYNmLBI0UVTjWg9J93L.jpg",
+    "tmdb_id": 8077
   },
   "alien_a_ressurreicao_1997": {
     "fonte": "tmdb",
@@ -4143,9 +4194,10 @@
     "tmdb_id": 126889
   },
   "alien_o_8_o_passageiro_1979": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Alien - O 8.o Passageiro (1979)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/rFHzJrkO1kNIezb6rFog5oCJUEn.jpg",
+    "tmdb_id": 348
   },
   "alien_romulus": {
     "fonte": "tmdb",
@@ -4168,7 +4220,8 @@
   "alien_vs_predador_2_2002": {
     "fonte": "nao_achou",
     "nome": "Alien vs. Predador 2 (2002)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "aliens_o_resgate_1986": {
     "fonte": "tmdb",
@@ -4197,7 +4250,8 @@
   "almas_marcadas_2025": {
     "fonte": "nao_achou",
     "nome": "Almas Marcadas (2025)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "along_with_the_gods_the_two_worlds_2017": {
     "fonte": "tmdb",
@@ -4340,7 +4394,8 @@
   "american_pie_a_primeira_vez_e_inesquecivel": {
     "fonte": "nao_achou",
     "nome": "American Pie: A Primeira Vez é Inesquecível",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "american_pie_a_primeira_vez_e_inesquecivel_1999": {
     "fonte": "tmdb",
@@ -4447,7 +4502,8 @@
   "amigos_do_alem_2025": {
     "fonte": "nao_achou",
     "nome": "Amigos do Além (2025)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "amizade_colorida": {
     "fonte": "tmdb",
@@ -4560,7 +4616,8 @@
   "amor_e_vinho_2025": {
     "fonte": "nao_achou",
     "nome": "Amor e Vinho (2025)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "amor_enrolado_2025": {
     "fonte": "tmdb",
@@ -4629,9 +4686,10 @@
     "tmdb_id": 14863
   },
   "anaconda_4_rastro_de_sangue_2009": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Anaconda 4: Rastro de Sangue (2009)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/zOtDpKiSWrz5ZChJqnbIEeqIrbF.jpg",
+    "tmdb_id": 19543
   },
   "anastasia": {
     "fonte": "tmdb",
@@ -4736,9 +4794,10 @@
     "tmdb_id": 55538
   },
   "anjo_do_desejo_2011": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Anjo do Desejo (2011)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/jaTYwyLD40qlaFvhuoix5Jig58t.jpg",
+    "tmdb_id": 38753
   },
   "anjos_da_guerra_2026": {
     "fonte": "tmdb",
@@ -4809,12 +4868,14 @@
   "anjos_da_noite_underworld": {
     "fonte": "nao_achou",
     "nome": "Anjos da Noite: Underworld",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "anjos_da_noite_underworld_2003": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Anjos da Noite - Underworld (2003)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/4DraJB84CY1UX6IKEjdQbWEJcUQ.jpg",
+    "tmdb_id": 277
   },
   "anjos_do_deserto_2023": {
     "fonte": "tmdb",
@@ -4841,9 +4902,10 @@
     "tmdb_id": 250546
   },
   "annabelle_2_2017": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Annabelle 2 (2017)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/AtlcH0f8mEQGKVIBSgV4GgkTZMr.jpg",
+    "tmdb_id": 396422
   },
   "annabelle_2_a_criacao_do_mal": {
     "fonte": "tmdb",
@@ -4852,9 +4914,10 @@
     "tmdb_id": 396422
   },
   "annabelle_3_2019": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Annabelle 3 (2019)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/xQesP4oRskVR8fUMvilhY7DUMJt.jpg",
+    "tmdb_id": 521029
   },
   "annabelle_3_de_volta_para_casa": {
     "fonte": "tmdb",
@@ -5123,7 +5186,8 @@
   "armagedom_1998": {
     "fonte": "nao_achou",
     "nome": "Armagedom (1998)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "armas_em_jogo_2020": {
     "fonte": "tmdb",
@@ -5378,9 +5442,10 @@
     "tmdb_id": 1268
   },
   "as_filhas_do_sol_2018": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "As Filhas do Sol (2018)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/bR3yOXLuRiJUV4mGUM4CmkJC5JD.jpg",
+    "tmdb_id": 479520
   },
   "as_fitas_de_poughkeepsie_2007": {
     "fonte": "tmdb",
@@ -5497,9 +5562,10 @@
     "tmdb_id": 669671
   },
   "as_quatro_estacoes_amor_2024": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "As Quatro Estações Amor (2024)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/3zMWw061NcXTugwIxea2v7xKSyd.jpg",
+    "tmdb_id": 1059073
   },
   "as_quatro_estacoes_do_amor_2024": {
     "fonte": "tmdb",
@@ -5564,7 +5630,8 @@
   "assalto_ao_carro_forte_2009": {
     "fonte": "nao_achou",
     "nome": "Assalto ao Carro Forte (2009)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "assalto_brutal_2024": {
     "fonte": "tmdb",
@@ -5581,7 +5648,8 @@
   "assassino_a_preco_fixo_2016": {
     "fonte": "nao_achou",
     "nome": "Assassino a Preço Fixo (2016)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "assassino_a_preco_fixo_2_a_ressurreicao_2016": {
     "fonte": "tmdb",
@@ -5806,9 +5874,10 @@
     "tmdb_id": 146301
   },
   "atividade_paranormal_em_toquio_2010": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Atividade Paranormal em Tóquio (2010)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/fu4bPmvK5lSFTHpeb8Y8YcxcFKV.jpg",
+    "tmdb_id": 59429
   },
   "atividade_paranormal_ente_proximo": {
     "fonte": "tmdb",
@@ -5949,14 +6018,16 @@
     "tmdb_id": 13483
   },
   "azul_e_cor_mais_quente_2013": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Azul É Cor Mais Quente (2013)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/ao3vG9cD1pORpQu6I7KmOiqHIrA.jpg",
+    "tmdb_id": 152584
   },
   "b13_13o_distrito_2004": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "B13 - 13o Distrito (2004)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/m3CkWymzFl269Pjmc3eTPkvtdRl.jpg",
+    "tmdb_id": 10045
   },
   "baahubali_o_inicio_2015": {
     "fonte": "tmdb",
@@ -6079,9 +6150,10 @@
     "tmdb_id": 3170
   },
   "bambi_2_2006": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Bambi 2 (2006)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/wpvRZcuWVT8LxQGzT5PJPWKiB5r.jpg",
+    "tmdb_id": 13205
   },
   "bambi_uma_aventura_na_floresta_2025": {
     "fonte": "tmdb",
@@ -6138,9 +6210,10 @@
     "tmdb_id": 129533
   },
   "barbie_a_princesa_e_a_plebeia_2004": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Barbie: A Princesa e a Plebeia (2004)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/6mNh0X2abVpB6AgjWtDYO7Cc73T.jpg",
+    "tmdb_id": 15165
   },
   "barbie_a_sereia_das_perolas": {
     "fonte": "tmdb",
@@ -6167,9 +6240,10 @@
     "tmdb_id": 18198
   },
   "barbie_butterfly_e_a_princesa_fada_2013": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Barbie Butterfly e a Princesa Fada (2013)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/4KqzZZLf9sWPJiAFlRCH8kNEUky.jpg",
+    "tmdb_id": 196254
   },
   "barbie_butterfly_e_a_princesa_fairy": {
     "fonte": "tmdb",
@@ -6250,14 +6324,16 @@
     "tmdb_id": 57737
   },
   "barbie_e_suas_irmas_em_uma_aventura_de_cavalos": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Barbie e suas Irmãs em uma Aventura de Cavalos",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/e7pCbv0usfvd7ZWv7rQX02dyG1A.jpg",
+    "tmdb_id": 227200
   },
   "barbie_e_teresa_receita_para_amizade_2025": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Barbie e Teresa: Receita para Amizade (2025)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/uDVsBMUE3QI0lZE44vfqpIojqRg.jpg",
+    "tmdb_id": 1425816
   },
   "barbie_em_a_cancao_de_natal": {
     "fonte": "tmdb",
@@ -6308,9 +6384,10 @@
     "tmdb_id": 434757
   },
   "barbie_em_vida_de_sereia_2010": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Barbie em Vida de Sereia (2010)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/rrD263RRyDPXqDY7FBtNP7gEuQZ.jpg",
+    "tmdb_id": 34134
   },
   "barbie_escola_de_princesas": {
     "fonte": "tmdb",
@@ -6385,14 +6462,16 @@
     "tmdb_id": 44874
   },
   "barbie_o_quebra_nozes": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Barbie: O Quebra-Nozes",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/qVtMMzazs31nTcD9UDtDqHAPGvg.jpg",
+    "tmdb_id": 1760311
   },
   "barbie_o_quebra_nozes_2001": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Barbie: O Quebra-Nozes (2001)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/arRbQ5Ntq9w9SFCqgWWstVePhOV.jpg",
+    "tmdb_id": 15167
   },
   "barbie_rainhas_do_rock": {
     "fonte": "tmdb",
@@ -6533,9 +6612,10 @@
     "tmdb_id": 209112
   },
   "batman_vs_tartarugas_ninja_2019": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Batman vs Tartarugas Ninja (2019)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/taY4vESo77uuVLf0qHtIIUgjXmN.jpg",
+    "tmdb_id": 581997
   },
   "bau_um_artista_na_guerra_2025": {
     "fonte": "tmdb",
@@ -6612,7 +6692,8 @@
   "bem_10_a_corrida_contra_o_tempo_2007": {
     "fonte": "nao_achou",
     "nome": "Bem 10 - A Corrida Contra o Tempo (2007)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "bem_vinda_a_quixeramobim_2022": {
     "fonte": "tmdb",
@@ -6689,7 +6770,8 @@
   "bicho_papao_o_conto_2023": {
     "fonte": "nao_achou",
     "nome": "Bicho-Papão: O Conto (2023)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "big_pai_big_filho": {
     "fonte": "tmdb",
@@ -6746,9 +6828,10 @@
     "tmdb_id": 36586
   },
   "blade_iii_trinity_2004": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Blade III: Trinity (2004)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/O8iPtrxt7G4nIh5rrx4BwOwc1M.jpg",
+    "tmdb_id": 36648
   },
   "blade_o_cacador_de_vampiros_1998": {
     "fonte": "tmdb",
@@ -6759,7 +6842,8 @@
   "blade_runner_2049": {
     "fonte": "nao_achou",
     "nome": "Blade Runner (2049)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "bleach_2018": {
     "fonte": "tmdb",
@@ -6806,7 +6890,8 @@
   "boa_sorte_divirtam_se_nao_morra_2026": {
     "fonte": "nao_achou",
     "nome": "Boa Sorte, Divirtam-se, Não Morra (2026)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "bob_esponja_acampamento_do_terror": {
     "fonte": "tmdb",
@@ -6881,9 +6966,10 @@
     "tmdb_id": 1084577
   },
   "bolt_o_supercao_2008": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Bolt - O Supercão (2008)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/puAIiFICbqLehrE8X884ZbNxI8N.jpg",
+    "tmdb_id": 13053
   },
   "bolt_supercao": {
     "fonte": "tmdb",
@@ -7236,7 +7322,8 @@
   "caca_as_bruxas_2021": {
     "fonte": "nao_achou",
     "nome": "Caça às Bruxas (2021)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "caca_explosiva_2021": {
     "fonte": "tmdb",
@@ -7251,9 +7338,10 @@
     "tmdb_id": 43074
   },
   "caca_fantasmas_o_legado_2021": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Caça-Fantasmas: O Legado (2021)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/fhU40W8ryuDAPKTbUgxIwOCKJbZ.jpg",
+    "tmdb_id": 696007
   },
   "cacada_2020": {
     "fonte": "tmdb",
@@ -7328,9 +7416,10 @@
     "tmdb_id": 16617
   },
   "cacadores_de_trolls_a_ascencao_dos_titas_2021": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Cacadores De Trolls: A Ascencao Dos Titas (2021)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/ypPh0GKzLIP9vyO8eFmu4jCzkHi.jpg",
+    "tmdb_id": 730840
   },
   "cacadores_do_fim_do_mundo_2025": {
     "fonte": "tmdb",
@@ -7381,9 +7470,10 @@
     "tmdb_id": 308266
   },
   "caes_do_espaco_aventura_tropical_2020": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Cães do Espaço: Aventura Tropical (2020)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/oKkxodmH49HIiPWsnttGtXkwBJy.jpg",
+    "tmdb_id": 616324
   },
   "caju_meu_amigo_2026": {
     "fonte": "tmdb",
@@ -7500,9 +7590,10 @@
     "tmdb_id": 84106
   },
   "capitao_america_2_o_soldado_invernal_2014": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Capitão América 2: O Soldado Invernal (2014)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/9sTDXtIIfHza1rAbmHU2djyzEXA.jpg",
+    "tmdb_id": 100402
   },
   "capitao_america_admiravel_mundo_novo_2025": {
     "fonte": "tmdb",
@@ -7805,9 +7896,10 @@
     "tmdb_id": 663866
   },
   "centopeia_humana_3_2015": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Centopeia Humana 3 (2015)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/mPr2a30XQ3Tpc5Y4weIxRpi5aQM.jpg",
+    "tmdb_id": 94365
   },
   "ceu_vermelho_sangue_2021": {
     "fonte": "tmdb",
@@ -7914,7 +8006,8 @@
   "cidade_do_silencioso_2007": {
     "fonte": "nao_achou",
     "nome": "Cidade do Silencioso (2007)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "cidade_dos_anjos_1998": {
     "fonte": "tmdb",
@@ -8049,9 +8142,10 @@
     "tmdb_id": 68726
   },
   "circulo_de_fogo_2018": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Círculo de Fogo (2018)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/rwMkEC1V7dodX4gHBWILGhhI91k.jpg",
+    "tmdb_id": 268896
   },
   "circus_kane_o_circo_dos_horrores_2017": {
     "fonte": "tmdb",
@@ -8134,7 +8228,8 @@
   "clube_de_compras_2014_dallas_2014": {
     "fonte": "nao_achou",
     "nome": "Clube de Compras 2014 Dallas (2014)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "clube_do_desejo_2023": {
     "fonte": "tmdb",
@@ -8181,7 +8276,8 @@
   "coerencia_2013": {
     "fonte": "nao_achou",
     "nome": "Coerência (2013)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "coisas_de_meninos_e_meninas_2006": {
     "fonte": "tmdb",
@@ -8262,9 +8358,10 @@
     "tmdb_id": 427910
   },
   "combate_mortal_2_aniquilacao_1997": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Combate Mortal 2: Aniquilação (1997)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/lkVhuUdlQFFgoXNBoZ8JBP0BEef.jpg",
+    "tmdb_id": 78371
   },
   "comer_rezar_amar_2010": {
     "fonte": "tmdb",
@@ -8347,7 +8444,8 @@
   "como_se_fosse_a_primeira_vez_2004_1_2004": {
     "fonte": "nao_achou",
     "nome": "Como Se Fosse A Primeira Vez 2004 1 (2004)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "como_se_tornar_o_pior_aluno_da_escola_2017": {
     "fonte": "tmdb",
@@ -8514,12 +8612,14 @@
   "contatos_de_4o_grau": {
     "fonte": "nao_achou",
     "nome": "Contatos de 4o Grau",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "contatos_de_4o_grau_2009": {
     "fonte": "nao_achou",
     "nome": "Contatos de 4o Grau (2009)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "continencia_ao_amor_2022": {
     "fonte": "tmdb",
@@ -8536,7 +8636,8 @@
   "conto_do_dia_das_bruxas_2007": {
     "fonte": "nao_achou",
     "nome": "Conto do Dia das Bruxas (2007)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "contos_da_babilonia_2023": {
     "fonte": "tmdb",
@@ -8673,7 +8774,8 @@
   "coringa_delirio_a_dois_joker_folie_a_deux": {
     "fonte": "nao_achou",
     "nome": "Coringa: Delírio a Dois - Joker: Folie à Deux",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "corra": {
     "fonte": "tmdb",
@@ -8706,14 +8808,16 @@
     "tmdb_id": 1035259
   },
   "corra_que_a_policia_vem_ai_212_1991": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Corra que a Polícia Vem Aí 21⁄2 (1991)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/vm2sW0g0wMYCFNGvyBDAtxtjW6S.jpg",
+    "tmdb_id": 37137
   },
   "corra_que_a_policia_vem_ai_33_1_3_o_insulto_final_1994": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Corra que a Polícia Vem Aí! 33 1/3 - O Insulto Final (1994)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/aMjd4C0wOZwYzFK7Vb3cL9OQd5F.jpg",
+    "tmdb_id": 36593
   },
   "corrente_do_mal": {
     "fonte": "tmdb",
@@ -8790,7 +8894,8 @@
   "corrida_para_a_montanha_magica_2009": {
     "fonte": "nao_achou",
     "nome": "Corrida para a Montanha Mágica (2009)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "corta_fogo_2026": {
     "fonte": "tmdb",
@@ -8811,9 +8916,10 @@
     "tmdb_id": 604685
   },
   "cowboys_e_aliens_2011": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Cowboys e Aliens (2011)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/9uZsGCP4rvOHVGCpMpYq5gNCuNI.jpg",
+    "tmdb_id": 49849
   },
   "coyote_vs_acme": {
     "fonte": "tmdb",
@@ -9190,12 +9296,14 @@
   "deadpool_deadpool": {
     "fonte": "nao_achou",
     "nome": "Deadpool Deadpool",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "deadpool_e_wolverine": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Deadpool e Wolverine",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/cJFqqiDYprqExaXatu4AaoMzDG2.jpg",
+    "tmdb_id": 533535
   },
   "deadpool_wolverine_2024": {
     "fonte": "tmdb",
@@ -9216,9 +9324,10 @@
     "tmdb_id": 842171
   },
   "deep_web_o_show_da_morte_2024": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Deep Web: O Show da Morte (2024)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/800mv7NGYi96MoU5oy6Yd9zizcZ.jpg",
+    "tmdb_id": 1146246
   },
   "deixe_me_entrar_2011": {
     "fonte": "tmdb",
@@ -9283,7 +9392,8 @@
   "demonio_de_neon_2000": {
     "fonte": "nao_achou",
     "nome": "Demônio de Neon (2000)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "dente_canino_2009": {
     "fonte": "tmdb",
@@ -9444,7 +9554,8 @@
   "desculpe_querida_2025": {
     "fonte": "nao_achou",
     "nome": "Desculpe, Querida (2025)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "desejo": {
     "fonte": "tmdb",
@@ -9753,9 +9864,10 @@
     "tmdb_id": 1372
   },
   "diamantes_roubados_roubo_do_seculo_2025": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Diamantes Roubados: Roubo do Século (2025)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/2CiyKBLYgXgJTO8ABrolVStRqvY.jpg",
+    "tmdb_id": 1513598
   },
   "diario_da_barbie_2006": {
     "fonte": "tmdb",
@@ -10048,7 +10160,8 @@
   "dongji_rescue_2025": {
     "fonte": "nao_achou",
     "nome": "Dongji Rescue (2025)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "donzela": {
     "fonte": "tmdb",
@@ -10069,9 +10182,10 @@
     "tmdb_id": 8814
   },
   "doom_aniquilacao_2019": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Doom: Aniquilação (2019)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/3JhMIyUBYXzOXxI59vmlYhLHDWd.jpg",
+    "tmdb_id": 520901
   },
   "dora_e_a_busca_pelo_sol_dourado": {
     "fonte": "tmdb",
@@ -10194,9 +10308,10 @@
     "tmdb_id": 6114
   },
   "dracula_historia_de_amor_eterno_2025": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Drácula História de Amor Eterno (2025)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/eypGGvlpSiEpbeGkczyJCKboS4F.jpg",
+    "tmdb_id": 1246049
   },
   "dracula_uma_historia_de_amor_eterno_2025": {
     "fonte": "tmdb",
@@ -10285,7 +10400,8 @@
   "duna_parte_2": {
     "fonte": "nao_achou",
     "nome": "Duna: Parte 2",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "duna_parte_dois_2024": {
     "fonte": "tmdb",
@@ -10360,9 +10476,10 @@
     "tmdb_id": 1077280
   },
   "duro_de_atuar_2_2024": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Duro de Atuar 2 (2024)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/hcuZ68ymJgohTerR8Oo1mb76SJv.jpg",
+    "tmdb_id": 1077280
   },
   "duro_de_casar_2025": {
     "fonte": "tmdb",
@@ -10383,9 +10500,10 @@
     "tmdb_id": 1573
   },
   "duro_de_matar_3_a_vinganca_1995": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Duro de Matar 3: A Vingança (1995)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/57Qa54Y9P4Vjr7kzcniQnzLqped.jpg",
+    "tmdb_id": 1572
   },
   "duro_de_matar_4_0_2007": {
     "fonte": "tmdb",
@@ -10508,9 +10626,10 @@
     "tmdb_id": 14620
   },
   "efeito_borboleta_3_revelacao_2009": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Efeito Borboleta 3: Revelação (2009)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/HdgTkLzVx08sfUyUNTivb2EoV7.jpg",
+    "tmdb_id": 16258
   },
   "efeito_domino_2008": {
     "fonte": "tmdb",
@@ -10855,9 +10974,10 @@
     "tmdb_id": 1229910
   },
   "enola_holmes_1": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Enola Holmes 1",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/6h96mUwIbTzZ1yPH3EMQYfSWKBH.jpg",
+    "tmdb_id": 497582
   },
   "enola_holmes_2": {
     "fonte": "tmdb",
@@ -10910,7 +11030,8 @@
   "ensurados_2023": {
     "fonte": "nao_achou",
     "nome": "Ensurados (2023)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "entao_e_natal_2021": {
     "fonte": "tmdb",
@@ -11033,9 +11154,10 @@
     "tmdb_id": 6950
   },
   "era_do_gelo_4_2012": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Era do Gelo 4 (2012)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/dWiHLqARtyAAOy0nLvXIxRYkfNA.jpg",
+    "tmdb_id": 57800
   },
   "era_uma_vez_2008": {
     "fonte": "tmdb",
@@ -11254,9 +11376,10 @@
     "tmdb_id": 297761
   },
   "esquadrao_suicida_2021": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Esquadrão Suicida (2021)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/wTS3dS2DJiMFFgqKDz5fxMTri.jpg",
+    "tmdb_id": 436969
   },
   "esquadrao_trovao_2021": {
     "fonte": "tmdb",
@@ -11277,9 +11400,10 @@
     "tmdb_id": 771
   },
   "esqueceram_de_mim_2_perdido_em_nova_iorque_1992": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Esqueceram de Mim 2 - Perdido em Nova Iorque (1992)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/qffLHZU9mU0zqmOISnjir2oDEsR.jpg",
+    "tmdb_id": 772
   },
   "esqueceram_de_mim_2_perdido_em_nova_york": {
     "fonte": "tmdb",
@@ -11294,9 +11418,10 @@
     "tmdb_id": 9714
   },
   "esqueceram_de_mim_5_2002": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Esqueceram de Mim 5 (2002)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/7D1anhTEVsBjgAEihUEFHx5PbF7.jpg",
+    "tmdb_id": 12536
   },
   "esta_sou_eu_2026": {
     "fonte": "tmdb",
@@ -11307,7 +11432,8 @@
   "estado_eletrico_2025": {
     "fonte": "nao_achou",
     "nome": "Estado Elétrico (2025)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "este_e_o_meu_garoto_2012": {
     "fonte": "tmdb",
@@ -11438,7 +11564,8 @@
   "eu_vi_o_brilho_na_tv_2024": {
     "fonte": "nao_achou",
     "nome": "Eu Vi o Brilho na TV (2024)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "eu_voce_na_toscana_2026": {
     "fonte": "tmdb",
@@ -11483,9 +11610,10 @@
     "tmdb_id": 264660
   },
   "exercito_de_ladroes": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Exército de Ladrões",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/lxPZYziABs5MUmyV6tUOO5mTK2z.jpg",
+    "tmdb_id": 796499
   },
   "exhuma_2024": {
     "fonte": "tmdb",
@@ -11670,7 +11798,8 @@
   "fatal_2001": {
     "fonte": "nao_achou",
     "nome": "Fatal (2001)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "fatos_estranhos_2009": {
     "fonte": "tmdb",
@@ -11685,9 +11814,10 @@
     "tmdb_id": 1284856
   },
   "feed_o_terror_esta_2022": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Feed: o Terror Está (2022)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/b8p8J2kRZdcAyKy7h3UU2YefMcr.jpg",
+    "tmdb_id": 1015936
   },
   "feios": {
     "fonte": "tmdb",
@@ -11836,7 +11966,8 @@
   "fique_rico_ou_morra_tentado_2005": {
     "fonte": "nao_achou",
     "nome": "Fique Rico ou Morra Tentado (2005)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "fireball_2009": {
     "fonte": "tmdb",
@@ -12021,7 +12152,8 @@
   "freddy_x_jason_2003": {
     "fonte": "nao_achou",
     "nome": "Freddy x Jason (2003)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "free_guy_assumindo_o_controle": {
     "fonte": "tmdb",
@@ -12054,9 +12186,10 @@
     "tmdb_id": 1075335
   },
   "frozen_2_2020": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Frozen 2 (2020)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/yK9wazsgpZ9QfmITC96biaMzndV.jpg",
+    "tmdb_id": 330457
   },
   "frozen_febre_congelante_2015": {
     "fonte": "tmdb",
@@ -12239,9 +12372,10 @@
     "tmdb_id": 647781
   },
   "gamer_jogo_mortal_2009": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Gamer: Jogo Mortal (2009)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/lMRW0oO8ptAn4Ciqr4Ojawa6GOB.jpg",
+    "tmdb_id": 18501
   },
   "garfield_2": {
     "fonte": "tmdb",
@@ -12310,9 +12444,10 @@
     "tmdb_id": 210577
   },
   "garota_ideal_2007": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Garota Ideal (2007)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/zBIC8b5dOjY8VVHfD9Jk1VbLmKz.jpg",
+    "tmdb_id": 6615
   },
   "garota_infernal": {
     "fonte": "tmdb",
@@ -12351,14 +12486,16 @@
     "tmdb_id": 11852
   },
   "garotos_perdidos_1987": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Garotos Perdidos (1987)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/xlzkIfReoFJbPkbV67NcsuMcu6T.jpg",
+    "tmdb_id": 1547
   },
   "gasparzinho_o_fantasma_camarada_1995": {
     "fonte": "nao_achou",
     "nome": "Gasparzinho: O Fantasma Camarada (1995)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "gatillero_2025": {
     "fonte": "tmdb",
@@ -12379,9 +12516,10 @@
     "tmdb_id": 417859
   },
   "gato_de_botas_2_2022": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Gato de Botas 2 (2022)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/atJxZfCaQ7kXRFSfbm8cqAKkns7.jpg",
+    "tmdb_id": 315162
   },
   "gato_de_botas_2_o_ultimo_pedido": {
     "fonte": "tmdb",
@@ -12504,9 +12642,10 @@
     "tmdb_id": 98
   },
   "gladiador_ii_2024": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Gladiador II (2024)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/342bly9MqveL65TnEFzx8TTUxcL.jpg",
+    "tmdb_id": 558449
   },
   "gladiator_o_desafio_1992": {
     "fonte": "tmdb",
@@ -12739,7 +12878,8 @@
   "grotesque_2009": {
     "fonte": "nao_achou",
     "nome": "Grotesque (2009)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "gtmax_2024": {
     "fonte": "tmdb",
@@ -12754,9 +12894,10 @@
     "tmdb_id": 1440646
   },
   "guardioes_da_galaxia_1": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Guardiões da Galáxia 1",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/xaY92XMToaSnBuvCui3LHzNGqZB.jpg",
+    "tmdb_id": 118340
   },
   "guardioes_da_galaxia_2014": {
     "fonte": "tmdb",
@@ -12893,22 +13034,26 @@
   "halloween_1983_3_1983": {
     "fonte": "nao_achou",
     "nome": "Halloween 1983 3 (1983)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "halloween_1988_4_1988": {
     "fonte": "nao_achou",
     "nome": "Halloween 1988 4 (1988)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "halloween_1989_5_1989": {
     "fonte": "nao_achou",
     "nome": "Halloween 1989 5 (1989)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "halloween_1995_6_1995": {
     "fonte": "nao_achou",
     "nome": "Halloween 1995 6 (1995)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "halloween_2018": {
     "fonte": "tmdb",
@@ -12917,9 +13062,10 @@
     "tmdb_id": 948
   },
   "halloween_2_2009": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Halloween 2 (2009)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/vCr2zC3s8rFycFYLoOVzX8Dm5qB.jpg",
+    "tmdb_id": 24150
   },
   "halloween_a_lenda_de_jack_2018": {
     "fonte": "tmdb",
@@ -12976,9 +13122,10 @@
     "tmdb_id": 34205
   },
   "halloweentown_a_cidade_do_halloween_1998": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Halloweentown: A Cidade do Halloween (1998)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/t9mxrsIPew1w0JeyItHOfoYFAgF.jpg",
+    "tmdb_id": 27850
   },
   "halloweentown_o_portal_2004": {
     "fonte": "tmdb",
@@ -13047,9 +13194,10 @@
     "tmdb_id": 9740
   },
   "happy_feet_2": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Happy Feet 2",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/kp8ADtdIyNDUqEQRBxtUgj5zefz.jpg",
+    "tmdb_id": 65759
   },
   "happy_feet_2_o_pinguim_2011": {
     "fonte": "tmdb",
@@ -13186,7 +13334,8 @@
   "harry_potter_parte_2": {
     "fonte": "nao_achou",
     "nome": "Harry Potter Parte 2",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "heart_eyes_2025": {
     "fonte": "tmdb",
@@ -13221,7 +13370,8 @@
   "hell_a_ira_esta_solta_2003": {
     "fonte": "nao_achou",
     "nome": "Hell - A Ira Está Solta (2003)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "hell_house_a_origem_2023": {
     "fonte": "tmdb",
@@ -13236,14 +13386,16 @@
     "tmdb_id": 359246
   },
   "hell_house_llc_2_the_abaddon_hotel_2018": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Hell House LLC 2: The Abaddon Hotel (2018)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/sFPkQLUq8wmNOL2XMow4WF5tOpu.jpg",
+    "tmdb_id": 532973
   },
   "hell_house_llc_3_lake_of_fire_2019": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Hell House LLC 3: Lake of Fire (2019)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/gchygJq6AnzGFg0uYRDKn7mqsyU.jpg",
+    "tmdb_id": 614722
   },
   "hellboy": {
     "fonte": "tmdb",
@@ -13408,9 +13560,10 @@
     "tmdb_id": 13649
   },
   "high_school_musical_3_ultimo_ano_2008": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "High School Musical 3 - Último Ano (2008)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/jljfQ8J1WJz0438hbOF6SIQiTFk.jpg",
+    "tmdb_id": 11887
   },
   "high_school_musical_o_desafio_2010": {
     "fonte": "tmdb",
@@ -13655,7 +13808,8 @@
   "homem_duplicado_2022": {
     "fonte": "nao_achou",
     "nome": "Homem Duplicado (2022)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "homem_formiga_2015": {
     "fonte": "tmdb",
@@ -13690,7 +13844,8 @@
   "homens_do_bem_2024": {
     "fonte": "nao_achou",
     "nome": "Homens do Bem (2024)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "homens_em_furia_2010": {
     "fonte": "tmdb",
@@ -13765,9 +13920,10 @@
     "tmdb_id": 600751
   },
   "host_cuidado_com_quem_chama_2020": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Host: Cuidado Com Quem Chama (2020)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/qt2UTzGsFCHF729kKdJOvh8YT4g.jpg",
+    "tmdb_id": 723072
   },
   "hotel_dunsmuir_2022": {
     "fonte": "tmdb",
@@ -13862,7 +14018,8 @@
   "identidade_em_jogo": {
     "fonte": "nao_achou",
     "nome": "Identidade em Jogo",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "identidade_paranormal_2010": {
     "fonte": "tmdb",
@@ -13901,9 +14058,10 @@
     "tmdb_id": 1371202
   },
   "ilha_de_cachorros_2018": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Ilha de Cachorros (2018)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/4k4sjRXGMTfIDkfVi7lHccatnWk.jpg",
+    "tmdb_id": 399174
   },
   "ilha_do_medo": {
     "fonte": "tmdb",
@@ -13978,9 +14136,10 @@
     "tmdb_id": 1206008
   },
   "impetigore_2019": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Impetigore (2019)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/YUyygf05Opxk8KkFkGIys9llCr.jpg",
+    "tmdb_id": 572468
   },
   "imported_2025": {
     "fonte": "tmdb",
@@ -14121,14 +14280,16 @@
     "tmdb_id": 460648
   },
   "inimigo_publico_no_1_2008": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Inimigo Público no 1 (2008)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/nuvpc0J5AJlqovCyADlRvEYdOHO.jpg",
+    "tmdb_id": 13635
   },
   "inimigo_publico_no_1_parte_2_2008": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Inimigo Público no 1: Parte 2 (2008)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/lR5itdDTPEaqjdWrVeY1Frvewt4.jpg",
+    "tmdb_id": 15362
   },
   "insaciavel": {
     "fonte": "tmdb",
@@ -14139,7 +14300,8 @@
   "insensata_paixao_2018": {
     "fonte": "nao_achou",
     "nome": "Insensata Paixão (2018)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "inspetor_zende_2025": {
     "fonte": "tmdb",
@@ -14324,7 +14486,8 @@
   "isi_e_ossi_2020": {
     "fonte": "nao_achou",
     "nome": "Isi e Ossi (2020)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "isolado_na_pandemia_2021": {
     "fonte": "tmdb",
@@ -14377,7 +14540,8 @@
   "it_uma_obra_prima_do_medo_1990": {
     "fonte": "nao_achou",
     "nome": "It: Uma Obra Prima do Medo (1990)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "ja_era_hora_2023": {
     "fonte": "tmdb",
@@ -14454,7 +14618,8 @@
   "jane_austen_destruiu_minha_vida_2025": {
     "fonte": "nao_achou",
     "nome": "Jane Austen Destruiu Minha Vida (2025)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "jane_nao_esta_bem_2023": {
     "fonte": "tmdb",
@@ -14493,9 +14658,10 @@
     "tmdb_id": 203834
   },
   "jester_a_morte_sorrir_2023": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Jester: A Morte Sorrir (2023)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/xMvd6QBbXFsRG1LHoEVJafWj6Xj.jpg",
+    "tmdb_id": 1118595
   },
   "jester_nao_da_para_enganar_a_morte_duas_vezes_2025": {
     "fonte": "tmdb",
@@ -14542,7 +14708,8 @@
   "jogador_no_1_2018": {
     "fonte": "nao_achou",
     "nome": "Jogador No 1 (2018)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "jogo_da_morte_2014": {
     "fonte": "tmdb",
@@ -14781,7 +14948,8 @@
   "john_wick_3_parabellum_2019_1_2019": {
     "fonte": "nao_achou",
     "nome": "John Wick 3 Parabellum 2019 1 (2019)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "john_wick_4_baba_yaga": {
     "fonte": "tmdb",
@@ -15144,9 +15312,10 @@
     "tmdb_id": 476669
   },
   "kings_man_a_origem_2021": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Kings Man: A Origem (2021)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/pVL9AyKKLfUwrYD6jhdsI15gBQ7.jpg",
+    "tmdb_id": 476669
   },
   "kingsman_o_circulo_dourado": {
     "fonte": "tmdb",
@@ -15185,9 +15354,10 @@
     "tmdb_id": 508965
   },
   "kong_ilha_da_caveira_2017": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Kong: Ilha da Caveira (2017)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/y7ZdnfEA8AEyCFdojYBxeevtZtc.jpg",
+    "tmdb_id": 293167
   },
   "kraken_terror_no_mar_2025": {
     "fonte": "tmdb",
@@ -15322,14 +15492,16 @@
     "tmdb_id": 1306764
   },
   "la_la_land_cantado_estacoes_2017": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "La La Land: Cantado Estações (2017)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/AvMietG6xuobpSSdmVnKuTjv4bL.jpg",
+    "tmdb_id": 313369
   },
   "la_vem_o_pais_2018": {
     "fonte": "nao_achou",
     "nome": "Lá Vem o País (2018)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "labirinto_a_magia_do_tempo": {
     "fonte": "tmdb",
@@ -15494,9 +15666,10 @@
     "tmdb_id": 413198
   },
   "lego_batman_2017": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Lego Batman (2017)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/jUZAAKHfHwZj8bEvghaY9MrGCRG.jpg",
+    "tmdb_id": 324849
   },
   "lego_batman_o_filme": {
     "fonte": "tmdb",
@@ -15637,9 +15810,10 @@
     "tmdb_id": 183011
   },
   "liga_da_justica_trono_de_atlantida_2015": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Liga da Justiça: Trono de Atlântida (2015)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/t6hcyzdgpGBVlEzizCmg5CWY8Fv.jpg",
+    "tmdb_id": 297556
   },
   "liga_da_justica_vs_jovens_titas_2016": {
     "fonte": "tmdb",
@@ -15776,7 +15950,8 @@
   "lobisomen_a_besta_entre_nos": {
     "fonte": "nao_achou",
     "nome": "Lobisomen: A Besta Entre Nós",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "lobisomens_2024": {
     "fonte": "tmdb",
@@ -15991,7 +16166,8 @@
   "mac_e_devin_no_colegial_2012": {
     "fonte": "nao_achou",
     "nome": "Mac e Devin no Colegial (2012)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "machete_2010": {
     "fonte": "tmdb",
@@ -16006,9 +16182,10 @@
     "tmdb_id": 9659
   },
   "mad_max_2_a_cacada_continua_16_1981": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Mad Max 2 - A Caçada Continua 16 (1981)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/jmI9M04jZnfgAaA1kSiG2HKHUxt.jpg",
+    "tmdb_id": 8810
   },
   "mad_max_2_a_cacada_continua_1981": {
     "fonte": "tmdb",
@@ -16047,9 +16224,10 @@
     "tmdb_id": 953
   },
   "madagascar_2_a_grande_escapada_2008": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Madagascar 2: A Grande Escapada (2008)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/xBOKF6ks8aFtvanyKPRfeZWErm.jpg",
+    "tmdb_id": 10527
   },
   "madagascar_3_os_procurados_2012": {
     "fonte": "tmdb",
@@ -16166,9 +16344,10 @@
     "tmdb_id": 102651
   },
   "malevola_mestre_do_mal_2019": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Malévola: Mestre do Mal (2019)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/llHTFUeUCWmkW5fR4J9kpa6Asep.jpg",
+    "tmdb_id": 420809
   },
   "maligna_2017": {
     "fonte": "tmdb",
@@ -16231,9 +16410,10 @@
     "tmdb_id": 458423
   },
   "mamma_mia_o_filme_2008": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Mamma Mia! O Filme (2008)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/xb3SnxHBLYUjpYU78C0qv0RLLtd.jpg",
+    "tmdb_id": 11631
   },
   "manas_2025": {
     "fonte": "tmdb",
@@ -16320,9 +16500,10 @@
     "tmdb_id": 2133
   },
   "mara_o_demonio_do_sono_2018": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Mara - O Demônio do Sono (2018)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/5pldaSgAqVF1NucWbF1d4VIgGPu.jpg",
+    "tmdb_id": 514277
   },
   "marcando_territorio_2016": {
     "fonte": "tmdb",
@@ -16345,7 +16526,8 @@
   "marco_de_1968": {
     "fonte": "nao_achou",
     "nome": "Marco de (1968)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "margaux_a_inteligencia_mortal_2022": {
     "fonte": "tmdb",
@@ -16404,7 +16586,8 @@
   "maskara_1994": {
     "fonte": "nao_achou",
     "nome": "Maskara (1994)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "massacre_no_texas_2017": {
     "fonte": "tmdb",
@@ -17021,7 +17204,8 @@
   "mexico_1986": {
     "fonte": "nao_achou",
     "nome": "México (1986)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "mib_homens_de_preto_1997": {
     "fonte": "tmdb",
@@ -17066,9 +17250,10 @@
     "tmdb_id": 936075
   },
   "michael_jackson_the_is_it_2009": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Michael Jackson: the is It (2009)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/em1EgSeMc5rClNsaKrWZJAEsn8n.jpg",
+    "tmdb_id": 13576
   },
   "mickey_17": {
     "fonte": "tmdb",
@@ -17143,9 +17328,10 @@
     "tmdb_id": 583833
   },
   "minha_baba_e_uma_vampira_2010": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Minha Baba é uma Vampira (2010)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/m8LQ72B83OoqmnHvm6vA8jXENVz.jpg",
+    "tmdb_id": 63700
   },
   "minha_culpa": {
     "fonte": "tmdb",
@@ -17178,19 +17364,22 @@
     "tmdb_id": 1098378
   },
   "minha_mae_e_uma_peca_2013": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Minha Mãe e uma Peça (2013)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/veCMD8bzoLuXiSGPCXCFKwJSO9v.jpg",
+    "tmdb_id": 203217
   },
   "minha_mae_e_uma_peca_2019": {
     "fonte": "nao_achou",
     "nome": "Minha Mãe e uma Peça (2019)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "minha_mae_e_uma_peca_2_2016": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Minha Mãe e uma Peça 2 (2016)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/eDApDWU6r9zxk9MZLc6rfnBb3vu.jpg",
+    "tmdb_id": 227932
   },
   "minha_mae_e_uma_peca_2_o_filme": {
     "fonte": "tmdb",
@@ -17301,9 +17490,10 @@
     "tmdb_id": 1147416
   },
   "miraculous_world_paris_as_aventuras_de_shadybug_claw_wair_2023": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Miraculous World: Paris As Aventuras De Shadybug Claw wair (2023)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/cfmSz4LezJSHpitaT21ZASNor5T.jpg",
+    "tmdb_id": 1147400
   },
   "miraculous_world_toquio_forca_estelar_2025": {
     "fonte": "tmdb",
@@ -17570,9 +17760,10 @@
     "tmdb_id": 413736
   },
   "monster_high_boo_york_boo_york_um_musical_de_arrepiar_2015": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Monster High - Boo York, Boo York: Um Musical de Arrepiar (2015)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/eEFH0SMlbvyht6QPQZs2LTO0t5M.jpg",
+    "tmdb_id": 324963
   },
   "monster_high_ghouls_rule_2012": {
     "fonte": "tmdb",
@@ -17605,9 +17796,10 @@
     "tmdb_id": 167313
   },
   "monster_high_uma_fusao_muito_louca_2014": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Monster High - Uma Fusão Muito Louca (2014)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/rZLksXFruhQYUXzCgixkB9y2ms5.jpg",
+    "tmdb_id": 290727
   },
   "monstro_a_bordo_2024": {
     "fonte": "tmdb",
@@ -17618,7 +17810,8 @@
   "monstro_vs_alienigena_2009": {
     "fonte": "nao_achou",
     "nome": "Monstro vs Alienígena (2009)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "monstros_s_a": {
     "fonte": "tmdb",
@@ -17659,7 +17852,8 @@
   "moowalker_1988": {
     "fonte": "nao_achou",
     "nome": "Moowalker (1988)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "morando_com_o_crush": {
     "fonte": "tmdb",
@@ -17694,7 +17888,8 @@
   "mortadelo_e_salaminho_missao_inacreditavel": {
     "fonte": "nao_achou",
     "nome": "Mortadelo e Salaminho: Missão Inacreditável",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "mortal_kombat_2": {
     "fonte": "tmdb",
@@ -17727,9 +17922,10 @@
     "tmdb_id": 664767
   },
   "mortal_kombat_legends_batalha_dos_reinos_2021": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Mortal Kombat Legends: Batalha dos Reinos (2021)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/nILcbiddghZiSvNL6KWttqS7DzW.jpg",
+    "tmdb_id": 841755
   },
   "mortal_kombat_legends_cage_match_2023": {
     "fonte": "tmdb",
@@ -17738,14 +17934,16 @@
     "tmdb_id": 1034062
   },
   "mortal_kombat_legends_cegueira_glaciar_2022": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Mortal Kombat Legends: Cegueira Glaciar (2022)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/pJvZHaduX9GeASdZ16hc8O9JCWz.jpg",
+    "tmdb_id": 1007401
   },
   "mortal_kombat_o_filme_1995": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Mortal Kombat: O Filme (1995)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/mxH8ko3KfD1sKe8H8U4a5hvH8ko.jpg",
+    "tmdb_id": 9312
   },
   "morte_instantanea_2019": {
     "fonte": "tmdb",
@@ -17966,7 +18164,8 @@
   "na_batida_do_coracao_2012": {
     "fonte": "nao_achou",
     "nome": "Na Batida do Coração (2012)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "na_corda_bamba_2018": {
     "fonte": "tmdb",
@@ -18355,7 +18554,8 @@
   "never_um_jogo_sem_regras_2016": {
     "fonte": "nao_achou",
     "nome": "Never: Um Jogo Sem Regras (2016)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "ninfomaniaca_volume_1": {
     "fonte": "tmdb",
@@ -18526,9 +18726,10 @@
     "tmdb_id": 1015539
   },
   "noite_das_bruxas_2023": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Noite das Bruxas (2023)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/9UAc4DF4oEObQk4sz4sNeHI4waY.jpg",
+    "tmdb_id": 945729
   },
   "noite_dos_desaparecidos_2023": {
     "fonte": "tmdb",
@@ -18705,9 +18906,10 @@
     "tmdb_id": 1214931
   },
   "o_12o_homem_2017": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "O 12o Homem (2017)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/labSb6IhlVZQY5D7SyQmCVByO7w.jpg",
+    "tmdb_id": 435577
   },
   "o_3_andar_terror_na_rua_malasana": {
     "fonte": "tmdb",
@@ -18868,7 +19070,8 @@
   "o_ano_da_extincao_2019": {
     "fonte": "nao_achou",
     "nome": "O - Ano da Extinção (2019)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_aprendiz_1998": {
     "fonte": "tmdb",
@@ -18891,7 +19094,8 @@
   "o_assasino_o_primeiro_alvo_2017": {
     "fonte": "nao_achou",
     "nome": "O Assasino: O Primeiro Alvo (2017)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_assassinato_de_rachel_nickell_2026": {
     "fonte": "tmdb",
@@ -19004,7 +19208,8 @@
   "o_beijo_do_vampiro_1989": {
     "fonte": "nao_achou",
     "nome": "O Beijo do Vampiro (1989)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_besouro_verde_2011": {
     "fonte": "tmdb",
@@ -19111,7 +19316,8 @@
   "o_caminho_para_el_dourado_2000": {
     "fonte": "nao_achou",
     "nome": "O Caminho Para El dourado (2000)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_cao_e_a_raposa_1981": {
     "fonte": "tmdb",
@@ -19128,7 +19334,8 @@
   "o_casal_duplicado_2024": {
     "fonte": "nao_achou",
     "nome": "O Casal Duplicado (2024)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_casamento_do_ano_2013": {
     "fonte": "tmdb",
@@ -19145,7 +19352,8 @@
   "o_castelo_de_vidro_2017_1_2017": {
     "fonte": "nao_achou",
     "nome": "O Castelo de Vidro 2017 1 (2017)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_cavaleiro_solitario_2013": {
     "fonte": "tmdb",
@@ -19178,9 +19386,10 @@
     "tmdb_id": 14564
   },
   "o_chamado_4_2023": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "O Chamado 4 (2023)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/7IlDfL40rIe1bVERCxXUJJfx2en.jpg",
+    "tmdb_id": 940417
   },
   "o_chamado_da_floresta": {
     "fonte": "tmdb",
@@ -19545,7 +19754,8 @@
   "o_diario_de_uma_princesa_2001": {
     "fonte": "nao_achou",
     "nome": "O Diário de uma Princesa (2001)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_ditador_2012": {
     "fonte": "tmdb",
@@ -19644,9 +19854,10 @@
     "tmdb_id": 297291
   },
   "o_escorpiao_rei_5_o_livro_das_almas_2018": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "O Escorpião Rei 5: O Livro das Almas (2018)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/skPN6VsQx1NG0xZ6EFBAXrOH7a7.jpg",
+    "tmdb_id": 522417
   },
   "o_espaco_entre_nos_2017": {
     "fonte": "tmdb",
@@ -19717,7 +19928,8 @@
   "o_esquadrao_suicida_2016": {
     "fonte": "nao_achou",
     "nome": "O Esquadrão Suicida (2016)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_estrangeiro_2017": {
     "fonte": "tmdb",
@@ -19740,7 +19952,8 @@
   "o_estranho_mundo_de_jack_livre_1993": {
     "fonte": "nao_achou",
     "nome": "O Estranho Mundo de Jack Livre (1993)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_estranho_na_minha_casa_2025": {
     "fonte": "tmdb",
@@ -19763,7 +19976,8 @@
   "o_exorcismo_do_papa_2023": {
     "fonte": "nao_achou",
     "nome": "O Exorcismo do Papa (2023)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_exorcista": {
     "fonte": "tmdb",
@@ -19821,7 +20035,7 @@
   },
   "o_exterminador_do_futuro_3_a_rebeliao_das_maquinas_2003": {
     "fonte": "tmdb",
-    "nome": "O Exterminador do Futuro 3: A Rebeliao das Maquinas (2003)",
+    "nome": "O Exterminador do Futuro 3: A Rebelião das Máquinas (2003)",
     "poster": "https://image.tmdb.org/t/p/w500/lzzuKhx8Ly6SZa8LxkT5Fvouc5z.jpg",
     "tmdb_id": 296
   },
@@ -19838,9 +20052,10 @@
     "tmdb_id": 87101
   },
   "o_exterminio_2_2007": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "O Extermínio 2 (2007)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/mZVFtNKPv3aiESKKeUDV61DaQ90.jpg",
+    "tmdb_id": 1562
   },
   "o_fabricante_de_lagrimas": {
     "fonte": "tmdb",
@@ -20059,9 +20274,10 @@
     "tmdb_id": 1970
   },
   "o_grito_2_2003": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "O Grito 2 (2003)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/A0VKYaw1rs6VTn48ijhTWN8P1pi.jpg",
+    "tmdb_id": 1970
   },
   "o_grito_3": {
     "fonte": "tmdb",
@@ -20268,9 +20484,10 @@
     "tmdb_id": 15070
   },
   "o_imbativel_iii_2010": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "O Imbatível III (2010)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/2qnvv6vI6XXakSOPwOICUZH3EZ7.jpg",
+    "tmdb_id": 38234
   },
   "o_imbativel_iii_redencao_2010": {
     "fonte": "tmdb",
@@ -20473,7 +20690,8 @@
   "o_lobisomen_2010": {
     "fonte": "nao_achou",
     "nome": "O Lobisomen (2010)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_lobo_da_estepe_2024": {
     "fonte": "tmdb",
@@ -20514,7 +20732,8 @@
   "o_lutador_2006": {
     "fonte": "nao_achou",
     "nome": "O Lutador (2006)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_macaco_2025": {
     "fonte": "tmdb",
@@ -20885,7 +21104,8 @@
   "o_momento_2026": {
     "fonte": "nao_achou",
     "nome": "O Momento (2026)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_monstro_que_vive_em_mim_2023": {
     "fonte": "tmdb",
@@ -20954,9 +21174,10 @@
     "tmdb_id": 872130
   },
   "o_naufrago_2000": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "O Náufrago (2000)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/eaJRnsUIxOeMgpY81iIgGr372vp.jpg",
+    "tmdb_id": 8358
   },
   "o_nevoeiro_2007": {
     "fonte": "tmdb",
@@ -21207,7 +21428,8 @@
   "o_poder_de_acreditar_2024": {
     "fonte": "nao_achou",
     "nome": "O Poder de Acreditar (2024)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_poder_do_pecado_2023": {
     "fonte": "tmdb",
@@ -21248,7 +21470,8 @@
   "o_poderoso_chefinho_2_negocios_da_familia": {
     "fonte": "nao_achou",
     "nome": "O Poderoso Chefinho 2: Negócios da Família",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_poderoso_chefinho_2_negocios_da_familia_2021": {
     "fonte": "tmdb",
@@ -21449,9 +21672,10 @@
     "tmdb_id": 345887
   },
   "o_protetor_3_2023": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "O Protetor 3 (2023)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/eq2Ytq08C9KddMiOzQ74g36Tdpg.jpg",
+    "tmdb_id": 926393
   },
   "o_quarteto_fantastico": {
     "fonte": "tmdb",
@@ -21474,7 +21698,8 @@
   "o_quarto_do_panico_2000": {
     "fonte": "nao_achou",
     "nome": "O Quarto do Pânico (2000)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_quarto_dos_esquecidos_2016": {
     "fonte": "tmdb",
@@ -21525,9 +21750,10 @@
     "tmdb_id": 14034
   },
   "o_que_nos_mantem_vivo_2018": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "O Que Nos Mantém Vivo (2018)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/fPFAZprAg9xNfjyMzHF1IpMvtKe.jpg",
+    "tmdb_id": 503752
   },
   "o_que_pode_dar_errado_2023": {
     "fonte": "tmdb",
@@ -21598,7 +21824,8 @@
   "o_rei_das_armas_2001": {
     "fonte": "nao_achou",
     "nome": "O Rei das Armas (2001)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_rei_do_show": {
     "fonte": "tmdb",
@@ -22099,9 +22326,10 @@
     "tmdb_id": 1550223
   },
   "o_terno_de_dois_bilhoes_de_dolares_2002": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "O Terno de Dois Bilhões de Dólares (2002)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/qESPbPS93MHHaebnwNthOrFLWrx.jpg",
+    "tmdb_id": 10771
   },
   "o_touro_ferdinando": {
     "fonte": "tmdb",
@@ -22154,7 +22382,8 @@
   "o_ultimo_cacador_de_bruxas_2013": {
     "fonte": "nao_achou",
     "nome": "O Último Caçador de Bruxas (2013)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "o_ultimo_conquistador_2026": {
     "fonte": "tmdb",
@@ -22501,7 +22730,8 @@
   "one_chicago_crossover_2025": {
     "fonte": "nao_achou",
     "nome": "One Chicago Crossover (2025)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "one_hit_wonder_2025": {
     "fonte": "tmdb",
@@ -22708,9 +22938,10 @@
     "tmdb_id": 58431
   },
   "orion_e_o_escuro_10_2024": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Orion e o Escuro 10 (2024)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/ulUmkLFtT1Y0YGtmO6lBkMwLsBR.jpg",
+    "tmdb_id": 1139829
   },
   "os_5_fora_da_lei_2024": {
     "fonte": "tmdb",
@@ -22737,9 +22968,10 @@
     "tmdb_id": 9737
   },
   "os_bad_boys_2_2003": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Os Bad Boys 2 (2003)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/43uHXNlX3Ip7HgLOvxMHOpCxYC0.jpg",
+    "tmdb_id": 8961
   },
   "os_batutinhas": {
     "fonte": "tmdb",
@@ -22754,9 +22986,10 @@
     "tmdb_id": 620
   },
   "os_caca_fantasmas_ii_1989": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Os Caça-Fantasmas II (1989)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/hacjLeFkaqtsb3r9waXUeSoPUnn.jpg",
+    "tmdb_id": 2978
   },
   "os_candidatos": {
     "fonte": "tmdb",
@@ -22843,9 +23076,10 @@
     "tmdb_id": 49519
   },
   "os_croods_2_2020": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Os Croods 2 (2020)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/f7BIa9xIerwviSMsa9BEY28sC3Y.jpg",
+    "tmdb_id": 529203
   },
   "os_croods_2_uma_nova_era": {
     "fonte": "tmdb",
@@ -22980,14 +23214,16 @@
     "tmdb_id": 308447
   },
   "os_garotos_perdidos_2_a_tribo_2008": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Os Garotos Perdidos 2 - A Tribo (2008)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/4o2db6Ws5ylWgKyMUsRnoZu4bYS.jpg",
+    "tmdb_id": 13489
   },
   "os_garotos_perdidos_3_a_sede_2010": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Os Garotos Perdidos 3 - A Sede (2010)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/b3sFLvkpNBZX1UgLbpD9E75OIUt.jpg",
+    "tmdb_id": 46812
   },
   "os_goonies": {
     "fonte": "tmdb",
@@ -22998,7 +23234,8 @@
   "os_guardioes_2007": {
     "fonte": "nao_achou",
     "nome": "Os Guardiões (2007)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "os_horrores_do_caddo_lake_2024": {
     "fonte": "tmdb",
@@ -23007,9 +23244,10 @@
     "tmdb_id": 863873
   },
   "os_incriveis_1": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Os Incríveis 1",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/z8k5EhZZTLsCRF8NWjSe6snWNZg.jpg",
+    "tmdb_id": 9806
   },
   "os_incriveis_2": {
     "fonte": "tmdb",
@@ -23540,14 +23778,16 @@
     "tmdb_id": 11208
   },
   "paixao_no_escritorio_2026": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Paixão no Escritório (2026)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/kN86jEhf5xeHTPwlVeZ1ZAW861r.jpg",
+    "tmdb_id": 1358005
   },
   "paixao_sem_limites_1993": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Paixão Sem Limites (1993)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/ci6SEMDkTX6BNTXVxpAEzZh1hy2.jpg",
+    "tmdb_id": 33408
   },
   "paixao_sem_limites_2010": {
     "fonte": "tmdb",
@@ -23582,7 +23822,8 @@
   "panava_2026": {
     "fonte": "nao_achou",
     "nome": "Panava (2026)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "pandabeer_in_afrika": {
     "fonte": "tmdb",
@@ -23645,14 +23886,16 @@
     "tmdb_id": 41446
   },
   "panico_5_2022": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Pânico 5 (2022)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/lvskZGlyH9LuGKO8OdBWQWTGlGx.jpg",
+    "tmdb_id": 646385
   },
   "panico_6_2023": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Pânico 6 (2023)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/aKmjs235LlPInyqhITgCHbSTacf.jpg",
+    "tmdb_id": 934433
   },
   "panico_7": {
     "fonte": "tmdb",
@@ -23697,9 +23940,10 @@
     "tmdb_id": 23823
   },
   "panico_na_floresta_3_caminho_da_morte_2009": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Pânico na Floresta 3: Caminho da Morte (2009)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/nFpU0naw8VeaaoWhXRla05WjyTm.jpg",
+    "tmdb_id": 23823
   },
   "panico_na_floresta_4_origens_sangrentas": {
     "fonte": "tmdb",
@@ -23738,9 +23982,10 @@
     "tmdb_id": 259072
   },
   "panico_na_floresta_7_a_fundacao_2021": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Pânico na Floresta 7: A Fundação (2021)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/j29PMbzHVnz6KhjVOUUWkprvkTp.jpg",
+    "tmdb_id": 630586
   },
   "panico_na_ilha_2009": {
     "fonte": "tmdb",
@@ -24031,9 +24276,10 @@
     "tmdb_id": 1323625
   },
   "paul_alien_fugitivo_2011": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Paul: Alien Fugitivo (2011)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/yR9WqTWubNbCG58EjHObNui9COr.jpg",
+    "tmdb_id": 39513
   },
   "paul_o_alien_fugitivo": {
     "fonte": "tmdb",
@@ -24128,7 +24374,8 @@
   "pequenos_guerreiros_livre_1998": {
     "fonte": "nao_achou",
     "nome": "Pequenos Guerreiros Livre (1998)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "pequenos_invasores_2009": {
     "fonte": "tmdb",
@@ -24251,9 +24498,10 @@
     "tmdb_id": 26715
   },
   "pernalonga_e_patolino_os_caca_fantasmas_1988": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Pernalonga e Patolino: Os Caca Fantasmas (1988)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/hacjLeFkaqtsb3r9waXUeSoPUnn.jpg",
+    "tmdb_id": 2978
   },
   "perrengue_fashion_2025": {
     "fonte": "tmdb",
@@ -24696,7 +24944,8 @@
   "poisedon_2006": {
     "fonte": "nao_achou",
     "nome": "Poisedon (2006)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "pokemon_detetive_pikachu_2019": {
     "fonte": "tmdb",
@@ -24815,7 +25064,8 @@
   "pooh_e_o_elefante_2005": {
     "fonte": "nao_achou",
     "nome": "Pooh e o Elefante (2005)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "populacao_436_2006": {
     "fonte": "tmdb",
@@ -25214,9 +25464,10 @@
     "tmdb_id": 694938
   },
   "projecto_almanaque_2015": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Projecto Almanaque (2015)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/2krLUKMsKbnZk6j647IlkqlMZ2u.jpg",
+    "tmdb_id": 227719
   },
   "projeto_almanaque": {
     "fonte": "tmdb",
@@ -25617,7 +25868,8 @@
   "rainha_da_morte_2020": {
     "fonte": "nao_achou",
     "nome": "Rainha da Morte (2020)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "rainha_do_carvao_2025": {
     "fonte": "tmdb",
@@ -25628,7 +25880,8 @@
   "raizes_do_mal_2003": {
     "fonte": "nao_achou",
     "nome": "Raízes do Mal (2003)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "raizes_macabras_2021": {
     "fonte": "tmdb",
@@ -26059,7 +26312,8 @@
   "resident_evil_2_apocalipse_resident_evil_apocalypse": {
     "fonte": "nao_achou",
     "nome": "Resident Evil 2: Apocalipse - Resident Evil: Apocalypse",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "resident_evil_3_a_extincao_2007": {
     "fonte": "tmdb",
@@ -26070,12 +26324,14 @@
   "resident_evil_3_a_extincao_resident_evil_extinction": {
     "fonte": "nao_achou",
     "nome": "Resident Evil 3: A Extinção - Resident Evil: Extinction",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "resident_evil_4_incubacao_2006": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Resident Evil 4: Incubação (2006)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/A1aTnlmt0VSfnFXzL3JqHl8l68V.jpg",
+    "tmdb_id": 497467
   },
   "resident_evil_4_recomeco_2010": {
     "fonte": "tmdb",
@@ -26086,7 +26342,8 @@
   "resident_evil_4_recomeco_resident_evil_afterlife": {
     "fonte": "nao_achou",
     "nome": "Resident Evil 4: Recomeço - Resident Evil: Afterlife",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "resident_evil_5_retribuicao_2012": {
     "fonte": "tmdb",
@@ -26097,7 +26354,8 @@
   "resident_evil_5_retribuicao_resident_evil_retribution": {
     "fonte": "nao_achou",
     "nome": "Resident Evil 5: Retribuição - Resident Evil: Retribution",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "resident_evil_6_o_capitulo_final_2016": {
     "fonte": "tmdb",
@@ -26108,7 +26366,8 @@
   "resident_evil_6_o_capitulo_final_resident_evil_the_final_chapter": {
     "fonte": "nao_achou",
     "nome": "Resident Evil 6: O Capítulo Final - Resident Evil: The Final Chapter",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "resident_evil_a_vinganca_2017": {
     "fonte": "tmdb",
@@ -26149,7 +26408,8 @@
   "resident_evil_o_hospede_maldito_resident_evil": {
     "fonte": "nao_achou",
     "nome": "Resident Evil: O Hóspede Maldito - Resident Evil",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "resposta_armada_2017": {
     "fonte": "tmdb",
@@ -26302,9 +26562,10 @@
     "tmdb_id": 9928
   },
   "robot_selvagem_2024": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Robot Selvagem (2024)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/gAHNIZKG8fmK7njOTpMmLKJXiag.jpg",
+    "tmdb_id": 1184918
   },
   "rocky_balboa_2006": {
     "fonte": "tmdb",
@@ -26379,14 +26640,16 @@
     "tmdb_id": 107846
   },
   "rota_de_fuga_2_2018": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Rota de Fuga 2 (2018)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/7uYD4Ix66hOsvUVewoYQbuc51Hy.jpg",
+    "tmdb_id": 440471
   },
   "rota_de_fuga_3_2019": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Rota de Fuga 3 (2019)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/wTqlEF01SGo4QONor55zUPxHZGP.jpg",
+    "tmdb_id": 480042
   },
   "rottweiler": {
     "fonte": "tmdb",
@@ -26425,9 +26688,10 @@
     "tmdb_id": 591275
   },
   "rua_do_medo_1666_parte_3_2": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Rua do Medo 1666 Parte 3 2",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/hsX1vt168fNSMSYwTVi8M9O0hLu.jpg",
+    "tmdb_id": 591275
   },
   "rua_do_medo_1978_parte_2": {
     "fonte": "tmdb",
@@ -26438,7 +26702,8 @@
   "rua_do_medo_1978_parte_2_1978": {
     "fonte": "nao_achou",
     "nome": "Rua do Medo 1978 Parte 2 (1978)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "rua_do_medo_1994_parte_1": {
     "fonte": "tmdb",
@@ -26449,7 +26714,8 @@
   "rua_do_medo_1994_parte_1_1994": {
     "fonte": "nao_achou",
     "nome": "Rua do Medo 1994 Parte 1 (1994)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "rua_do_medo_rainha_do_baile": {
     "fonte": "tmdb",
@@ -26610,7 +26876,8 @@
   "scooby_doo_a_loucura_do_monstro_da_lua_2015": {
     "fonte": "nao_achou",
     "nome": "Scooby-Doo! A Loucura do Monstro da Lua (2015)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "scooby_doo_abracadabra_doo_2010": {
     "fonte": "tmdb",
@@ -26673,9 +26940,10 @@
     "tmdb_id": 47533
   },
   "scooby_doo_e_batman_os_bravos_e_destemidos_2018": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Scooby-Doo e Batman: Os Bravos e Destemidos (2018)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/7S9uKgx9s147R0873GZ5h4W0HWY.jpg",
+    "tmdb_id": 484862
   },
   "scooby_doo_e_krypto_o_supercao_2023": {
     "fonte": "tmdb",
@@ -26692,7 +26960,8 @@
   "scooby_doo_e_o_fantasma_da_bruxa_1999": {
     "fonte": "nao_achou",
     "nome": "Scooby-Doo e o Fantasma da Bruxa (1999)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "scooby_doo_e_o_fantasma_gourmet_2018": {
     "fonte": "tmdb",
@@ -26739,7 +27008,8 @@
   "scooby_doo_halloween_2020": {
     "fonte": "nao_achou",
     "nome": "Scooby-Doo! Halloween (2020)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "scooby_doo_misterio_na_lutamania": {
     "fonte": "tmdb",
@@ -26798,7 +27068,8 @@
   "scooby_doo_verao_assombrado_2010": {
     "fonte": "nao_achou",
     "nome": "Scooby-Doo: Verão Assombrado (2010)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "scooby_o_filme": {
     "fonte": "tmdb",
@@ -27049,7 +27320,8 @@
   "sem_saida_ano_2008": {
     "fonte": "nao_achou",
     "nome": "Sem Saída Ano (2008)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "sem_tempo_a_perder_2023": {
     "fonte": "tmdb",
@@ -27157,7 +27429,8 @@
   "serie:a_casa_da_coruja": {
     "fonte": "nao_achou",
     "nome": "A Casa da Coruja",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "serie:a_casa_do_dragao": {
     "fonte": "tmdb",
@@ -27313,9 +27586,20 @@
     "tmdb_id": 15819
   },
   "serie:arqueiro_verde_arrow": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Arqueiro Verde (Arrow)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/oaLXsduGoDOOftWziIOvyZzrR4T.jpg",
+    "temporadas": {
+      "1": "https://image.tmdb.org/t/p/w500/pAdZsHyk7ROQqHzzK8QIM8OnR5f.jpg",
+      "2": "https://image.tmdb.org/t/p/w500/wF9HS0mLjO0rwjUYw9iCxlpy0KU.jpg",
+      "3": "https://image.tmdb.org/t/p/w500/uWwGLfG1SVeXseEo5VYO2IfT5VJ.jpg",
+      "4": "https://image.tmdb.org/t/p/w500/hAl1Ypfsb01UOUGNmopMu6skThT.jpg",
+      "5": "https://image.tmdb.org/t/p/w500/uzGRZtaDTh0nKruS0raXVZnGQAj.jpg",
+      "6": "https://image.tmdb.org/t/p/w500/wVWsK34umDltQPaYsfhW1mZhkN0.jpg",
+      "7": "https://image.tmdb.org/t/p/w500/ggkzHq0CBRcCwY5NL2MLaUzGXGW.jpg",
+      "8": "https://image.tmdb.org/t/p/w500/gKG5QGz5Ngf8fgWpBsWtlg5L2SF.jpg"
+    },
+    "tmdb_id": 1412
   },
   "serie:assassinato_na_casa_branca": {
     "fonte": "tmdb",
@@ -27339,7 +27623,8 @@
   "serie:avlu_prisao_de_mulheres": {
     "fonte": "nao_achou",
     "nome": "AVLU / Prisão de Mulheres",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "serie:beauty_in_black": {
     "fonte": "tmdb",
@@ -27562,9 +27847,14 @@
     "tmdb_id": 70523
   },
   "serie:demolidor": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Demolidor",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/r5hNFtkNAauxc2G4VUlnJOaVIb0.jpg",
+    "temporadas": {
+      "1": "https://image.tmdb.org/t/p/w500/q4ZPou6KRFJZQqLUkISl6Dlagpz.jpg",
+      "2": "https://image.tmdb.org/t/p/w500/x9xM1mOXdPlbsdPPBa10z21q8Lz.jpg"
+    },
+    "tmdb_id": 202555
   },
   "serie:demon_slayer_kimetsu_no_yaiba": {
     "fonte": "tmdb",
@@ -27661,7 +27951,8 @@
   "serie:diarios_de_uma_apoticaria": {
     "fonte": "nao_achou",
     "nome": "Diarios De Uma Apoticaria",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "serie:dias_perfeitos": {
     "fonte": "tmdb",
@@ -27874,9 +28165,16 @@
     "tmdb_id": 60735
   },
   "serie:from_origem": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "From (Origem)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/eK9ZDIq7gPFRJ0GGaWvgrXLZgXX.jpg",
+    "temporadas": {
+      "1": "https://image.tmdb.org/t/p/w500/5LitqF9Qu6e0HweeR2SYFNLa5CZ.jpg",
+      "2": "https://image.tmdb.org/t/p/w500/foz5XH2DqnAfY7LcjbNxuiQ1L6S.jpg",
+      "3": "https://image.tmdb.org/t/p/w500/qJ7RqaB3V3jqtRsHTJww03j33fH.jpg",
+      "4": "https://image.tmdb.org/t/p/w500/6PwA8jhM6KBvAcAGvLOwHjfhXeu.jpg"
+    },
+    "tmdb_id": 124364
   },
   "serie:futurama": {
     "fonte": "tmdb",
@@ -28012,7 +28310,8 @@
   "serie:icarly_a_reuniao": {
     "fonte": "nao_achou",
     "nome": "iCarly, A Reuniao",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "serie:invasao": {
     "fonte": "tmdb",
@@ -28026,9 +28325,13 @@
     "tmdb_id": 127235
   },
   "serie:it_bem": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "IT: Bem",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/gMTfrLvrDaD0zrhpLZ7zXIIpKfJ.jpg",
+    "temporadas": {
+      "1": "https://image.tmdb.org/t/p/w500/c107TVzzaKER1fJlgRne5TR85en.jpg"
+    },
+    "tmdb_id": 200875
   },
   "serie:it_bem_vindos_a_derry": {
     "fonte": "tmdb",
@@ -28064,7 +28367,8 @@
   "serie:jovens_recrutas": {
     "fonte": "nao_achou",
     "nome": "Jovens Recrutas",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "serie:kaiju_no_8": {
     "fonte": "tmdb",
@@ -28182,9 +28486,15 @@
     "tmdb_id": 296466
   },
   "serie:marvel": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Marvel",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/x7zUHG5cko4ZXQO2209Qc2aoyrc.jpg",
+    "temporadas": {
+      "1": "https://image.tmdb.org/t/p/w500/pg9F7J2vu0e3JxnJcfVy0u3lzMl.jpg",
+      "2": "https://image.tmdb.org/t/p/w500/tt37OtTjsrCokPnHx0gqamOYhPo.jpg",
+      "3": "https://image.tmdb.org/t/p/w500/x7zUHG5cko4ZXQO2209Qc2aoyrc.jpg"
+    },
+    "tmdb_id": 61889
   },
   "serie:marvel_zumbis": {
     "fonte": "tmdb",
@@ -28198,7 +28508,8 @@
   "serie:mary_e_george": {
     "fonte": "nao_achou",
     "nome": "Mary e George",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "serie:mask_girl": {
     "fonte": "tmdb",
@@ -28239,7 +28550,8 @@
   "serie:mushuku_tensei": {
     "fonte": "nao_achou",
     "nome": "Mushuku Tensei",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "serie:o11ze": {
     "fonte": "tmdb",
@@ -28320,7 +28632,7 @@
   },
   "serie:o_maskara_a_serie_animada": {
     "fonte": "tmdb",
-    "nome": "O Maskara: A Serie Animada",
+    "nome": "O Máskara: A Série Animada",
     "poster": "https://image.tmdb.org/t/p/w500/bOmWfBKD7ommflceQOccCKXjSh0.jpg",
     "temporadas": {
       "1": "https://image.tmdb.org/t/p/w500/z5sCoxKspNqMvTIygzEewQx13Dr.jpg",
@@ -28581,9 +28893,13 @@
     "tmdb_id": 46958
   },
   "serie:re_zero": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Re:ZERO",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/2FvWqbgJDG2IWGgUxhROYQxE98p.jpg",
+    "temporadas": {
+      "1": "https://image.tmdb.org/t/p/w500/nLgY9Ped6ABn7XPKT84RBKG2Lvm.jpg"
+    },
+    "tmdb_id": 65942
   },
   "serie:reacher": {
     "fonte": "tmdb",
@@ -28618,7 +28934,8 @@
   "serie:rivalidade_ardente_heated_rivalry": {
     "fonte": "nao_achou",
     "nome": "Rivalidade Ardente | Heated Rivalry",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "serie:robin_hood": {
     "fonte": "tmdb",
@@ -28813,7 +29130,8 @@
   "serie:suits_homens_de_terno": {
     "fonte": "nao_achou",
     "nome": "Suits | Homens de Terno",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "serie:supernatural": {
     "fonte": "tmdb",
@@ -28849,9 +29167,16 @@
     "tmdb_id": 218347
   },
   "serie:sword_art": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Sword Art",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/htNohqrYEwuz4fCa9ATVF90s58S.jpg",
+    "temporadas": {
+      "1": "https://image.tmdb.org/t/p/w500/3N9j3R3XVaFouGY3dEhZwAHIJHG.jpg",
+      "2": "https://image.tmdb.org/t/p/w500/ycCgDrMbUVx0hmwLikCUfv1lETG.jpg",
+      "3": "https://image.tmdb.org/t/p/w500/x1v7jxAv3GqNVC8oCsVyicrY5mr.jpg",
+      "4": "https://image.tmdb.org/t/p/w500/Aa39R4MynJlUtCBHfAXMEf6Dhpp.jpg"
+    },
+    "tmdb_id": 45782
   },
   "serie:task_unidade_especial": {
     "fonte": "tmdb",
@@ -29268,34 +29593,40 @@
     "tmdb_id": 9728
   },
   "sexta_feira_13_parte_4_o_capitulo_final_1984": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Sexta-Feira 13 - Parte 4: O Capítulo Final (1984)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/a8oJhgssKN9zOz4o4GJcQcmjHYF.jpg",
+    "tmdb_id": 9730
   },
   "sexta_feira_13_parte_5_o_regresso_1985": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Sexta-Feira 13 - Parte 5: O Regresso (1985)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/a8oJhgssKN9zOz4o4GJcQcmjHYF.jpg",
+    "tmdb_id": 9730
   },
   "sexta_feira_13_parte_6_1986": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Sexta-feira 13 - Parte 6 (1986)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/sm5eRvhLGkj3KfQOFc8ZZMe3BDF.jpg",
+    "tmdb_id": 10225
   },
   "sexta_feira_13_parte_7_sangue_novo_1988": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Sexta-Feira 13 - Parte 7: Sangue Novo (1988)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/jZtAGb27TYrhva4Cb5Cw6AWI0Cv.jpg",
+    "tmdb_id": 10281
   },
   "sexta_feira_13_parte_8_terror_em_nova_iorque_1989": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Sexta-Feira 13 - Parte 8: Terror em Nova Iorque (1989)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/4oYIxi4xkpU3Mfqh2mADxXhRPld.jpg",
+    "tmdb_id": 10283
   },
   "sexta_feira_13_parte_9_1993": {
     "fonte": "nao_achou",
     "nome": "Sexta-Feira 13 - Parte 9 (1993)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "sexta_feira_em_apuros": {
     "fonte": "tmdb",
@@ -29394,9 +29725,10 @@
     "tmdb_id": 10528
   },
   "sherlock_holmes_jogo_de_sombras_2011": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Sherlock Holmes: Jogo de Sombras (2011)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/g06QmnWXcysphBwTyJLWFoFsxOe.jpg",
+    "tmdb_id": 58574
   },
   "show_de_vizinha_2004": {
     "fonte": "tmdb",
@@ -29489,9 +29821,10 @@
     "tmdb_id": 200727
   },
   "sin_city_2_a_dama_fatal_2014": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Sin City 2 - A Dama Fatal (2014)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/477iFpk3xfMeNiFgbGxEQjSLeBl.jpg",
+    "tmdb_id": 189
   },
   "sin_city_a_cidade_do_pecado_2005": {
     "fonte": "tmdb",
@@ -29820,7 +30153,8 @@
   "sombra_da_morte_2026": {
     "fonte": "nao_achou",
     "nome": "Sombra da Morte (2026)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "sombras_a_luz_do_dia_2023": {
     "fonte": "tmdb",
@@ -30017,7 +30351,8 @@
   "spree_viajens_sem_limite": {
     "fonte": "nao_achou",
     "nome": "Spree: Viajens Sem Limite",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "sr_ninguem": {
     "fonte": "tmdb",
@@ -30092,19 +30427,22 @@
     "tmdb_id": 1895
   },
   "star_wars_episodio_iv_uma_nova_esperanca_1977": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Star Wars: Episódio IV - Uma Nova Esperança (1977)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/dw7X9YPjjAfIxKHW04V64Bb9TB0.jpg",
+    "tmdb_id": 11
   },
   "star_wars_episodio_ix_a_ascensao_skywalker_2019": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Star Wars: Episódio IX - A Ascensão Skywalker (2019)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/uLlrDUtFG2tKtDcJN6kBznlqqsp.jpg",
+    "tmdb_id": 181812
   },
   "star_wars_episodio_viii_os_ultimos_jedi_2017": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Star Wars: Episódio VIII - Os Últimos Jedi (2017)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/5dGufuaIG5vNcxPm8QPij5MSPeQ.jpg",
+    "tmdb_id": 181808
   },
   "star_wars_o_despertar_da_forca": {
     "fonte": "tmdb",
@@ -30181,7 +30519,8 @@
   "steven_universo_o_filme_2019_1_2019": {
     "fonte": "nao_achou",
     "nome": "Steven Universo O Filme 2019 1 (2019)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "sting_aranha_assassina_2024": {
     "fonte": "tmdb",
@@ -30516,7 +30855,8 @@
   "teen_beach_o_filme_2013": {
     "fonte": "nao_achou",
     "nome": "Teen Beach: O Filme (2013)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "teen_wolf_o_filme": {
     "fonte": "tmdb",
@@ -30533,7 +30873,8 @@
   "teke_teke_2009": {
     "fonte": "nao_achou",
     "nome": "Teke Teke (2009)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "tekken": {
     "fonte": "tmdb",
@@ -30580,7 +30921,8 @@
   "tempestade_acida_2023": {
     "fonte": "nao_achou",
     "nome": "Tempestade Ácida (2023)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "tempestade_planeta_em_furia_2017": {
     "fonte": "tmdb",
@@ -30819,7 +31161,8 @@
   "the_sadness_2021": {
     "fonte": "nao_achou",
     "nome": "The Sadness (2021)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "the_severed_sun_2025": {
     "fonte": "tmdb",
@@ -30846,9 +31189,10 @@
     "tmdb_id": 740903
   },
   "the_woman_nem_todo_monstro_vive_na_selva_2011": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "The Woman: Nem Todo Monstro Vive na Selva (2011)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/aKq0nyZDOPoXaFhoYYnUOHlZKHy.jpg",
+    "tmdb_id": 65599
   },
   "thor": {
     "fonte": "tmdb",
@@ -30925,7 +31269,8 @@
   "time_de_fabrica_2025": {
     "fonte": "nao_achou",
     "nome": "Time de Fábrica (2025)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "tin_tina": {
     "fonte": "tmdb",
@@ -31000,9 +31345,10 @@
     "tmdb_id": 175112
   },
   "tinker_bell_jogos_do_refugio_das_fadas_2011": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Tinker Bell - Jogos do Refúgio das Fadas (2011)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/a4XtmRHjpcN8r4ZUn7g3kGEE3F4.jpg",
+    "tmdb_id": 75258
   },
   "tinker_bell_o_segredo_das_fadas": {
     "fonte": "tmdb",
@@ -31193,12 +31539,14 @@
   "tom_amp_amp_jerry_o_filme": {
     "fonte": "nao_achou",
     "nome": "Tom &amp;amp; Jerry: O Filme",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "tom_e_jerry_uma_aventura_no_museu_2025": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Tom e Jerry: Uma Aventura no Museu (2025)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/eqQpR3H0bIMiLnjTt0YLVKfS1hI.jpg",
+    "tmdb_id": 1497970
   },
   "tom_e_jerry_velozes_e_ferozes": {
     "fonte": "tmdb",
@@ -31233,7 +31581,8 @@
   "torturada_pelo_pai_2021": {
     "fonte": "nao_achou",
     "nome": "Torturada Pelo Pai (2021)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "toscana_2022": {
     "fonte": "tmdb",
@@ -31292,7 +31641,8 @@
   "trabalhar_cansa_2022": {
     "fonte": "nao_achou",
     "nome": "Trabalhar cansa (2022)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "trafico_sexual_2023": {
     "fonte": "tmdb",
@@ -31331,14 +31681,16 @@
     "tmdb_id": 1858
   },
   "transformers_4_a_era_da_extincao_2014": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Transformers 4 - A Era da Extinção (2014)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/gyDVzU2A8bdK4fsS4rWTsDcPPEB.jpg",
+    "tmdb_id": 91314
   },
   "transformers_5_o_ultimo_cavaleiro_2017": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Transformers 5: O Último Cavaleiro (2017)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/7ugUPQw8JjGazfd28MIPADvDaUT.jpg",
+    "tmdb_id": 335988
   },
   "transformers_a_era_da_extincao": {
     "fonte": "tmdb",
@@ -31395,9 +31747,10 @@
     "tmdb_id": 335988
   },
   "transito_muito_louco_1985": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Trânsito Muito Louco (1985)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/ontJFeXjJXyvtvUUUzVmmzfXwd8.jpg",
+    "tmdb_id": 31462
   },
   "tratamento_de_realeza_2022": {
     "fonte": "tmdb",
@@ -31502,9 +31855,10 @@
     "tmdb_id": 652
   },
   "troll_da_montanha_2022": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Troll da Montanha (2022)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/889DmsrFfbQwSq6eD7xPFxQTG5Z.jpg",
+    "tmdb_id": 736526
   },
   "trolls": {
     "fonte": "tmdb",
@@ -31615,9 +31969,10 @@
     "tmdb_id": 291805
   },
   "truque_de_mestre_o_2o_ato_2016": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Truque de Mestre: O 2o Ato (2016)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/9uCUHxN5MD4vX6q1YEnpL6bQLiw.jpg",
+    "tmdb_id": 291805
   },
   "truque_de_mestre_o_3_ato": {
     "fonte": "tmdb",
@@ -31662,9 +32017,10 @@
     "tmdb_id": 257450
   },
   "tubarao_touro_2020": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Tubarão Touro (2020)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/kJGzbJ5ywPqcuXYyvF1GMTCwyT7.jpg",
+    "tmdb_id": 851012
   },
   "tubaroes_de_gelo": {
     "fonte": "tmdb",
@@ -31673,9 +32029,10 @@
     "tmdb_id": 407627
   },
   "tucker_dale_contra_o_mal_2010": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Tucker & Dale Contra o Mal (2010)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/fgTI1Azpk6iE2DCk5A8LN0SbAid.jpg",
+    "tmdb_id": 46838
   },
   "tucker_e_dale_contra_o_mal": {
     "fonte": "tmdb",
@@ -31686,7 +32043,8 @@
   "tudo_acontece_a_noite_2023": {
     "fonte": "nao_achou",
     "nome": "Tudo Acontece à Noite (2023)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "tudo_e_todas_as_coisas_2017": {
     "fonte": "tmdb",
@@ -31757,7 +32115,8 @@
   "twister_1998": {
     "fonte": "nao_achou",
     "nome": "Twister (1998)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "twisters": {
     "fonte": "tmdb",
@@ -31826,9 +32185,10 @@
     "tmdb_id": 770156
   },
   "um_bom_bandido_2025": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Um Bom Bandido (2025)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/yA9T1l9nGhVdCPv0CfDLus1IwsO.jpg",
+    "tmdb_id": 1242419
   },
   "um_cabra_bom_de_bola_2026": {
     "fonte": "tmdb",
@@ -32067,7 +32427,8 @@
   "um_lobisomem_americano_1981": {
     "fonte": "nao_achou",
     "nome": "Um Lobisomem Americano (1981)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "um_lobo_em_pele_de_cordeiro": {
     "fonte": "tmdb",
@@ -32210,7 +32571,8 @@
   "um_natal_quase_perfeito_2016_1_2016": {
     "fonte": "nao_achou",
     "nome": "Um Natal Quase Perfeito 2016 1 (2016)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "um_natal_surreal_2025": {
     "fonte": "tmdb",
@@ -32239,7 +32601,8 @@
   "um_pai_para_lyly_2025": {
     "fonte": "nao_achou",
     "nome": "Um Pai para Lyly (2025)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "um_pai_para_minha_filha_2023": {
     "fonte": "tmdb",
@@ -32406,7 +32769,8 @@
   "um_voo_mortal_2020": {
     "fonte": "nao_achou",
     "nome": "Um Voo Mortal (2020)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "uma_advogada_brilhante_2025": {
     "fonte": "tmdb",
@@ -32495,7 +32859,8 @@
   "uma_familia_do_bagulho_2013": {
     "fonte": "nao_achou",
     "nome": "Uma Família do Bagulho (2013)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "uma_foto_antes_de_morrer_2018": {
     "fonte": "tmdb",
@@ -32882,9 +33247,10 @@
     "tmdb_id": 1190868
   },
   "v_h_s_cronicas_do_medo_2012": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "V/H/S: Crônicas do Medo (2012)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/cTb6tKV7OP0YUdeYnG5DZ72nBXI.jpg",
+    "tmdb_id": 84348
   },
   "v_h_s_halloween_2025": {
     "fonte": "tmdb",
@@ -33001,9 +33367,10 @@
     "tmdb_id": 9799
   },
   "velozes_e_furiosos_10_2023": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Velozes e Furiosos 10 (2023)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/xNqt1Om0IlUhDOjZRCL5ewoazVV.jpg",
+    "tmdb_id": 385687
   },
   "velozes_e_furiosos_2001": {
     "fonte": "tmdb",
@@ -33024,24 +33391,28 @@
     "tmdb_id": 13804
   },
   "velozes_e_furiosos_5_operacao_rio_2011": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Velozes e Furiosos 5: Operação Rio (2011)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/5BKmQMUPOEtDFDCBW8jrUCI9ZbI.jpg",
+    "tmdb_id": 51497
   },
   "velozes_e_furiosos_6_2013": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Velozes e Furiosos 6 (2013)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/h8SD0Kkqv3PUBneQX9tFsDrFu8.jpg",
+    "tmdb_id": 82992
   },
   "velozes_e_furiosos_8_2017": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Velozes e Furiosos 8 (2017)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/1wcMoiMZ2VxrrWswuarI7g9m9nN.jpg",
+    "tmdb_id": 337339
   },
   "velozes_e_furiosos_9_2021": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Velozes e Furiosos 9 (2021)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/6TuEPZ3ItlBO8WmH8BmY2aGLhes.jpg",
+    "tmdb_id": 385128
   },
   "velozes_e_furiosos_desafio_em_toquio": {
     "fonte": "tmdb",
@@ -33226,7 +33597,8 @@
   "viagem_ao_centro_da_terra_2_a_ilha_misteriosa_2012": {
     "fonte": "nao_achou",
     "nome": "Viagem ao Centro da Terra 2: A Ilha Misteriosa (2012)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "viagem_ao_centro_da_terra_o_filme": {
     "fonte": "tmdb",
@@ -33355,9 +33727,10 @@
     "tmdb_id": 587496
   },
   "vingador_da_noite_2006": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Vingador da Noite (2006)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/neJo0Xt9NH6aPBPNhKfHFQpwrcC.jpg",
+    "tmdb_id": 32740
   },
   "vingadora_2026": {
     "fonte": "tmdb",
@@ -33570,9 +33943,10 @@
     "tmdb_id": 1147266
   },
   "volta_para_o_inferno_1983": {
-    "fonte": "nao_achou",
+    "fonte": "tmdb",
     "nome": "Volta para o Inferno (1983)",
-    "tentativas": 1
+    "poster": "https://image.tmdb.org/t/p/w500/lkb6pgb1SQCKy99xVP2oTPXFfeC.jpg",
+    "tmdb_id": 9967
   },
   "volte_para_casa_2024": {
     "fonte": "tmdb",
@@ -33685,7 +34059,8 @@
   "whinderson_nunes_adulto_2019": {
     "fonte": "nao_achou",
     "nome": "Whinderson Nunes adulto (2019)",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "whiplash_em_busca_da_perfeicao_2014": {
     "fonte": "tmdb",
@@ -33846,7 +34221,8 @@
   "x_men_o_confronto_final_acao_ficcao_cientifica": {
     "fonte": "nao_achou",
     "nome": "X-Men - O Confronto Final - Ação/Ficção científica",
-    "tentativas": 1
+    "tentativas": 2,
+    "v": 2
   },
   "x_men_o_filme": {
     "fonte": "tmdb",
