@@ -30,7 +30,7 @@ jobs:
           import html as htmllib, json, os, re, unicodedata
 
           IGNORAR = {"index.html", "serie.html", "404.html"}
-          RX_EP = re.compile(r"^(.+?)_(?:t(\d+)e(\d+)|(\d+)x(\d+))$", re.I)
+          RX_EP = re.compile(r"^(.+?)_(?:t(\d+)e(?:p)?(\d+)|(\d+)x(\d+))(?:_\d+)?$", re.I)
           RX_THUMB = re.compile(r'"thumbnailUrl"\s*:\s*\[\s*["\']([^"\']+)["\']', re.I)
           RX_VIDEO = re.compile(r'"contentUrl"\s*:\s*["\']([^"\']+)["\']', re.I)
           RX_IMG = re.compile(r'<img[^>]+src=["\']([^"\']+)["\']', re.I)
@@ -47,6 +47,7 @@ jobs:
           def do_arquivo(slug):
               """Título legível a partir do nome do arquivo: ano duplicado vira (ANO)."""
               slug = re.sub(r"_(\d{4})_\1$", r"_\1", slug)
+              slug = re.sub(r"^(.*_(?:19|20)\d{2})_\d{1,2}$", r"\1", slug)   # "nome_2010_2" (nome repetido)
               m = re.search(r"^(.*?)_(\d{4})$", slug)
               base, ano = (m.group(1), m.group(2)) if m else (slug, "")
               nome = " ".join(w.capitalize() for w in re.split(r"[_\-\s]+", base) if w)
@@ -63,7 +64,7 @@ jobs:
               t = SUFIXOS.sub("", t)
               t = re.sub(r"(\(\d{4}\))(\s*[-|–—]\s*\1)+", r"\1", t)                         # "(2010) - (2010)"
               t = re.sub(r"[\s\-|–—]+$", "", t)
-              t = re.sub(r"\s*[-|–]?\s*(T\d+E\d+|\d+x\d+)\s*$", "", t, flags=re.I).strip()
+              t = re.sub(r"\s*[-|–—]?\s*(?:T\d+\s*E(?:P)?\d+|\d+x\d+)\b.*$", "", t, flags=re.I).strip()   # "Série - T1E1 – Título"
               t = re.sub(r"\s*\(?\b(\d{4})\b\)?\s+\(?\1\)?$", r" (\1)", t).strip()
               sem_ano = re.sub(r"\(\d{4}\)|\b\d{4}\b", "", t)
               if t and norm(sem_ano) and slug_norm.startswith(norm(sem_ano)):
