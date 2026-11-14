@@ -1,0 +1,573 @@
+name: Classificar filmes e séries com NVIDIA
+
+# Push de .html -> classifica só o que falta (modo "novos").
+# Botão "Run workflow" -> você escolhe o modo:
+#   novos        só o que falta (padrão)
+#   indefinidos  re-tenta os que a IA não soube, ignorando o limite de tentativas
+#   tudo         reclassifica tudo; nada é apagado, a entrada só é trocada quando a IA responde
+# O campo "filtro" limita o trabalho a arquivos cujo nome contenha o texto (ex.: scooby).
+on:
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "O que classificar"
+        type: choice
+        default: novos
+        options:
+          - novos
+          - indefinidos
+          - tudo
+      filtro:
+        description: "Opcional: só arquivos cujo nome contenha este texto (ex.: scooby)"
+        type: string
+        required: false
+        default: ""
+  push:
+    paths:
+      - '**.html'
+      - '!index.html'
+      - '!serie.html'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: classificar
+  cancel-in-progress: false
+
+jobs:
+  classificar:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar deps
+        run: pip install beautifulsoup4 openai
+
+      - name: Rodar classificador
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          MODO: ${{ inputs.modo || 'novos' }}
+          FILTRO: ${{ inputs.filtro || '' }}
+          PYTHONUNBUFFERED: "1"
+        run: |
+          python -u - <<'PYEOF'
+          import json, os, re, sys, time, threading, unicodedata
+          from collections import Counter
+          from concurrent.futures import ThreadPoolExecutor, as_completed
+          from bs4 import BeautifulSoup
+          from openai import OpenAI
+
+          # ==================================================================
+          # CONFIGURAÇÃO
+          # ==================================================================
+          # MODO (vem do botão "Run workflow"; nos pushes é sempre "novos"):
+          #   novos       -> classifica só o que falta (arquivo novo, ou título que a IA não soube)
+          #   indefinidos -> re-tenta os "indefinidos" ignorando o limite de tentativas
+          #   tudo        -> reclassifica tudo; nada é apagado: a entrada só é trocada quando a IA responde
+          # FILTRO (opcional): só mexe em arquivos cujo nome case com este texto (ex.: scooby)
+          MODO = (os.environ.get("MODO") or "novos").strip().lower()
+          FILTRO = (os.environ.get("FILTRO") or "").strip()
+          if MODO not in ("novos", "indefinidos", "tudo"):
+              print(f"Modo inválido: {MODO!r}. Use novos, indefinidos ou tudo.", flush=True)
+              sys.exit(1)
+          try:
+              RX_FILTRO = re.compile(FILTRO, re.I) if FILTRO else None
+          except re.error as e:
+              print(f"FILTRO inválido ({e}).", flush=True)
+              sys.exit(1)
+
+          MODELOS = [
+              # Só os que responderam sem travar no log real (os outros davam timeout ou 404).
+              "nvidia/nemotron-3-ultra-550b-a55b",
+              "nvidia/nemotron-3.5-lightning-30b-a3b",
+              "minimaxai/minimax-m3.1-flash",
+              "nvidia/nemotron-3.5-super-vl-120b-a12b",
+              "openai/gpt-oss-20b",
+          ]
+
+          LOTE = 20
+          MAX_WORKERS = 10
+          MAX_TENTATIVAS = 2          # quantas vezes re-tentar (modo "novos") um título que a IA disse não conhecer
+          RODADAS = 2                 # se TODOS os modelos falharem, espera um pouco e percorre a lista de novo
+          PAUSA_ENTRE_RODADAS = 30
+          TEMPO_LIMITE = 330 * 60     # segurança: para de processar antes do limite de 6h do job
+          LIMITE_PODA = 0.20          # nunca apaga mais de 20% do cache de uma vez (proteção contra checkout vazio)
+
+          GENEROS = ["Ação","Aventura","Animação","Comédia","Crime","Documentário","Drama",
+                     "Família","Fantasia","História","Terror","Música","Mistério","Romance",
+                     "Ficção Científica","Thriller","Guerra","Faroeste"]
+          PASTA, SAIDA = ".", "classificacao.json"
+          IGNORAR = {"index.html", "sobre.html", "contato.html", "404.html", "serie.html"}
+
+          # Mesmo padrão que o site usa para reconhecer episódio no nome do arquivo (_t1e1 ou _1x1)
+          RX_EPISODIO = re.compile(r"_(?:t(\d+)e(\d+)|(\d+)x(\d+))", re.I)
+
+          SCHEMA = {
+              "type": "object",
+              "properties": {
+                  "itens": {
+                      "type": "array",
+                      "items": {
+                          "type": "object",
+                          "properties": {
+                              "id":      {"type": "string"},
+                              "generos": {"type": "array", "items": {"type": "string", "enum": GENEROS}}
+                          },
+                          "required": ["id", "generos"],
+                      },
+                  }
+              },
+              "required": ["itens"],
+          }
+
+          log_lock = threading.Lock()
+          def log(msg):
+              with log_lock:
+                  print(msg, flush=True)
+
+          # ==================================================================
+          # CACHE (classificacao.json)
+          # ==================================================================
+          def carregar_cache():
+              if not os.path.exists(SAIDA):
+                  return {}
+              try:
+                  with open(SAIDA, encoding="utf-8") as f:
+                      dados = json.load(f)
+                  if not isinstance(dados, dict):
+                      raise ValueError("o JSON não é um objeto")
+                  return dados
+              except Exception as e:
+                  # Abortar é melhor do que começar do zero e sobrescrever o que já foi classificado
+                  log(f"[x] {SAIDA} ilegível ({e}). Abortando para não perder o histórico.")
+                  sys.exit(1)
+
+          def salvar():
+              """Grava em arquivo temporário e troca de uma vez: se o job cair no meio, o JSON antigo continua intacto."""
+              tmp = SAIDA + ".tmp"
+              with open(tmp, "w", encoding="utf-8") as f:
+                  json.dump(cache, f, ensure_ascii=False, indent=2)
+              os.replace(tmp, SAIDA)
+
+          cache = carregar_cache()
+
+          # ==================================================================
+          # NOMES, TÍTULOS E TIPO (tudo determinístico, sem IA)
+          # ==================================================================
+          def normalizar(s):
+              s = unicodedata.normalize("NFD", str(s)).encode("ascii", "ignore").decode()
+              return re.sub(r"[^a-z0-9]+", " ", s.lower()).strip()
+
+          def eh_serie(arq):
+              return bool(RX_EPISODIO.search(arq))
+
+          def prefixo_serie(arq):
+              """'game_of_thrones_t1e1.html' -> 'game_of_thrones'"""
+              return RX_EPISODIO.split(arq[:-5], 1)[0]
+
+          def palavras_do_arquivo(arq):
+              """Palavras do nome do arquivo, sem ano nem episódio."""
+              s = prefixo_serie(arq) if eh_serie(arq) else arq[:-5]
+              s = re.sub(r"_(\d{4})_\1$", "", s)      # ..._2006_2006
+              s = re.sub(r"_\d{4}_\d{4}$", "", s)     # ..._2017_1922
+              return [w for w in s.lower().split("_") if w]
+
+          MINUSCULAS = {"de","da","do","das","dos","e","a","o","as","os","em","no","na","um","uma","para","por","com"}
+          def capitalizar(palavras):
+              return " ".join(w if (i and w in MINUSCULAS) else w.capitalize() for i, w in enumerate(palavras))
+
+          def numeros_do_episodio(arq):
+              m = RX_EPISODIO.search(arq)
+              t, e = (m.group(1), m.group(2)) if m.group(1) else (m.group(3), m.group(4))
+              return int(t), int(e)
+
+          def titulo_do_arquivo(arq):
+              """Título reconstruído a partir do nome do arquivo (plano B quando o HTML não ajuda)."""
+              nome = capitalizar(palavras_do_arquivo(arq))
+              if eh_serie(arq):
+                  t, e = numeros_do_episodio(arq)
+                  return f"{nome} T{t}E{e}"
+              ano = re.search(r"_(\d{4})_\1\.html$", arq)
+              return f"{nome} ({ano.group(1)})" if ano else nome
+
+          def tem_titulo_cortado(arq, titulo):
+              """A regex antiga cortava no 1º hífen ('Scooby-Doo' virou 'Scooby'). O nome do arquivo guarda o título inteiro:
+              se o título é só o começo das palavras do arquivo, ele foi cortado."""
+              base = re.sub(r"\(\d{4}\)", " ", titulo or "")
+              base = re.sub(r"\s*(?:T\d+E\d+|\d+x\d+)\b.*$", "", base, flags=re.I)
+              tw = normalizar(base).split()
+              sw = normalizar(" ".join(palavras_do_arquivo(arq))).split()
+              return bool(tw) and len(tw) < len(sw) and sw[:len(tw)] == tw
+
+          def limpar_titulo(txt):
+              """Tira só o que é do site ('- Assistir Online', '| Clau Flix'). Hífen dentro de palavra e subtítulo ficam."""
+              t = re.sub(r"\s+", " ", txt or "").strip()
+              ep = re.search(r"\bT\d+E\d+\b", t, re.I)
+              m = re.match(r"^(.*?\(\d{4}\))", t)
+              if m:
+                  t = m.group(1).strip()                       # "Nome (2019) - Assistir..." -> "Nome (2019)"
+              else:
+                  t = re.sub(r"\s+[-|–—]\s+(?:assistir|online|dublado|legendado|gr[aá]tis|download|hd|clau\s*flix)\b.*$", "", t, flags=re.I).strip()
+              if ep and ep.group(0).lower() not in t.lower():
+                  t = f"{t} {ep.group(0)}"                     # mantém o T1E1 quando o ano vinha antes
+              return t
+
+          def ler_titulo_html(arq):
+              try:
+                  with open(os.path.join(PASTA, arq), encoding="utf-8", errors="ignore") as f:
+                      soup = BeautifulSoup(f.read(), "html.parser")
+                  el = soup.select_one("h1, .titulo, title")
+                  return limpar_titulo(el.get_text(strip=True)) if el else ""
+              except Exception as e:
+                  log(f"[!] Não consegui ler {arq}: {e}")
+                  return ""
+
+          def descobrir_titulo(arq):
+              """Só abre o HTML de arquivo novo (ou no modo 'tudo'); o resto usa o título já salvo."""
+              e = cache.get(arq)
+              antigo = (e or {}).get("titulo") or ""
+              if e is None or MODO == "tudo":
+                  t = ler_titulo_html(arq)
+                  if t and not tem_titulo_cortado(arq, t):
+                      return t
+                  if antigo and not tem_titulo_cortado(arq, antigo):
+                      return antigo
+                  return titulo_do_arquivo(arq)
+              return antigo or titulo_do_arquivo(arq)
+
+          # ==================================================================
+          # CORREÇÕES GRATUITAS NO CACHE (sem IA)
+          # ==================================================================
+          def corrigir_cache():
+              """1) tipo vem do nome do arquivo (a IA errou 308 vezes: Game of Thrones, Flash, 'A Série Divergente'...)
+                 2) título cortado pelo hífen é refeito pelo nome do arquivo e o item volta para revisão."""
+              n_tipo = n_titulo = 0
+              for arq, e in cache.items():
+                  tipo = "serie" if eh_serie(arq) else "filme"
+                  if e.get("tipo") != tipo:
+                      e["tipo"] = tipo
+                      n_tipo += 1
+                  if tem_titulo_cortado(arq, e.get("titulo")):
+                      e["titulo"] = titulo_do_arquivo(arq)
+                      e.pop("tentativas", None)
+                      if e.get("fonte") == "ia":
+                          e["fonte"] = "revisar"   # gêneros foram chutados em cima do título cortado: mantém, mas reclassifica
+                      n_titulo += 1
+              return n_tipo, n_titulo
+
+          def podar(arquivos):
+              """Remove do cache quem não existe mais na pasta (inclui serie.html, que nunca devia estar lá)."""
+              obsoletos = [a for a in cache if a not in arquivos]
+              if not obsoletos:
+                  return 0
+              if not arquivos or len(obsoletos) > LIMITE_PODA * len(cache):
+                  log(f"[!] {len(obsoletos)} entradas sem arquivo (>{int(LIMITE_PODA * 100)}% do cache): poda ignorada por segurança.")
+                  return 0
+              for a in obsoletos:
+                  del cache[a]
+              return len(obsoletos)
+
+          # ==================================================================
+          # UNIDADES: filme = 1 item; série = 1 item para TODOS os episódios
+          # ==================================================================
+          def montar_unidades(arquivos, titulos):
+              unidades = {}
+              for arq in arquivos:
+                  chave = "serie:" + prefixo_serie(arq) if eh_serie(arq) else arq
+                  u = unidades.setdefault(chave, {"tipo": "serie" if eh_serie(arq) else "filme", "arqs": []})
+                  u["arqs"].append(arq)
+              for chave, u in unidades.items():
+                  if u["tipo"] == "filme":
+                      u["nome"] = titulos[u["arqs"][0]]
+                  else:
+                      nomes = []
+                      for a in u["arqs"]:
+                          n = re.sub(r"\s*(?:T\d+E\d+|\d+x\d+)\b.*$", "", titulos[a], flags=re.I).strip()
+                          if n:
+                              nomes.append(n)
+                      nome = Counter(nomes).most_common(1)[0][0] if nomes else ""
+                      if not nome or tem_titulo_cortado(u["arqs"][0], nome):
+                          nome = capitalizar(palavras_do_arquivo(u["arqs"][0]))
+                      u["nome"] = nome
+                  u["nome"] = corrigido(u["arqs"][0]) or u["nome"]
+              return unidades
+
+          def generos_da_serie(arqs):
+              """Gêneros mais frequentes entre os episódios já classificados pela IA."""
+              cont = Counter()
+              for a in arqs:
+                  e = cache.get(a)
+                  if e and e.get("fonte") == "ia":
+                      cont.update(g for g in e.get("generos", []) if g in GENEROS)
+              return [g for g, _ in sorted(cont.items(), key=lambda kv: (-kv[1], GENEROS.index(kv[0])))][:3]
+
+          def herdar_series(unidades, titulos):
+              """Episódio novo (ou 'indefinido') de uma série já classificada herda os gêneros dela: custo zero de IA."""
+              herdados = 0
+              for u in unidades.values():
+                  if u["tipo"] != "serie":
+                      continue
+                  gs = generos_da_serie(u["arqs"])
+                  if not gs:
+                      continue
+                  for arq in u["arqs"]:
+                      e = cache.get(arq)
+                      if e is None or e.get("fonte") == "indefinido":
+                          cache[arq] = {"titulo": titulos[arq], "tipo": "serie", "generos": gs, "fonte": "ia"}
+                          herdados += 1
+              return herdados
+
+          CORRIGIDOS = {}
+
+          def carregar_corrigidos():
+              """titulos.json (workflow 'Corrigir titulos com IA'): nomes com acento, melhores para a IA reconhecer."""
+              try:
+                  with open("titulos.json", encoding="utf-8") as f:
+                      dados = json.load(f)
+              except (OSError, ValueError):
+                  return {}
+              return {k: v["titulo"] for k, v in dados.items() if isinstance(v, dict) and v.get("titulo")}
+
+          def corrigido(arq):
+              k = ("serie:" + prefixo_serie(arq).lower()) if eh_serie(arq) else arq[:-5]
+              return CORRIGIDOS.get(k)
+
+          def nome_tentado(e):
+              """Nome que foi enviado à IA da última vez que ela não soube."""
+              return e.get("nome") or re.sub(r"\s*(?:T\d+E\d+|\d+x\d+)\b.*$", "", e.get("titulo", ""), flags=re.I).strip()
+
+          def renomeado(u, es):
+              """Indefinido cujo nome mudou (título corrigido): vale tentar de novo, mesmo sem tentativas sobrando."""
+              c = corrigido(u["arqs"][0])
+              return bool(c) and any(e and e.get("fonte") == "indefinido" and nome_tentado(e) != c for e in es)
+
+          def pendente(u):
+              """Esta unidade precisa ir para a IA?"""
+              if RX_FILTRO and not any(RX_FILTRO.search(a) for a in u["arqs"]):
+                  return False
+              if MODO == "tudo":
+                  return True
+              es = [cache.get(a) for a in u["arqs"]]
+              if u["tipo"] == "serie":
+                  revisar = any(e and e.get("fonte") == "revisar" for e in es)
+                  conhecida = any(e and e.get("fonte") == "ia" for e in es)
+                  precisa = revisar or not conhecida
+              else:
+                  e = es[0]
+                  precisa = e is None or e.get("fonte") in ("indefinido", "revisar")
+              if not precisa:
+                  return False
+              if MODO == "novos":
+                  tentativas = max([e.get("tentativas", 0) for e in es if e] or [0])
+                  if tentativas >= MAX_TENTATIVAS and not renomeado(u, es):
+                      return False       # a IA já disse "não sei" demais; só o modo "indefinidos"/"tudo" tenta de novo
+              return True
+
+          def aplicar(u, gs, titulos):
+              """Grava o resultado da IA. Regra de ouro: nunca troca dado bom por dado pior."""
+              for arq in u["arqs"]:
+                  e = cache.get(arq)
+                  if gs:
+                      cache[arq] = {"titulo": titulos[arq], "tipo": u["tipo"], "generos": gs, "fonte": "ia"}
+                  elif e and e.get("fonte") == "ia":
+                      continue                                    # já tinha classificação boa: mantém
+                  elif e and e.get("fonte") == "revisar":
+                      e["tentativas"] = e.get("tentativas", 0) + 1  # mantém os gêneros antigos
+                  else:
+                      tent = (e or {}).get("tentativas", 0) + 1
+                      cache[arq] = {"titulo": titulos[arq], "tipo": u["tipo"], "generos": ["indefinido"],
+                                    "fonte": "indefinido", "tentativas": tent, "nome": u["nome"]}
+
+          # ==================================================================
+          # IA
+          # ==================================================================
+          def classificar_lote_com_fallback(lote, lote_num, modelo_inicial):
+              """Devolve {posição_no_lote: [gêneros]} só para os itens que a IA respondeu ([] = 'não conheço')."""
+              entrada = [{"id": str(i), "titulo": u["nome"], "formato": "série" if u["tipo"] == "serie" else "filme"}
+                         for i, u in enumerate(lote)]
+
+              prompt = (
+                  "Classifique cada item em 1 a 3 gêneros da lista fixa.\n"
+                  f"Gêneros permitidos: {', '.join(GENEROS)}\n"
+                  "O campo 'formato' diz se é filme ou série; o ano entre parênteses ajuda a identificar a obra.\n"
+                  "Regras: Use APENAS os gêneros listados acima. Ignore formatos como 'Dublado' ou 'Legendado'.\n"
+                  "Se não reconhecer o título de jeito nenhum, retorne generos: [].\n"
+                  "Responda APENAS o JSON.\n\n"
+                  + json.dumps({"itens": entrada}, ensure_ascii=False)
+              )
+
+              idx_inicial = MODELOS.index(modelo_inicial) if modelo_inicial in MODELOS else 0
+              modelos_para_tentar = MODELOS[idx_inicial:] + MODELOS[:idx_inicial]
+
+              for rodada in range(RODADAS):
+                  for modelo in modelos_para_tentar:
+                      for tentativa in range(2):
+                          try:
+                              resp = client.chat.completions.create(
+                                  model=modelo,
+                                  messages=[{"role": "user", "content": prompt}],
+                                  temperature=0,
+                                  max_tokens=8192,  # espaço para os modelos que "pensam" antes de responder
+                                  response_format={"type": "json_schema", "json_schema": {"name": "F", "schema": SCHEMA}},
+                              )
+
+                              content = resp.choices[0].message.content
+                              if not content:
+                                  raise ValueError("JSON vazio")
+
+                              data = json.loads(content)
+                              por_id = {str(x.get("id")): x for x in data.get("itens", []) if isinstance(x, dict)}
+                              if len(por_id) < len(lote) * 0.5:
+                                  raise ValueError("resposta incompleta")
+
+                              resultado = {}
+                              for i in range(len(lote)):
+                                  item = por_id.get(str(i))
+                                  if item is None:
+                                      continue                      # a IA pulou este item: ele continua pendente
+                                  gs = []
+                                  for g in item.get("generos", []):
+                                      if g in GENEROS and g not in gs:
+                                          gs.append(g)
+                                  resultado[i] = gs[:3]
+                              log(f"[✓] Lote {lote_num} concluído com {modelo} ({len(resultado)}/{len(lote)} respondidos)")
+                              return resultado
+
+                          except Exception as e:
+                              msg = str(e)
+                              status = getattr(e, "status_code", None)
+                              if status in (404, 410) or "410" in msg or "404" in msg:
+                                  log(f"[!] {modelo} indisponível. Pulando...")
+                                  break
+                              elif status == 429 or "429" in msg:
+                                  log(f"[!] Rate limit (429) em {modelo}. Pulando...")
+                                  break
+                              elif isinstance(e, ValueError):   # inclui JSONDecodeError, "JSON vazio" e "resposta incompleta"
+                                  log(f"[!] {modelo} respondeu algo inválido ({msg[:60]}). Pulando...")
+                                  break
+                              else:
+                                  log(f"[x] Erro no lote {lote_num} ({modelo}): {e}")
+                                  time.sleep(1)
+                  if rodada < RODADAS - 1:
+                      log(f"[!] Lote {lote_num}: todos os modelos falharam. Aguardando {PAUSA_ENTRE_RODADAS}s para tentar de novo...")
+                      time.sleep(PAUSA_ENTRE_RODADAS)
+
+              log(f"[x] Lote {lote_num} falhou em todos os modelos. Os itens continuam pendentes para a próxima execução.")
+              return {}
+
+          # ==================================================================
+          # EXECUÇÃO
+          # ==================================================================
+          if not os.path.isdir(PASTA):
+              log("[x] Pasta inválida.")
+              sys.exit(1)
+
+          arquivos = [a for a in sorted(os.listdir(PASTA)) if a.endswith(".html") and a not in IGNORAR]
+          log("==================================================")
+          log(f"🔎 Modo: {MODO}" + (f" | filtro: {FILTRO}" if FILTRO else "") + f" | {len(arquivos)} arquivos | {len(cache)} no cache")
+
+          n_tipo, n_titulo = corrigir_cache()
+          n_podados = podar(set(arquivos))
+          CORRIGIDOS = carregar_corrigidos()
+          titulos = {a: (corrigido(a) if not eh_serie(a) and corrigido(a) else descobrir_titulo(a)) for a in arquivos}
+          unidades = montar_unidades(arquivos, titulos)
+          n_herdados = herdar_series(unidades, titulos)
+          log(f"🧹 Correções sem IA: {n_tipo} tipos, {n_titulo} títulos cortados, {n_herdados} episódios herdaram gêneros da série, {n_podados} entradas removidas.")
+          if n_tipo or n_titulo or n_herdados or n_podados:
+              salvar()
+
+          pendentes = [(c, u) for c, u in sorted(unidades.items()) if pendente(u)]
+          if not pendentes:
+              log("[info] Nenhum título pendente. Encerrando.")
+              salvar()
+              sys.exit(0)
+
+          if not os.environ.get("NVIDIA_API_KEY"):
+              log("[x] Falta o secret NVIDIA_API_KEY (Settings > Secrets and variables > Actions).")
+              sys.exit(1)
+
+          client = OpenAI(
+              api_key=os.environ["NVIDIA_API_KEY"],
+              base_url="https://integrate.api.nvidia.com/v1",
+              timeout=90,
+              max_retries=0,   # as tentativas e o rodízio de modelos são feitos aqui em cima
+          )
+
+          unid_pendentes = [u for _, u in pendentes]
+          total_lotes = (len(unid_pendentes) + LOTE - 1) // LOTE
+          log(f"🚀 {len(unid_pendentes)} itens para a IA em {total_lotes} lotes (séries contam 1 vez, não 1 por episódio).")
+          log(f"⚙️  {MAX_WORKERS} threads paralelas, {len(MODELOS)} modelos na rotação.")
+          log("==================================================")
+
+          inicio_execucao = time.time()
+          respondidos = desconhecidos = 0
+          processados = 0
+
+          with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+              futures = {}
+              for i in range(0, len(unid_pendentes), LOTE):
+                  lote = unid_pendentes[i:i + LOTE]
+                  lote_num = (i // LOTE) + 1
+                  modelo_inicial = MODELOS[(lote_num - 1) % len(MODELOS)]
+                  futures[executor.submit(classificar_lote_com_fallback, lote, lote_num, modelo_inicial)] = lote
+
+              for future in as_completed(futures):
+                  if time.time() - inicio_execucao > TEMPO_LIMITE:
+                      log("⏰ Tempo limite de segurança atingido (5h30m). Parando de processar...")
+                      for f in futures:
+                          f.cancel()
+                      break
+
+                  lote = futures[future]
+                  resultado = future.result()
+                  for pos, gs in resultado.items():
+                      aplicar(lote[pos], gs, titulos)
+                      respondidos += 1
+                      desconhecidos += 0 if gs else 1
+                  if resultado:
+                      salvar()
+
+                  processados += 1
+                  log(f"📊 PROGRESSO: {processados}/{total_lotes} lotes ({processados / total_lotes * 100:.1f}%) salvos.")
+
+          herdar_series(unidades, titulos)   # séries recém-classificadas passam os gêneros para os episódios novos
+          salvar()
+
+          sem_resposta = len(unid_pendentes) - respondidos
+          log("==================================================")
+          log(f"🎉 FINALIZADO! {respondidos} itens classificados ({desconhecidos} a IA não conheceu), {sem_resposta} sem resposta (ficam para a próxima).")
+          log(f"💾 {len(cache)} títulos no cache. O passo de commit fará o push.")
+          log("==================================================")
+          if respondidos == 0:
+              log("[x] A IA não respondeu nada. Confira o secret NVIDIA_API_KEY e a lista de modelos.")
+              sys.exit(1)
+          PYEOF
+
+      - name: Commitar índice atualizado
+        if: always()
+        env:
+          MODO: ${{ inputs.modo || 'novos' }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add classificacao.json
+          if git diff --cached --quiet; then
+            echo "Sem mudanças — nada a commitar."
+            exit 0
+          fi
+          git commit -m "chore: atualiza classificacao (${MODO}) [skip ci]"
+          for i in 1 2 3; do
+            if git pull origin "$GITHUB_REF_NAME" -X ours --no-rebase && git push; then
+              exit 0
+            fi
+            echo "Push falhou (tentativa $i). Tentando de novo..."
+            sleep 5
+          done
+          exit 1
