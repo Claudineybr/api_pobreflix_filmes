@@ -27395,18 +27395,12 @@
     },
     "tmdb_id": 241372
   },
-  "serie:9": {
+  "serie:911": {
     "fonte": "tmdb",
-    "nome": "9",
-    "poster": "https://image.tmdb.org/t/p/w500/5CobwYRu3qvSkoGJe4ty4T0DOav.jpg",
-    "temporadas": {
-      "1": "https://image.tmdb.org/t/p/w500/qgeYFcG8jOLb0rlEjYWRt6DZpgg.jpg",
-      "2": "https://image.tmdb.org/t/p/w500/uUITHTRlRf2yIsf6gxAdoeCehGb.jpg",
-      "3": "https://image.tmdb.org/t/p/w500/6RUNh9mk7V241BexKJHLPAguR7S.jpg",
-      "4": "https://image.tmdb.org/t/p/w500/kiBECra4VoTUlXBtB1k4CY7d7pY.jpg",
-      "5": "https://image.tmdb.org/t/p/w500/eWUOeaATHJvpCAT10PojEr5pa1.jpg"
-    },
-    "tmdb_id": 106370
+    "nome": "911",
+    "poster": "https://image.tmdb.org/t/p/w500/hr1eiVvKs97zVfrl3YIr97HeV72.jpg",
+    "temporadas": {},
+    "tmdb_id": 65619
   },
   "serie:a_agente": {
     "fonte": "tmdb",
@@ -28324,15 +28318,6 @@
     },
     "tmdb_id": 127235
   },
-  "serie:it_bem": {
-    "fonte": "tmdb",
-    "nome": "IT: Bem",
-    "poster": "https://image.tmdb.org/t/p/w500/gMTfrLvrDaD0zrhpLZ7zXIIpKfJ.jpg",
-    "temporadas": {
-      "1": "https://image.tmdb.org/t/p/w500/c107TVzzaKER1fJlgRne5TR85en.jpg"
-    },
-    "tmdb_id": 200875
-  },
   "serie:it_bem_vindos_a_derry": {
     "fonte": "tmdb",
     "nome": "IT: Bem-Vindos a Derry",
@@ -28892,14 +28877,11 @@
     },
     "tmdb_id": 46958
   },
-  "serie:re_zero": {
-    "fonte": "tmdb",
-    "nome": "Re:ZERO",
-    "poster": "https://image.tmdb.org/t/p/w500/2FvWqbgJDG2IWGgUxhROYQxE98p.jpg",
-    "temporadas": {
-      "1": "https://image.tmdb.org/t/p/w500/nLgY9Ped6ABn7XPKT84RBKG2Lvm.jpg"
-    },
-    "tmdb_id": 65942
+  "serie:re_zero_starting_life_in_another_world": {
+    "fonte": "nao_achou",
+    "nome": "Re:ZERO: Starting Life in Another World",
+    "tentativas": 1,
+    "v": 2
   },
   "serie:reacher": {
     "fonte": "tmdb",
@@ -29079,12 +29061,14 @@
     },
     "tmdb_id": 240459
   },
-  "serie:spider": {
+  "serie:spider_noir": {
     "fonte": "tmdb",
-    "nome": "Spider",
-    "poster": "https://image.tmdb.org/t/p/w500/9bLFGA3RYU27hXSa9Azw0FosN94.jpg",
-    "temporadas": {},
-    "tmdb_id": 1156
+    "nome": "Spider-Noir",
+    "poster": "https://image.tmdb.org/t/p/w500/rfrzXSaiuvRMLo8PRQds0TfFrZC.jpg",
+    "temporadas": {
+      "1": "https://image.tmdb.org/t/p/w500/rfrzXSaiuvRMLo8PRQds0TfFrZC.jpg"
+    },
+    "tmdb_id": 220102
   },
   "serie:splinter_cell_deathwatch": {
     "fonte": "tmdb",
