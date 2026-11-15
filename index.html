@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#070d0b">
-  <link rel="icon" type="image/svg+xml" href="/icones/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="/icones/favicon-32.png">
-  <link rel="apple-touch-icon" href="/icones/apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href="/icones/favicon.svg?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icones/favicon-32.png?v=2">
+  <link rel="apple-touch-icon" href="/icones/apple-touch-icon.png?v=2">
   <title>🎄 Clau Flix - Especial de Natal</title>
   <style>
     /* =====================================================================
@@ -62,6 +62,8 @@
     header.rolou { background: var(--vidro-forte); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
     .logo { font-size: 1.9rem; font-weight: 900; letter-spacing: 0.5px; text-decoration: none; background: var(--gradiente); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; white-space: nowrap; }
     .logo span { -webkit-text-fill-color: #fff; }
+    .logo { display: inline-flex; align-items: center; gap: 0.3em; }
+    .logo-icone { height: 1.35em; width: auto; flex-shrink: 0; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)); }
 
     .search-container { flex: 1; max-width: 460px; position: relative; }
     .search-container input { width: 100%; padding: 12px 46px 12px 20px; border-radius: 999px; border: 1px solid var(--vidro-borda); background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 0.95rem; outline: none; transition: all 0.3s var(--ease); }
@@ -244,7 +246,7 @@
   <div id="snow-container" aria-hidden="true"></div>
 
   <header id="topo">
-    <a href="index.html" class="logo" data-view="home" aria-label="Clau Flix - ir para o início">Clau <span>Flix</span></a>
+    <a href="index.html" class="logo" data-view="home" aria-label="Clau Flix - ir para o início"><img class="logo-icone" src="/icones/logo.svg" alt="" aria-hidden="true">Clau <span>Flix</span></a>
     <div class="search-container" role="search">
       <input type="search" id="searchInput" placeholder="Pesquisar séries ou filmes..." aria-label="Pesquisar séries ou filmes" autocomplete="off">
       <span class="search-icon" aria-hidden="true">🔍</span>
