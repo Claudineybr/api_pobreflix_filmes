@@ -27,7 +27,7 @@ jobs:
       - name: Gerar catalogo.json
         run: |
           python -u - <<'PYEOF'
-          import html as htmllib, json, os, re, unicodedata
+          import datetime, html as htmllib, json, os, re, unicodedata
 
           IGNORAR = {"index.html", "serie.html", "404.html"}
           RX_EP = re.compile(r"^(.+?)_(?:t(\d+)e(?:p)?(\d+)|(\d+)x(\d+))(?:_\d+)?$", re.I)
@@ -101,7 +101,16 @@ jobs:
                   e = capas.get(k) or {}
                   return (e.get("temporadas") or {}).get(str(temporada)) or e.get("poster")
 
-              itens, sem_video = [], 0
+              # "adicionadoEm": data em que o link apareceu pela 1ª vez. Mantém a anterior; só marca itens
+              # realmente novos (se não havia catalogo.json antes, ninguém recebe data, para não "inventar" novidades).
+              try:
+                  anterior = json.load(open("catalogo.json", encoding="utf-8"))
+                  anterior = {i["link"]: i.get("adicionadoEm") for i in anterior if isinstance(i, dict) and "link" in i}
+              except (OSError, ValueError, TypeError):
+                  anterior = None
+              hoje = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
+
+              itens, sem_video, novos = [], 0, 0
               for caminho, arquivo in listar():
                   slug = arquivo[:-5]
                   try:
@@ -123,12 +132,18 @@ jobs:
                       serie = titulo = corrigido(slug) or do_html(conteudo, norm(re.sub(r"_(\d{4})_\1$", r"_\1", slug))) or do_arquivo(slug)
                   itens.append({"titulo": titulo, "serie": serie, "temporada": t, "episodio": e,
                                 "link": caminho, "thumbnailUrl": thumb, "videoUrl": video})
+                  if anterior is not None and caminho in anterior:
+                      if anterior[caminho]:
+                          itens[-1]["adicionadoEm"] = anterior[caminho]
+                  elif anterior:  # catálogo anterior existia e este link é novo
+                      itens[-1]["adicionadoEm"] = hoje
+                      novos += 1
               itens.sort(key=lambda x: (x["serie"].lower(), x["temporada"], x["episodio"], x["link"]))
               tmp = "catalogo.json.tmp"
               with open(tmp, "w", encoding="utf-8") as f:
                   json.dump(itens, f, indent=2, ensure_ascii=False)
               os.replace(tmp, "catalogo.json")
-              print(f"catalogo.json: {len(itens)} itens, {sem_video} sem vídeo")
+              print(f"catalogo.json: {len(itens)} itens, {sem_video} sem vídeo, {novos} novos")
 
 
           main()
