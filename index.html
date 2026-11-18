@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#070d0b">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Clau Flix">
   <link rel="icon" type="image/svg+xml" href="/icones/favicon.svg?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="/icones/favicon-32.png?v=2">
   <link rel="apple-touch-icon" href="/icones/apple-touch-icon.png?v=2">
@@ -112,6 +116,21 @@
     .section h2 { font-size: 1.9rem; font-weight: 800; display: flex; align-items: center; gap: 14px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); }
     .section h2::before { content: ''; width: 6px; height: 30px; border-radius: 4px; background: var(--gradiente); }
     .contagem { color: var(--mudo); font-size: 0.95rem; font-weight: 600; }
+    .continuar { margin-bottom: 34px; }
+    .continuar h2 { font-size: 1.3rem; margin: 0 0 14px; }
+    .fila { display: flex; gap: 18px; overflow-x: auto; padding: 8px 4px 16px; scroll-snap-type: x proximity; scrollbar-width: thin; }
+    .fila-item { position: relative; flex: 0 0 160px; scroll-snap-align: start; }
+    .fila-item .card { height: 100%; }
+    .fila-rotulo { position: absolute; left: 8px; bottom: 82px; z-index: 3; padding: 3px 9px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; color: #1a1200; background: var(--ouro); pointer-events: none; }
+    .fila-x { position: absolute; top: 44px; left: 8px; z-index: 4; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--vidro-borda); background: rgba(0, 0, 0, 0.6); color: #fff; cursor: pointer; font-size: 0.85rem; line-height: 1; }
+    .fila-x:hover { background: var(--vermelho-esc, #b3202e); }
+    .ordem { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 0 0 18px; }
+    .ordem label { display: inline-flex; align-items: center; gap: 8px; color: var(--mudo); font-size: 0.88rem; font-weight: 600; }
+    .contagem-natal { display: inline-block; margin: 0 0 10px 10px; padding: 5px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 800; color: #1a1200; background: var(--ouro); box-shadow: 0 4px 16px rgba(255, 194, 51, 0.35); }
+    .btn-surpresa { font: inherit; font-weight: 800; cursor: pointer; color: #1a1200; background: var(--ouro); border: 0; border-radius: 999px; padding: 8px 18px; margin-left: auto; transition: transform .2s, box-shadow .2s; }
+    .btn-surpresa:hover { transform: translateY(-2px) rotate(-1.5deg); box-shadow: 0 6px 20px rgba(255, 194, 51, 0.4); }
+    .ordem select { font: inherit; color: #fff; background: rgba(255, 255, 255, 0.1); border: 1px solid var(--vidro-borda); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+    .ordem select option { color: #111; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 26px; }
 
     .card { position: relative; border-radius: var(--raio); overflow: hidden; background: var(--vidro); border: 1px solid var(--vidro-borda); box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45); backdrop-filter: blur(8px); transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease); }
@@ -267,11 +286,27 @@
   </section>
 
   <main class="section">
+    <section class="continuar" id="continuar" aria-label="Continuar assistindo" hidden></section>
+    <section class="continuar" id="recentes" aria-label="Adicionados recentemente" hidden></section>
+    <section class="continuar" id="natal" aria-label="Especial de Natal" hidden></section>
     <div class="section-head">
       <h2 id="tituloSecao">Destaques</h2>
       <span class="contagem" id="contagem"></span>
     </div>
     <div class="filtro-generos" id="filtroGeneros" role="group" aria-label="Filtrar por gênero" hidden></div>
+    <div class="ordem" id="ordem" hidden>
+      <label>Ordenar
+        <select id="selOrdem">
+          <option value="">Padrão</option>
+          <option value="az">A → Z</option>
+          <option value="za">Z → A</option>
+          <option value="novos">Mais recentes</option>
+          <option value="antigos">Mais antigos</option>
+        </select>
+      </label>
+      <label>Década <select id="selDecada"><option value="">Todas</option></select></label>
+      <button type="button" class="btn-surpresa" id="btnSurpresa">🎲 Surpreenda-me</button>
+    </div>
     <div class="grid" id="catalogGrid" aria-live="polite" aria-busy="true"></div>
     <nav class="pagination" id="paginationContainer" aria-label="Paginação"></nav>
   </main>
@@ -295,6 +330,9 @@
   (() => {
     'use strict';
 
+    // PWA: registra o service worker (falha silenciosa)
+    if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+
     // ===================================================================
     // 1. CONFIGURAÇÃO
     // ===================================================================
@@ -317,6 +355,9 @@
       GENERO_INDEFINIDO: 'indefinido',          // valor usado pela IA quando não soube classificar
       MAX_GENEROS_CARD: 2,
       MAX_GENEROS_HERO: 3,
+      RECENTES_DIAS: 30,   // "Adicionados recentemente": janela em dias
+      MAX_RECENTES: 15,
+      MAX_NATAL: 20,
     };
 
     const FUNDOS = [
@@ -331,8 +372,10 @@
       DESTAQUES: 'clauFlix_destaques_links_v3',
       TIMESTAMP: 'clauFlix_destaques_timestamp_v3',
       FAVORITOS: 'clauFlix_favoritos_v1',
+      HISTORICO: 'clauFlix_historico_v1', // compartilhado com serie.html
     };
-    const SS = { VIEW: 'clauFlix_view', SEARCH: 'clauFlix_search', PAGE: 'clauFlix_page', GENRE: 'clauFlix_genero' };
+    const MAX_HISTORICO = 20;
+    const SS = { VIEW: 'clauFlix_view', SEARCH: 'clauFlix_search', PAGE: 'clauFlix_page', GENRE: 'clauFlix_genero', ORDEM: 'clauFlix_ordem', DECADA: 'clauFlix_decada' };
     const TITULOS_VIEW = { home: 'Destaques', filmes: 'Filmes', series: 'Séries', favoritos: 'Minha Lista' };
 
     // ===================================================================
@@ -453,6 +496,8 @@
       view: 'home',
       busca: '',
       genero: '',            // gênero filtrado ('' = todos)
+      ordem: '',             // '', az, za, novos, antigos
+      decada: '',            // '' = todas; ex.: '1990'
       itens: [],             // itens da listagem atual
       pagina: 1,
     };
@@ -467,6 +512,12 @@
     const contagem = $('contagem');
     const filtroGeneros = $('filtroGeneros');
     const hero = $('hero');
+    const continuarEl = $('continuar');
+    const recentesEl = $('recentes');
+    const natalEl = $('natal');
+    const ordemBox = $('ordem');
+    const selOrdem = $('selOrdem');
+    const selDecada = $('selDecada');
     const videoModal = $('videoModal');
     const playerContainer = $('playerContainer');
     const modalTitulo = $('modalTitulo');
@@ -550,6 +601,12 @@
       return [...cont].sort((a, b) => b[1] - a[1] || collator.compare(a[0], b[0])).slice(0, CONFIG.MAX_GENEROS_HERO).map(([g]) => g);
     }
 
+    /** Ano do título: "(2019)" no título ou "_2019" no nome do arquivo; 0 se não achar. */
+    function extrairAno(item) {
+      const m = String(item.titulo || '').match(/\(((?:19|20)\d{2})\)/) || arquivoDoLink(item.link).match(/[_\- ]((?:19|20)\d{2})(?:\.html?)?$/);
+      return m ? parseInt(m[1], 10) : 0;
+    }
+
     /** Pré-processa o catálogo (tipo, busca, gêneros, listas e índice). Roda de novo se a classificação chegar depois. */
     function prepararCatalogo(dados, cls = null) {
       estado.catalogo = dados;
@@ -562,12 +619,19 @@
         item._ehSerie = isSerie(item, entrada);
         item._busca = normalizar(item._ehSerie ? nomeDaSerie(item) : item.titulo);
         item._generos = entrada ? limparGeneros(entrada.generos) : [];
+        item._ano = extrairAno(item);
+        item._adicionado = String(item.adicionadoEm || '');
         if (entrada && (entrada.tipo === 'serie') !== item._ehSerie) diag.divergentes++;
       });
 
       estado.filmes = ordenarLista(dados.filter((i) => !i._ehSerie));
       estado.series = ordenarLista(agruparSeries(dados.filter((i) => i._ehSerie)));
-      estado.series.forEach((s) => { s._generos = generosDaSerie(s._eps); });
+      estado.series.forEach((s) => {
+        s._generos = generosDaSerie(s._eps);
+        s._ano = Math.min(...s._eps.map((e) => e._ano || 9999).concat(9999)); // 1º ano encontrado nos episódios
+        if (s._ano === 9999) s._ano = 0;
+        s._adicionado = s._eps.reduce((m, e) => (e._adicionado > m ? e._adicionado : m), ''); // episódio mais novo
+      });
       estado.todos = ordenarLista([...estado.filmes, ...estado.series]);
 
       estado.porChave.clear();
@@ -657,11 +721,97 @@
       return [...favoritos].reverse().map((f) => estado.porChave.get(f.k) || f);
     }
 
+    // ---- Continuar assistindo (histórico compartilhado com serie.html) ----
+    const lerHistorico = () => storage.lerArray(localStorage, LS.HISTORICO).filter((h) => h && h.k && h.titulo);
+    const gravarHistorico = (lista) => storage.gravar(localStorage, LS.HISTORICO, JSON.stringify(lista.slice(0, MAX_HISTORICO)));
+
+    /** Registra um filme no histórico (séries são registradas pela serie.html, por episódio). */
+    function registrarFilme(link, titulo) {
+      const item = estado.porChave.get(link);
+      const lista = lerHistorico().filter((h) => h.k !== link);
+      lista.unshift({ k: link, titulo, link, thumbnailUrl: item ? item.thumbnailUrl : '', tipo: 'filme', t: Date.now() });
+      gravarHistorico(lista);
+    }
+
+    /** Fileira "Continuar assistindo": só no Início, sem pesquisa nem filtros. */
+    function renderizarContinuar() {
+      const visivel = estado.view === 'home' && !estado.busca && !generoAtivo() && !filtrosExtras();
+      const itens = visivel
+        ? lerHistorico().map((h) => ({ h, item: estado.porChave.get(h.k) })).filter((x) => x.item)
+        : [];
+      if (!itens.length) { continuarEl.hidden = true; continuarEl.innerHTML = ''; return; }
+
+      continuarEl.innerHTML = `<h2>▶ Continuar assistindo</h2><div class="fila">${itens.map(({ h, item }) => {
+        const rotulo = h.tipo === 'serie' ? `T${h.temp} · E${String(h.ep).padStart(2, '0')}` : 'Retomar';
+        return `<div class="fila-item">${cardHtml(item)}<span class="fila-rotulo">${esc(rotulo)}</span>` +
+          `<button type="button" class="fila-x" data-remover="${esc(h.k)}" aria-label="Remover ${esc(h.titulo)} de Continuar assistindo" title="Remover">✕</button></div>`;
+      }).join('')}</div>`;
+      continuarEl.hidden = false;
+    }
+
+    /** Fileira "Adicionados recentemente" (data gravada pelo gerador; só no Início, sem pesquisa/filtros). */
+    function renderizarRecentes() {
+      const corte = new Date(Date.now() - CONFIG.RECENTES_DIAS * 864e5).toISOString().slice(0, 10);
+      const itens = (estado.view === 'home' && !estado.busca && !generoAtivo() && !filtrosExtras())
+        ? estado.todos.filter((i) => i._adicionado && i._adicionado >= corte)
+            .sort((a, b) => (b._adicionado > a._adicionado ? 1 : b._adicionado < a._adicionado ? -1 : collator.compare(a.titulo, b.titulo)))
+            .slice(0, CONFIG.MAX_RECENTES)
+        : [];
+      if (!itens.length) { recentesEl.hidden = true; recentesEl.innerHTML = ''; return; }
+      recentesEl.innerHTML = `<h2>✨ Adicionados recentemente</h2><div class="fila">${itens.map((item) =>
+        `<div class="fila-item">${cardHtml(item)}<span class="fila-rotulo">Novo</span></div>`).join('')}</div>`;
+      recentesEl.hidden = false;
+    }
+
+    /** Títulos com cara de Natal pelo nome (o TMDB não entra no navegador; isso cobre o nome). */
+    const RX_NATAL = /\b(natal|natalin[oa]s?|christmas|xmas|noel|grinch|navidad|expresso polar|polar express|santa claus)\b/;
+
+    /** Fileira "Especial de Natal 🎄": só no Início, sem pesquisa/filtros. */
+    function renderizarNatal() {
+      const itens = (estado.view === 'home' && !estado.busca && !generoAtivo() && !filtrosExtras())
+        ? estado.todos.filter((i) => RX_NATAL.test(normalizar(i.titulo))).slice(0, CONFIG.MAX_NATAL)
+        : [];
+      if (!itens.length) { natalEl.hidden = true; natalEl.innerHTML = ''; return; }
+      natalEl.innerHTML = `<h2>🎄 Especial de Natal</h2><div class="fila">${itens.map((item) =>
+        `<div class="fila-item">${cardHtml(item)}</div>`).join('')}</div>`;
+      natalEl.hidden = false;
+    }
+
+    /** Dias até o próximo 25/12 (0 = hoje é Natal). */
+    function diasParaNatal() {
+      const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
+      let natal = new Date(hoje.getFullYear(), 11, 25);
+      if (natal < hoje) natal = new Date(hoje.getFullYear() + 1, 11, 25);
+      return Math.round((natal - hoje) / 864e5);
+    }
+    function textoContagem() {
+      const d = diasParaNatal();
+      if (d === 0) return '🎅 Hoje é Natal! Feliz Natal!';
+      if (d === 1) return '🎁 Falta 1 dia para o Natal!';
+      return `🎁 Faltam ${d} dias para o Natal!`;
+    }
+
+    /** "Surpreenda-me": sorteia um título da lista atual (respeita aba, gênero e década) e abre. */
+    function surpreenda() {
+      let base = universoDaView();
+      const genero = generoAtivo();
+      if (genero) base = base.filter((i) => (i._generos || []).includes(genero));
+      base = aplicarOrdemEDecada(base);
+      if (!base.length) return;
+      const item = base[Math.floor(Math.random() * base.length)];
+      if (item.isAgrupado) { window.location.href = item.link; return; }
+      registrarFilme(item.link, item.titulo);
+      if (isMobile()) { window.location.href = item.link; return; }
+      abrirPlayer(item.videoUrl, item.titulo, item.link);
+    }
+
     function salvarSessao() {
       storage.gravar(sessionStorage, SS.VIEW, estado.view);
       storage.gravar(sessionStorage, SS.SEARCH, estado.busca);
       storage.gravar(sessionStorage, SS.PAGE, String(estado.pagina));
       storage.gravar(sessionStorage, SS.GENRE, estado.genero);
+      storage.gravar(sessionStorage, SS.ORDEM, estado.ordem);
+      storage.gravar(sessionStorage, SS.DECADA, estado.decada);
     }
 
     function marcarNavAtiva(view) {
@@ -751,12 +901,12 @@
 
     /** Hero: destaque do momento (só na aba Início, sem pesquisa ativa). */
     function renderizarHero() {
-      if (estado.view !== 'home' || estado.busca || generoAtivo() || !estado.destaques.length) { hero.hidden = true; return; }
+      if (estado.view !== 'home' || estado.busca || generoAtivo() || filtrosExtras() || !estado.destaques.length) { hero.hidden = true; return; }
 
       const item = estado.destaques.find(temCapa) || estado.destaques[0];
       const k = chave(item);
       const generos = (item._generos || []).slice(0, CONFIG.MAX_GENEROS_HERO);
-      const versao = `${k}|${generos.join(',')}`; // redesenha se os gêneros chegarem depois
+      const versao = `${k}|${generos.join(',')}|${diasParaNatal()}`; // redesenha se os gêneros chegarem depois
       hero.hidden = false;
       if (hero.dataset.k === versao) { atualizarBotoesFavorito(k); return; } // já desenhado
       hero.dataset.k = versao;
@@ -772,6 +922,7 @@
           ${capa ? `<img class="hero-poster" src="${esc(capa)}" alt="Capa de ${titulo}" decoding="async">` : ''}
           <div class="hero-texto">
             <span class="eyebrow">🎄 Especial de Natal · Em destaque</span>
+            <span class="contagem-natal" aria-live="off">${textoContagem()}</span>
             <h1>${titulo}</h1>
             <p class="hero-sub${generos.length ? '' : ' solo'}">${item.isAgrupado ? 'Série · todos os episódios em um só lugar' : 'Filme · pronto para a sua maratona'}</p>
             ${generos.length ? `<div class="hero-generos">${generos.map((g) => `<span>${esc(g)}</span>`).join('')}</div>` : ''}
@@ -793,6 +944,9 @@
       tituloSecao.textContent = tituloAtual();
       contagem.textContent = total ? `${total} ${total === 1 ? 'título' : 'títulos'}` : '';
       renderizarHero();
+      renderizarContinuar();
+      renderizarRecentes();
+      renderizarNatal();
 
       if (total === 0) { grid.innerHTML = htmlVazio(); paginacao.innerHTML = ''; salvarSessao(); return; }
 
@@ -847,8 +1001,9 @@
       const genero = generoAtivo();
       const base = estado.busca
         ? `Resultados para: "${estado.busca}"`
-        : (estado.view === 'home' && genero ? 'Catálogo' : TITULOS_VIEW[estado.view]);
-      return genero ? `${base} · ${genero}` : base;
+        : (estado.view === 'home' && (genero || filtrosExtras()) ? 'Catálogo' : TITULOS_VIEW[estado.view]);
+      const partes = [base, genero, estado.decada ? `${estado.decada}s` : ''].filter(Boolean);
+      return partes.join(' · ');
     }
 
     /** Itens da aba (ou da pesquisa) ANTES do filtro de gênero: é a base dos chips. */
@@ -889,15 +1044,43 @@
       }
     }
 
+    const filtrosExtras = () => !!(estado.decada || estado.ordem);
+
+    /** Aplica década e ordenação à lista. */
+    function aplicarOrdemEDecada(lista) {
+      let r = lista;
+      if (estado.decada) { const d = parseInt(estado.decada, 10); r = r.filter((i) => i._ano >= d && i._ano < d + 10); }
+      const cmp = {
+        az: (a, b) => collator.compare(a.titulo, b.titulo),
+        za: (a, b) => collator.compare(b.titulo, a.titulo),
+        novos: (a, b) => (b._ano || 0) - (a._ano || 0) || collator.compare(a.titulo, b.titulo),
+        antigos: (a, b) => (a._ano || 9999) - (b._ano || 9999) || collator.compare(a.titulo, b.titulo),
+      }[estado.ordem];
+      return cmp ? [...r].sort(cmp) : r;
+    }
+
+    /** Desenha o seletor de década (só se algum item da aba tiver ano) e sincroniza os valores. */
+    function renderizarOrdem(universo) {
+      const decadas = [...new Set(universo.filter((i) => i._ano).map((i) => Math.floor(i._ano / 10) * 10))].sort((a, b) => b - a);
+      if (estado.decada && !decadas.includes(parseInt(estado.decada, 10))) estado.decada = '';
+      selDecada.innerHTML = '<option value="">Todas</option>' + decadas.map((d) => `<option value="${d}">${d}s</option>`).join('');
+      selDecada.value = estado.decada;
+      selOrdem.value = estado.ordem;
+      selDecada.closest('label').hidden = !decadas.length;
+      ordemBox.hidden = !universo.length;
+    }
+
     /** Recalcula a lista (aba + pesquisa + gênero), os chips e redesenha. */
     function recalcular({ resetPagina = false } = {}) {
       const universo = universoDaView();
+      renderizarOrdem(universo);
       estado.generos = estado.temClassificacao ? contarGeneros(universo) : new Map();
       if (estado.temClassificacao && estado.genero && !estado.generos.has(estado.genero)) estado.genero = ''; // gênero inexistente nesta aba
 
       const genero = generoAtivo();
       if (genero) estado.itens = universo.filter((i) => (i._generos || []).includes(genero));
-      else estado.itens = (estado.view === 'home' && !estado.busca) ? estado.destaques : universo;
+      else estado.itens = (estado.view === 'home' && !estado.busca && !filtrosExtras()) ? estado.destaques : universo;
+      estado.itens = aplicarOrdemEDecada(estado.itens);
 
       if (resetPagina) estado.pagina = 1;
       renderizarChips();
@@ -934,6 +1117,8 @@
       estado.view = TITULOS_VIEW[viewSalva] ? viewSalva : 'home';
       estado.busca = storage.ler(sessionStorage, SS.SEARCH, '');
       estado.genero = storage.ler(sessionStorage, SS.GENRE, '');
+      estado.ordem = storage.ler(sessionStorage, SS.ORDEM, '');
+      estado.decada = storage.ler(sessionStorage, SS.DECADA, '');
       estado.pagina = parseInt(storage.ler(sessionStorage, SS.PAGE, '1'), 10) || 1;
 
       searchInput.value = estado.busca;
@@ -995,11 +1180,15 @@
     document.addEventListener('click', (e) => {
       if (e.target.closest('[data-acao="tentar"]')) { iniciar(); return; }
 
+      const rem = e.target.closest('[data-remover]');
+      if (rem) { gravarHistorico(lerHistorico().filter((h) => h.k !== rem.dataset.remover)); renderizarContinuar(); return; }
+
       const fav = e.target.closest('.fav-btn');
       if (fav) { alternarFavorito(fav); return; }
 
       const filme = e.target.closest('.filme-card');
       const teclaModificadora = e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0;
+      if (filme && !teclaModificadora) registrarFilme(filme.dataset.link, filme.dataset.titulo);
       if (filme && !isMobile() && !teclaModificadora) {
         e.preventDefault();
         abrirPlayer(filme.dataset.url, filme.dataset.titulo, filme.dataset.link);
@@ -1040,6 +1229,9 @@
     videoModal.addEventListener('click', (e) => { if (e.target === videoModal) fecharModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && videoModal.classList.contains('aberto')) fecharModal(); });
     searchInput.addEventListener('input', buscar);
+    $('btnSurpresa').addEventListener('click', surpreenda);
+    selOrdem.addEventListener('change', () => { estado.ordem = selOrdem.value; recalcular({ resetPagina: true }); });
+    selDecada.addEventListener('change', () => { estado.decada = selDecada.value; recalcular({ resetPagina: true }); });
 
     // ===================================================================
     // 10. INICIALIZAÇÃO
