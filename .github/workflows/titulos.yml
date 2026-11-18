@@ -233,14 +233,14 @@ jobs:
                                  if isinstance(por.get(str(i)), str) and por[str(i)].strip()}
                           if res:
                               log(f"[✓] Lote {num} com {modelo} ({len(res)}/{len(lote)})")
-                              return res
+                              return res, modelo
                           log(f"[!] {modelo} não respondeu nenhum item. Pulando...")
                       except Exception as e:
                           log(f"[!] {modelo}: {str(e)[:90]}. Pulando...")
                   if rodada == 0:
                       time.sleep(PAUSA)
               log(f"[x] Lote {num} sem resposta; os itens continuam na fila.")
-              return {}
+              return {}, None
 
 
           def pendente(chave, orig, cache):
@@ -252,18 +252,20 @@ jobs:
               return e.get("fonte") == "mantido" and e.get("tentativas", 0) < MAX_TENTATIVAS
 
 
-          def aplicar(cache, chave, orig, novo):
+          def aplicar(cache, chave, orig, novo, modelo=None):
+              """Devolve True se o título da IA foi aceito, False se foi rejeitado (palavra trocada etc.)."""
               certo = validar(orig, novo)
               antigo = cache.get(chave) or {}
               if certo:
-                  cache[chave] = {"titulo": certo, "original": orig, "fonte": "ia"}
+                  cache[chave] = {"titulo": certo, "original": orig, "fonte": "ia", "modelo": modelo}
               elif antigo.get("fonte") == "ia" and antigo.get("original") == orig:
                   pass                                    # já tinha título bom: nunca troca por pior
               else:
-                  cache[chave] = {"titulo": orig, "original": orig, "fonte": "mantido",
+                  cache[chave] = {"titulo": orig, "original": orig, "fonte": "mantido", "modelo": modelo,
                                   "tentativas": antigo.get("tentativas", 0) + 1 if antigo.get("original") == orig else 1}
               if MODO == "tudo":
                   cache[chave]["rodada"] = RODADA
+              return bool(certo)
 
 
           if os.path.exists(SAIDA):
@@ -307,6 +309,7 @@ jobs:
 
           lotes = [fila[i:i + LOTE] for i in range(0, len(fila), LOTE)]
           inicio, feitos, mudaram = time.time(), 0, 0
+          por_modelo = {}   # modelo -> [respondidos, títulos aceitos, títulos corrigidos]
           with ThreadPoolExecutor(max_workers=MAX_WORKERS) as ex:
               futs = {ex.submit(pedir, b, n + 1, n % len(MODELOS)): b for n, b in enumerate(lotes)}
               for fut in as_completed(futs):
@@ -315,18 +318,25 @@ jobs:
                       for f in futs:
                           f.cancel()
                       break
-                  lote, res = futs[fut], fut.result()
+                  lote = futs[fut]
+                  res, modelo = fut.result()
                   for i, novo in res.items():
                       k, o = lote[i]
-                      aplicar(cache, k, o, novo)
+                      aceito = aplicar(cache, k, o, novo, modelo)
                       feitos += 1
                       mudaram += cache[k]["titulo"] != o
+                      est = por_modelo.setdefault(modelo, [0, 0, 0])
+                      est[0] += 1
+                      est[1] += aceito
+                      est[2] += cache[k]["titulo"] != o
                   if res:
                       salvar(cache)
                   log(f"📊 {feitos}/{len(fila)} títulos respondidos.")
           salvar(cache)
           restantes = total_fila - feitos if MODO != "refazer" else 0
           log("=" * 50)
+          for m, (n, ac, co) in sorted(por_modelo.items(), key=lambda kv: -kv[1][0]):
+              log(f"📈 {m}: {n} respondidos, {ac} aceitos ({(ac / n * 100 if n else 0):.0f}%), {co} corrigidos")
           log(f"🎉 {feitos} respondidos ({mudaram} corrigidos), {restantes} ainda na fila.")
           saida_gh(continuar="true" if (restantes > 0 and feitos > 0 and MODO != "refazer") else "false",
                    restantes=restantes)
