@@ -720,7 +720,10 @@
       document.body.classList.add('modal-aberto');
       $('btnFechar').focus();
 
-      const ehEmbed = /youtube\.com|youtu\.be|embed|player/.test(videoUrl);
+      // Arquivo de vídeo (.mp4, .webm...) NUNCA é embed, mesmo que o domínio tenha
+      // "player" no nome (ex.: oneplayer.site) — senão o iframe http é bloqueado no https.
+      const ehArquivoDeVideo = /\.(mp4|webm|m4v|mov|ogv|ogg)(\?|#|$)/i.test(videoUrl);
+      const ehEmbed = !ehArquivoDeVideo && /youtube\.com|youtu\.be|vimeo\.com|tankie\.tube|dailymotion|\/embed\//i.test(videoUrl);
       if (ehEmbed) {
         playerContainer.innerHTML = `<iframe src="${esc(videoUrl)}" title="${esc(titulo)}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
         return;
@@ -802,5 +805,5 @@
     }
   })();
   </script>
-</body>
+<!-- Cloudflare Pages Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "258183a2cf084d85a9ecd325e5d61fe4"}'></script><!-- Cloudflare Pages Analytics --></body>
 </html>
