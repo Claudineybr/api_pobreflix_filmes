@@ -1,11 +1,16 @@
-/* Clau Flix — Service Worker v3
+/* Clau Flix — Service Worker v4
+   0) Mesma lógica da v3 (que corrigiu o ERR_FAILED do /index.html).
+      Só troquei a versão do cache para v4 porque mudaram o index.html e o serie.html:
+      com cache novo, os arquivos novos aparecem na hora em quem já usa o site.
+   Correções desta versão:
    1) Navegação para "/index.html" (ou qualquer ".../pagina.html") não quebra mais.
       O Cloudflare Pages responde 308 em "/index.html" -> "/", e o navegador
       recusa uma resposta redirecionada quando é uma navegação (dava ERR_FAILED).
+      Agora o worker pede direto o endereço final ("/" em vez de "/index.html").
    2) Qualquer resposta redirecionada é "limpa" antes de ser guardada/entregue.
-   3) Cache com nome novo: apaga automaticamente os caches antigos. */
+   3) Cache com nome novo: apaga automaticamente os caches antigos (v1/v2/v3). */
 
-const VERSAO = 'clauflix-v3';
+const VERSAO = 'clauflix-v4';
 
 const CACHE_ESTATICOS = `${VERSAO}-estaticos`;
 const CACHE_DADOS = `${VERSAO}-dados`;
@@ -24,6 +29,8 @@ function canonica(href) {
   return u.toString();
 }
 
+/* Uma resposta obtida seguindo redirecionamento não pode ser devolvida
+   numa navegação nem guardada no cache. Recriar a resposta resolve. */
 async function semRedirecionamento(resp) {
   if (!resp || !resp.redirected) return resp;
   const corpo = await resp.arrayBuffer();
