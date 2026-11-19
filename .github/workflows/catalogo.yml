@@ -33,6 +33,8 @@ jobs:
           RX_EP = re.compile(r"^(.+?)_(?:t(\d+)e(?:p)?(\d+)|(\d+)x(\d+))(?:_\d+)?$", re.I)
           RX_THUMB = re.compile(r'"thumbnailUrl"\s*:\s*\[\s*["\']([^"\']+)["\']', re.I)
           RX_VIDEO = re.compile(r'"contentUrl"\s*:\s*["\']([^"\']+)["\']', re.I)
+          RX_RESERVA_ARQ = re.compile(r"_reserva\d*\.html$", re.I)     # páginas do servidor reserva: não são filmes à parte
+          RX_BACKUP = re.compile(r'"contentUrlBackup"\s*:\s*\[(.*?)\]', re.I | re.S)
           RX_IMG = re.compile(r'<img[^>]+src=["\']([^"\']+)["\']', re.I)
           RX_DATASRC = re.compile(r'data-src=["\']([^"\']+)["\']', re.I)
           RX_TITULO = re.compile(r"<h1[^>]*>(.*?)</h1>|<title[^>]*>(.*?)</title>", re.I | re.S)
@@ -82,7 +84,7 @@ jobs:
               for raiz, dirs, files in os.walk("."):
                   dirs[:] = [d for d in dirs if not d.startswith(".") and d != "node_modules"]
                   for f in files:
-                      if f.endswith(".html") and f not in IGNORAR:
+                      if f.endswith(".html") and f not in IGNORAR and not RX_RESERVA_ARQ.search(f):
                           yield os.path.relpath(os.path.join(raiz, f), ".").replace("\\", "/"), f
 
 
@@ -132,6 +134,11 @@ jobs:
                       serie = titulo = corrigido(slug) or do_html(conteudo, norm(re.sub(r"_(\d{4})_\1$", r"_\1", slug))) or do_arquivo(slug)
                   itens.append({"titulo": titulo, "serie": serie, "temporada": t, "episodio": e,
                                 "link": caminho, "thumbnailUrl": thumb, "videoUrl": video})
+                  mb = RX_BACKUP.search(conteudo)
+                  if mb:   # servidores reserva do mesmo filme (campo extra; só aparece quando existe)
+                      reservas = re.findall(r'"([^"]+)"', mb.group(1))
+                      if reservas:
+                          itens[-1]["videoUrlBackup"] = reservas
                   if anterior is not None and caminho in anterior:
                       if anterior[caminho]:
                           itens[-1]["adicionadoEm"] = anterior[caminho]
