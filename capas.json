@@ -32,7 +32,7 @@
   "007_spectre_2015": {
     "fonte": "nao_achou",
     "nome": "007 Spectre (2015)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "100_dias_de_resistencia_2019": {
@@ -200,7 +200,7 @@
   "13_distrito_ultimato_2009": {
     "fonte": "nao_achou",
     "nome": "13° Distrito - Ultimato (2009)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "13_exorcismos_2022": {
@@ -242,7 +242,7 @@
   "13o_distrito_2014": {
     "fonte": "nao_achou",
     "nome": "13o Distrito (2014)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "1408": {
@@ -644,7 +644,7 @@
   "88_assassina_silenciosa_2015": {
     "fonte": "nao_achou",
     "nome": "88 - Assassina Silenciosa (2015)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "88_minutos_2007": {
@@ -686,7 +686,7 @@
   "9o_pelotao_2005": {
     "fonte": "nao_achou",
     "nome": "9o Pelotão (2005)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_100_passos_de_um_sonho_2014": {
@@ -1004,7 +1004,7 @@
   "a_bruxa_do_amor_2016": {
     "fonte": "nao_achou",
     "nome": "A Bruxa Do Amor (2016)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_bruxa_dos_mortos_bagheead_2024": {
@@ -1082,7 +1082,7 @@
   "a_cancao_do_oceano_2014": {
     "fonte": "nao_achou",
     "nome": "A Canção do Oceano (2014)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_cartada_final_2001": {
@@ -1094,7 +1094,7 @@
   "a_casa_assombrada_2010": {
     "fonte": "nao_achou",
     "nome": "A Casa Assombrada (2010)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_casa_caiu_2003": {
@@ -1322,7 +1322,7 @@
   "a_crepusculo_amanhecer_parte_1_2011_1_1": {
     "fonte": "nao_achou",
     "nome": "A Crepusculo Amanhecer Parte 1 2011 1 1",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_crepusculo_amanhecer_parte_2_2012_1": {
@@ -1334,13 +1334,13 @@
   "a_crepusculo_eclipse_1": {
     "fonte": "nao_achou",
     "nome": "A Crepúsculo: Eclipse 1",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_crepusculo_lua_nova_1": {
     "fonte": "nao_achou",
     "nome": "A Crepúsculo: Lua Nova 1",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_criada": {
@@ -1616,7 +1616,7 @@
   "a_familia_buscape_1962": {
     "fonte": "nao_achou",
     "nome": "A Família Buscapé (1962)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_familia_do_futuro": {
@@ -1640,7 +1640,7 @@
   "a_familia_mitchell_e_a_revolta_das_maquinas": {
     "fonte": "nao_achou",
     "nome": "A Família Mitchell e a Revolta das Máquinas",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_fantastica_fabrica_de_chocolate": {
@@ -1814,7 +1814,7 @@
   "a_furia_de_beckly_2023": {
     "fonte": "nao_achou",
     "nome": "A Furia De Beckly (2023)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_furia_de_becky_2023": {
@@ -1982,7 +1982,7 @@
   "a_hora_do_descarrego_2019": {
     "fonte": "nao_achou",
     "nome": "A Hora do Descarrego (2019)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_hora_do_espanto": {
@@ -2426,7 +2426,7 @@
   "a_maldicao_de_baghead_2023": {
     "fonte": "nao_achou",
     "nome": "A Maldição de Baghead (2023)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_maldicao_de_bridge_hollow_2022": {
@@ -2480,7 +2480,7 @@
   "a_maldicao_do_manequim_2023": {
     "fonte": "nao_achou",
     "nome": "A Maldição do Manequim (2023)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_maldicao_do_tubarao_2026": {
@@ -2816,7 +2816,7 @@
   "a_noite_dos_mortos_vivos_1981": {
     "fonte": "nao_achou",
     "nome": "A Noite dos Mortos-Vivos (1981)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_noite_e_delas_2017": {
@@ -3056,7 +3056,7 @@
   "a_pele_habito_2011": {
     "fonte": "nao_achou",
     "nome": "A Pele Habito (2011)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_pequena_sereia": {
@@ -3224,7 +3224,7 @@
   "a_proposta_2007": {
     "fonte": "nao_achou",
     "nome": "A Proposta (2007)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_prova_de_fogo_2008": {
@@ -3278,7 +3278,7 @@
   "a_rebeliao_de_1907": {
     "fonte": "nao_achou",
     "nome": "A Rebelião de (1907)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_ressaca": {
@@ -3494,7 +3494,7 @@
   "a_trilha_da_morte_2017": {
     "fonte": "nao_achou",
     "nome": "A Trilha da Morte (2017)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "a_ultima_bala": {
@@ -3818,25 +3818,25 @@
   "abrir_player": {
     "fonte": "nao_achou",
     "nome": "Abrir Player",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "abrir_player_2": {
     "fonte": "nao_achou",
     "nome": "Abrir Player",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "abrir_player_3": {
     "fonte": "nao_achou",
     "nome": "Abrir Player",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "abrir_player_4": {
     "fonte": "nao_achou",
     "nome": "Abrir Player",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "academia_sobrenatural_nascimento_da_marca_do_dragao_2026": {
@@ -3854,7 +3854,7 @@
   "ace_ventura_em_africa_1995": {
     "fonte": "nao_achou",
     "nome": "Ace Ventura em África (1995)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "acompanhante_de_luxo_2023": {
@@ -3920,7 +3920,7 @@
   "adeus_professor_2019": {
     "fonte": "nao_achou",
     "nome": "Adeus, Professor (2019)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "adoradores_do_diabo_2005": {
@@ -4310,7 +4310,7 @@
   "alien_vs_predador_2_2002": {
     "fonte": "nao_achou",
     "nome": "Alien vs. Predador 2 (2002)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "aliens_o_resgate_1986": {
@@ -4340,7 +4340,7 @@
   "almas_marcadas_2025": {
     "fonte": "nao_achou",
     "nome": "Almas Marcadas (2025)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "along_with_the_gods_the_two_worlds_2017": {
@@ -4484,7 +4484,7 @@
   "american_pie_a_primeira_vez_e_inesquecivel": {
     "fonte": "nao_achou",
     "nome": "American Pie: A Primeira Vez é Inesquecível",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "american_pie_a_primeira_vez_e_inesquecivel_1999": {
@@ -4592,7 +4592,7 @@
   "amigos_do_alem_2025": {
     "fonte": "nao_achou",
     "nome": "Amigos do Além (2025)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "amizade_colorida": {
@@ -4706,7 +4706,7 @@
   "amor_e_vinho_2025": {
     "fonte": "nao_achou",
     "nome": "Amor e Vinho (2025)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "amor_enrolado_2025": {
@@ -4964,7 +4964,7 @@
   "anjos_da_noite_underworld": {
     "fonte": "nao_achou",
     "nome": "Anjos da Noite Underworld",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "anjos_da_noite_underworld_2003": {
@@ -5282,7 +5282,7 @@
   "armagedom_1998": {
     "fonte": "nao_achou",
     "nome": "Armagedom (1998)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "armas_em_jogo_2020": {
@@ -5726,7 +5726,7 @@
   "assalto_ao_carro_forte_2009": {
     "fonte": "nao_achou",
     "nome": "Assalto Ao Carro Forte (2009)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "assalto_brutal_2024": {
@@ -5744,7 +5744,7 @@
   "assassino_a_preco_fixo_2016": {
     "fonte": "nao_achou",
     "nome": "Assassino a Preço Fixo (2016)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "assassino_a_preco_fixo_2_a_ressurreicao_2016": {
@@ -6788,7 +6788,7 @@
   "bem_10_a_corrida_contra_o_tempo_2007": {
     "fonte": "nao_achou",
     "nome": "Bem 10 - A Corrida Contra o Tempo (2007)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "bem_vinda_a_quixeramobim_2022": {
@@ -6866,7 +6866,7 @@
   "bicho_papao_o_conto_2023": {
     "fonte": "nao_achou",
     "nome": "Bicho-Papão: O Conto (2023)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "big_pai_big_filho": {
@@ -6938,7 +6938,7 @@
   "blade_runner_2049": {
     "fonte": "nao_achou",
     "nome": "Blade Runner (2049)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "bleach_2018": {
@@ -6986,7 +6986,7 @@
   "boa_sorte_divirtam_se_nao_morra_2026": {
     "fonte": "nao_achou",
     "nome": "Boa Sorte Divirtam-se Não Morra (2026)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "bob_esponja_acampamento_do_terror": {
@@ -7256,7 +7256,7 @@
   "brilho_eterno_de_uma_mente_sem_lembrancas_2004": {
     "fonte": "nao_achou",
     "nome": "Brilho Eterno de uma Mente sem Lembranças (2004)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "brinquedo_assassino": {
@@ -7418,7 +7418,7 @@
   "caca_as_bruxas_2021": {
     "fonte": "nao_achou",
     "nome": "Caça às Bruxas (2021)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "caca_explosiva_2021": {
@@ -7568,7 +7568,7 @@
   "caes_do_espaco_aventura_tropical_2020": {
     "fonte": "nao_achou",
     "nome": "Cães do Espaço Aventura Tropical (2020)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "caju_meu_amigo_2026": {
@@ -8144,7 +8144,7 @@
   "cidade_do_silencioso_2007": {
     "fonte": "nao_achou",
     "nome": "Cidade do Silencioso (2007)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "cidade_dos_anjos_1998": {
@@ -8366,7 +8366,7 @@
   "clube_de_compras_2014_dallas": {
     "fonte": "nao_achou",
     "nome": "Clube De Compras 2014 Dallas",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "clube_do_desejo_2023": {
@@ -8414,7 +8414,7 @@
   "coerencia_2013": {
     "fonte": "nao_achou",
     "nome": "Coerência (2013)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "coisas_de_meninos_e_meninas_2006": {
@@ -8756,13 +8756,13 @@
   "contatos_de_4o_grau": {
     "fonte": "nao_achou",
     "nome": "Contatos de 4o Grau",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "contatos_de_4o_grau_2009": {
     "fonte": "nao_achou",
     "nome": "Contatos de 4o Grau (2009)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "continencia_ao_amor_2022": {
@@ -8780,7 +8780,7 @@
   "conto_do_dia_das_bruxas_2007": {
     "fonte": "nao_achou",
     "nome": "Conto Do Dia Das Bruxas (2007)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "contos_da_babilonia_2023": {
@@ -8918,7 +8918,7 @@
   "coringa_delirio_a_dois_joker_folie_a_deux": {
     "fonte": "nao_achou",
     "nome": "Coringa: Delírio a Dois - Joker: Folie à Deux",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "corra": {
@@ -9038,7 +9038,7 @@
   "corrida_para_a_montanha_magica_2009": {
     "fonte": "nao_achou",
     "nome": "Corrida para a Montanha Mágica (2009)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "corta_fogo_2026": {
@@ -9446,7 +9446,7 @@
   "deadpool_deadpool": {
     "fonte": "nao_achou",
     "nome": "Deadpool Deadpool",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "deadpool_e_wolverine": {
@@ -9542,7 +9542,7 @@
   "demonio_de_neon_2000": {
     "fonte": "nao_achou",
     "nome": "Demônio De Neon (2000)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "dente_canino_2009": {
@@ -9704,7 +9704,7 @@
   "desculpe_querida_2025": {
     "fonte": "nao_achou",
     "nome": "Desculpe, Querida (2025)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "desejo": {
@@ -10118,7 +10118,7 @@
   "diretamente_de_lugar_nenhum_scooby_doo_encontra_coragem_2021": {
     "fonte": "nao_achou",
     "nome": "Diretamente de Lugar Nenhum: Scooby-Doo! Encontra Coragem (2021)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "disputa_final_2025": {
@@ -10184,7 +10184,7 @@
   "django_2012": {
     "fonte": "nao_achou",
     "nome": "Django (2012)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "do_fundo_do_mar": {
@@ -10310,7 +10310,7 @@
   "dongji_rescue_2025": {
     "fonte": "nao_achou",
     "nome": "Dongji Rescue (2025)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "donzela": {
@@ -10550,7 +10550,7 @@
   "duna_parte_2": {
     "fonte": "nao_achou",
     "nome": "Duna: Parte 2",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "duna_parte_dois_2024": {
@@ -11594,7 +11594,7 @@
   "estado_eletrico_2025": {
     "fonte": "nao_achou",
     "nome": "Estado Elétrico (2025)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "este_e_o_meu_garoto_2012": {
@@ -11654,7 +11654,7 @@
   "eu_ainda_sei_o_que_voces_fizeram_no_verao_passado_1998": {
     "fonte": "nao_achou",
     "nome": "Eu Ainda Sei o Que Vocês Fizeram no Verão Passado (1998)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "eu_antes_de_mim_2026": {
@@ -11726,7 +11726,7 @@
   "eu_vi_o_brilho_na_tv_2024": {
     "fonte": "nao_achou",
     "nome": "Eu vi o Brilho na TV (2024)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "eu_voce_na_toscana_2026": {
@@ -11960,7 +11960,7 @@
   "fatal_2001": {
     "fonte": "nao_achou",
     "nome": "Fatal (2001)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "fatos_estranhos_2009": {
@@ -12134,7 +12134,7 @@
   "fique_rico_ou_morra_tentado_2005": {
     "fonte": "nao_achou",
     "nome": "Fique Rico Ou Morra Tentado (2005)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "fireball_2009": {
@@ -12320,7 +12320,7 @@
   "freddy_x_jason_2003": {
     "fonte": "nao_achou",
     "nome": "Freddy x Jason (2003)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "free_guy_assumindo_o_controle": {
@@ -12668,7 +12668,7 @@
   "gasparzinho_o_fantasma_camarada_1995": {
     "fonte": "nao_achou",
     "nome": "Gasparzinho O Fantasma Camarada (1995)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "gatillero_2025": {
@@ -13052,7 +13052,7 @@
   "grotesque_2009": {
     "fonte": "nao_achou",
     "nome": "Grotesque (2009)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "gtmax_2024": {
@@ -13208,19 +13208,19 @@
   "halloween_1983_3": {
     "fonte": "nao_achou",
     "nome": "Halloween (1983)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "halloween_1988_4": {
     "fonte": "nao_achou",
     "nome": "Halloween (1988)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "halloween_1989_5": {
     "fonte": "nao_achou",
     "nome": "Halloween (1989)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "halloween_1995_6": {
@@ -13508,7 +13508,7 @@
   "harry_potter_parte_2": {
     "fonte": "nao_achou",
     "nome": "Harry Potter Parte 2",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "heart_eyes_2025": {
@@ -13544,7 +13544,7 @@
   "hell_a_ira_esta_solta_2003": {
     "fonte": "nao_achou",
     "nome": "Hell - A Ira Está Solta (2003)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "hell_house_a_origem_2023": {
@@ -13982,7 +13982,7 @@
   "homem_duplicado_2022": {
     "fonte": "nao_achou",
     "nome": "Homem Duplicado (2022)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "homem_formiga_2015": {
@@ -14030,7 +14030,7 @@
   "homens_do_bem_2024": {
     "fonte": "nao_achou",
     "nome": "Homens Do Bem (2024)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "homens_em_furia_2010": {
@@ -14204,7 +14204,7 @@
   "identidade_em_jogo": {
     "fonte": "nao_achou",
     "nome": "Identidade em Jogo",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "identidade_paranormal_2010": {
@@ -14462,7 +14462,7 @@
   "inimigo_mortal_2019": {
     "fonte": "nao_achou",
     "nome": "Inimigo Mortal (2019)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "inimigo_publico_no_1_2008": {
@@ -14486,7 +14486,7 @@
   "insensata_paixao_2018": {
     "fonte": "nao_achou",
     "nome": "Insensata Paixão (2018)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "inspetor_zende_2025": {
@@ -14672,7 +14672,7 @@
   "isi_e_ossi_2020": {
     "fonte": "nao_achou",
     "nome": "Isi e Ossi (2020)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "isolado_na_pandemia_2021": {
@@ -14726,7 +14726,7 @@
   "it_uma_obra_prima_do_medo_1990": {
     "fonte": "nao_achou",
     "nome": "It:Uma Obra Prima Do Medo (1990)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "ja_era_hora_2023": {
@@ -14804,7 +14804,7 @@
   "jane_austen_destruiu_minha_vida_2025": {
     "fonte": "nao_achou",
     "nome": "Jane Austen Destruiu Minha Vida (2025)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "jane_nao_esta_bem_2023": {
@@ -14894,7 +14894,7 @@
   "jogador_no_1_2018": {
     "fonte": "nao_achou",
     "nome": "Jogador No 1 (2018)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "jogo_da_morte_2014": {
@@ -15200,7 +15200,7 @@
   "jose_o_rei_dos_sonhos_2002": {
     "fonte": "nao_achou",
     "nome": "José: O Rei dos Sonhos (2002)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "jovens_bruxas_1996": {
@@ -15680,13 +15680,13 @@
   "la_la_land_cantado_estacoes_2017": {
     "fonte": "nao_achou",
     "nome": "La La Land:Cantado Estações (2017)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "la_vem_o_pais_2018": {
     "fonte": "nao_achou",
     "nome": "La Vem O País (2018)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "labirinto_a_magia_do_tempo": {
@@ -16136,7 +16136,7 @@
   "lobisomen_a_besta_entre_nos": {
     "fonte": "nao_achou",
     "nome": "Lobisomen: A besta entre nós",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "lobisomens_2024": {
@@ -16358,7 +16358,7 @@
   "mac_e_devin_no_colegial_2012": {
     "fonte": "nao_achou",
     "nome": "Mac é Devin No Colegial (2012)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "machete_2010": {
@@ -16742,7 +16742,7 @@
   "marco_de_1968": {
     "fonte": "nao_achou",
     "nome": "Março de (1968)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "margaux_a_inteligencia_mortal_2022": {
@@ -16802,7 +16802,7 @@
   "maskara_1994": {
     "fonte": "nao_achou",
     "nome": "Máskara (1994)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "massacre_no_texas_2017": {
@@ -17450,7 +17450,7 @@
   "mexico_1986": {
     "fonte": "nao_achou",
     "nome": "México (1986)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "mib_homens_de_preto_1997": {
@@ -17618,7 +17618,7 @@
   "minha_mae_e_uma_peca_2019": {
     "fonte": "nao_achou",
     "nome": "Minha Mãe E Uma Peça (2019)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "minha_mae_e_uma_peca_2_2016": {
@@ -17654,7 +17654,7 @@
   "minha_noiva_de_mentira_2009": {
     "fonte": "nao_achou",
     "nome": "Minha Noiva de Mentira (2009)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "minha_querida_oni_2024": {
@@ -17774,7 +17774,7 @@
   "missao_extrema_2024": {
     "fonte": "nao_achou",
     "nome": "Missão Extrema (2024)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "missao_impossivel_1996": {
@@ -18104,7 +18104,7 @@
   "monstro_vs_alienigena_2009": {
     "fonte": "nao_achou",
     "nome": "Monstro vs Alienígena (2009)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "monstros_s_a": {
@@ -18146,7 +18146,7 @@
   "moowalker_1988": {
     "fonte": "nao_achou",
     "nome": "Moowalker (1988)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "morando_com_o_crush": {
@@ -18182,7 +18182,7 @@
   "mortadelo_e_salaminho_missao_inacreditavel": {
     "fonte": "nao_achou",
     "nome": "Mortadelo e Salaminho: Missão Inacreditável",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "mortal_kombat_2": {
@@ -18272,7 +18272,7 @@
   "motel_melati_2025": {
     "fonte": "nao_achou",
     "nome": "Motel Melati (2025)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "mother_mary_2026": {
@@ -18458,7 +18458,7 @@
   "na_batida_do_coracao_2012": {
     "fonte": "nao_achou",
     "nome": "Na Batida do Coração (2012)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "na_corda_bamba_2018": {
@@ -18848,7 +18848,7 @@
   "never_um_jogo_sem_regras_2016": {
     "fonte": "nao_achou",
     "nome": "Never: Um Jogo Sem Regras (2016)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "ninfomaniaca_volume_1": {
@@ -19166,7 +19166,7 @@
   "nu_2017": {
     "fonte": "nao_achou",
     "nome": "Nu (2017)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "nudes_2018": {
@@ -19364,7 +19364,7 @@
   "o_ano_da_extincao_2019": {
     "fonte": "nao_achou",
     "nome": "O - Ano da Extinção (2019)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_aprendiz_1998": {
@@ -19388,7 +19388,7 @@
   "o_assasino_o_primeiro_alvo_2017": {
     "fonte": "nao_achou",
     "nome": "O Assasino: O Primeiro Alvo (2017)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_assassinato_de_rachel_nickell_2026": {
@@ -19430,7 +19430,7 @@
   "o_ataque_dos_tubaroes_2024": {
     "fonte": "nao_achou",
     "nome": "O Ataque dos Tubarões (2024)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_ataque_dos_vermes_malditos_4_o_comeco_da_lenda_2004": {
@@ -19502,7 +19502,7 @@
   "o_beijo_do_vampiro_1989": {
     "fonte": "nao_achou",
     "nome": "O Beijo do Vampiro (1989)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_besouro_verde_2011": {
@@ -19616,7 +19616,7 @@
   "o_caminho_para_el_dourado_2000": {
     "fonte": "nao_achou",
     "nome": "O Caminho Para El dourado (2000)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_cao_e_a_raposa_1981": {
@@ -19634,7 +19634,7 @@
   "o_casal_duplicado_2024": {
     "fonte": "nao_achou",
     "nome": "O Casal Duplicado (2024)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_casamento_do_ano_2013": {
@@ -20054,7 +20054,7 @@
   "o_diario_de_uma_princesa_2001": {
     "fonte": "nao_achou",
     "nome": "O Diario De Uma Princesa (2001)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_ditador_2012": {
@@ -20228,7 +20228,7 @@
   "o_esquadrao_suicida_2016": {
     "fonte": "nao_achou",
     "nome": "O Esquadrão Suicída (2016)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_estrangeiro_2017": {
@@ -20252,7 +20252,7 @@
   "o_estranho_mundo_de_jack_livre_1993": {
     "fonte": "nao_achou",
     "nome": "O Estranho Mundo de Jack Livre (1993)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_estranho_na_minha_casa_2025": {
@@ -20276,7 +20276,7 @@
   "o_exorcismo_do_papa_2023": {
     "fonte": "nao_achou",
     "nome": "O Exorcismo do Papa (2023)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_exorcista": {
@@ -20900,7 +20900,7 @@
   "o_labirinto_do_fauno_2009": {
     "fonte": "nao_achou",
     "nome": "O Labirinto Do Fauno (2009)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_lado_bom_de_ser_traida": {
@@ -20990,7 +20990,7 @@
   "o_lobisomen_2010": {
     "fonte": "nao_achou",
     "nome": "O Lobisomen (2010)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_lobo_da_estepe_2024": {
@@ -21032,7 +21032,7 @@
   "o_lutador_2006": {
     "fonte": "nao_achou",
     "nome": "O Lutador (2006)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_macaco_2025": {
@@ -21410,7 +21410,7 @@
   "o_momento_2026": {
     "fonte": "nao_achou",
     "nome": "O Momento (2026)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_monstro_que_vive_em_mim_2023": {
@@ -21734,7 +21734,7 @@
   "o_poder_de_acreditar_2024": {
     "fonte": "nao_achou",
     "nome": "O Poder de Acreditar (2024)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_poder_do_pecado_2023": {
@@ -21776,7 +21776,7 @@
   "o_poderoso_chefinho_2_negocios_da_familia": {
     "fonte": "nao_achou",
     "nome": "O Poderoso Chefinho 2: Negócios da Família",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_poderoso_chefinho_2_negocios_da_familia_2021": {
@@ -22004,7 +22004,7 @@
   "o_quarto_do_panico_2000": {
     "fonte": "nao_achou",
     "nome": "O Quarto Do Pânico (2000)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_quarto_dos_esquecidos_2016": {
@@ -22130,7 +22130,7 @@
   "o_rei_das_armas_2001": {
     "fonte": "nao_achou",
     "nome": "O Rei Das Armas (2001)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_rei_do_show": {
@@ -22286,13 +22286,13 @@
   "o_ritual_do_livro_vermelho_2024": {
     "fonte": "nao_achou",
     "nome": "O Ritual do Livro Vermelho (2024)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_roteiro_assombrado_2023": {
     "fonte": "nao_achou",
     "nome": "O Roteiro Assombrado (2023)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_roubo_de_88_2023": {
@@ -22688,7 +22688,7 @@
   "o_ultimo_cacador_de_bruxas_2013": {
     "fonte": "nao_achou",
     "nome": "O Último Caçador de Bruxas (2013)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "o_ultimo_conquistador_2026": {
@@ -23036,7 +23036,7 @@
   "one_chicago_crossover_2025": {
     "fonte": "nao_achou",
     "nome": "One Chicago Crossover (2025)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "one_hit_wonder_2025": {
@@ -23546,7 +23546,7 @@
   "os_guardioes_2007": {
     "fonte": "nao_achou",
     "nome": "Os Guardiões (2007)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "os_horrores_do_caddo_lake_2024": {
@@ -24140,7 +24140,7 @@
   "panava_2026": {
     "fonte": "nao_achou",
     "nome": "Panava (2026)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "pandabeer_in_afrika": {
@@ -24698,7 +24698,7 @@
   "pequenos_guerreiros_livre_1998": {
     "fonte": "nao_achou",
     "nome": "Pequenos Guerreiros Livre (1998)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "pequenos_invasores_2009": {
@@ -25268,7 +25268,7 @@
   "poisedon_2006": {
     "fonte": "nao_achou",
     "nome": "Poisedon (2006)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "pokemon_detetive_pikachu_2019": {
@@ -25388,7 +25388,7 @@
   "pooh_e_o_elefante_2005": {
     "fonte": "nao_achou",
     "nome": "Pooh e o Elefante (2005)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "populacao_436_2006": {
@@ -26192,7 +26192,7 @@
   "rainha_da_morte_2020": {
     "fonte": "nao_achou",
     "nome": "Rainha da Morte (2020)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "rainha_do_carvao_2025": {
@@ -26204,7 +26204,7 @@
   "raizes_do_mal_2003": {
     "fonte": "nao_achou",
     "nome": "Raízes Do Mal (2003)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "raizes_macabras_2021": {
@@ -26636,7 +26636,7 @@
   "resident_evil_2_apocalipse_resident_evil_apocalypse": {
     "fonte": "nao_achou",
     "nome": "Resident Evil 2: Apocalipse - Resident Evil: Apocalypse",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "resident_evil_3_a_extincao_2007": {
@@ -26648,7 +26648,7 @@
   "resident_evil_3_a_extincao_resident_evil_extinction": {
     "fonte": "nao_achou",
     "nome": "Resident Evil 3: A Extinção - Resident Evil: Extinction",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "resident_evil_4_incubacao_2006": {
@@ -26666,7 +26666,7 @@
   "resident_evil_4_recomeco_resident_evil_afterlife": {
     "fonte": "nao_achou",
     "nome": "Resident Evil 4: Recomeço - Resident Evil: Afterlife",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "resident_evil_5_retribuicao_2012": {
@@ -26678,7 +26678,7 @@
   "resident_evil_5_retribuicao_resident_evil_retribution": {
     "fonte": "nao_achou",
     "nome": "Resident Evil 5: Retribuição - Resident Evil: Retribution",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "resident_evil_6_o_capitulo_final_2016": {
@@ -26690,7 +26690,7 @@
   "resident_evil_6_o_capitulo_final_resident_evil_the_final_chapter": {
     "fonte": "nao_achou",
     "nome": "Resident Evil 6: O Capítulo Final - Resident Evil: The Final Chapter",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "resident_evil_a_vinganca_2017": {
@@ -26732,7 +26732,7 @@
   "resident_evil_o_hospede_maldito_resident_evil": {
     "fonte": "nao_achou",
     "nome": "Resident Evil: O Hóspede Maldito - Resident Evil",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "resposta_armada_2017": {
@@ -27200,7 +27200,7 @@
   "scooby_doo_a_loucura_do_monstro_da_lua_2015": {
     "fonte": "nao_achou",
     "nome": "Scooby-Doo! A Loucura do Monstro da Lua (2015)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "scooby_doo_abracadabra_doo_2010": {
@@ -27284,7 +27284,7 @@
   "scooby_doo_e_o_fantasma_da_bruxa_1999": {
     "fonte": "nao_achou",
     "nome": "Scooby-Doo e o Fantasma da Bruxa (1999)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "scooby_doo_e_o_fantasma_gourmet_2018": {
@@ -27332,7 +27332,7 @@
   "scooby_doo_halloween_2020": {
     "fonte": "nao_achou",
     "nome": "Scooby-Doo! Halloween (2020)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "scooby_doo_misterio_na_lutamania": {
@@ -27392,7 +27392,7 @@
   "scooby_doo_verao_assombrado_2010": {
     "fonte": "nao_achou",
     "nome": "Scooby-Doo: Verão Assombrado (2010)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "scooby_o_filme": {
@@ -27644,7 +27644,7 @@
   "sem_saida_ano_2008": {
     "fonte": "nao_achou",
     "nome": "Sem Saida Ano (2008)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "sem_tempo_a_perder_2023": {
@@ -27758,7 +27758,7 @@
   "serie:a_casa_da_coruja": {
     "fonte": "nao_achou",
     "nome": "A Casa Da Coruja",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:a_casa_do_dragao": {
@@ -28069,7 +28069,7 @@
   "serie:avlu_prisao_de_mulheres": {
     "fonte": "nao_achou",
     "nome": "AVLU / Prisão de Mulheres",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:bates_motel": {
@@ -28201,7 +28201,7 @@
   "serie:bob_esponja_calca_quadrada": {
     "fonte": "nao_achou",
     "nome": "Bob Esponja Calça Quadrada",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:bom_dia_veronica": {
@@ -28462,7 +28462,7 @@
   "serie:dahmer_monstro_a_historia_de_jeffrey_dahmer": {
     "fonte": "nao_achou",
     "nome": "Dahmer - Monstro: A história de Jeffrey Dahmer",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:dahmer_um_canibal_americano": {
@@ -28507,7 +28507,7 @@
   "serie:demolidor": {
     "fonte": "nao_achou",
     "nome": "Demolidor",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:demolidor_renascido": {
@@ -28634,7 +28634,7 @@
   "serie:diarios_de_uma_apoticaria": {
     "fonte": "nao_achou",
     "nome": "Diários De Uma Apoticaria",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:dias_perfeitos": {
@@ -28783,7 +28783,7 @@
   "serie:era_uma_vez_once_upon_a_time": {
     "fonte": "nao_achou",
     "nome": "Era Uma Vez/Once Upon a Time",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:estacao_19": {
@@ -29146,7 +29146,7 @@
   "serie:icarly_a_reuniao": {
     "fonte": "nao_achou",
     "nome": "iCarly, A Reunião",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:into_the_badlands": {
@@ -29215,7 +29215,7 @@
   "serie:jovens_recrutas": {
     "fonte": "nao_achou",
     "nome": "Jovens Recrutas",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:jujutsu_kaisen": {
@@ -29428,7 +29428,7 @@
   "serie:mary_e_george": {
     "fonte": "nao_achou",
     "nome": "Mary E George",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:mask_girl": {
@@ -29501,7 +29501,7 @@
   "serie:mushuku_tensei": {
     "fonte": "nao_achou",
     "nome": "Mushuku Tensei",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:naruto_shippuden": {
@@ -30106,7 +30106,7 @@
   "serie:re_zero_starting_life_in_another_world": {
     "fonte": "nao_achou",
     "nome": "Re:ZERO -Starting Life in Another World",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:reacher": {
@@ -30181,7 +30181,7 @@
   "serie:rivalidade_ardente_heated_rivalry": {
     "fonte": "nao_achou",
     "nome": "Rivalidade Ardente | Heated Rivalry",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:robin_hood": {
@@ -30424,7 +30424,7 @@
   "serie:star_contra_as_forcas_do_mal": {
     "fonte": "nao_achou",
     "nome": "Star Contra as Forças do Mal",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:sterling_point": {
@@ -30462,7 +30462,7 @@
   "serie:suits_homens_de_terno": {
     "fonte": "nao_achou",
     "nome": "Suits | Homens de Terno",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:supermaes": {
@@ -30817,7 +30817,7 @@
   "serie:tomo_chan_wa_onnanoko": {
     "fonte": "nao_achou",
     "nome": "Tomo-chan wa Onnanoko!",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "serie:trailer_park_boys_a_serie_animada": {
@@ -31203,7 +31203,7 @@
   "sexta_feira_13_parte_9_1993": {
     "fonte": "nao_achou",
     "nome": "Sexta-Feira 13 - Parte 9 (1993)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "sexta_feira_em_apuros": {
@@ -31731,7 +31731,7 @@
   "sombra_da_morte_2026": {
     "fonte": "nao_achou",
     "nome": "Sombra Da Morte (2026)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "sombras_a_luz_do_dia_2023": {
@@ -31929,7 +31929,7 @@
   "spree_viajens_sem_limite": {
     "fonte": "nao_achou",
     "nome": "Spree: Viajens Sem Limite",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "sr_ninguem": {
@@ -32439,7 +32439,7 @@
   "teen_beach_o_filme_2013": {
     "fonte": "nao_achou",
     "nome": "Teen Beach: O Filme (2013)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "teen_wolf_o_filme": {
@@ -32457,7 +32457,7 @@
   "teke_teke_2009": {
     "fonte": "nao_achou",
     "nome": "Teke Teke (2009)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "tekken": {
@@ -32505,7 +32505,7 @@
   "tempestade_acida_2023": {
     "fonte": "nao_achou",
     "nome": "Tempestade Ácida (2023)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "tempestade_planeta_em_furia_2017": {
@@ -32619,7 +32619,7 @@
   "terror_na_parada_de_caminhoes_2025": {
     "fonte": "nao_achou",
     "nome": "Terror na Parada de Caminhões (2025)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "terror_no_deserto_2022": {
@@ -32745,7 +32745,7 @@
   "the_sadness_2021": {
     "fonte": "nao_achou",
     "nome": "The Sadness (2021)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "the_severed_sun_2025": {
@@ -32877,7 +32877,7 @@
   "time_de_fabrica_2025": {
     "fonte": "nao_achou",
     "nome": "Time de Fábrica (2025)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "tin_tina": {
@@ -32955,7 +32955,7 @@
   "tinker_bell_jogos_do_refugio_das_fadas_2011": {
     "fonte": "nao_achou",
     "nome": "Tinker Bell- Jogos do Refúgio das Fadas (2011)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "tinker_bell_o_segredo_das_fadas": {
@@ -33147,7 +33147,7 @@
   "tom_amp_amp_jerry_o_filme": {
     "fonte": "nao_achou",
     "nome": "Tom &amp;amp; Jerry: O Filme",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "tom_e_jerry_uma_aventura_no_museu_2025": {
@@ -33189,7 +33189,7 @@
   "torturada_pelo_pai_2021": {
     "fonte": "nao_achou",
     "nome": "Torturada Pelo Pai (2021)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "toscana_2022": {
@@ -33249,7 +33249,7 @@
   "trabalhar_cansa_2022": {
     "fonte": "nao_achou",
     "nome": "Trabalhar cansa (2022)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "trafico_sexual_2023": {
@@ -33651,7 +33651,7 @@
   "tudo_acontece_a_noite_2023": {
     "fonte": "nao_achou",
     "nome": "Tudo Acontece à Noite (2023)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "tudo_e_todas_as_coisas_2017": {
@@ -33723,7 +33723,7 @@
   "twister_1998": {
     "fonte": "nao_achou",
     "nome": "Twister (1998)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "twisters": {
@@ -33951,7 +33951,7 @@
   "um_gladiador_em_apuros_2014": {
     "fonte": "nao_achou",
     "nome": "Um Gladiador em Apuros (2014)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "um_goleiro_muito_improvavel_2026": {
@@ -34041,7 +34041,7 @@
   "um_lobisomem_americano_1981": {
     "fonte": "nao_achou",
     "nome": "Um Lobisomem Americano (1981)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "um_lobo_em_pele_de_cordeiro": {
@@ -34215,7 +34215,7 @@
   "um_pai_para_lyly_2025": {
     "fonte": "nao_achou",
     "nome": "Um Pai para Lyly (2025)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "um_pai_para_minha_filha_2023": {
@@ -34383,7 +34383,7 @@
   "um_voo_mortal_2020": {
     "fonte": "nao_achou",
     "nome": "Um Voo Mortal (2020)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "uma_advogada_brilhante_2025": {
@@ -34473,7 +34473,7 @@
   "uma_familia_do_bagulho_2013": {
     "fonte": "nao_achou",
     "nome": "Uma Família Do Bagulho (2013)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "uma_foto_antes_de_morrer_2018": {
@@ -34863,7 +34863,7 @@
   "v_h_s_cronicas_do_medo_2012": {
     "fonte": "nao_achou",
     "nome": "V/H/S Cronicas Do Medo (2012)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "v_h_s_halloween_2025": {
@@ -35211,7 +35211,7 @@
   "viagem_ao_centro_da_terra_2_a_ilha_misteriosa_2012": {
     "fonte": "nao_achou",
     "nome": "Viagem ao Centro da Terra 2: A Ilha Misteriosa (2012)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "viagem_ao_centro_da_terra_o_filme": {
@@ -35673,7 +35673,7 @@
   "whinderson_nunes_adulto_2019": {
     "fonte": "nao_achou",
     "nome": "Whinderson Nunes adulto (2019)",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "whiplash_em_busca_da_perfeicao_2014": {
@@ -35859,7 +35859,7 @@
   "x_men_o_confronto_final_acao_ficcao_cientifica": {
     "fonte": "nao_achou",
     "nome": "X-Men - O Confronto Final - Ação/Ficção científica",
-    "tentativas": 1,
+    "tentativas": 2,
     "v": 2
   },
   "x_men_o_filme": {
