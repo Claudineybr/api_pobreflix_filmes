@@ -10,12 +10,12 @@
    2) Qualquer resposta redirecionada é "limpa" antes de ser guardada/entregue.
    3) Cache com nome novo: apaga automaticamente os caches antigos (v1/v2/v3). */
 
-const VERSAO = 'clauflix-v4';
+const VERSAO = 'clauflix-v7'; // v5: player.js novo
 
 const CACHE_ESTATICOS = `${VERSAO}-estaticos`;
 const CACHE_DADOS = `${VERSAO}-dados`;
 
-const BASE = ['/', '/serie'];
+const BASE = ['/', '/serie', '/player.js'];
 const DADOS = ['/catalogo.json', '/classificacao.json'];
 
 /* "/index.html" -> "/", "/serie.html" -> "/serie" (URL final do Cloudflare Pages) */
