@@ -792,7 +792,12 @@
     function arquivoDetalhes() {
       let chave;
       if (ehFilme) chave = arquivoDoLink(serieAtual.link).replace(/\.html?$/, '');
-      else chave = 'serie:' + serieAtual.nome.toLowerCase();
+      else {
+        // mesma chave do capas.py: prefixo do ARQUIVO do episódio (sem acento), não o nome exibido ("Diários" -> diarios)
+        const slug = arquivoDoLink(episodios[0].link).replace(/\.html?$/, '');
+        const m = slug.match(RX_EP);
+        chave = 'serie:' + (m ? m[1] : serieAtual.nome.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/gi, '_').replace(/^_+|_+$/g, ''));
+      }
       return chave.toLowerCase().replace(/:/g, '--').replace(/[^a-z0-9_.-]/g, '_');
     }
     function carregarDetalhes() {
