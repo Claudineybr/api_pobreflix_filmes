@@ -417,6 +417,8 @@
     let serieAtual = null;   // { nome, capa, link }
     let episodios = [];      // todos os episódios, ordenados
     let temporadaAtiva = 1;
+    // Chave geral: false = não busca detalhes/*.json (sinopse, banner, nota, trailer e botão Pular). Troque para true quando tiver outra host.
+    const USAR_DETALHES = false;
     let detalhes = {};       // detalhes/<chave>.json: sinopse, fundo, nota, duração, trailer (vem do TMDB pelo workflow capas)
     let secaoAtiva = '';
     let catalogoTodo = null, promessaClsGlobal = null, similaresCache = null;
@@ -801,6 +803,7 @@
       return chave.toLowerCase().replace(/:/g, '--').replace(/[^a-z0-9_.-]/g, '_');
     }
     function carregarDetalhes() {
+      if (!USAR_DETALHES) return Promise.resolve(null);
       return buscarJson(`detalhes/${arquivoDetalhes()}.json`, 6000)
         .then((d) => (d && typeof d === 'object' && !Array.isArray(d) ? d : null))
         .catch(() => null);
