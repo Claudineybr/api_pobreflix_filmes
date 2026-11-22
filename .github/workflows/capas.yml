@@ -124,9 +124,12 @@ jobs:
           FILTRO = (os.environ.get("FILTRO") or "").lower().strip()
           TAMANHO = os.environ.get("TAMANHO") or "w500"
           CHAVE = (os.environ.get("TMDB_API_KEY") or "").strip()
+          DET_V = 2      # sobe quando mudam os campos de detalhes (reenfileira só os detalhes, sem rebuscar a capa)
+          DIR_DET = "detalhes"   # 1 arquivo pequeno por título: detalhes/<chave>.json (a página carrega só o que precisa)
           CRITERIO = 2   # sobe quando o critério de busca melhora (reenfileira os "não achados")
           SAIDA, MAX_TENTATIVAS, MAX_WORKERS, TEMPO_LIMITE, LIMITE_PODA = "capas.json", 2, 8, 300 * 60, 0.20
           IMG = "https://image.tmdb.org/t/p/" + TAMANHO
+          IMG_FUNDO = "https://image.tmdb.org/t/p/w1280"
           trava = threading.Lock()
 
 
@@ -238,6 +241,57 @@ jobs:
               return None
 
 
+          def arquivo_det(chave):
+              """'serie:9_1_1' -> detalhes/serie--9_1_1.json ; filme 'nome_2020' -> detalhes/nome_2020.json"""
+              return os.path.join(DIR_DET, re.sub(r"[^a-z0-9_.\-]", "_", chave.lower().replace(":", "--")) + ".json")
+
+
+          def escolher_trailer(videos):
+              yt = [v for v in videos if v.get("site") == "YouTube" and v.get("key")]
+              def nota(v):
+                  return ((v.get("type") == "Trailer") * 4 + (v.get("iso_639_1") == "pt") * 2 + bool(v.get("official")) * 1)
+              yt.sort(key=nota, reverse=True)
+              return yt[0]["key"] if yt else None
+
+
+          def detalhes(tid, serie):
+              """Sinopse, banner, nota, duração, ano e trailer do TMDB. {} se o TMDB não tiver a ficha."""
+              tipo = "tv" if serie else "movie"
+              d = tmdb(f"{tipo}/{tid}", append_to_response="videos", include_video_language="pt,en,null")
+              if not d:
+                  return {}
+              sinopse = (d.get("overview") or "").strip()
+              if not sinopse:                                    # sem sinopse em português: tenta em inglês
+                  sinopse = (tmdb(f"{tipo}/{tid}", language="en-US").get("overview") or "").strip()
+              out = {"tmdb_id": int(tid)}                        # usado pelo botão "Pular" (TheIntroDB)
+              if sinopse: out["sinopse"] = sinopse
+              if d.get("backdrop_path"): out["fundo"] = IMG_FUNDO + d["backdrop_path"]
+              if d.get("vote_average"): out["nota"] = round(float(d["vote_average"]), 1)
+              ano = (d.get("release_date") or d.get("first_air_date") or "")[:4]
+              if ano.isdigit(): out["ano"] = int(ano)
+              dur = d.get("runtime") or next(iter(d.get("episode_run_time") or []), None)
+              if dur: out["duracao"] = int(dur)
+              if d.get("tagline"): out["frase"] = d["tagline"].strip()
+              tr = escolher_trailer((d.get("videos") or {}).get("results", []))
+              if tr: out["trailer"] = tr
+              if serie and d.get("number_of_seasons"): out["temporadas_qtd"] = d["number_of_seasons"]
+              return out
+
+
+          def gravar_det(chave, dados):
+              os.makedirs(DIR_DET, exist_ok=True)
+              caminho = arquivo_det(chave)
+              tmp = caminho + ".tmp"
+              with open(tmp, "w", encoding="utf-8") as f:
+                  json.dump(dados, f, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+              os.replace(tmp, caminho)
+
+
+          def completar(chave, e):
+              """Backfill: título já tem capa (tmdb_id) mas ainda não tem detalhes. -> dict de detalhes."""
+              return detalhes(e["tmdb_id"], chave.startswith("serie:"))
+
+
           def resolver(chave, u):
               """-> entrada nova (achou) ou None (não existe no TMDB). Erro de rede levanta exceção."""
               serie = chave.startswith("serie:")
@@ -251,6 +305,9 @@ jobs:
                       if s.get("poster_path") and (s.get("season_number") or 0) > 0:
                           temps[str(s["season_number"])] = IMG + s["poster_path"]
                   e["temporadas"] = temps
+              det = detalhes(r["id"], serie)
+              gravar_det(chave, det)
+              e["det_v"] = DET_V
               return e
 
 
@@ -304,6 +361,7 @@ jobs:
               cache = {}
 
           todas = unidades()
+          fila_det = []   # preenchida depois de conhecer o cache
           sobra = [k for k in cache if k not in todas]
           if sobra and len(sobra) <= len(cache) * LIMITE_PODA:
               for k in sobra:
@@ -311,10 +369,13 @@ jobs:
           fila = [(k, u) for k, u in todas.items() if (not FILTRO or FILTRO in k) and (MODO == "refazer" or pendente(k, u, cache))]
           if MODO == "refazer" and not FILTRO:
               print("❌ O modo 'refazer' exige o campo filtro."); sys.exit(1)
+          fila_det = [(k, e) for k, e in cache.items()
+                      if e.get("fonte") == "tmdb" and e.get("tmdb_id") and k in todas and (not FILTRO or FILTRO in k)
+                      and (MODO == "tudo" or e.get("det_v") != DET_V or not os.path.exists(arquivo_det(k)))]
           log("=" * 50)
-          log(f"🖼️  Modo {MODO} | {len(todas)} títulos únicos | {len(cache)} no cache | fila: {len(fila)} | tamanho {TAMANHO}")
+          log(f"🖼️  Modo {MODO} | {len(todas)} títulos únicos | {len(cache)} no cache | fila: {len(fila)} | detalhes a completar: {len(fila_det)} | tamanho {TAMANHO}")
           log("=" * 50)
-          if not fila:
+          if not fila and not fila_det:
               salvar(cache) if sobra else None
               log("Nada a fazer."); sys.exit(0)
           if not CHAVE:
@@ -348,12 +409,35 @@ jobs:
                   if i % 200 == 0:
                       salvar(cache); log(f"📊 {i}/{len(fila)}")
           salvar(cache)
+
+          # Detalhes (sinopse, banner, nota, trailer) dos títulos que já tinham capa
+          det_ok = det_falha = 0
+          if fila_det and time.time() - inicio < TEMPO_LIMITE:
+              with ThreadPoolExecutor(max_workers=MAX_WORKERS) as ex:
+                  futs = {ex.submit(completar, k, e): (k, e) for k, e in fila_det}
+                  for i, fut in enumerate(as_completed(futs), 1):
+                      k, e = futs[fut]
+                      if time.time() - inicio > TEMPO_LIMITE:
+                          log("⏰ Tempo limite nos detalhes; o resto fica para a próxima rodada.")
+                          for f in futs: f.cancel()
+                          break
+                      try:
+                          gravar_det(k, fut.result())
+                          cache[k]["det_v"] = DET_V; det_ok += 1
+                      except ChaveInvalida as err:
+                          print(f"❌ {err}: confira o secret TMDB_API_KEY."); salvar(cache); sys.exit(1)
+                      except Exception as err:
+                          det_falha += 1; log(f"[!] detalhes {k}: {str(err)[:80]} (continua na fila)")
+                      if i % 200 == 0:
+                          salvar(cache); log(f"📊 detalhes {i}/{len(fila_det)}")
+              salvar(cache)
           log("=" * 50)
           for k, e in sorted(cache.items()):
               if e.get("fonte") == "nao_achou" and e.get("v") == CRITERIO:
                   log(f"   sem capa: {e.get('nome')}")
           log(f"🎉 {achou} com capa do TMDB, {nao} não encontrados (ficam com a capa atual), {falhou} falhas de rede (continuam na fila).")
-          sys.exit(1 if (falhou and not achou and not nao) else 0)
+          log(f"📖 Detalhes (sinopse/banner/trailer): {det_ok} completados, {det_falha} falhas (continuam na fila).")
+          sys.exit(1 if (falhou and not achou and not nao and not det_ok) else 0)
           PYEOF
 
       - name: Aplicar capas nos HTML (páginas novas já saem com a capa certa)
@@ -403,7 +487,8 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add capas.json '*.html'
+          mkdir -p detalhes
+          git add capas.json detalhes '*.html'
           if git diff --cached --quiet; then
             echo "Sem mudanças — nada a commitar."
             exit 0
