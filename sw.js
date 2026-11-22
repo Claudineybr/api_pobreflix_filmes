@@ -10,7 +10,7 @@
    2) Qualquer resposta redirecionada é "limpa" antes de ser guardada/entregue.
    3) Cache com nome novo: apaga automaticamente os caches antigos (v1/v2/v3). */
 
-const VERSAO = 'clauflix-v8'; // v5: player.js novo
+const VERSAO = 'clauflix-v9'; // v5: player.js novo
 
 const CACHE_ESTATICOS = `${VERSAO}-estaticos`;
 const CACHE_DADOS = `${VERSAO}-dados`;
