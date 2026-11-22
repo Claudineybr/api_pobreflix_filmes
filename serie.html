@@ -97,6 +97,48 @@
     .acoes { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
     .serie-sk { position: absolute; inset: 0; }
 
+    /* ---- Hero estilo "Detalhes" (banner grande do TMDB) ---- */
+    .serie-hero.pk { min-height: min(74vh, 600px); align-items: flex-end; }
+    .serie-hero.pk .serie-bg { inset: 0; transform: none; background: var(--fundo) center 20% / cover; filter: brightness(0.9) saturate(1.1); }
+    .serie-hero.pk::after { background: linear-gradient(to top, rgba(7, 13, 11, 0.97) 4%, rgba(7, 13, 11, 0.55) 45%, rgba(7, 13, 11, 0.08) 80%), linear-gradient(90deg, rgba(7, 13, 11, 0.7), transparent 65%); }
+    .serie-hero.pk .serie-inner { max-width: 700px; padding: 40px 44px 44px; }
+    .serie-hero.pk .serie-poster { display: none; }
+    .serie-texto { min-width: 0; }
+    .meta-linha { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 0 0 12px; font-size: 0.95rem; font-weight: 600; color: var(--suave); text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); }
+    .meta-linha .nota { color: var(--ouro); font-weight: 800; }
+    .meta-linha .tag-g { padding: 3px 11px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.22); }
+    .frase { margin: 0 0 8px; font-style: italic; color: var(--mudo); text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); }
+    .sinopse { max-width: 62ch; margin: 0 0 6px; font-size: 0.97rem; line-height: 1.55; color: var(--suave); text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .sinopse.aberta { display: block; -webkit-line-clamp: unset; }
+    .ler-mais { background: none; border: 0; padding: 0; margin: 0 0 16px; font: inherit; font-weight: 700; color: var(--ouro); cursor: pointer; }
+    .progresso { max-width: 340px; margin: 4px 0 18px; font-size: 0.85rem; }
+    .progresso .linha { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; font-weight: 600; }
+    .progresso .linha span:first-child { color: var(--ouro); }
+    .progresso .trilho { height: 4px; border-radius: 2px; background: rgba(255, 255, 255, 0.22); overflow: hidden; }
+    .progresso .enche { height: 100%; background: var(--vermelho); }
+    .btn-play { background: #fff; color: #000; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45); }
+    .btn-play:hover { background: #e9e9e9; transform: translateY(-3px); }
+
+    /* ---- Seções: Episódios / Detalhes / Similares / Trailer ---- */
+    .secoes { display: flex; gap: 4px; margin-bottom: 22px; border-bottom: 1px solid var(--vidro-borda); overflow-x: auto; scrollbar-width: none; }
+    .secoes::-webkit-scrollbar { display: none; }
+    .secao-aba { padding: 12px 18px; background: none; border: 0; border-bottom: 3px solid transparent; font: inherit; font-weight: 700; color: var(--mudo); cursor: pointer; white-space: nowrap; transition: color 0.2s, border-color 0.2s; }
+    .secao-aba:hover { color: #fff; }
+    .secao-aba[aria-selected="true"] { color: #fff; border-bottom-color: var(--ouro); }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .info-item { padding: 14px 16px; border-radius: 14px; background: rgba(255, 255, 255, 0.06); }
+    .info-item small { display: block; margin-bottom: 4px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--mudo); }
+    .info-item strong { font-size: 1.02rem; }
+    .info-texto { line-height: 1.65; color: var(--suave); max-width: 70ch; }
+    .sim-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; }
+    .sim-card { position: relative; display: block; aspect-ratio: 2 / 3; border-radius: 14px; overflow: hidden; background: #14302a; color: #fff; text-decoration: none; transition: transform 0.3s var(--ease), box-shadow 0.3s; }
+    .sim-card:hover, .sim-card:focus-visible { transform: translateY(-4px) scale(1.03); box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6); }
+    .sim-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .sim-card span { position: absolute; left: 0; right: 0; bottom: 0; padding: 34px 10px 10px; font-size: 0.82rem; font-weight: 700; background: linear-gradient(transparent, rgba(0, 0, 0, 0.92)); }
+    .trailer-box { position: relative; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; background: #000; }
+    .trailer-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .vazio-sec { padding: 30px 10px; text-align: center; color: var(--mudo); }
+
     /* =====================================================================
        6. ABAS DE TEMPORADA E EPISÓDIOS
        ===================================================================== */
@@ -168,6 +210,9 @@
       .serie-hero { border-radius: 22px; }
       .serie-inner { flex-direction: column; text-align: center; gap: 22px; padding: 30px 20px; }
       .serie-poster { width: 150px; }
+      .serie-hero.pk { min-height: 520px; }
+      .serie-hero.pk .serie-inner { padding: 30px 20px 28px; text-align: left; align-items: flex-start; }
+      .serie-hero.pk .acoes, .serie-hero.pk .meta-linha { justify-content: flex-start; }
       .acoes, .serie-generos { justify-content: center; }
       .painel { padding: 20px 14px; border-radius: 20px; }
       .ep-info { gap: 12px; }
@@ -213,6 +258,7 @@
     </div>
   </div>
 
+  <script src="/player.js"></script>
   <script>
   (() => {
     'use strict';
@@ -357,7 +403,10 @@
     // ===================================================================
     // 4. REFERÊNCIAS E ESTADO
     // ===================================================================
-    const nomeSerieParam = new URLSearchParams(window.location.search).get('nome');
+    const params = new URLSearchParams(window.location.search);
+    const nomeSerieParam = params.get('nome') || '';
+    const modoFilme = params.get('filme') || '';   // ?filme=<arquivo.html> -> mesma página, em modo filme
+    const ehFilme = !!modoFilme;
     const conteudo = $('conteudoEpisodios');
     const heroEl = $('serieHero');
     const videoModal = $('videoModal');
@@ -368,6 +417,11 @@
     let serieAtual = null;   // { nome, capa, link }
     let episodios = [];      // todos os episódios, ordenados
     let temporadaAtiva = 1;
+    let detalhes = {};       // detalhes/<chave>.json: sinopse, fundo, nota, duração, trailer (vem do TMDB pelo workflow capas)
+    let secaoAtiva = '';
+    let catalogoTodo = null, promessaClsGlobal = null, similaresCache = null;
+    const RX_EP = /^(.+?)_(?:t(\d+)e(?:p)?(\d+)|(\d+)x(\d+))(?:_\d+)?$/i;   // mesma regra do capas.py
+    const PADRAO_LINK = /(_t\d+e(?:p)?\d+|_(\d+)x(\d+))/i;
 
     // ===================================================================
     // 5. SKELETON, ERRO E MENSAGENS
@@ -487,7 +541,18 @@
 
     const pad2 = (n) => String(n).padStart(2, '0');
     const listaTemporadas = () => [...new Set(episodios.map((e) => e._temp))];
-    const chaveSerie = () => 'serie:' + serieAtual.nome;
+    const chaveSerie = () => (ehFilme ? serieAtual.link : 'serie:' + serieAtual.nome);   // mesmas chaves do index.html
+
+    // Progresso salvo pelo player (player.js) -> "Parou em 12:30"
+    function lerProgresso() { try { const v = JSON.parse(localStorage.getItem('clauFlix_progresso_v1')); return v && typeof v === 'object' ? v : {}; } catch { return {}; } }
+    const chaveProgresso = (ep) => (ehFilme ? ep.link : `${chaveSerie()}:t${ep._temp}e${ep._ep}`);
+    const progressoDe = (ep) => (ep ? lerProgresso()[chaveProgresso(ep)] || null : null);
+    function fmtTempo(s) {
+      s = Math.max(0, Math.floor(s || 0));
+      const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60, p = (n) => String(n).padStart(2, '0');
+      return h ? `${h}:${p(m)}:${p(x)}` : `${p(m)}:${p(x)}`;
+    }
+    const fmtDuracao = (min) => (min >= 60 ? `${Math.floor(min / 60)}h ${String(min % 60).padStart(2, '0')}min` : `${min} min`);
 
     /** Último episódio assistido desta série (índice em `episodios`) ou -1. */
     function indiceVisto() {
@@ -502,34 +567,59 @@
       if (!ep) return;
       const k = chaveSerie();
       const lista = lerHistorico().filter((x) => x.k !== k);
-      lista.unshift({ k, titulo: serieAtual.nome, link: serieAtual.link, thumbnailUrl: serieAtual.capa, tipo: 'serie', temp: ep._temp, ep: ep._ep, t: Date.now() });
+      lista.unshift(ehFilme
+        ? { k, titulo: serieAtual.nome, link: serieAtual.link, thumbnailUrl: serieAtual.capa, tipo: 'filme', t: Date.now() }
+        : { k, titulo: serieAtual.nome, link: serieAtual.link, thumbnailUrl: serieAtual.capa, tipo: 'serie', temp: ep._temp, ep: ep._ep, t: Date.now() });
       gravarHistorico(lista);
     }
 
     function renderizarHero() {
       const { nome, capa } = serieAtual;
+      const d = detalhes || {};
       const nTemp = listaTemporadas().length;
       const capaCss = capa ? capa.replace(/"/g, '%22') : '';
       if (capaCss) heroEl.style.setProperty('--capa', `url("${capaCss}")`); else heroEl.style.removeProperty('--capa');
+      if (d.fundo) heroEl.style.setProperty('--fundo', `url("${String(d.fundo).replace(/"/g, '%22')}")`); else heroEl.style.removeProperty('--fundo');
+      heroEl.classList.toggle('pk', !!d.fundo);
 
       const vistoI = indiceVisto();
-      const proxI = vistoI >= 0 && vistoI + 1 < episodios.length ? vistoI + 1 : -1;
+      const proxI = !ehFilme && vistoI >= 0 && vistoI + 1 < episodios.length ? vistoI + 1 : -1;
       const alvoI = vistoI >= 0 ? vistoI : 0;
-      const primeiro = episodios[alvoI];
-      const rotuloBtn = vistoI >= 0 ? 'Continuar' : 'Assistir';
+      const alvo = episodios[alvoI];
+      const prog = progressoDe(alvo);
+      const rotuloBtn = (ehFilme ? !!prog : vistoI >= 0) ? 'Continuar' : 'Assistir';
+      const rotuloEp = ehFilme ? '' : ` T${alvo._temp} · E${pad2(alvo._ep)}`;
+
+      const ano = d.ano || ((serieAtual.exibicao || nome).match(/\((\d{4})\)/) || [])[1] || '';
+      const partes = [];
+      if (ano) partes.push(`<span>${esc(ano)}</span>`);
+      if (ehFilme) { if (d.duracao) partes.push(`<span>${esc(fmtDuracao(d.duracao))}</span>`); }
+      else partes.push(`<span>${nTemp} temporada${nTemp > 1 ? 's' : ''} · ${episodios.length} episódio${episodios.length > 1 ? 's' : ''}</span>`);
+      const g1 = (serieAtual.generos || [])[0];
+      if (g1) partes.push(`<span class="tag-g" id="tagGenero">${esc(g1)}</span>`);
+      if (d.nota) partes.push(`<span class="nota" title="Nota no TMDB">★ ${String(d.nota).replace('.', ',')}</span>`);
+
+      const sinopse = d.sinopse ? `<p class="sinopse" id="sinopse">${esc(d.sinopse)}</p>${d.sinopse.length > 190 ? '<button type="button" class="ler-mais" id="lerMais" aria-expanded="false">Ler mais</button>' : ''}` : '';
+      const barra = prog && prog.dur
+        ? `<div class="progresso"><div class="linha"><span>Continuar de onde parou</span><span>Parou em ${fmtTempo(prog.time)}</span></div><div class="trilho"><div class="enche" style="width:${Math.min(100, Math.round((prog.time / prog.dur) * 100))}%"></div></div></div>` : '';
+
       heroEl.hidden = false;
       heroEl.innerHTML = `
         <div class="serie-bg"></div>
         <div class="serie-inner">
-          <img class="serie-poster" id="capaSerie" data-capa="${esc(capa)}" src="${esc(capa || semCapa(nome))}" alt="Capa de ${esc(nome)}" decoding="async">
+          <img class="serie-poster" id="capaSerie" data-capa="${esc(capa)}" src="${esc(capa || semCapa(serieAtual.exibicao || nome))}" alt="Capa de ${esc(serieAtual.exibicao || nome)}" decoding="async">
           <div class="serie-texto">
-            <span class="eyebrow">🎄 Série</span>
-            <h1 id="tituloSerie">${esc(nome)}</h1>
-            <p class="serie-meta" id="serieMeta">${nTemp} temporada${nTemp > 1 ? 's' : ''} · ${episodios.length} episódio${episodios.length > 1 ? 's' : ''}</p>
+            <span class="eyebrow">🎄 ${ehFilme ? 'Filme' : 'Série'}</span>
+            <h1 id="tituloSerie">${esc(serieAtual.exibicao || nome)}</h1>
+            <div class="meta-linha" id="serieMeta">${partes.join('')}</div>
             <div class="serie-generos" id="serieGeneros" hidden></div>
+            ${d.frase ? `<p class="frase">“${esc(d.frase)}”</p>` : ''}
+            ${sinopse}
+            ${barra}
             <div class="acoes">
-              <a href="${esc(primeiro.link)}" class="btn btn-primary" data-i="${alvoI}" aria-label="${rotuloBtn} ${esc(nome)} no episódio ${primeiro._ep} da temporada ${primeiro._temp}">▶ ${rotuloBtn} T${primeiro._temp} · E${pad2(primeiro._ep)}</a>
+              <a href="${esc(alvo.link)}" class="btn btn-play" data-i="${alvoI}" aria-label="${rotuloBtn} ${esc(serieAtual.exibicao || nome)}${rotuloEp}">▶ ${rotuloBtn}${rotuloEp}</a>
               ${proxI >= 0 ? `<a href="${esc(episodios[proxI].link)}" class="btn btn-vidro" data-i="${proxI}">Próximo · T${episodios[proxI]._temp} E${pad2(episodios[proxI]._ep)}</a>` : ''}
+              ${d.trailer ? '<button type="button" class="btn btn-vidro" data-acao="ver-trailer">🎬 Trailer</button>' : ''}
               <button type="button" class="btn btn-vidro" id="btnFavSerie" aria-pressed="false"></button>
             </div>
           </div>
@@ -538,29 +628,108 @@
       pintarGeneros();
     }
 
-    /** Mostra os gêneros da série no hero (se já foram calculados). */
+    /** Gêneros: o 1º vira etiqueta na linha de meta; os demais aparecem na caixa de gêneros. */
     function pintarGeneros() {
       const box = $('serieGeneros');
       if (!box || !serieAtual) return;
       const generos = serieAtual.generos || [];
-      box.innerHTML = generos.map((g) => `<span>${esc(g)}</span>`).join('');
-      box.hidden = !generos.length;
-      $('serieMeta').classList.toggle('solo', !generos.length);
+      const meta = $('serieMeta');
+      if (meta && generos[0] && !$('tagGenero')) {
+        const t = document.createElement('span'); t.className = 'tag-g'; t.id = 'tagGenero'; t.textContent = generos[0];
+        const nota = meta.querySelector('.nota'); meta.insertBefore(t, nota || null);
+      }
+      box.innerHTML = generos.slice(1).map((g) => `<span>${esc(g)}</span>`).join('');
+      box.hidden = generos.length < 2;
     }
 
-    /** Abas de temporada + lista de episódios da temporada ativa. */
+    const secoesDisponiveis = () => [
+      ...(ehFilme ? [] : [['eps', 'Episódios']]),
+      ['det', 'Detalhes'],
+      ['sim', 'Similares'],
+      ...(detalhes.trailer ? [['tr', 'Trailer']] : []),
+    ];
+
+    /** Painel com as seções (Episódios / Detalhes / Similares / Trailer). */
     function renderizarPainel() {
+      const secs = secoesDisponiveis();
+      if (!secs.some(([id]) => id === secaoAtiva)) secaoAtiva = secs[0][0];
+      conteudo.setAttribute('aria-busy', 'false');
+      conteudo.innerHTML = `<section class="painel"><div class="secoes" role="tablist" aria-label="Seções">${secs.map(([id, t]) =>
+        `<button type="button" class="secao-aba" role="tab" data-secao="${id}" aria-selected="${id === secaoAtiva}">${t}</button>`).join('')}</div><div id="secaoCorpo"></div></section>`;
+      renderizarSecao();
+    }
+
+    function renderizarSecao() {
+      const corpo = $('secaoCorpo');
+      if (!corpo) return;
+      if (secaoAtiva === 'eps') { renderizarEpisodiosSecao(corpo); return; }
+      if (secaoAtiva === 'det') { corpo.innerHTML = htmlDetalhes(); return; }
+      if (secaoAtiva === 'tr') {
+        corpo.innerHTML = `<div class="trailer-box"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(detalhes.trailer)}?rel=0&autoplay=1" title="Trailer de ${esc(serieAtual.exibicao || serieAtual.nome)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>`;
+        return;
+      }
+      corpo.innerHTML = '<p class="vazio-sec">Procurando títulos parecidos...</p>';
+      montarSimilares().then((lista) => {
+        if (secaoAtiva !== 'sim' || !$('secaoCorpo')) return;
+        $('secaoCorpo').innerHTML = lista.length
+          ? `<div class="sim-grade">${lista.map((c) => `<a class="sim-card" href="${esc(c.link)}" aria-label="Ver ${esc(c.titulo)}"><img src="${esc(c.thumb)}" alt="Capa de ${esc(c.titulo)}" loading="lazy" decoding="async" onerror="this.closest('.sim-card').remove()"><span>${esc(c.titulo)}</span></a>`).join('')}</div>`
+          : '<p class="vazio-sec">Ainda não encontramos títulos parecidos.</p>';
+      });
+    }
+
+    function renderizarEpisodiosSecao(corpo) {
       const temporadas = listaTemporadas();
       if (!temporadas.includes(temporadaAtiva)) temporadaAtiva = temporadas[0];
-
       const abas = temporadas.length > 1
         ? `<div class="abas" role="tablist" aria-label="Temporadas">${temporadas.map((t) =>
             `<button type="button" class="aba" role="tab" data-temp="${t}" aria-selected="${t === temporadaAtiva}">${t}ª Temporada</button>`).join('')}</div>`
         : '';
-
-      conteudo.setAttribute('aria-busy', 'false');
-      conteudo.innerHTML = `<section class="painel">${abas}<h2 class="painel-titulo">${temporadaAtiva}ª Temporada</h2><div class="lista-eps" id="listaEps" role="tabpanel"></div></section>`;
+      corpo.innerHTML = `${abas}<h2 class="painel-titulo">${temporadaAtiva}ª Temporada</h2><div class="lista-eps" id="listaEps" role="tabpanel"></div>`;
       renderizarLista();
+    }
+
+    function htmlDetalhes() {
+      const d = detalhes || {};
+      const itens = [];
+      const add = (rot, val) => { if (val) itens.push(`<div class="info-item"><small>${rot}</small><strong>${esc(val)}</strong></div>`); };
+      const ano = d.ano || ((serieAtual.exibicao || serieAtual.nome).match(/\((\d{4})\)/) || [])[1];
+      add('Tipo', ehFilme ? 'Filme' : 'Série');
+      add('Ano', ano);
+      if (ehFilme) add('Duração', d.duracao ? fmtDuracao(d.duracao) : '');
+      else { add('Temporadas', String(listaTemporadas().length)); add('Episódios', String(episodios.length)); if (d.duracao) add('Duração média', `${d.duracao} min`); }
+      add('Nota (TMDB)', d.nota ? `★ ${String(d.nota).replace('.', ',')} / 10` : '');
+      add('Gêneros', (serieAtual.generos || []).join(', '));
+      return `<div class="info-grid">${itens.join('')}</div>${d.sinopse ? `<p class="info-texto">${esc(d.sinopse)}</p>` : '<p class="vazio-sec">Sinopse ainda não disponível.</p>'}`;
+    }
+
+    /** Parecidos: títulos que dividem gêneros com este (classificacao.json), mesmo tipo primeiro. */
+    async function montarSimilares() {
+      if (similaresCache) return similaresCache;
+      const cls = await promessaClsGlobal;
+      const meus = new Set(serieAtual.generos || []);
+      if (!cls || !catalogoTodo || !meus.size) return (similaresCache = []);
+      const series = new Map();
+      const colecao = [];
+      catalogoTodo.forEach((it) => {
+        if (PADRAO_LINK.test(it.link || '')) {
+          const n = nomeDaSerie(it);
+          if (!series.has(n)) series.set(n, { titulo: n, thumb: (it.thumbnailUrl || '').trim(), link: `serie.html?nome=${encodeURIComponent(n)}`, eps: [], serie: true });
+          series.get(n).eps.push(it);
+        } else {
+          colecao.push({ titulo: it.titulo, thumb: (it.thumbnailUrl || '').trim(), link: `serie.html?filme=${encodeURIComponent(it.link)}`, eps: [it], id: it.link });
+        }
+      });
+      series.forEach((sr) => colecao.push(sr));
+      const hash = (t) => { let h = 0; for (const c of t) h = (h * 31 + c.charCodeAt(0)) | 0; return Math.abs(h) % 7; };
+      const pont = [];
+      colecao.forEach((c) => {
+        if (!c.thumb) return;
+        if (ehFilme ? c.id === serieAtual.link : (c.serie && c.titulo === serieAtual.nome)) return;
+        const comuns = generosDaClassificacao(cls, c.eps).filter((g) => meus.has(g)).length;
+        if (comuns) pont.push({ c, score: comuns * 10 + (!!c.serie === !ehFilme ? 3 : 0) + hash(c.titulo + serieAtual.nome) / 10 });
+      });
+      pont.sort((a, b) => b.score - a.score);
+      return (similaresCache = pont.slice(0, 18).map((x) => x.c));
     }
 
     function renderizarLista() {
@@ -614,36 +783,73 @@
       temporadaAtiva = t;
       atualizarCapa(t);
       conteudo.querySelectorAll('.aba').forEach((a) => a.setAttribute('aria-selected', String(Number(a.dataset.temp) === t)));
-      conteudo.querySelector('.painel-titulo').textContent = `${t}ª Temporada`;
-      renderizarLista();
+      const titulo = conteudo.querySelector('.painel-titulo');
+      if (titulo) titulo.textContent = `${t}ª Temporada`;
+      if ($('listaEps')) renderizarLista();
+    }
+
+    /** detalhes/<chave>.json — mesma regra de nome do capas.py (minúsculo, ':'→'--', fora [a-z0-9_.-]→'_'). */
+    function arquivoDetalhes() {
+      let chave;
+      if (ehFilme) chave = arquivoDoLink(serieAtual.link).replace(/\.html?$/, '');
+      else chave = 'serie:' + serieAtual.nome.toLowerCase();
+      return chave.toLowerCase().replace(/:/g, '--').replace(/[^a-z0-9_.-]/g, '_');
+    }
+    function carregarDetalhes() {
+      return buscarJson(`detalhes/${arquivoDetalhes()}.json`, 6000)
+        .then((d) => (d && typeof d === 'object' && !Array.isArray(d) ? d : null))
+        .catch(() => null);
     }
 
     async function carregarEpisodios() {
       mostrarSkeleton();
       try {
-        const promessaCls = carregarClassificacao(); // baixa em paralelo com o catálogo
+        const promessaCls = promessaClsGlobal = carregarClassificacao(); // baixa em paralelo com o catálogo
         const catalogo = await buscarJson(CONFIG.CATALOGO_URL, CONFIG.FETCH_TIMEOUT_MS);
         if (!Array.isArray(catalogo)) throw new Error('Formato inválido do catálogo');
-        const alvo = nomeSerieParam.trim().toLowerCase();
-        episodios = catalogo
-          .filter((item) => nomeDaSerie(item).toLowerCase() === alvo)
-          .map(normalizarEpisodio)
-          .sort((a, b) => a._temp - b._temp || a._ep - b._ep);
+        catalogoTodo = catalogo;
+        if (ehFilme) {
+          const arq = arquivoDoLink(modoFilme);
+          const item = catalogo.find((it) => arquivoDoLink(it.link) === arq);
+          if (!item) { mostrarMensagem('Filme não encontrado', 'Não encontramos este filme no catálogo.'); return; }
+          episodios = [{ ...item, _temp: 1, _ep: 1 }];
+          const nome = (item.titulo || '').trim() || 'Filme';
+          const m = nome.match(/^(.*?)\s*\((\d{4})\)\s*$/);
+          serieAtual = { tipo: 'filme', nome, exibicao: nome, capa: (item.thumbnailUrl || '').trim(), link: item.link };
+          temporadaAtiva = 1;
+          document.title = `🎄 ${nome} - Clau Flix`;
+        } else {
+          const alvo = nomeSerieParam.trim().toLowerCase();
+          episodios = catalogo
+            .filter((item) => nomeDaSerie(item).toLowerCase() === alvo)
+            .map(normalizarEpisodio)
+            .sort((a, b) => a._temp - b._temp || a._ep - b._ep);
 
-        if (!episodios.length) { mostrarMensagem('Nenhum episódio encontrado', 'Não encontramos episódios para esta série.'); return; }
+          if (!episodios.length) { mostrarMensagem('Nenhum episódio encontrado', 'Não encontramos episódios para esta série.'); return; }
 
-        const nome = nomeDaSerie(episodios[0]); // nome canônico (mesma chave usada no index)
-        const capa = (episodios[0].thumbnailUrl || '').trim();
-        serieAtual = { nome, capa, link: `serie.html?nome=${encodeURIComponent(nome)}` };
-        temporadaAtiva = episodios[0]._temp;
-        document.title = `🎄 ${nome} - Clau Flix`;
+          const nome = nomeDaSerie(episodios[0]); // nome canônico (mesma chave usada no index)
+          const capa = (episodios[0].thumbnailUrl || '').trim();
+          serieAtual = { tipo: 'serie', nome, exibicao: nome, capa, link: `serie.html?nome=${encodeURIComponent(nome)}` };
+          temporadaAtiva = episodios[0]._temp;
+          document.title = `🎄 ${nome} - Clau Flix`;
+        }
+
+        // Detalhes do TMDB (sinopse, banner, nota...) gravados pelo workflow; se não existir, a página funciona igual.
+        const promDet = carregarDetalhes();
 
         // Espera só um instante pela classificação (evita "pulo" visual); se atrasar, pinta os gêneros depois.
         const cedo = await Promise.race([promessaCls, atraso(CONFIG.CLASSIFICACAO_GRACA_MS)]);
         if (cedo !== SEM_RESPOSTA && cedo) serieAtual.generos = generosDaClassificacao(cedo, episodios);
 
+        const detCedo = await Promise.race([promDet, atraso(CONFIG.CLASSIFICACAO_GRACA_MS)]);
+        if (detCedo && detCedo !== SEM_RESPOSTA) detalhes = detCedo;
+
         renderizarHero();
         renderizarPainel();
+
+        if (detCedo === SEM_RESPOSTA) {
+          promDet.then((d) => { if (!d) return; detalhes = d; renderizarHero(); renderizarPainel(); });
+        }
 
         if (cedo === SEM_RESPOSTA) {
           promessaCls.then((cls) => {
@@ -661,7 +867,7 @@
     // ===================================================================
     // 7. FAVORITO DA SÉRIE
     // ===================================================================
-    const chaveFav = () => 'serie:' + serieAtual.nome;
+    const chaveFav = () => chaveSerie();
 
     function atualizarBotaoFavorito() {
       const btn = $('btnFavSerie');
@@ -679,7 +885,7 @@
       if (lista.some((f) => f.k === k)) {
         lista = lista.filter((f) => f.k !== k);
       } else {
-        lista.push({ k, titulo: serieAtual.nome, thumbnailUrl: serieAtual.capa, link: serieAtual.link, videoUrl: '', isAgrupado: true });
+        lista.push({ k, titulo: serieAtual.nome, thumbnailUrl: serieAtual.capa, link: serieAtual.link, videoUrl: ehFilme ? (episodios[0].videoUrl || '') : '', isAgrupado: !ehFilme });
       }
       gravarFavoritos(lista);
       atualizarBotaoFavorito();
@@ -693,12 +899,38 @@
     const btnProximo = $('btnProximo');
 
     /** Toca o episódio i: registra no histórico e prepara o botão "Próximo episódio". */
-    function tocarEpisodio(i) {
+    /** Depois do player fechar: atualiza "Continuar" e a marca de visto. */
+    function atualizarAposAssistir() {
+      epAtual = -1;
+      if (serieAtual) {
+        renderizarHero();
+        if ($('listaEps')) renderizarLista();
+        if (!ehFilme) atualizarCapa(temporadaAtiva);
+      }
+    }
+
+    function tocarEpisodio(i, direto) {
       const ep = episodios[i];
       if (!ep) return;
       epAtual = i;
-      registrarVisto(i);
       const prox = episodios[i + 1];
+      // Player novo (player.js): pergunta "Como deseja assistir?" (Player Interno ou Rave)
+      if (window.ClauPlayer) {
+        const opcoes = {
+          chave: chaveProgresso(ep),
+          // botão "Pular" (TheIntroDB) — usa o tmdb_id gravado em detalhes/<chave>.json pelo workflow capas
+          segmentos: () => (detalhes && detalhes.tmdb_id ? ClauPlayer.buscarSegmentos(detalhes.tmdb_id, ehFilme ? null : ep._temp, ehFilme ? null : ep._ep) : []),
+          videoUrl: ep.videoUrl, titulo: serieAtual.nome, subtitulo: ehFilme ? 'Filme' : `T${ep._temp} · E${pad2(ep._ep)}`,
+          link: ep.link, workerUrl: CONFIG.WORKER_URL,
+          aoIniciar: () => registrarVisto(i),
+          proximo: prox ? () => { temporadaAtiva = prox._temp; tocarEpisodio(i + 1, true); } : null,
+          rotuloProximo: prox ? `Próximo: T${prox._temp} · E${pad2(prox._ep)}` : '',
+          aoFechar: atualizarAposAssistir,
+        };
+        if (direto) ClauPlayer.abrir(opcoes); else ClauPlayer.escolher(opcoes);
+        return;
+      }
+      registrarVisto(i);
       btnProximo.hidden = !prox;
       if (prox) btnProximo.textContent = `Próximo: T${prox._temp} · E${pad2(prox._ep)} ▶`;
       abrirPlayer(ep.videoUrl, `${serieAtual.nome} · T${ep._temp} E${pad2(ep._ep)}`, ep.link);
@@ -763,6 +995,16 @@
     document.addEventListener('click', (e) => {
       if (e.target.closest('[data-acao="tentar"]')) { carregarEpisodios(); return; }
       if (e.target.closest('#btnFavSerie')) { alternarFavorito(); return; }
+      if (e.target.closest('#lerMais')) {
+        const sin = $('sinopse'), b = $('lerMais'), aberta = sin.classList.toggle('aberta');
+        b.textContent = aberta ? 'Ler menos' : 'Ler mais'; b.setAttribute('aria-expanded', String(aberta)); return;
+      }
+      if (e.target.closest('[data-acao="ver-trailer"]')) {
+        secaoAtiva = 'tr'; renderizarPainel();
+        const c = $('conteudoEpisodios'); if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); return;
+      }
+      const sa = e.target.closest('.secao-aba');
+      if (sa) { secaoAtiva = sa.dataset.secao; renderizarPainel(); return; }
 
       const aba = e.target.closest('.aba');
       if (aba) { trocarTemporada(Number(aba.dataset.temp)); return; }
@@ -775,7 +1017,6 @@
       if (alvo && !teclaModificadora) {
         const i = Number(alvo.dataset.i);
         if (!episodios[i]) return;
-        if (isMobile()) { registrarVisto(i); return; } // no celular segue o link original
         e.preventDefault();
         tocarEpisodio(i);
       }
@@ -798,8 +1039,8 @@
     iniciarNeve();
     iniciarLuzes();
 
-    if (!nomeSerieParam) {
-      mostrarMensagem('Série não encontrada', 'Volte e escolha uma série.');
+    if (!nomeSerieParam && !ehFilme) {
+      mostrarMensagem('Título não encontrado', 'Volte e escolha um filme ou série.');
     } else {
       carregarEpisodios();
     }
