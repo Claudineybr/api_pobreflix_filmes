@@ -804,7 +804,7 @@
     }
 
     /** Página de detalhes do filme (serie.html em modo filme). */
-    const urlDetalheFilme = (link) => `/serie?filme=${encodeURIComponent(link)}`;
+    const urlDetalheFilme = (link) => `serie.html?filme=${encodeURIComponent(link)}`;
 
     function salvarSessao() {
       storage.gravar(sessionStorage, SS.VIEW, estado.view);
@@ -1132,6 +1132,8 @@
     // ===================================================================
     let focoAnterior = null;
 
+    // false = não busca detalhes/*.json (usado só pelo botão Pular). Troque para true quando tiver outra host.
+    const USAR_DETALHES = false;
     /** Nome do detalhes/<chave>.json de um filme (mesma regra do capas.py). */
     const chaveDetalhes = (link) => {
       let a = ''; try { a = decodeURIComponent(String(link || '').split(/[?#]/)[0].split('/').pop()); } catch { /* */ }
@@ -1146,7 +1148,7 @@
           chave: linkHtml, videoUrl, titulo, subtitulo: 'Filme', link: linkHtml, workerUrl: CONFIG.WORKER_URL,
           aoIniciar: () => registrarFilme(linkHtml, titulo),
           // botão "Pular" (TheIntroDB): tmdb_id vem de detalhes/<filme>.json (gerado pelo workflow capas); sem arquivo = sem botão
-          segmentos: () => fetch(`detalhes/${chaveDetalhes(linkHtml)}.json`)
+          segmentos: () => !USAR_DETALHES ? [] : fetch(`detalhes/${chaveDetalhes(linkHtml)}.json`)
             .then((r) => (r.ok ? r.json() : null))
             .then((d) => (d && d.tmdb_id ? ClauPlayer.buscarSegmentos(d.tmdb_id) : []))
             .catch(() => []),
