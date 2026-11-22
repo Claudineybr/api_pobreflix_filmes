@@ -124,6 +124,7 @@ jobs:
           FILTRO = (os.environ.get("FILTRO") or "").lower().strip()
           TAMANHO = os.environ.get("TAMANHO") or "w500"
           CHAVE = (os.environ.get("TMDB_API_KEY") or "").strip()
+          GERAR_DETALHES = False   # False = não cria detalhes/*.json (sinopse, nota, trailer, tmdb_id). Troque para True quando tiver outra host.
           DET_V = 2      # sobe quando mudam os campos de detalhes (reenfileira só os detalhes, sem rebuscar a capa)
           DIR_DET = "detalhes"   # 1 arquivo pequeno por título: detalhes/<chave>.json (a página carrega só o que precisa)
           CRITERIO = 2   # sobe quando o critério de busca melhora (reenfileira os "não achados")
@@ -305,9 +306,10 @@ jobs:
                       if s.get("poster_path") and (s.get("season_number") or 0) > 0:
                           temps[str(s["season_number"])] = IMG + s["poster_path"]
                   e["temporadas"] = temps
-              det = detalhes(r["id"], serie)
-              gravar_det(chave, det)
-              e["det_v"] = DET_V
+              if GERAR_DETALHES:
+                  det = detalhes(r["id"], serie)
+                  gravar_det(chave, det)
+                  e["det_v"] = DET_V
               return e
 
 
@@ -370,7 +372,7 @@ jobs:
           if MODO == "refazer" and not FILTRO:
               print("❌ O modo 'refazer' exige o campo filtro."); sys.exit(1)
           fila_det = [(k, e) for k, e in cache.items()
-                      if e.get("fonte") == "tmdb" and e.get("tmdb_id") and k in todas and (not FILTRO or FILTRO in k)
+                      if GERAR_DETALHES and e.get("fonte") == "tmdb" and e.get("tmdb_id") and k in todas and (not FILTRO or FILTRO in k)
                       and (MODO == "tudo" or e.get("det_v") != DET_V or not os.path.exists(arquivo_det(k)))]
           log("=" * 50)
           log(f"🖼️  Modo {MODO} | {len(todas)} títulos únicos | {len(cache)} no cache | fila: {len(fila)} | detalhes a completar: {len(fila_det)} | tamanho {TAMANHO}")
@@ -488,7 +490,7 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           mkdir -p detalhes
-          git add capas.json detalhes '*.html'
+          git add capas.json '*.html'; [ -d detalhes ] && git add detalhes || true
           if git diff --cached --quiet; then
             echo "Sem mudanças — nada a commitar."
             exit 0
