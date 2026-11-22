@@ -326,6 +326,7 @@
     </div>
   </div>
 
+  <script src="/player.js"></script>
   <script>
   (() => {
     'use strict';
@@ -799,11 +800,11 @@
       base = aplicarOrdemEDecada(base);
       if (!base.length) return;
       const item = base[Math.floor(Math.random() * base.length)];
-      if (item.isAgrupado) { window.location.href = item.link; return; }
-      registrarFilme(item.link, item.titulo);
-      if (isMobile()) { window.location.href = item.link; return; }
-      abrirPlayer(item.videoUrl, item.titulo, item.link);
+      window.location.href = item.isAgrupado ? item.link : urlDetalheFilme(item.link);
     }
+
+    /** Página de detalhes do filme (serie.html em modo filme). */
+    const urlDetalheFilme = (link) => `/serie?filme=${encodeURIComponent(link)}`;
 
     function salvarSessao() {
       storage.gravar(sessionStorage, SS.VIEW, estado.view);
@@ -1131,8 +1132,28 @@
     // ===================================================================
     let focoAnterior = null;
 
+    /** Nome do detalhes/<chave>.json de um filme (mesma regra do capas.py). */
+    const chaveDetalhes = (link) => {
+      let a = ''; try { a = decodeURIComponent(String(link || '').split(/[?#]/)[0].split('/').pop()); } catch { /* */ }
+      return a.toLowerCase().replace(/\.html?$/, '').replace(/:/g, '--').replace(/[^a-z0-9_.-]/g, '_');
+    };
+
     /** Abre o vídeo no modal (apenas PC; no celular o link original é seguido). */
     function abrirPlayer(videoUrl, titulo, linkHtml) {
+      // Player novo (player.js): pergunta "Como deseja assistir?" (Player Interno ou Rave)
+      if (window.ClauPlayer) {
+        ClauPlayer.escolher({
+          chave: linkHtml, videoUrl, titulo, subtitulo: 'Filme', link: linkHtml, workerUrl: CONFIG.WORKER_URL,
+          aoIniciar: () => registrarFilme(linkHtml, titulo),
+          // botão "Pular" (TheIntroDB): tmdb_id vem de detalhes/<filme>.json (gerado pelo workflow capas); sem arquivo = sem botão
+          segmentos: () => fetch(`detalhes/${chaveDetalhes(linkHtml)}.json`)
+            .then((r) => (r.ok ? r.json() : null))
+            .then((d) => (d && d.tmdb_id ? ClauPlayer.buscarSegmentos(d.tmdb_id) : []))
+            .catch(() => []),
+        });
+        return;
+      }
+      registrarFilme(linkHtml, titulo);
       if (!videoUrl || !videoUrl.trim() || videoUrl === 'undefined') {
         alert('Link do vídeo não encontrado no catálogo. Abrindo página original.');
         window.location.href = linkHtml;
@@ -1191,10 +1212,12 @@
 
       const filme = e.target.closest('.filme-card');
       const teclaModificadora = e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0;
-      if (filme && !teclaModificadora) registrarFilme(filme.dataset.link, filme.dataset.titulo);
-      if (filme && !isMobile() && !teclaModificadora) {
+      if (filme && !teclaModificadora) {
         e.preventDefault();
-        abrirPlayer(filme.dataset.url, filme.dataset.titulo, filme.dataset.link);
+        // Grade/fileiras de descoberta -> página de detalhes; "Assistir" do destaque e "Continuar assistindo" -> direto no player.
+        const direto = filme.classList.contains('btn') || filme.closest('#continuar');
+        if (direto) abrirPlayer(filme.dataset.url, filme.dataset.titulo, filme.dataset.link);
+        else window.location.href = urlDetalheFilme(filme.dataset.link);
       }
     });
 
