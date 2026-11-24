@@ -2532,6 +2532,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/k0pLmn2Wp0GBToAhA9Gdk1qclYb.jpg",
     "tmdb_id": 1201338
   },
+  "a_ilha_esquecida": {
+    "fonte": "tmdb",
+    "nome": "A Ilha Esquecida",
+    "poster": "https://image.tmdb.org/t/p/w500/7OTbIk4TwYzpvf1GbOGXAFafxiz.jpg",
+    "tmdb_id": 1465063
+  },
   "a_incrivel_historia_de_adaline": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -13331,6 +13337,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/uBluwU54W9XTmhMFBWsXupkpbjv.jpg",
     "tmdb_id": 390433
   },
+  "espermagedom": {
+    "fonte": "tmdb",
+    "nome": "Espermagedom",
+    "poster": "https://image.tmdb.org/t/p/w500/t8Bwrn7Z4cACTl8kKIAteLk5kAh.jpg",
+    "tmdb_id": 1064307
+  },
   "espiao_por_acidente_2001": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -14563,6 +14575,12 @@
     "nome": "Gafanhoto (2025)",
     "poster": "https://image.tmdb.org/t/p/w500/sRZOq9IGIPe2m1OmLCz5UgP867p.jpg",
     "tmdb_id": 1131460
+  },
+  "galinha_pintadinha_o_filme": {
+    "fonte": "tmdb",
+    "nome": "Galinha Pintadinha: O Filme",
+    "poster": "https://image.tmdb.org/t/p/w500/3cQd75WvcnWF3V0RWjSkcc4S2GF.jpg",
+    "tmdb_id": 1615391
   },
   "game_star_a_jogada_final_2020": {
     "det_v": 2,
@@ -20496,6 +20514,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/veCMD8bzoLuXiSGPCXCFKwJSO9v.jpg",
     "tmdb_id": 203217
   },
+  "minha_melhor_amiga": {
+    "fonte": "tmdb",
+    "nome": "Minha Melhor Amiga",
+    "poster": "https://image.tmdb.org/t/p/w500/wGfTFVeguXDXYrwPQ8QMFsaSK2M.jpg",
+    "tmdb_id": 1257147
+  },
   "minha_melhor_amiga_2026": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -26193,6 +26217,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/1DZZENNLsHCsX3yLZwBI77lnNOn.jpg",
     "tmdb_id": 301804
   },
+  "o_sorveteiro": {
+    "fonte": "tmdb",
+    "nome": "O Sorveteiro",
+    "poster": "https://image.tmdb.org/t/p/w500/8bUXuKrdYQFMdx7ogoN0f5cm8iq.jpg",
+    "tmdb_id": 1477712
+  },
   "o_sorveteiro_2026": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -27855,6 +27885,12 @@
     "nome": "Ouija: Origem do Mal",
     "poster": "https://image.tmdb.org/t/p/w500/erYqlNmU9CWqciZK608MptRiuQK.jpg",
     "tmdb_id": 335796
+  },
+  "outra_mamae": {
+    "fonte": "tmdb",
+    "nome": "Outra Mamãe",
+    "poster": "https://image.tmdb.org/t/p/w500/hiuBB4ZqGbL7uihdVPUahFtg7Zr.jpg",
+    "tmdb_id": 1400837
   },
   "outra_mamae_2026": {
     "det_v": 2,
@@ -30929,6 +30965,12 @@
     "nome": "Resgate Polar (2022)",
     "poster": "https://image.tmdb.org/t/p/w500/jGrdGu169sivYwjxHXNtPrGpbl6.jpg",
     "tmdb_id": 973211
+  },
+  "resident_evil": {
+    "fonte": "tmdb",
+    "nome": "Resident Evil",
+    "poster": "https://image.tmdb.org/t/p/w500/bvBTdNaWVPrHKjyPFnsigZJsKdD.jpg",
+    "tmdb_id": 1423191
   },
   "resident_evil_2026": {
     "det_v": 2,
@@ -34124,6 +34166,21 @@
     },
     "tmdb_id": 199001
   },
+  "serie:miraculous_as_aventuras_de_ladybug": {
+    "fonte": "tmdb",
+    "nome": "Miraculous: As Aventuras de Ladybug",
+    "poster": "https://image.tmdb.org/t/p/w500/24wf3O8SJeUSJJvDowQR5FDgHGO.jpg",
+    "temporadas": {
+      "1": "https://image.tmdb.org/t/p/w500/ctnRlLElfJj46D1bkzYhtymwaU4.jpg",
+      "2": "https://image.tmdb.org/t/p/w500/crEgMla034rgcYS7Ys5c1gFO8eT.jpg",
+      "3": "https://image.tmdb.org/t/p/w500/2FSCNDEPMsVx0SuFefgieHb3CKt.jpg",
+      "4": "https://image.tmdb.org/t/p/w500/tz9um9YM3loswoLBz65Pt9PIjN6.jpg",
+      "5": "https://image.tmdb.org/t/p/w500/mrdfEEYACLwWmmjTCEYyA2lWTne.jpg",
+      "6": "https://image.tmdb.org/t/p/w500/ptMgJuwnC1fTB7NAhbTW4A9Oxwr.jpg",
+      "7": "https://image.tmdb.org/t/p/w500/e6yjVOmmDlC8omu3wwxNjhHrsLr.jpg"
+    },
+    "tmdb_id": 65334
+  },
   "serie:monstro_a_historia_de_ed_gein": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -35750,6 +35807,15 @@
     },
     "tmdb_id": 62455
   },
+  "serie:visionquest": {
+    "fonte": "tmdb",
+    "nome": "VisionQuest",
+    "poster": "https://image.tmdb.org/t/p/w500/WGyAyBPncfuu8MZhLY9RtfZPM0.jpg",
+    "temporadas": {
+      "1": "https://image.tmdb.org/t/p/w500/xK27l5uwaVyZSlENWnmLlWwDQNS.jpg"
+    },
+    "tmdb_id": 213375
+  },
   "serie:voce": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -37205,6 +37271,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/l4ygfNJ7PpOa68oqkPOWhZJLWEv.jpg",
     "tmdb_id": 1580803
   },
+  "suzane_von_richthofen_o_que_o_tempo_nao_apaga": {
+    "fonte": "tmdb",
+    "nome": "Suzane von Richthofen: O Que o Tempo Não Apaga",
+    "poster": "https://image.tmdb.org/t/p/w500/pO3BpFyC9B2fnfByJulxjs3hM4P.jpg",
+    "tmdb_id": 1664682
+  },
   "suzane_von_richthofen_o_que_o_tempo_nao_apaga_2026": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -38051,6 +38123,12 @@
     "nome": "Tinker Bell: Uma Aventura no Mundo das Fadas",
     "poster": "https://image.tmdb.org/t/p/w500/ulNCLIjwiH3QpO1HeQa89HpapRo.jpg",
     "tmdb_id": 13179
+  },
+  "tipo_irmas": {
+    "fonte": "tmdb",
+    "nome": "Tipo Irmãs",
+    "poster": "https://image.tmdb.org/t/p/w500/fLOzL7A81v6V0BKWXXjfeT1ehkw.jpg",
+    "tmdb_id": 1595124
   },
   "titan_o_desastre_da_oceangate_2025": {
     "det_v": 2,
@@ -39827,6 +39905,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/pfW4P8yF9OEyg1VUKTr39NW6KXi.jpg",
     "tmdb_id": 1083612
   },
+  "uma_ideia_de_voce": {
+    "fonte": "tmdb",
+    "nome": "Uma Ideia de Você",
+    "poster": "https://image.tmdb.org/t/p/w500/5rIKVegF7XMPB02RaFaxtFwTPR0.jpg",
+    "tmdb_id": 843527
+  },
   "uma_jornada_de_fe_2022": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -40602,6 +40686,12 @@
     "nome": "Verdade ou Desafio (2018)",
     "poster": "https://image.tmdb.org/t/p/w500/oEIeZE4oBSTKjBMxQWNdGdI13a0.jpg",
     "tmdb_id": 460019
+  },
+  "verity": {
+    "fonte": "tmdb",
+    "nome": "Verity",
+    "poster": "https://image.tmdb.org/t/p/w500/fy7q7xcyUjHXiKRuYblhcUTgBn0.jpg",
+    "tmdb_id": 1283515
   },
   "vermelho_branco_e_sangue_azul": {
     "det_v": 2,
