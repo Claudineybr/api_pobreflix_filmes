@@ -3257,6 +3257,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/8ZQnrHEw8zwgQDr1R2lJzaB1E8O.jpg",
     "tmdb_id": 791
   },
+  "a_noite_devorou_o_mundo": {
+    "fonte": "tmdb",
+    "nome": "A Noite Devorou o Mundo",
+    "poster": "https://image.tmdb.org/t/p/w500/km6i0vitF5UR6taEbYIiwdl7uUR.jpg",
+    "tmdb_id": 457955
+  },
   "a_noite_do_jogo_2018": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -3555,6 +3561,12 @@
     "nome": "A Pele Habito (2011)",
     "tentativas": 2,
     "v": 2
+  },
+  "a_pele_que_habito": {
+    "fonte": "tmdb",
+    "nome": "A Pele Que Habito",
+    "poster": "https://image.tmdb.org/t/p/w500/90hbSeBsev4hezgzkyW8tkio2dp.jpg",
+    "tmdb_id": 63311
   },
   "a_pequena_sereia": {
     "det_v": 2,
@@ -14276,6 +14288,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/5aDBCUzbsWrFZ7h2t3iZcYCxX7O.jpg",
     "tmdb_id": 778855
   },
+  "frankenstein": {
+    "fonte": "tmdb",
+    "nome": "Frankenstein",
+    "poster": "https://image.tmdb.org/t/p/w500/rB0tZwNImTT8febX5qVycZ5YVeF.jpg",
+    "tmdb_id": 1062722
+  },
   "frankenstein_2025": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -23367,6 +23385,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/f7LgXutKkeOxHqx7p5rG7U4i9Qf.jpg",
     "tmdb_id": 746036
   },
+  "o_elixir": {
+    "fonte": "tmdb",
+    "nome": "O Elixir",
+    "poster": "https://image.tmdb.org/t/p/w500/45OuEJ4leKmQl9oQCEcQQTBDFwl.jpg",
+    "tmdb_id": 1306525
+  },
   "o_elixir_2025": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -25429,6 +25453,12 @@
     "nome": "O Presente de Aniversário (2026)",
     "poster": "https://image.tmdb.org/t/p/w500/4sc5p6NiMKpv5Ef9iShXplJsY3G.jpg",
     "tmdb_id": 1789549
+  },
+  "o_primata": {
+    "fonte": "tmdb",
+    "nome": "O Primata",
+    "poster": "https://image.tmdb.org/t/p/w500/fJd3J9FwWTAI1EZsvaTHfZKKTPy.jpg",
+    "tmdb_id": 1315303
   },
   "o_primata_2026": {
     "det_v": 2,
@@ -29827,6 +29857,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/o0uQbbanNDRmYh8RGxDuibMxlKI.jpg",
     "tmdb_id": 1388808
   },
+  "presenca": {
+    "fonte": "tmdb",
+    "nome": "Presença",
+    "poster": "https://image.tmdb.org/t/p/w500/v9KyEvkhBUeasEE4NiNjG6FOoyv.jpg",
+    "tmdb_id": 1140535
+  },
   "presenca_2025": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -31596,6 +31632,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/r4vU0m1u0qA13w80SCz18XPQIhW.jpg",
     "tmdb_id": 199373
   },
+  "santa_maud": {
+    "fonte": "tmdb",
+    "nome": "Santa Maud",
+    "poster": "https://image.tmdb.org/t/p/w500/w2J7sk5ZFP1yFHLKCbe3YGnXPYA.jpg",
+    "tmdb_id": 575776
+  },
   "santa_maud_2020": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -32046,6 +32088,12 @@
     "nome": "Sem Atividade Paranormal",
     "poster": "https://image.tmdb.org/t/p/w500/yqquLO7UHlMrVqO3m3ZyGEMyfHj.jpg",
     "tmdb_id": 217787
+  },
+  "sem_conexao_2": {
+    "fonte": "tmdb",
+    "nome": "Sem Conexão 2",
+    "poster": "https://image.tmdb.org/t/p/w500/n52rqfYZL7VLIIBgjrmkmJcrhJY.jpg",
+    "tmdb_id": 871964
   },
   "sem_conexao_2020": {
     "det_v": 2,
@@ -36684,6 +36732,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/8dmMVp93TmSbL1s3N6cMmp61zVi.jpg",
     "tmdb_id": 650597
   },
+  "sombras_da_noite": {
+    "fonte": "tmdb",
+    "nome": "Sombras da Noite",
+    "poster": "https://image.tmdb.org/t/p/w500/9pRJwfuX0GFiJFz3a3FDXUolptB.jpg",
+    "tmdb_id": 62213
+  },
   "sombras_da_noite_2012": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -37755,6 +37809,12 @@
     "nome": "Terror no Rio (2025)",
     "poster": "https://image.tmdb.org/t/p/w500/xVlU0mpaFedtI8yvWbWsPncfsVr.jpg",
     "tmdb_id": 1232933
+  },
+  "terror_sobre_rodas": {
+    "fonte": "tmdb",
+    "nome": "Terror Sobre Rodas",
+    "poster": "https://image.tmdb.org/t/p/w500/iamKtP9IAbJ1oXwEIKIDxfPsaYP.jpg",
+    "tmdb_id": 42307
   },
   "terror_virtual_2021": {
     "det_v": 2,
@@ -39418,6 +39478,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/uipnnkw5t20rFmRFqiluQfcJL5c.jpg",
     "tmdb_id": 1090271
   },
+  "um_lugar_secreto": {
+    "fonte": "tmdb",
+    "nome": "Um Lugar Secreto",
+    "poster": "https://image.tmdb.org/t/p/w500/c49uzZOOa69ZrcHR4O4k7mqwB6J.jpg",
+    "tmdb_id": 682532
+  },
   "um_lugar_silencioso": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -40296,12 +40362,24 @@
     "poster": "https://image.tmdb.org/t/p/w500/Awk4uagfl0wz6WiqlCitfswHwcT.jpg",
     "tmdb_id": 752
   },
+  "v_h_s_2": {
+    "fonte": "tmdb",
+    "nome": "V/H/S/2",
+    "poster": "https://image.tmdb.org/t/p/w500/o4hcWsHaHaNQ9BBReOxLvYJNRhA.jpg",
+    "tmdb_id": 159117
+  },
   "v_h_s_2_2013": {
     "det_v": 2,
     "fonte": "tmdb",
     "nome": "V/H/S/2 (2013)",
     "poster": "https://image.tmdb.org/t/p/w500/o4hcWsHaHaNQ9BBReOxLvYJNRhA.jpg",
     "tmdb_id": 159117
+  },
+  "v_h_s_85": {
+    "fonte": "tmdb",
+    "nome": "V/H/S/85",
+    "poster": "https://image.tmdb.org/t/p/w500/aM3wnZTKEuPLDwxuMWcHDibOkiw.jpg",
+    "tmdb_id": 1032948
   },
   "v_h_s_85_2023": {
     "det_v": 2,
@@ -40317,6 +40395,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/1bOMmFtnykBmvhFcx8zdXO6bCAa.jpg",
     "tmdb_id": 1005776
   },
+  "v_h_s_as_cronicas_do_medo": {
+    "fonte": "tmdb",
+    "nome": "V/H/S: As Crônicas do Medo",
+    "poster": "https://image.tmdb.org/t/p/w500/cTb6tKV7OP0YUdeYnG5DZ72nBXI.jpg",
+    "tmdb_id": 84348
+  },
   "v_h_s_beyond_2024": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -40330,12 +40414,24 @@
     "tentativas": 2,
     "v": 2
   },
+  "v_h_s_halloween": {
+    "fonte": "tmdb",
+    "nome": "V/H/S: Halloween",
+    "poster": "https://image.tmdb.org/t/p/w500/bvMKSZtN8KAdtlKoYbEi1Zhyaou.jpg",
+    "tmdb_id": 1373445
+  },
   "v_h_s_halloween_2025": {
     "det_v": 2,
     "fonte": "tmdb",
     "nome": "V/H/S:Halloween (2025)",
     "poster": "https://image.tmdb.org/t/p/w500/bvMKSZtN8KAdtlKoYbEi1Zhyaou.jpg",
     "tmdb_id": 1373445
+  },
+  "v_h_s_viral": {
+    "fonte": "tmdb",
+    "nome": "V/H/S: Viral",
+    "poster": "https://image.tmdb.org/t/p/w500/lP3EsMlOVjdp50rd6YR3ACBFcqp.jpg",
+    "tmdb_id": 267806
   },
   "va_e_veja_1985": {
     "det_v": 2,
@@ -41558,6 +41654,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/hMVzCXh2vmCMzZS2mM2QvMqQZZs.jpg",
     "tmdb_id": 49538
   },
+  "xama_o_exorcista_pagao": {
+    "fonte": "tmdb",
+    "nome": "Xamã: O Exorcista Pagão",
+    "poster": "https://image.tmdb.org/t/p/w500/2vDBgWdrhq8nfJEqWhrfnA0m1WE.jpg",
+    "tmdb_id": 1339166
+  },
   "xama_o_exorcista_pagao_2025": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -41641,6 +41743,12 @@
     "nome": "Zeroville (2019)",
     "poster": "https://image.tmdb.org/t/p/w500/o1tA9jpbjPLSCuIipJj6PLg0oGG.jpg",
     "tmdb_id": 291867
+  },
+  "zodiaco": {
+    "fonte": "tmdb",
+    "nome": "Zodíaco",
+    "poster": "https://image.tmdb.org/t/p/w500/jFmlV5vUzOt1PgJ82efOhNsWcWX.jpg",
+    "tmdb_id": 1949
   },
   "zohan_um_agente_bom_de_corte_2008": {
     "det_v": 2,
