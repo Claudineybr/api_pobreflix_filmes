@@ -2023,6 +2023,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/uMM2o08s3BFUic2nWIEdHgQsG8Z.jpg",
     "tmdb_id": 1186532
   },
+  "a_forma_da_agua": {
+    "fonte": "tmdb",
+    "nome": "A Forma da Água",
+    "poster": "https://image.tmdb.org/t/p/w500/hHPFq7myTjAVH6CwQjamAuUqhrr.jpg",
+    "tmdb_id": 399055
+  },
   "a_fortuna_de_escobar_2025": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -2328,6 +2334,12 @@
     "nome": "A Hora do Espanto",
     "poster": "https://image.tmdb.org/t/p/w500/kl9th9KI8SYX7T9fiixYtQZy72a.jpg",
     "tmdb_id": 11797
+  },
+  "a_hora_do_mal": {
+    "fonte": "tmdb",
+    "nome": "A Hora do Mal",
+    "poster": "https://image.tmdb.org/t/p/w500/psEJSjQr6I9GSJTdW28CKC4Kffs.jpg",
+    "tmdb_id": 1078605
   },
   "a_hora_do_mal_2025": {
     "det_v": 2,
@@ -5375,6 +5387,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/gOgagKvS83RwWcNbz7UOFFbIgZn.jpg",
     "tmdb_id": 505058
   },
+  "amizade_maldita": {
+    "fonte": "tmdb",
+    "nome": "Amizade Maldita",
+    "poster": "https://image.tmdb.org/t/p/w500/dp1L8ifSSKnkXMGLCMUvXjKdxQk.jpg",
+    "tmdb_id": 623520
+  },
   "amizade_maldita_2019": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -8089,6 +8107,12 @@
     "nome": "Bliss: Em Busca da Felicidade (2021)",
     "poster": "https://image.tmdb.org/t/p/w500/9QiUUOjiW40v3w2R9cY9s90ZfmR.jpg",
     "tmdb_id": 613911
+  },
+  "blood_bound": {
+    "fonte": "tmdb",
+    "nome": "Blood Bound",
+    "poster": "https://image.tmdb.org/t/p/w500/lgO2gzjYSKenJxWu4V4u1VhTQYX.jpg",
+    "tmdb_id": 575314
   },
   "bloodshot_2020": {
     "det_v": 2,
@@ -10808,6 +10832,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/6ngnGcJOSUQBp1GWAIFkQWkMJMo.jpg",
     "tmdb_id": 1202863
   },
+  "de_ferias_com_voce": {
+    "fonte": "tmdb",
+    "nome": "De Férias com Você",
+    "poster": "https://image.tmdb.org/t/p/w500/yDNXI2I1h1HFHGheOn8OoKBxPyH.jpg",
+    "tmdb_id": 1034716
+  },
   "de_ferias_com_voce_2026": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -11010,6 +11040,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/TIww0w0uos85Op8eFP5qLlxhXL.jpg",
     "tmdb_id": 351460
   },
+  "death_note_o_primeiro_nome": {
+    "fonte": "tmdb",
+    "nome": "Death Note - O Primeiro Nome",
+    "poster": "https://image.tmdb.org/t/p/w500/jx6E3bufNYBdzPNkVLEvEKOLwq5.jpg",
+    "tmdb_id": 16007
+  },
   "deep_2021": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -11086,6 +11122,12 @@
     "nome": "Demoníaca (2020)",
     "poster": "https://image.tmdb.org/t/p/w500/rokbOdqQGrWEsXV0QPwl9u2UlNc.jpg",
     "tmdb_id": 680593
+  },
+  "demonio": {
+    "fonte": "tmdb",
+    "nome": "Demônio",
+    "poster": "https://image.tmdb.org/t/p/w500/t6iFo5XA7MlbSRCBzxCFPvVSmMb.jpg",
+    "tmdb_id": 44040
   },
   "demonio_2010": {
     "det_v": 2,
@@ -13083,6 +13125,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/9H8PNc4JJRjPnfSh8gGukD0CbqQ.jpg",
     "tmdb_id": 546554
   },
+  "entre_irmas": {
+    "fonte": "tmdb",
+    "nome": "Entre Irmãs",
+    "poster": "https://image.tmdb.org/t/p/w500/hr4gHti4EFjd1d7jXvr6KFuXFeT.jpg",
+    "tmdb_id": 475756
+  },
   "entre_montanhas_2025": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -14050,6 +14098,12 @@
     "nome": "Filadélfia (1993)",
     "poster": "https://image.tmdb.org/t/p/w500/rTkuPK66Aw9e8niPr8F7IgXzFU6.jpg",
     "tmdb_id": 9800
+  },
+  "filha_do_mal": {
+    "fonte": "tmdb",
+    "nome": "Filha do Mal",
+    "poster": "https://image.tmdb.org/t/p/w500/qtvpMHII28hudBSOfxEcq9kg95J.jpg",
+    "tmdb_id": 76487
   },
   "filhas_deu_ruim_2026": {
     "det_v": 2,
@@ -16627,6 +16681,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/6EYfWxIGPc23m1GFs9Gt3kzTl5O.jpg",
     "tmdb_id": 1041613
   },
+  "imaginario_brinquedo_diabolico": {
+    "fonte": "tmdb",
+    "nome": "Imaginário: Brinquedo Diabólico",
+    "poster": "https://image.tmdb.org/t/p/w500/vbgI9lYJPtYrbPdwjtyuN2wUBKJ.jpg",
+    "tmdb_id": 1125311
+  },
   "imaginario_brinquedo_diabolico_2024": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -16808,6 +16868,12 @@
     "nome": "Influencer de Mentira",
     "poster": "https://image.tmdb.org/t/p/w500/dJKVZFS61uqFrTdyu0bo57ExX3Y.jpg",
     "tmdb_id": 838330
+  },
+  "influencia": {
+    "fonte": "tmdb",
+    "nome": "Influência",
+    "poster": "https://image.tmdb.org/t/p/w500/37dVsF56Htes7w7PhpNF3pGk1xA.jpg",
+    "tmdb_id": 605373
   },
   "influencia_2019": {
     "det_v": 2,
@@ -17023,6 +17089,12 @@
     "nome": "Invocação Do Mal 3: A Ordem do Demônio (2021)",
     "poster": "https://image.tmdb.org/t/p/w500/fNu88PdpStJGe09AUYmqTn6NEXB.jpg",
     "tmdb_id": 423108
+  },
+  "invocacao_do_mal_4_o_ultimo_ritual": {
+    "fonte": "tmdb",
+    "nome": "Invocação do Mal 4: O Último Ritual",
+    "poster": "https://image.tmdb.org/t/p/w500/aXpMqIPndxuDxDA3d2uoNlwc4L.jpg",
+    "tmdb_id": 1038392
   },
   "irma_morte_2023": {
     "det_v": 2,
@@ -17265,6 +17337,12 @@
     "nome": "Jeruzalem (2016)",
     "poster": "https://image.tmdb.org/t/p/w500/hYkfUKjWlVP6GVqIW5wL2ruREGZ.jpg",
     "tmdb_id": 339547
+  },
+  "jessabelle_o_passado_nunca_morre": {
+    "fonte": "tmdb",
+    "nome": "Jessabelle: O Passado Nunca Morre",
+    "poster": "https://image.tmdb.org/t/p/w500/zntIFehSIsMrARh2k6XJFGwsJJy.jpg",
+    "tmdb_id": 203834
   },
   "jessabelle_o_passado_nunca_morre_2014": {
     "det_v": 2,
@@ -18019,6 +18097,12 @@
     "nome": "King Kong (2005)",
     "poster": "https://image.tmdb.org/t/p/w500/rdat3dqmakvhE2oRnUml9g5gZJg.jpg",
     "tmdb_id": 254
+  },
+  "king_richard_criando_campeas": {
+    "fonte": "tmdb",
+    "nome": "King Richard: Criando Campeãs",
+    "poster": "https://image.tmdb.org/t/p/w500/KUdG6W99PfHe3wzuBWgfsHUuM.jpg",
+    "tmdb_id": 614917
   },
   "king_richard_criando_campeas_2021": {
     "det_v": 2,
@@ -21679,6 +21763,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/k2rDGHK5qDTemDare180EJxspe5.jpg",
     "tmdb_id": 515454
   },
+  "nao_me_mate": {
+    "fonte": "tmdb",
+    "nome": "Não Me Mate",
+    "poster": "https://image.tmdb.org/t/p/w500/3nLpZivc9wYoX57aXF0ZLYVZDTz.jpg",
+    "tmdb_id": 734796
+  },
   "nao_nao_olhe_2022": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -21727,6 +21817,12 @@
     "nome": "Não se Mexa (2024)",
     "poster": "https://image.tmdb.org/t/p/w500/xTRnj5wD6KvPaaW8eVM29ZtxhKF.jpg",
     "tmdb_id": 1063877
+  },
+  "nao_solte": {
+    "fonte": "tmdb",
+    "nome": "Não Solte!",
+    "poster": "https://image.tmdb.org/t/p/w500/8YwdoPD89FZImGD5wi9cSx1y8rQ.jpg",
+    "tmdb_id": 814889
   },
   "nao_solte_2024": {
     "det_v": 2,
@@ -24505,6 +24601,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/5hjpfY7faXYclLRK0DDPPWtShyp.jpg",
     "tmdb_id": 396004
   },
+  "o_mal_mora_aqui": {
+    "fonte": "tmdb",
+    "nome": "O Mal Mora Aqui",
+    "poster": "https://image.tmdb.org/t/p/w500/sa2BEa8uIw0Gugtr6CJUusvgl6K.jpg",
+    "tmdb_id": 1249385
+  },
   "o_mal_mora_aqui_2024": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -25126,6 +25228,12 @@
     "nome": "O Pálido Olho Azul (2022)",
     "poster": "https://image.tmdb.org/t/p/w500/x98eB1JokifNYRcgyxyMf4TQbsO.jpg",
     "tmdb_id": 800815
+  },
+  "o_paradoxo_cloverfield": {
+    "fonte": "tmdb",
+    "nome": "O Paradoxo Cloverfield",
+    "poster": "https://image.tmdb.org/t/p/w500/b5tMtsPWiypKCKk0fHyjAqz93gU.jpg",
+    "tmdb_id": 384521
   },
   "o_paramo_2021": {
     "det_v": 2,
@@ -26309,6 +26417,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/aAdnNifQo2qxDYnuDD3blsxinH1.jpg",
     "tmdb_id": 756999
   },
+  "o_telefone_preto_2": {
+    "fonte": "tmdb",
+    "nome": "O Telefone Preto 2",
+    "poster": "https://image.tmdb.org/t/p/w500/p3epSUdF9qSWWHTBlA3mJ0w2i2Y.jpg",
+    "tmdb_id": 1197137
+  },
   "o_telefone_preto_2022": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -26957,6 +27071,12 @@
     "nome": "Operação Natal (2024)",
     "poster": "https://image.tmdb.org/t/p/w500/zX2UeAmF8XDBJM3sZ0RS0jLQ8Gg.jpg",
     "tmdb_id": 845781
+  },
+  "operacao_overlord": {
+    "fonte": "tmdb",
+    "nome": "Operação Overlord",
+    "poster": "https://image.tmdb.org/t/p/w500/scXzEm52BvZVuamWh24MlaTaeTN.jpg",
+    "tmdb_id": 438799
   },
   "operacao_presente_2011": {
     "det_v": 2,
@@ -29334,12 +29454,24 @@
     "poster": "https://image.tmdb.org/t/p/w500/eUurSJBte2VdwkAEiogZf2ZUrm0.jpg",
     "tmdb_id": 1992
   },
+  "plankton_o_filme": {
+    "fonte": "tmdb",
+    "nome": "Plankton: O Filme",
+    "poster": "https://image.tmdb.org/t/p/w500/xODFawcWmxx2vn7rCw3KrdZmtmy.jpg",
+    "tmdb_id": 1104845
+  },
   "plankton_o_filme_2025": {
     "det_v": 2,
     "fonte": "tmdb",
     "nome": "Plankton: O Filme (2025)",
     "poster": "https://image.tmdb.org/t/p/w500/xODFawcWmxx2vn7rCw3KrdZmtmy.jpg",
     "tmdb_id": 1104845
+  },
+  "plano_b": {
+    "fonte": "tmdb",
+    "nome": "Plano B",
+    "poster": "https://image.tmdb.org/t/p/w500/5oYVyLDfdIVoXhDHgo6WBwU9KMw.jpg",
+    "tmdb_id": 34806
   },
   "plano_b_2010": {
     "det_v": 2,
@@ -29967,6 +30099,12 @@
     "nome": "Priscilla (2023)",
     "poster": "https://image.tmdb.org/t/p/w500/uDCeELWWpsNq7ErM61Yuq70WAE9.jpg",
     "tmdb_id": 1020006
+  },
+  "prisioneira_do_terror": {
+    "fonte": "tmdb",
+    "nome": "Prisioneira do Terror",
+    "poster": "https://image.tmdb.org/t/p/w500/6cJUoeACxdJK9c7SrRlFHUm6T6m.jpg",
+    "tmdb_id": 1264966
   },
   "procura_se_gonker_2023": {
     "det_v": 2,
@@ -30799,6 +30937,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/cx8NwwfkKbBOM1zwqd8rVbSdwNM.jpg",
     "tmdb_id": 1050746
   },
+  "refens_do_mal": {
+    "fonte": "tmdb",
+    "nome": "Reféns do Mal",
+    "poster": "https://image.tmdb.org/t/p/w500/qe8D3CMIg2wwxkLDZ9bNmyXz5CP.jpg",
+    "tmdb_id": 14397
+  },
   "refens_do_mal_2007": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -31561,6 +31705,12 @@
     "nome": "Sacramento (2025)",
     "poster": "https://image.tmdb.org/t/p/w500/hVhDtbVs6PIxvIbAKL5zom4BnkO.jpg",
     "tmdb_id": 842931
+  },
+  "sala_escura": {
+    "fonte": "tmdb",
+    "nome": "Sala Escura",
+    "poster": "https://image.tmdb.org/t/p/w500/cFWf7khqYRxHI9vLdf9XQKBPoYw.jpg",
+    "tmdb_id": 1302903
   },
   "salt_2010": {
     "det_v": 2,
@@ -41292,6 +41442,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/yxaPxWQz0L5qaNligqgND2FKutH.jpg",
     "tmdb_id": 38322
   },
+  "vozes": {
+    "fonte": "tmdb",
+    "nome": "Vozes",
+    "poster": "https://image.tmdb.org/t/p/w500/A3UePGzvaR0e8zdmm9TwBq6N7pi.jpg",
+    "tmdb_id": 726208
+  },
   "vozes_2020": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -41854,6 +42010,12 @@
     "nome": "Zumbilândia: Atire Duas Vezes (2019)",
     "poster": "https://image.tmdb.org/t/p/w500/x8T7xy6usNhTWphfQTH7vmr4tOC.jpg",
     "tmdb_id": 338967
+  },
+  "zumbis_na_neve": {
+    "fonte": "tmdb",
+    "nome": "Zumbis na Neve",
+    "poster": "https://image.tmdb.org/t/p/w500/7lypohRB2MdB1QyapzrkYv3dNi1.jpg",
+    "tmdb_id": 14451
   },
   "zumbis_na_neve_2_2014": {
     "det_v": 2,
