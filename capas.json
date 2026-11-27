@@ -4088,6 +4088,12 @@
     "tentativas": 2,
     "v": 2
   },
+  "a_ultima_aventura_nos_bastidores_de_stranger_things_5": {
+    "fonte": "tmdb",
+    "nome": "A Última Aventura: Nos Bastidores de Stranger Things 5",
+    "poster": "https://image.tmdb.org/t/p/w500/4C1EXyRhkG8WrNBVaA9rKo9pqxq.jpg",
+    "tmdb_id": 1610413
+  },
   "a_ultima_bala": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -5511,6 +5517,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/4Pbzvtg7L0Rj37jVG4I1IOTdghL.jpg",
     "tmdb_id": 1483525
   },
+  "amor_sem_fim": {
+    "fonte": "tmdb",
+    "nome": "Amor Sem Fim",
+    "poster": "https://image.tmdb.org/t/p/w500/slvVVYVxiKQ5rVKPIrFczozdomF.jpg",
+    "tmdb_id": 226857
+  },
   "amor_sem_medida_2021": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -6481,6 +6493,12 @@
     "nome": "As Freiras Exorcistas (2025)",
     "poster": "https://image.tmdb.org/t/p/w500/fAT2iIlzHrJS85o7iSI44rorr0a.jpg",
     "tmdb_id": 1224993
+  },
+  "as_golpistas": {
+    "fonte": "tmdb",
+    "nome": "As Golpistas",
+    "poster": "https://image.tmdb.org/t/p/w500/kbgjEUhsCtb9cNM5sXY5mtItgtW.jpg",
+    "tmdb_id": 540901
   },
   "as_irmas_vampiras": {
     "det_v": 2,
@@ -11764,6 +11782,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/lJYSaRQ27LzotpCWndj3hBS8wvE.jpg",
     "tmdb_id": 13025
   },
+  "dias_incriveis": {
+    "fonte": "tmdb",
+    "nome": "Dias Incríveis",
+    "poster": "https://image.tmdb.org/t/p/w500/puogBeaTUJLxMURi6ghIIBNen2B.jpg",
+    "tmdb_id": 11635
+  },
   "dias_perfeitos_2023": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -14173,6 +14197,12 @@
     "nome": "Fique Rico Ou Morra Tentado (2005)",
     "tentativas": 2,
     "v": 2
+  },
+  "fique_rico_ou_morra_tentando": {
+    "fonte": "tmdb",
+    "nome": "Fique Rico ou Morra Tentando",
+    "poster": "https://image.tmdb.org/t/p/w500/qOHWDjPvi3bmPCNn5i6PJbAIccz.jpg",
+    "tmdb_id": 10060
   },
   "fireball_2009": {
     "det_v": 2,
@@ -19576,6 +19606,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/xUqJ8l6l3nAePq2TPGX4eVnkDqx.jpg",
     "tmdb_id": 846778
   },
+  "maria_antonieta": {
+    "fonte": "tmdb",
+    "nome": "Maria Antonieta",
+    "poster": "https://image.tmdb.org/t/p/w500/6mQ433AhGmitzykFMjA3NHGY2zb.jpg",
+    "tmdb_id": 1887
+  },
   "maria_e_joao_o_conto_das_bruxas_2020": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -23446,6 +23482,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/Abe0Pmz6cuW2mWVyVEkEetVFtgG.jpg",
     "tmdb_id": 227156
   },
+  "o_dono_da_festa": {
+    "fonte": "tmdb",
+    "nome": "O Dono da Festa",
+    "poster": "https://image.tmdb.org/t/p/w500/4rqZ0O4Rc6ckFYqx8ECD0LfchJj.jpg",
+    "tmdb_id": 11452
+  },
   "o_dono_da_festa_2002": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -24344,6 +24386,12 @@
     "nome": "O Intruso (2014)",
     "poster": "https://image.tmdb.org/t/p/w500/5AEwkBgS00k2nAZ2UfbIVtOFpsF.jpg",
     "tmdb_id": 136835
+  },
+  "o_jardim_secreto": {
+    "fonte": "tmdb",
+    "nome": "O Jardim Secreto",
+    "poster": "https://image.tmdb.org/t/p/w500/a28DY7ar8klmQAgDQIlpluzeBgt.jpg",
+    "tmdb_id": 43439
   },
   "o_jogo_da_garrafa_2024": {
     "det_v": 2,
@@ -26021,6 +26069,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/lX88J47KuQtpMGd2p4ND0TDF171.jpg",
     "tmdb_id": 23488
   },
+  "o_retrato_de_dorian_gray_2": {
+    "fonte": "tmdb",
+    "nome": "O Retrato de Dorian Gray",
+    "poster": "https://image.tmdb.org/t/p/w500/lX88J47KuQtpMGd2p4ND0TDF171.jpg",
+    "tmdb_id": 23488
+  },
   "o_ritual_2011": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -27238,6 +27292,12 @@
     "nome": "Os Caça-Fantasmas II (1989)",
     "poster": "https://image.tmdb.org/t/p/w500/hacjLeFkaqtsb3r9waXUeSoPUnn.jpg",
     "tmdb_id": 2978
+  },
+  "os_caca_noivas": {
+    "fonte": "tmdb",
+    "nome": "Os Caça-Noivas",
+    "poster": "https://image.tmdb.org/t/p/w500/9DSX3jqwR3zMMcNowqz1Ge3Bju8.jpg",
+    "tmdb_id": 316023
   },
   "os_candidatos": {
     "det_v": 2,
@@ -30287,6 +30347,12 @@
     "nome": "Pulando a Vassoura (2011)",
     "poster": "https://image.tmdb.org/t/p/w500/f81nlZHjsyGRmLS0zfI3Dc1w3RU.jpg",
     "tmdb_id": 57119
+  },
+  "pulp_fiction_tempo_de_violencia": {
+    "fonte": "tmdb",
+    "nome": "Pulp Fiction: Tempo de Violência",
+    "poster": "https://image.tmdb.org/t/p/w500/tptjnB2LDbuUWya9Cx5sQtv5hqb.jpg",
+    "tmdb_id": 680
   },
   "pulp_fiction_tempo_de_violencia_1995": {
     "det_v": 2,
@@ -37698,6 +37764,12 @@
     "poster": "https://image.tmdb.org/t/p/w500/2Au17UGDQMBr3nR93Gg4TR78X8j.jpg",
     "tmdb_id": 1429738
   },
+  "teen_beach_2": {
+    "fonte": "tmdb",
+    "nome": "Teen Beach 2",
+    "poster": "https://image.tmdb.org/t/p/w500/dw6MPw55CKQWhme6nv2LmX6mNYK.jpg",
+    "tmdb_id": 325189
+  },
   "teen_beach_2_2015": {
     "det_v": 2,
     "fonte": "tmdb",
@@ -39800,6 +39872,12 @@
     "nome": "Um Panda em Apuros 2 (2022)",
     "poster": "https://image.tmdb.org/t/p/w500/f4EpxPtKZf0fTnjHE4oIxOJwvKx.jpg",
     "tmdb_id": 599019
+  },
+  "um_parto_de_viagem": {
+    "fonte": "tmdb",
+    "nome": "Um Parto de Viagem",
+    "poster": "https://image.tmdb.org/t/p/w500/ys6yKTVq4pqOTuBTyPcGUCeIGsw.jpg",
+    "tmdb_id": 41733
   },
   "um_parto_de_viagem_2010": {
     "det_v": 2,
